@@ -60,7 +60,7 @@
                                             <img src="./images/hero/10.png" alt="">
                                         </div>
                                         <div class="service-blurb-text">
-                                            <a href="http://html.iddrak.com/consolin/#"><h5>Negociamos os melhores planos com as melhores operadoras</h5></a>
+                                            <a href="http://html.iddrak.com/consolin/#"><h5>Negociamos as melhores condições de benefícios nos diversos segmentos</h5></a>
                                             <div class="service-blurb-btn mt-30">
                                                 
                                             </div>
@@ -98,7 +98,7 @@
                         </div>
                         <div class="col-xl-6 col-sm-12 col-md-12 col-lg-5">
                             <div class="service-title section-title">                                
-                                <h2><span>Benefícios</span> para funcionários do comércio, indústria e servidores públicos.</h2>
+                                <h2><span>Benefícios Exclusivos</span> para funcionários do comércio, indústria e servidores públicos.</h2>
                                 <!-- <p>Planos odontológicos e rede de descontos para os associados.</p> -->
                                 <h5>Ao associar-se na caixa já é garantido cobertura de assistencia odontológica privada relacionadas abaixo:</h5>
                             </div>
@@ -264,7 +264,7 @@
                     <div class="row">
                         <div class="col-xl-12 col-sm-12 col-md-12 col-lg-12">
                             <div class="about-content section-title">
-                                <h2>Nossas <span>Operadoras</span></h2>
+                                <h2>Empresas <span>Parceiras</span></h2>
                                 <img src="/images/hero/ttile-shape.png" alt="">
                                 
                             </div>
