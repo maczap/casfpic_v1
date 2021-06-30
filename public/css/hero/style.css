@@ -1,0 +1,2124 @@
+/* ---------------------------------------------------------------------
+A.  Theme Name: Idrak Business Consulting HTML5 Responsive Website Template;
+B.  Author: Idrak;
+C.  Description: All kind of business service related HTML5 Responsive Template;
+D.  Version:1.0;
+--------------------------------------------------------------------- */
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Roboto:wght@400;500;700;900&family=Spartan:wght@300;400;500;600;700;800;900&display=swap');
+/* Font family
+------------------------------------------
+font-family: 'Montserrat', sans-serif;
+font-family: 'Roboto', sans-serif;
+font-family: 'Spartan', sans-serif;
+--------------------------------------- */
+
+/* Css Index
+------------------------------------------
+1. Theme default css
+2. Common css
+    - Container width
+    - Animated button
+    - Form button
+    - Shape animation
+    - Header title
+3. Header section
+    - Sticky header menu
+4. Hero section
+    - Hero shape animation
+5. Service section
+    - Service content
+6. All service section (page one)
+    - Service comingsoon
+    - Service animation
+7. Service page two
+8. Service details page
+9. About section
+    - About animation
+10. Facility section
+    - Facility shape animation
+11. About page two
+    - Who we are
+12. Working processs
+13. Team section
+    - Team shape animation
+14. Testimonial section
+    - Testimonial owl navigation
+    - Testimonial shape animation
+15. Blog section
+    - Blog shape animation
+    - Blog pagination
+16. Blog sidebar
+    - Blog search
+    - Calendar
+    - Recent post
+17. Single blog
+18. Blog comments
+19. Footer section
+    - Footer shape animation
+20. Contact banner top
+21. Banner section
+    - Banner shape animation
+22. Contact map section
+23. Contact info
+    - Contact form
+24. Team page
+    - Team style one
+    - Team style two
+25. Faqs section
+    - Faqs shape animation
+26. Career section
+    - Career shape animation
+27. Project section
+    - Project style one
+    - Project style two
+28. Partner section
+29. 404 error page
+30. Scroll top
+--------------------------------------- */
+
+/* 1. Theme default css
+--------------------------------------- */
+*{
+    margin: 0;
+    padding: 0;
+}
+html{
+    overflow-x: hidden;
+}
+body{
+    font-size: 17px;
+    font-weight: 400;
+    line-height: 1.7;
+    color: #777777;
+    font-style: normal;
+    font-family: 'Roboto', sans-serif;
+    overflow-x: hidden;
+}
+::selection {
+    background: #333;
+    color: #777777;
+    text-shadow: none;
+}
+::-moz-selection {
+    background: #333;
+    /* Firefox */
+    color: #777777;
+    text-shadow: none;
+}
+::-webkit-selection {
+    background: #333;
+    /* Safari */
+    color: #777777;
+    text-shadow: none;
+}
+:active,
+:focus {
+    outline: none !important;
+}
+ul, li{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+a, .button{
+    -webkit-transition: all 0.3s ease-out 0s;
+    -moz-transition: all 0.3s ease-out 0s;
+    -ms-transition: all 0.3s ease-out 0s;
+    -o-transition: all 0.3s ease-out 0s;
+    transition: all 0.3s ease-out 0s;
+}
+a {
+    color: #020e28;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all linear 0.3s;
+    font-size: 16px;
+}
+a:hover,
+a:focus {
+    color: #f35a24;
+    text-decoration: none;
+}
+a img {
+    border: none;
+}
+iframe {
+    border: none !important;
+}
+/* ----- Headings ----- */
+h1,h2,h3,h4,h5,h6{
+    font-weight: 700;
+    color: #222222;
+    margin-top: 0;
+    font-style: normal;
+    text-transform: normal;
+    line-height: 1.3;
+    font-family: 'Spartan', sans-serif;
+}
+h4,h5,h6{
+    font-family: 'Montserrat', sans-serif;    
+}
+h1 a,h2 a,h3 a,h4 a,h5 a,h6 a{
+    color: inherit;
+}
+/* ----- Common css ----- */
+html,
+html a {
+    -webkit-font-smoothing: antialiased;
+}
+img {
+    height: auto;
+    max-width: 100%;
+}
+iframe,
+embed,
+object {
+    margin-bottom: 1.5em;
+    max-width: 100%;
+}
+iframe {
+    display: block;
+    margin: 0;
+    max-width: 100%;
+}
+form label {
+    color: #777;
+    font-weight: 400;
+}
+.f-left{
+    float: left;
+}
+.f-right{
+    float: right;
+}
+.fix{
+    overflow: hidden;
+}
+.d-flex{
+    display: flex;
+}
+.clear{
+    clear: both;
+}
+/* 2. Common css
+--------------------------------------- */
+/* ----- container width ----- */
+#default-home .container{
+    max-width: 1300px;
+}
+/* ----- Animated button ----- */
+.cmn-btn-1 a{
+    position: relative;
+    padding: 20px;
+    display: block;
+    text-decoration: none;
+    text-transform: uppercase;
+    width: 220px;
+    overflow: hidden;
+    text-align: center;
+}
+.cmn-btn-1 a span{
+    position: relative;
+    z-index: 1;
+    color: #fff;
+    font-size: 18px;
+    letter-spacing: 1px;
+}
+.cmn-btn-1 a .liquid{
+    position: absolute;
+    left: 0;
+    top: -100px;
+    width: 220px;
+    height: 200px;
+    background: linear-gradient(70deg, rgba(241,101,41, .7), rgba(5,117,230, .9), rgba(5,117,230, .7),  rgba(241,101,41, .7));
+    box-shadow: inset 0 0 50px rgba(0,0,0,.5);
+    transition: 0.5s;
+}
+.cmn-btn-1 a:hover{
+    box-shadow: 0 10px 30px -10px rgba(241,101,41, .7);
+}
+.cmn-btn-1 a:hover .liquid{
+    top: -120px;
+    height: 220px;
+}
+.cmn-btn-1 a .liquid:after,
+.cmn-btn-1 a .liquid:before{
+    position: absolute;
+    content: "";
+    top: 0;
+    left: 50%;
+    height: 200%;
+    width: 200%;
+    transform: translate(-50%, -70%);
+}
+.cmn-btn-1 a .liquid:after{
+    border-radius: 45%;
+    background: rgba(20,20,20,1);
+    animation: animate 5s linear infinite;
+}
+.cmn-btn-1 a .liquid:before{
+    border-radius: 40%;
+    background: rgba(20,20,20, 0.5);
+    animation: animate 5s linear infinite;
+}
+@keyframes animate{
+    0%{
+        transform: translate(-50%, -70%) rotate(0deg);
+    }
+    100%{
+        transform: translate(-50%, -70%) rotate(360deg);
+    }
+}
+/* ----- Form button ----- */
+.cmn-button button{
+    position: relative;
+    border: none;
+    padding: 10px;
+    width: 160px;
+    height: 60px;
+    text-align: center;
+    background-color: #f35a24;
+    color: #fff;
+    letter-spacing: 1px;
+}
+.cmn-button button:before{
+    position: absolute;
+    content: "";
+    left: 0;
+    top: 0;
+    height: 60px;
+    width: 160px;
+    border: 2px solid #f35a24;
+    transition: all linear .2s;
+}
+.cmn-button button:hover:before{
+    left: -5px;
+    top: -5px;
+    height: 70px;
+    width: 170px;
+}
+/* ----- Shape animation ----- */
+.hero-shape-one, .hero-shape-two, .hero-shape-three,
+.hero-shape-four, .hero-shape-five, .hero-shape-six,
+.about-shape-three, .about-shape-four, .about-shape-five,
+.about-shape-six, .service-shape-one, .service-shape-two,
+.service-shape-three, .service-shape-four, .team-shape-one,
+.team-shape-two, .team-shape-three, .team-shape-four, .team-shape-five, 
+.team-shape-six, .testimonial-shape-two, .testimonial-shape-three,
+.testimonial-shape-four, .testimonial-shape-five, .testimonial-shape-six,
+.footer-shape-one, .footer-shape-two, .footer-shape-three, .footer-shape-four {
+    position: absolute;
+    z-index: 9;
+}
+.hero-shape-one, .hero-shape-two, .hero-shape-three,
+.about-shape-three,{
+    width: 400px;    
+}
+.hero-shape-four, .hero-shape-five, .hero-shape-six, 
+.about-shape-four, .about-shape-five, .about-shape-six,
+.service-shape-one, .service-shape-two, .service-shape-three,
+.service-shape-four, .testimonial-shape-two,
+.testimonial-shape-three{
+    width: 100px;
+}
+/* ----- Header title ----- */
+.section-title h2{
+    font-size: 48px;
+    font-weight: 800;
+}
+.section-title h2 span{
+    color: #f35a24;
+}
+/* -------------------------------------------------------------------------------
+                                    MAIN CSS
+------------------------------------------------------------------------------- */
+
+/* 3. Header section
+--------------------------------------- */
+#header-section{
+    position: absolute;
+    width: 100%;
+    z-index: 99999;
+}
+/* ----- Sticky header menu ----- */
+.sticky-menu {
+    position: fixed;
+    z-index: 999999;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to left, rgba(243,90,36,.7) 0%, rgba(164,34,37,.7) 25%, rgba(243,90,36,1) 35%, rgba(164,34,37,.7) 100%);
+    box-shadow: 0 7px 10px rgba(4, 27, 82, 0.4);
+    width: 100%;
+    padding: 10px 0;
+    transition: all linear .5s;
+}
+.sticky-menu .header-logo img{
+    width: 150px;
+}
+.sticky-menu ul li:hover > ul.submenu {
+    top: 135%;
+    visibility: visible;
+    opacity: 1;
+}
+.sticky-menu .ace-responsive-menu {
+    margin: 0;
+}
+
+/* 4. Hero section
+--------------------------------------- */
+#hero-section{
+    position: relative;
+    background-image: url(../../images/hero/hero-02.jpg);
+    background-size: 100%;
+    height: 850px;
+    width: 100%;
+    padding: 200px 0;
+    background-repeat: no-repeat;
+    z-index: 2;
+    background-attachment: fixed;
+}
+#hero-section:before{
+    position: absolute;
+    content: "";
+    height: 100%;
+    width: 100%;
+    left: 0;
+    top: 0;
+    /* background: linear-gradient(to top, rgba(243,90,36,1) 0%, rgba(5,117,230, .2) 25%, rgba(241,101,41, .1) 75%, rgba(243,90,36,1) 100%); */
+    z-index: -1;
+}
+#hero-section:after{
+    position: absolute;
+    content: "";
+    height: 257px;
+    width: 100%;
+    left: 0;
+    bottom: 0;
+    background-image: url(../../images/hero/wave.png);
+}
+.hero-cont{
+    width: 800px;
+    margin: 0 auto;   
+}
+.hero-cont h1{
+    color: #fff;
+    font-size: 70px;
+    font-weight: 900;
+}
+.hero-cont h1 span{
+    color: #f35a24;
+}
+.hero-btn a{
+    margin: auto;
+}
+/* ----- Hero shape animation ----- */
+.hero-shape-one{
+    left: 0;
+    bottom: 50px;
+    animation-delay: 1.5s;
+    animation: shapeAnimate 5s ease-in-out infinite;
+}
+.hero-shape-two{
+    right: 0;
+    top: -200px;
+    animation-delay: 1.6s;
+    animation: shapeAnimate 3s ease-in-out infinite;
+}
+.hero-shape-three{
+    left: 0;
+    top: -200px;
+    animation-delay: .7s;
+    animation: shapeAnimate 4s ease-in-out infinite;
+}
+.hero-shape-four{
+    left: 30%;
+    top: 200px;
+    animation-delay: 1.6s;
+    animation: shapeAnimate 3s ease-in-out infinite;
+}
+.hero-shape-five{
+    right: 20%;
+    top: 40%;
+    animation-delay: .7s;
+    animation: shapeAnimate 4s ease-in-out infinite;
+}
+.hero-shape-six{
+    right: 20%;
+    bottom: 200px;
+    animation-delay: .8s;
+    animation: shapeAnimate 6s ease-in-out infinite;
+}
+@keyframes shapeAnimate{
+    0%, 100%{
+        transform: translateY(20px);
+    }
+    50%{
+        transform: translateY(-20px);        
+    }
+}
+/* 05. Service section
+--------------------------------------- */
+#service-section{
+    position: relative;
+}
+.service-blurb-cont{
+    background: #fff;
+    padding: 30px 30px;
+    box-shadow: 0 5px 30px -12px rgba(171,171,171,.9);
+    border-radius: 5px;
+    height: 350px;
+    margin: 15px 5px;
+    transition: all linear .5s;
+}
+.service-blurb-cont-01, .service-blurb-cont-03{
+    margin-top: -30px;
+}
+.service-blurb-cont-01{
+    background: #111;    
+}
+.service-blurb-cont-01 h5{
+    color: #fff;
+}
+.service-blurb-cont-01 .service-blurb-btn a{
+    border-top: 1px solid rgba(241,101,41, .7);
+    border-bottom: 1px solid rgba(241,101,41, .7);
+    color: #f35a24;
+}
+.service-blurb-cont:hover{
+    background: #111;
+}
+.service-blurb-img{
+    height: 150px;
+}
+.service-blurb-img img{
+    height: 100%;
+}
+.service-blurb-cont h5{
+    padding: 25px 0 0px;
+}
+.service-blurb-btn a {
+    border-top: 1px solid rgba(4, 27, 82, 0.5);
+    border-bottom: 1px solid rgba(4, 27, 82, 0.5);
+    padding: 5px 2px;
+    letter-spacing: 1px;
+    transition: all linear .3s;
+}
+.service-blurb-cont:hover h5, .service-blurb-cont:hover .service-blurb-btn a{
+    color: #fff;
+}
+.service-blurb-cont:hover .service-blurb-btn a{
+    border-top: 1px solid rgba(241,101,41, .7);
+    border-bottom: 1px solid rgba(241,101,41, .7);
+    color: #f35a24;
+
+}
+.service-blurb-btn a i{
+    transition: all linear .2s;
+}
+.service-blurb-cont:hover .service-blurb-btn a i{
+    padding-left: 5px;
+}
+/* ----- Service content ----- */
+.service-title p{
+    font-size: 24px;
+    margin-top: 20px;
+}
+.service-title, .service-sequence, .service-btn{
+    margin-left: 80px;
+}
+.service-sequence-cont{
+    position: relative;
+    margin: 20px 0;
+}
+.service-sequence-cont::before {
+    position: absolute;
+    content: "";
+    left: 29px;
+    top: 60px;
+    width: 1px;
+    height: 70px;
+    background: #f35a24;
+    z-index: -1;
+}
+.service-sequence-cont:last-child:before{
+    display: none;
+}
+.service-sequence-cmn{
+    float: left;
+}
+.service-sequence-icon{
+    width: 15%;
+}
+.service-sequence-icon i{
+    background: #fff;
+    height: 60px;
+    width: 60px;
+    line-height: 60px;
+    text-align: center;
+    border-radius: 50%;
+    border: 1px solid #f35a24;
+    font-size: 24px;
+    color: #f35a24;
+}
+.service-sequence-text{
+    width: 80%;
+}
+.service-blurb-coming-soon{
+    background: linear-gradient(70deg, rgba(5,117,230, .9), rgba(5,117,230, .3));
+}
+.service-blurb-coming-soon h5{
+    color: #fff;
+}
+/* 6. All service section (page one)
+--------------------------------------- */
+#all-services{
+    margin-bottom: -15px;
+}
+/* ----- Service comingsoon ----- */
+.service-blurb-coming-soon a{
+    display: block;
+    height: 150px;
+    width: 150px;
+    line-height: 150px;
+    border-radius: 100%;
+    margin: 50px auto 0;
+    background: rgba(0,0,0,.5);
+    font-size: 20px;
+    color: #fff !important;
+}
+.service-blurb-coming-soon:hover a{
+    display: block;
+    height: 150px;
+    width: 150px;
+    line-height: 150px;
+    border-radius: 100%;
+    margin: 50px auto 0;
+    background: rgba(255,255,255,.8);
+    font-size: 20px;
+    color: #111 !important;
+}
+/* ---- Service animation ----- */
+.service-shape-one{
+    left: 7%;
+    top: 100px;
+    animation-delay: 1.5s;
+    animation: shapeAnimate 5s ease-in-out infinite;
+}
+.service-shape-two{
+    right: 5%;
+    top: 100px;
+    animation-delay: 1.6s;
+    animation: shapeAnimate 3s ease-in-out infinite;
+}
+.service-shape-three{
+    left: 5%;
+    bottom: 100px;
+    animation-delay: .7s;
+    animation: shapeAnimate 4s ease-in-out infinite;
+}
+.service-shape-four{
+    right: 5%;
+    bottom: 100px;
+    animation-delay: .7s;
+    animation: shapeAnimate 4s ease-in-out infinite;
+}
+/* 7. Service page two 
+--------------------------------------- */
+.service-two-box{
+    box-shadow: 0 5px 30px -5px rgba(0,0,0, .1);
+    padding: 50px 50px 30px 50px;
+    transition: all linear .5s;
+    border-radius: 10px;
+}
+.service-two-box:hover{
+    transition: all linear .5s;
+    background: linear-gradient(70deg, rgba(5,117,230, 1), rgba(5,117,230, 1), rgba(5,117,230, .2));
+}
+.service-two-box:hover p, .service-two-box:hover h5{
+    color: #fff;
+}
+.service-two-box-img{
+    position: relative;
+    margin-bottom: 30px;
+}
+.service-two-box-img::before {
+    transition: all linear .5s;
+    visibility: hidden;
+}
+.service-two-box img{
+    width: 100px;
+}
+/* 8. Service details page
+--------------------------------------- */
+.service-details{
+    margin-bottom: -10px;
+}
+.service-detl-title p{
+    margin-top: 20px;
+    font-size: 24px;
+}
+.service-detl ul li{
+    padding: 3px 0;
+}
+.service-detl ul li i{
+    margin-right: 10px;
+}
+.service-detl-shape-img{
+    position: relative;
+}
+.service-detl-main-img img {
+    position: absolute;
+    top: 90px;
+    right: 0;
+    animation-delay: 1.5s;
+    animation: servDetlAnimate 5s ease-in-out infinite;
+}
+@keyframes servDetlAnimate{
+    0%, 100%{
+        transform: translateX(20px);
+    }
+    50%{
+        transform: translateX(-20px);        
+    }
+}
+/* 09. About section
+--------------------------------------- */
+.about-section{
+    position: relative;
+    padding-bottom: 120px;
+}
+.about-section:after{
+    position: absolute;
+    content: "";
+    height: 258px;
+    width: 100%;
+    left: 0;
+    bottom: -256px;
+    background-image: url(../../images/hero/wave-180.png);
+    z-index: 9;
+    background-repeat: no-repeat;
+}
+.about-content h2{
+    margin-bottom: 20px;
+
+}
+.about-content p{
+    font-size: 20px;
+    margin-top: 20px;
+}
+/* ----- About animation ----- */
+.about-shape-four{
+    left: 30%;
+    top: 200px;
+    animation-delay: 1.6s;
+    animation: shapeAnimate 3s ease-in-out infinite;
+}
+.about-shape-five{
+    right: 10%;
+    top: 10%;
+    animation-delay: .7s;
+    animation: shapeAnimate 4s ease-in-out infinite;
+}
+.about-shape-six{
+    right: 30%;
+    bottom: 50%;
+    animation-delay: .8s;
+    animation: shapeAnimate 6s ease-in-out infinite;
+}
+.about-content-img img{
+    animation-delay: .8s;    
+    animation: aboutContentShapeAnimate 5s ease-in-out infinite;
+}
+@keyframes aboutContentShapeAnimate{
+    0%, 100%{
+        transform: translateX(20px);
+    }
+    50%{
+        transform: translateX(-20px);        
+    }
+}
+/* 10. Facility section
+--------------------------------------- */
+.facility-title{
+    width: 600px;
+    margin: 0 auto 70px;
+}
+.facility-title h6{
+    color: #0575E6;
+}
+.ficility-desc h5{
+    margin: 50px 0 20px;
+}
+.ficility-desc p{
+    text-align: justify;
+}
+.facility-card{
+    background: linear-gradient(70deg, rgba(5,117,230, .3), rgba(5,117,230, .1), rgba(255,255,255, .1));
+    overflow: hidden;
+    box-shadow: 0 5px 30px -10px rgba(0,0,0, .2);
+    padding: 30px  20px;
+    margin-left: 50px;
+}
+.facility-card .facility-card-cmn{
+    float: left;
+}
+.facility-card .facility-card-img{
+    width: 15%;
+    margin-top: 15px;
+}
+
+.facility-card .facility-card-text{
+    width: 80%;
+    padding-left: 30px;
+}
+/* ----- Facility shape animation ----- */
+.ficility-desc img{
+    animation: facilityShapeAnimate 4s ease-in-out infinite;
+}
+@keyframes facilityShapeAnimate{
+    0%, 100%{
+        transform: translateY(20px);
+    }
+    50%{
+        transform: translateY(-20px);        
+    }
+}
+/* 11. About page two
+--------------------------------------- */
+/* ----- Who we are ----- */
+.who-we-are-title h2 {
+    margin-top: 20px;
+    font-size: 100px;
+    line-height: 0.8;
+}
+.who-we-are-title h2 span{
+    display: block;
+}
+.who-we-are-title h4{
+    margin-top: 30px;
+    font-size: 34px;
+    color: #333;
+}
+.who-we-are-title h4 span{
+    color: #0575E6;
+}
+/* 12. Working processs
+--------------------------------------- */
+#working-process-section{
+    margin-bottom: -30px;
+}
+.working-process-img{
+    position: relative;
+    padding: 30px;
+}
+.working-process-arrow {
+    position: absolute;
+    top: 50%;
+    left: 60%;
+    z-index: -1;
+    width: 100%;
+    transform: translate(10%, -50%);
+}
+.wroking-process-text{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.working-process-arrow-four{
+    display: none;
+}
+/* 13. Team section
+--------------------------------------- */
+#team-section{
+    position: relative;
+    background-image: url(../../images/hero/hero-03.jpg);
+    background-size: 100%;
+    height: auto;
+    width: 100%;
+    padding: 200px 0;
+    background-repeat: no-repeat;
+    z-index: 2;
+    background-attachment: fixed;
+}
+#team-section:before{
+    position: absolute;
+    content: "";
+    height: 100%;
+    width: 100%;
+    left: 0;
+    top: 0;
+    background: linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(5,117,230, .4) 25%, rgba(241,101,41, .3) 35%, rgba(0,0,0,1) 100%);
+    z-index: -1;
+}
+#team-section:after{
+    position: absolute;
+    content: "";
+    height: 88px;
+    width: 100%;
+    left: 0;
+    bottom: 0;
+    background-image: url(../../images/hero/wave-180-reverse.png);
+    background-repeat: no-repeat;
+}
+.team-title{
+    max-width: 700px;
+    margin: 0 auto 30px;
+    text-align: center;
+}
+.team-title h2{
+    color: #fff;
+}
+.team-title p{
+    color: #fff;
+    font-size: 24px;
+}
+.team-card{
+    position: relative;
+    width: 100%;
+    margin: 30px 0;
+    box-shadow: 20px 20px 30px rgba(0,0,0,.5);
+    border-radius: 10px;
+    background: rgba(255,255,255,.3);
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    border-top: 1px solid rgba(255,255,255,.5);
+    border-left: 1px solid rgba(255,255,255,.5);
+    backdrop-filter: blur(5px);
+    transition: all linear .5s;
+}
+.team-card .card-cont img{
+    border-radius: 10px;
+}
+.team-card .card-cont{
+    padding: 30px;
+    text-align: center;
+    transition: all linear .5s;
+}
+.team-card .card-cont h3{
+    position: absolute;
+    top: 0px;
+    right: 10px;
+    font-size: 8rem;
+    color: rgba(255,255,255,.1);
+    font-weight: 800;
+    pointer-events: none;
+    z-index: 1;
+}
+.team-card .card-cont h4{
+    color: #fff;
+    margin-top: 20px;
+}
+.team-card:hover{
+    transition: all linear .5s;
+    background: linear-gradient(70deg, rgba(5,117,230, .9), rgba(5,117,230, .7),  rgba(241,101,41, .7), rgba(241,101,41, .7));
+
+}
+.team-card:hover .card-cont h2{
+    color: rgba(255,255,255,.1);
+}
+/* ----- Team shape animation ----- */
+.team-shape-one{
+    width: 25px;
+    top: 20%;
+    left: 15%;
+    animation-delay: 1.6s;
+    animation: shapeAnimate 3s ease-in-out infinite;
+}
+.team-shape-two{
+    width: 25px;
+    top: 30%;
+    right: 20%;
+    animation-delay: .8s;
+    animation: shapeAnimate 6s ease-in-out infinite;
+}
+.team-shape-three{
+    width: 25px;
+    top: 15%;
+    left: 50%;
+    animation-delay: .7s;
+    animation: shapeAnimate 4s ease-in-out infinite;
+}
+.team-shape-four{
+    width: 25px;
+    bottom: 25%;
+    left: 20%;
+    animation-delay: 1.6s;
+    animation: shapeAnimate 3s ease-in-out infinite;
+}
+.team-shape-five{
+    width: 25px;
+    bottom: 10%;
+    right: 20%;
+    animation-delay: .8s;
+    animation: shapeAnimate 6s ease-in-out infinite;
+}
+.team-shape-six{
+    width: 25px;
+    bottom: 40%;
+    left: 50%;
+    animation-delay: .7s;
+    animation: shapeAnimate 4s ease-in-out infinite;
+}
+/* 14. Testimonial section
+--------------------------------------- */
+#testimonial-section{
+    position: relative;
+    background: url(../../images/hero/bg-shape-2.png);
+    background-size: 100%;
+    background-position: top;
+    background-repeat: no-repeat;
+}
+.about-testimonial{
+    margin-bottom: -30px;
+}
+.testimonial-ceo-mesg{
+    margin-top: 30px;
+}
+.testimonial-ceo-mesg img{
+    width: 200px;
+    margin: 20px 0;
+}
+.testimonial-ceo-mesg p{
+    margin-top: 50px;
+}
+.ceo-mesg-btn a{
+    color: #0575E6;
+}
+.ceo-mesg-btn a i{
+    height: 35px;
+    width: 35px;
+    line-height: 35px;
+    text-align: center;
+    border: 1px solid #0575E6;
+    margin-left: 10px;
+    border-radius: 50%;
+    transition: all linear .5s;
+}
+.item{
+    background: #0575E6;
+    margin: 30px;
+}
+.testimonial-item{
+    position: relative;
+    background-color: #f9f9f9;
+    overflow: hidden;
+    box-shadow: 0 5px 30px -10px rgba(241,101,41, .7);
+    background: rgba(5,117,230, .3);
+}
+.testimonial-item-cmn {
+    float: left;
+}
+.testimonial-img{
+    width: 40%;
+}
+.testimonial-text{
+    position: relative;
+    width: 55%;
+    padding: 50px 30px 50px 50px;
+}
+.testimonial-text i{
+    position: absolute;
+    color: rgba(255,255,255,.2);
+    font-size: 30px;
+}
+.testimonial-text .angle-quote-top{
+    left: 15px;
+    top: 20px;
+}
+.testimonial-text .angle-quote-btm{
+    right: 0px;
+    bottom: 0px;
+}
+.testimonial-text h3{
+    color: #fff;
+}
+.testimonial-text p{
+    color: #fff;
+    font-size: 16px;
+}
+.testimonial-text h5{
+    color: #fff;
+    font-family: 'Spartan', sans-serif;
+    margin-top: 30px;
+    font-weight: 400;
+}
+
+/* ----- Testimonial owl navigation ----- */
+.owl-nav {
+    position: absolute;
+    top: 50px;
+    right: 50px
+}
+.owl-nav i{
+    color: #fff;
+    font-size: 12px;
+    height: 30px;
+    width: 30px;
+    line-height: 28px;
+    text-align: center;
+    border: 1px solid #fff;
+    margin: 0 2px;
+}
+.owl-nav i:hover {
+    background: #fff;
+    color: #000;
+}
+.owl-dots{
+    display: none;
+}
+.testimonial-text img{
+    position: absolute;
+    bottom: 40px;
+    left: -20px;
+    height: 60px;
+    width: 100%;
+    opacity: .2;
+}
+/* ----- Testimonial shape animation ----- */
+.testimonial-shape-two{
+    left: -7%;
+    top: 0;
+    width: 200px;
+    animation-delay: 1.6s;
+    animation: testimonialShapeAnimate 3s ease-in-out infinite;
+}
+.testimonial-shape-three{
+    right: -5%;
+    bottom: 0;
+    width: 150px;
+    animation-delay: .7s;
+    animation: testimonialShapeAnimate 4s ease-in-out infinite;
+}
+.testimonial-shape-four{
+    width: 25px;
+    left: 30%;
+    top: 200px;
+    animation-delay: 1.6s;
+    animation: testimonialShapeAnimate 3s ease-in-out infinite;
+}
+.testimonial-shape-five{
+    width: 25px;
+    right: 20%;
+    bottom: 0;
+    animation-delay: .8s;
+    animation: testimonialShapeAnimate 6s ease-in-out infinite;
+}
+.testimonial-shape-six{
+    width: 25px;
+    right: 20%;
+    top: 40%;
+    animation-delay: .7s;
+    animation: testimonialShapeAnimate 4s ease-in-out infinite;
+}
+@keyframes testimonialShapeAnimate{
+    0%, 100%{
+        transform: translateY(20px);
+    }
+    50%{
+        transform: translateY(-20px);        
+    }
+}
+
+/* 15. Blog section
+--------------------------------------- */
+#blog-section{
+    position: relative;
+    background: url(../../images/hero/bg-shape-2.png);
+    background-size: 100%;
+    background-position: top;
+    background-repeat: no-repeat;
+}
+.blog-content{
+    max-width: 700px;
+    margin: 0 auto 50px;
+    text-align: center;
+}
+.blog-content p{
+    font-size: 24px;
+}
+.blog-item{
+    position: relative;
+    border-radius: 5px;
+    box-shadow: 0 0px 40px -15px rgba(0,0,0,.3);
+    overflow: hidden;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+.blog-item:before{
+    position: absolute;
+    content: "";
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: url(../../images/hero/bg-shape-2.png);
+    background-size: cover;
+    background-position: center;
+    z-index: -1;
+}
+.blog-item-img img{
+    width: 100%;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+.blog-item-text{
+    padding: 10px 30px 30px;
+}
+.blog-info span{
+    font-size: 13px;
+    padding: 0 15px 0px 0;
+    color: #f35a24;
+}
+.blog-info span i{
+    margin-right: 5px;
+    font-size: 15px;
+}
+.blog-item-text h5{
+    margin-bottom: 15px;
+    transition: all linear .3s;
+}
+.blog-item-text h5:hover{
+    color: #0575E6;
+}
+.blog-item-text .blog-item-text-btn a{
+    color: #0575E6;
+}
+.blog-item-text .blog-item-text-btn a i{
+    margin-left: 5px;
+}
+#blog-section:before{
+    position: absolute;
+    content: "";
+    top: 25%;
+    left: -5%;
+    height: 150px;
+    width: 150px;
+    border-radius: 50%;
+    background: linear-gradient(70deg,  rgba(241,101,41, .7), rgba(241,101,41, .7), rgba(255,255,255, .2));
+    animation: blogShapeAnimate 6s ease-in-out infinite;
+}
+#blog-section:after{
+    position: absolute;
+    content: "";
+    right: -5%;
+    bottom: 20%;
+    height: 150px;
+    width: 150px;
+    border-radius: 50%;
+    background: linear-gradient(70deg, rgba(5,117,230, .3), rgba(5,117,230, .1), rgba(255,255,255, .1));
+    animation: blogShapeAnimate 6s ease-in-out infinite;
+}
+/* ----- Blog shape animation ----- */
+@keyframes blogShapeAnimate{
+    0%, 100%{
+        transform: translateY(20px);
+    }
+    50%{
+        transform: translateY(-20px);        
+    }
+}
+/* ----- Blog pagination ----- */
+.blog-pagination ul li {
+    display: inline-block;
+}
+.blog-pagination ul li a{
+    height: 50px;
+    width: 50px;
+    line-height: 50px;
+    text-align: center;
+    display: block;
+    clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+    background: #0575E6;
+    color: #fff;
+    margin: 0 1px;
+}
+.blog-pagination ul li a:hover, .blog-pagination ul li a.active{
+    background: #f35a24;
+}
+
+/* 16. Blog sidebar 
+--------------------------------------- */
+.left-sidebar{
+    margin-right: 30px;
+}
+.right-sidebar{
+    margin-left: 30px;
+}
+.sidebar-cmn-div{
+    box-shadow: 0 0px 40px -20px rgba(0,0,0,.3);
+    padding: 30px;
+}
+/* ----- Blog search ----- */
+.sidebar-search{
+    position: relative;
+}
+.sidebar-search input{
+    padding: 10px;
+    width: 100%;
+    border: 1px solid rgba(5,117,230, .5);
+    color: #0575E6;
+}
+.sidebar-search button{
+    position: absolute;
+    right: 0;
+    border: none;
+    background: #0575E6;
+    color: #fff;
+    padding: 10.5px 20px;
+    transition: all linear .3s;
+}
+.sidebar-search button:hover{
+    background: #f35a24;
+}
+.sidebar-cmn-div h5{
+    position: relative;
+    margin-bottom: 30px;
+}
+.sidebar-cmn-div h5:before{
+    position: absolute;
+    content: "";
+    bottom: -12px;
+    left: 0;
+    width: 50px;
+    border: 2px solid #f35a24;
+}
+.sidebar-cmn-div h5:after{
+    position: absolute;
+    content: "";
+    bottom: -10px;
+    left: 0px;
+    width: 70px;
+    border: 2px solid #0575E6;
+}
+.sidebar-cmn-div ul li a{
+    color: #555;
+    padding: 3px 0;
+    display: block;
+}
+.sidebar-cmn-div ul li a i{
+    margin-right: 10px;
+    color: #f35a24;
+}
+/* ----- Calendar ----- */
+.calendar-container {
+    position: relative;
+    width: 100%;
+}
+.calendar-container header {
+    background: #0575E6;
+    color: #fff;
+    padding: 30px 20px 40px;
+}
+.day {
+    font-size: 90px;
+    font-weight: 900;
+    line-height: 1;
+}
+.month {
+    font-size: 36px;
+    line-height: 1;
+}
+.calendar {
+    background: #fff;
+    color: #555;
+    display: inline-block;
+    padding: 35px 5px;
+    width: 100%;
+    border: 1px solid #ddd;
+}
+.calendar thead {
+    color: #f35a24;
+    font-weight: 700;
+}
+.calendar td {
+    padding: 0.3em 0.5em;
+    text-align: center;
+    font-size: 16px;
+}
+.calendar tbody td:hover {
+    background: #cacaca;
+    color: #fff;
+}
+.current-day {
+    color: #f35a24;
+}
+.prev-month,
+.next-month {
+    color: #cacaca;
+}
+.ring-left,
+.ring-right {
+    position: absolute;
+    top: 171px;
+}
+.ring-left { left: 2em; }
+.ring-right { right: 2em; }
+.ring-left:before,
+.ring-left:after,
+.ring-right:before,
+.ring-right:after {
+    background: #fff;
+    border-radius: 4px;
+    -webkit-box-shadow: 0 3px 1px rgba(0, 0, 0, .3), 0 -1px 1px rgba(0, 0, 0, .2);
+    box-shadow: 0 3px 1px rgba(0, 0, 0, .3), 0 -1px 1px rgba(0, 0, 0, .2);
+    content: "";
+    display: inline-block;
+    margin: 8px;
+    height: 32px;
+    width: 8px;
+}
+/* ----- Recent post ----- */
+.sidebar-recent-post{
+    overflow: hidden;
+}
+.sidebar-recent-post ul li {
+    float: left;
+}
+.recent-post-img{
+    width: 40%;
+}
+.recent-post-text{
+    width: 60%;
+    padding-left: 20px;
+}
+.recent-post-text h6:hover{
+    color: #f35a24;
+}
+/* 17. Single blog
+--------------------------------------- */
+.single-qoute{
+    position: relative;
+    padding: 40px 50px 30px;
+    box-shadow: 0 0 10px #ddd;
+    background: #0575E6;
+    color: #fff;
+}
+.single-qoute p{
+    font-size: 24px;
+    font-style: italic;
+}
+.single-qoute i{
+    position: absolute;
+    font-size: 30px;
+    opacity: .3;
+}
+.single-qoute .flaticon-left-quote{
+    top: 0;
+    left: 20px;
+}
+.single-qoute .flaticon-right-quote{
+    bottom: 0;
+    right: 20px;
+}
+
+/* 18. Blog comments 
+--------------------------------------- */
+.blog-comments{
+    padding: 50px;
+    box-shadow: 0 0px 40px -15px rgba(0,0,0,.3);
+    overflow: hidden;
+    border-radius: 10px;
+}
+.blog-comments-img, .blog-comments-text{
+    float: left;
+}
+.blog-comments-img{
+    width: 30%;
+}
+.blog-comments-text{
+    width: 65%;
+}
+.blog-comments-img img{
+    border-radius: 50%;
+}
+.blog-comments-text p{
+    font-size: 16px;
+}
+.blog-comments-rating ul li{
+    display: inline-block;
+}
+.blog-comments-rating ul li i{
+    font-size: 16px;
+    color: #f35a24;
+}
+.blog-comments-rating span{
+    padding-left: 10px;
+    font-size: 16px;
+    color: #f35a24;   
+}
+.blog-comments-reply span{
+    font-size: 16px;
+}
+.blog-comments-reply span.reply a{
+    color: #f35a24;
+}
+.blog-comments-reply span.reply a:hover{
+    color: #0575E6;
+}
+.blog-comments-form h4{
+    margin-bottom: 30px;
+}
+.comments-form-field input, .comments-form-field textarea{
+    width: 100%;
+    padding: 20px;
+    background: #eee;
+    border: none;
+    color: #777;
+    font-size: 16px;
+}
+/* 19. Footer section
+--------------------------------------- */
+#footer-section{
+    position: relative;
+    background: #eff3fe;
+    padding: 170px 0 50px;
+    background: url(../../images/hero/footer.png);
+    background-size: cover;
+}
+#footer-section:after{
+    position: absolute;
+    content: "";
+    height: 88px;
+    width: 100%;
+    left: 0;
+    top: 0;
+    background-image: url(../../images/hero/wave-180.png);
+    background-repeat: no-repeat;
+}
+.footer-about p{
+    font-size: 15px;
+    margin-top: 20px;
+}
+.footer-cmn h5{
+    margin-bottom: 30px;
+}
+.footer-cmn ul li a{
+    padding: 5px 0;
+    display: block;
+    color: #777;
+    font-size: 15px;
+}
+.footer-cmn ul li a:hover{
+    color: #f35a24;
+}
+.footer-social-link ul li{
+    display: inline-block;
+}
+.footer-social-link ul li a{
+    padding: 5px 12px;
+    color: #fff;
+    text-align: center;
+    border-radius: 25px;
+    margin: 5px 0;
+}
+.footer-social-link ul li a:hover{
+    background: #000;
+}
+.footer-social-link ul li a i{
+    margin-right: 5px;
+}
+.footer-social-link ul li .social-bg-fb{
+    background: #3b5999;
+}
+.footer-social-link ul li .social-bg-twit{
+    background: #55acee;
+}
+.footer-social-link ul li .social-bg-link{
+    background: #0077B5;
+}
+.footer-social-link ul li .social-bg-inst{
+    background: #e4405f;
+}
+.footer-social-link ul li .social-bg-pint{
+    background: #c8232c ;
+}
+.footer-social-link ul li .social-bg-dribb{
+    background: #ea4c89 ;
+}
+#copyright-section{
+    background: #eff3fe;
+    padding: 40px 0 20px;
+}
+#copyright-section p{
+    text-align: center;
+    font-size: 14px;
+}
+#copyright-section a{
+    color: #f35a24;
+}
+/* ----- Footer shape animation ----- */
+.footer-shape-one{
+    width: 150px;
+    left: -5%;
+    bottom: 50px;
+    animation-delay: 1.5s;
+    animation: footerShapeAnimate 5s ease-in-out infinite;
+}
+.footer-shape-two{
+    right: 5%;
+    bottom: 5%;
+    animation-delay: 1.6s;
+    animation: footerShapeAnimate 3s ease-in-out infinite;
+}
+.footer-shape-three{
+    left: 50%;
+    top: -100px;
+    animation-delay: .7s;
+    animation: footerShapeAnimate 4s ease-in-out infinite;
+}
+.footer-shape-four{
+    left: 30%;
+    top: 200px;
+    animation-delay: 1.6s;
+    animation: footerShapeAnimate 3s ease-in-out infinite;
+}
+@keyframes footerShapeAnimate{
+    0%, 100%{
+        transform: translateY(20px);
+    }
+    50%{
+        transform: translateY(-20px);        
+    }
+}
+
+/* --------------------------------------------------------------------------------
+                        Others pages start from here
+-------------------------------------------------------------------------------- */
+/* 20. Contact banner top
+--------------------------------------- */
+#contact-banner-top{
+    padding: 50px 0;
+    background: linear-gradient(to left, rgba(0,0,0,.7) 0%, rgba(0,0,0,.7) 25%, rgba(0,0,0,1) 35%, rgba(0,0,0,.7) 100%);
+}
+#contact-map{
+    position: relative;
+    background-size: 100%;
+    height: auto;
+    background-attachment: fixed;
+}
+#contact-map:after{
+    position: absolute;
+    content: "";
+    height: 88px;
+    width: 100%;
+    left: 0;
+    bottom: 0;
+    background-image: url(../../images/hero/wave-180-reverse.png);
+    background-repeat: no-repeat;
+}
+/* 21. Banner section
+--------------------------------------- */
+#banner-section{
+    position: relative;
+    background: url(../../images/banner/banner.png);
+    padding: 200px 0;
+    background-position: center;
+    background-size: cover;
+}
+#banner-section:before{
+    position: absolute;
+    content: "";
+    left: 0;
+    right: 0;
+    background: url(../../images/hero/wave-180-reverse.png);
+}
+#banner-section .breadcrumbs ul li{
+    display: inline-block;
+    color: #fff;
+}
+#banner-section .breadcrumbs ul li > a.active{
+    color: #0575E6;
+    background: #fff;
+    padding: 5px 15px 3px;
+    border-radius: 25px;
+    font-size: 18px;
+    box-shadow: 0 5px 10px rgba(0,0,0,.1);
+}
+#banner-section .breadcrumbs ul li a{
+    padding: 10px;
+    color: #fff;
+    font-size: 20px;
+}
+.banner-shape-one, .banner-shape-two, .banner-shape-three, .banner-shape-four{
+    position: absolute;
+}
+
+/* ----- Banner shape animation ----- */
+.banner-shape-one{
+    animation-delay: .6s;
+    animation: facilityShapeAnimate2 4s ease-in-out infinite;
+    top: -20%;
+    left: 5%;
+}
+.banner-shape-two{
+    animation-delay: .8s;
+    animation: facilityShapeAnimate2 4s ease-in-out infinite;
+    left: 50%;
+}
+.banner-shape-three{
+    animation-delay: .6s;
+    animation: facilityShapeAnimate 4s ease-in-out infinite;
+    right: -10%;
+}
+.banner-shape-four{
+    animation-delay: .8s;
+    animation: facilityShapeAnimate 4s ease-in-out infinite;
+    bottom: -20%;
+    left: 10%;
+}
+@keyframes facilityShapeAnimate{
+    0%, 100%{
+        transform: translateY(20px);
+    }
+    50%{
+        transform: translateY(-20px);        
+    }
+}
+@keyframes facilityShapeAnimate2{
+    0%, 100%{
+        transform: translateX(20px);
+    }
+    50%{
+        transform: translateX(-20px);        
+    }
+}
+/* 22. Contact map section
+--------------------------------------- */
+#contact-map iframe{
+    width: 100%;
+    height: 500px;
+}
+.contact-text h2{
+    line-height: .7;
+}
+/* 23. Contact info
+--------------------------------------- */
+#contact-info i{
+    color: #f35a24;
+}
+#contact-info small{
+    color: rgba(165, 165, 165, 1);
+    font-size: 13px;
+}
+.contact-text-phone i{
+    margin-right: 15px;
+}
+.contact-text-phone small{
+    margin-left: 55px;
+}
+.contact-img {
+    width: 400px;
+}
+.contact-text ul li{
+    font-size: 17px
+}
+.contact-text ul.user-id li {
+    padding: 3px 0;
+}
+.contact-text ul li i{
+    margin-right: 38px;
+    font-size: 20px;
+}
+.contact-text ul li span{
+    margin-left: 60px;
+}
+.contact-text ul.location small{
+    margin-left: 60px;
+}
+/* ----- Contact form ----- */
+.form-group label{
+    display: block;
+    font-size: 15px;
+    margin-bottom: 10px;
+}
+.form-group label span{
+    color: #FF0000
+}
+.form-group input, .form-group textarea {
+    padding: 15px 10px;
+    border-radius: 25px;
+    width: 100%;
+    border: 1px solid #ddd;
+    color: #868686;
+    font-size: 14px;
+    resize: none;
+}
+.form-group textarea {
+    border-radius: 15px
+}
+.form-group button{
+    border-radius: 50px;
+}
+.form-group button:before{
+    border-radius: 50px;
+}
+.success{
+    margin-top: 20px;
+    color: green;
+}
+/* 24. Team page 
+--------------------------------------- */
+.team-title-page-one h2{
+    color: #222222;
+}
+.team-title-page-one p{
+    color: inherit;
+}
+/* ----- Team style one ----- */
+.team-card-style-one{
+    position: relative;
+    border-radius: 25px;
+    transition: all linear .3s;
+    margin: 50px 20px 0;
+}
+.team-card-style-one img{
+    border-radius: 25px;
+}
+.team-card-style-one h5{
+    padding: 30px 0 5px; 
+}
+.team-card-style-one span{
+    padding-bottom: 15px;
+    display: block;
+    font-size: 15px;
+}
+.team-card-social a{
+    background: #f35a24;
+    padding: 7px 8px;
+    font-size: 13px;
+    color: #fff;
+    border-radius: 5px;
+}
+.team-card-social a:hover{
+    background: #0575E6;
+}
+.team-card-style-one-img{
+    position: relative;
+}
+.team-card-style-one-img:before{
+    position: absolute;
+    content: "";
+    top: -20px;
+    left: -20px;
+    height: 100px;
+    width: 100px;
+    border-radius: 25px;
+    background: linear-gradient(70deg, rgba(5,117,230, .1), rgba(241,101,41, .1));
+    z-index: -1;
+    transition: all linear .5s;
+}
+.team-card-style-one-img:after{
+    position: absolute;
+    content: "";
+    bottom: -20px;
+    right: -20px;
+    height: 100px;
+    width: 100px;
+    border-radius: 25px;
+    background: linear-gradient(70deg, rgba(241,101,41, .1), rgba(241,101,41, .1));
+    z-index: -1;
+    transition: all linear .5s;
+}
+.team-card-style-one-img:hover:before{
+    top: -40px;
+    left: 70%;
+    background: linear-gradient(70deg, rgba(5,117,230, .3), rgba(241,101,41, .3));
+    border-radius: 50%;
+    animation-delay: 1.5s;
+    animation: team2Animate 5s ease-in-out infinite;
+}
+.team-card-style-one-img:hover:after{
+    bottom: -40px;
+    right: 70%;
+    background: linear-gradient(70deg, rgba(241,101,41, .3), rgba(241,101,41, .3));
+    border-radius: 50%;
+    animation-delay: 1.5s;
+    animation: team2Animate 5s ease-in-out infinite;
+}
+@keyframes team2Animate{
+    0%, 100%{
+        transform: translateX(20px);
+    }
+    50%{
+        transform: translateX(-20px);        
+    }
+}
+/* ----- Team style two ----- */
+.team-card-style-two-img{
+    position: relative;
+    height: 350px;
+    width: 350px;
+    border-radius: 2px solid #ddd;
+    margin: 0 auto 30px;
+}
+.team-card-style-two-box-1 img, .team-card-style-two-box-2 img{
+    border-radius: 50%;
+}
+.team-card-style-two-box-1, .team-card-style-two-box-2{
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    border-radius: 50%;
+}
+.team-card-style-two-box-2{
+    z-index: 2;
+    transition: 0.5s;
+    clip-path: polygon(100% 0, 0 0, 0 100%);
+    filter: grayscale(100%);
+}
+.team-card-style-two-box-2:hover{
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+}
+.team-card-style-two-box-1:hover ~ .team-card-style-two-box-2{
+    clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+}
+.team-card-social-two{
+    margin-top: 10px;
+}
+.team-card-social-two a{
+    padding: 10px;
+}
+/* 25. Faqs section
+--------------------------------------- */
+.faqs-title{
+    width: 800px;
+    margin: 0 auto 70px;
+    text-align: center;
+}
+.accordion-button:focus {
+    z-index: 3;
+    border-color: #86b7fe;
+    outline: 0;
+    box-shadow: none;
+}
+.accordion-button:not(.collapsed) {
+    color: #fff;
+    background-color: #f35a24;
+}
+.accordion-button{
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+    font-size: 20px;
+}
+.accordion-item:first-of-type .accordion-button {
+    border-radius: 0;
+}
+.faqs-images{
+    position: relative;
+}
+/* ---- Faqs shape animation ----- */
+.faqs-shape{
+    position: absolute;
+    content: "";
+    top: 0;
+    right: 80px;
+    animation: faqShapeAnimate 4s ease-in-out infinite;
+}
+@keyframes faqShapeAnimate{
+    0%, 100%{
+        transform: translateX(20px);
+    }
+    50%{
+        transform: translateX(-20px);        
+    }
+}
+/* 26. Career section
+--------------------------------------- */
+#branches-section{
+    position: relative;
+}
+.career-title{
+    max-width: 700px;
+    margin: auto;
+}
+.career-title p{
+    font-size: 24px;
+}
+.career-branch-left{
+    padding-right: 30px;
+}
+.career-branch-left h4{
+    margin: 30px 0 15px 0;
+}
+.career-flag{
+    box-shadow: 0 10px 30px -5px rgba(0,0,0, .1);
+    padding-bottom: 10px;
+}
+.career-flag img{
+    padding-bottom: 25px;
+    width: 100%;
+}
+.career-flag h5, .career-flag p{
+    padding: 0 20px;
+}
+/* ---- Career shape animation ----- */
+.career-shape-one{
+    position: absolute;
+    content: "";
+    top: 0;
+    left: -10%;
+    animation: careerShapeAnimate 4s ease-in-out infinite;
+}
+.career-shape-two{
+    position: absolute;
+    content: "";
+    top: 50%;
+    left: 50%;
+    animation: careerShapeAnimate 4s ease-in-out infinite;
+}
+.career-shape-three{
+    position: absolute;
+    content: "";
+    bottom: 0;
+    right: 10%;
+    animation: careerShapeAnimate 4s ease-in-out infinite;
+}
+@keyframes careerShapeAnimate{
+    0%, 100%{
+        transform: translateY(20px);
+    }
+    50%{
+        transform: translateY(-20px);        
+    }
+}
+.table{
+    margin-bottom: 0;
+}
+.jobs-title h4{
+    margin: 30px 0 15px 0;
+}
+.career-lists table tr td a{
+    cursor: pointer;
+    color: #f35a24;
+}
+.career-form input, .career-form textarea {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #ddd;
+}
+/* 27. Project section
+--------------------------------------- */
+.project-item, .project-item-2{
+    position: relative;
+    overflow: hidden;
+    transition: all linear .5s;
+}
+/* ----- Project style one ----- */
+.project-item .project-overlay{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 80%;
+    transform: translate(-50%, -50%);
+    transition: all linear .5s;
+}
+.project-item:hover .project-overlay{
+    opacity: 0;
+}
+.project-item:before{
+    position: absolute;
+    content: "";
+    height: 85%;
+    width: 85%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(255,255,255,.6);
+    text-align: center;
+    transition: all linear .5s;
+    transition-delay: .5s;
+}
+.project-item:hover:before{
+    opacity: 0;
+}
+.project-overlay h5, .project-overlay p{
+    color: #000;
+}
+/* ----- Project style two ----- */
+.project-item-2 .project-overlay{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    width: 80%;
+    transition: all linear .5s;
+    transition-delay: .5s;
+}
+.project-item-2:hover .project-overlay{
+    opacity: 1;
+}
+.project-item-2:before{
+    position: absolute;
+    content: "";
+    height: 85%;
+    width: 85%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    transition: all linear .5s; 
+}
+.project-item-2:hover:before{
+    background: rgba(255,255,255,.6);
+    
+}
+.project-item-2 .project-overlay h5, .project-item-2 .project-overlay p{
+    color: #000;
+}
+/* 28. Partner section 
+--------------------------------------- */
+.partner-box-img{
+    box-shadow: 0 5px 30px -5px rgba(0,0,0, .1);
+    padding: 20px;
+}
+/* 29. 404 error page
+--------------------------------------- */
+.error-page h1{
+    font-size: 150px;
+    color: #f35a24;
+    margin-top: 40px;
+    line-height: 1;
+}
+.error-page{
+    width: 500px;
+    margin: auto;
+}
+.error-page h1 .span-1{
+    color: #000;
+}
+.error-page h1 .span-2{
+    color: #0575E6;
+}
+.error-page a{
+    font-size: 20px;
+    margin-top: 30px;
+    display: block;
+}
+/* 30. Scroll top
+--------------------------------------- */
+.scrollToTop{
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    border: none;
+    background: linear-gradient(90deg, rgba(42,59,216,.9), rgba(42,59,216,.5));
+    color: #fff;
+    height: 40px;
+    width: 40px;
+    line-height: 40px;
+    text-align: center;
+    border-radius: 50px;
+    font-weight: 700;
+    display: none;
+    z-index: 999;
+}
+.scrollToTop:hover,.scrollToTop:focus{
+    background: #f35a24;
+    color: #fff;
+}
