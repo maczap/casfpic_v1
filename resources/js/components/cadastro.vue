@@ -638,8 +638,8 @@ export default {
 
             $(document).ready(function($){
 
-                $("#etapa1").css('display','none');
-                $("#etapa2").css('display','block');
+                // $("#etapa1").css('display','none');
+                $("#etapa2").css('display','none');
                 $("#etapa3").css('display','none');
                 $("#etapa4").css('display','none');
 
