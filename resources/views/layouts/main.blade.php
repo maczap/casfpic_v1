@@ -351,7 +351,7 @@
 
 
             <!-- Plans -->
-            <section id="about-section" class="">
+            <section id="about-section" class="mt-40">
                 <div class="container">
 
                     <div class="row">
