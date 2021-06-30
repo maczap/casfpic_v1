@@ -61,6 +61,8 @@
                     <!-- etapa 2 -->
                     <div class="card-body" id="etapa2">
                         <h5 class="card-title">Dados Cadastrais</h5>
+
+                       
                 
                         <div class="input-group mb-3">
                             <input type="phone" id="rg" v-model="rg" class="form-control col-xl-6" placeholder="RG" aria-label="rg" aria-describedby="addon-wrapping">
@@ -90,8 +92,23 @@
                         </div>
 
                         <div class="input-group mb-3">
+                            <select class="form-select col-xl-6" v-model="area" id="area" aria-label="Default select example">
+                                <option value="" disabled selected>Àrea de atuação</option>
+                                <option value="1">Comercio</option>
+                                <option value="2">Indústria</option>
+                                <option value="3">Funcionalismo Público Municipal</option>
+                                <option value="4">Funcionalismo Público Estadual</option>
+                                <option value="5">Funcionalismo Público Federal</option>
+             
+                            </select>                                    
+                        </div>                           
+
+                        <div class="input-group mb-3">
                             <input type="text" class="form-control col-xl-6" v-model="profissao" id="profissao" placeholder="Profissão" aria-label="rg" aria-describedby="addon-wrapping">                     
                         </div>  
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control col-xl-12" v-model="nomemae" id="nomemae" placeholder="Nome da Mãe" aria-label="nomemae" aria-describedby="addon-wrapping">                     
+                        </div>                           
                         <div class="alert alert-danger" role="alert" id="alert2">
                         
                         </div>   
@@ -238,6 +255,8 @@ export default {
             return {
                 plano:"",
                 periodo:"",
+                area:"",
+                nomemae:"",
                 cpf:"",
                 celular:"",
                 nome:"",
@@ -619,8 +638,8 @@ export default {
 
             $(document).ready(function($){
 
-                // $("#etapa1").css('display','none');
-                $("#etapa2").css('display','none');
+                $("#etapa1").css('display','none');
+                $("#etapa2").css('display','block');
                 $("#etapa3").css('display','none');
                 $("#etapa4").css('display','none');
 
