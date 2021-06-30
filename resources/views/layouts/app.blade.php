@@ -21,15 +21,15 @@
     
     	<!-- Stylesheet -->
         
-    	<link href="http://127.0.0.1:8000/css/hero/bootstrap.min.css" rel="stylesheet" type="text/css">
-    	<link href="http://127.0.0.1:8000/css/hero/ace-responsive-menu.css" rel="stylesheet" type="text/css">
-        <link rel="stylesheet" type="text/css" href="http://127.0.0.1:8000/css/hero/all.min.css">
-        <link rel="stylesheet" type="text/css" href="http://127.0.0.1:8000/css/hero/flaticon.css">
-        <link rel="stylesheet" type="text/css" href="http://127.0.0.1:8000/css/hero/owl.carousel.min.css">
-    	<link href="http://127.0.0.1:8000/css/hero/default.css" rel="stylesheet" type="text/css">
-    	<link href="http://127.0.0.1:8000/css/hero/style.css" rel="stylesheet" type="text/css">
-        <link href="http://127.0.0.1:8000/css/hero/responsive.css" rel="stylesheet" type="text/css">
-        <link href="http://127.0.0.1:8000/css/app.css" rel="stylesheet" type="text/css">
+    	<link href="http://casfpic.org.br/css/hero/bootstrap.min.css" rel="stylesheet" type="text/css">
+    	<link href="http://casfpic.org.br/css/hero/ace-responsive-menu.css" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" type="text/css" href="http://casfpic.org.br/css/hero/all.min.css">
+        <link rel="stylesheet" type="text/css" href="http://casfpic.org.br/css/hero/flaticon.css">
+        <link rel="stylesheet" type="text/css" href="http://casfpic.org.br/css/hero/owl.carousel.min.css">
+    	<link href="http://casfpic.org.br/css/hero/default.css" rel="stylesheet" type="text/css">
+    	<link href="http://casfpic.org.br/css/hero/style.css" rel="stylesheet" type="text/css">
+        <link href="http://casfpic.org.br/css/hero/responsive.css" rel="stylesheet" type="text/css">
+        <link href="http://casfpic.org.br/css/app.css" rel="stylesheet" type="text/css">
         
         
     </head>
@@ -45,7 +45,7 @@
                             <!-- Header logo -->
                             <div class="col-xl-3 col-lg-3 col-md-3">
                                 <div class="header-logo d-none d-md-block d-lg-block d-xl-block">
-                                    <a href="#index.html"><img src="http://127.0.0.1:8000/images/hero/logo.png" alt="logo"></a>
+                                    <a href="#index.html"><img src="http://casfpic.org.br/images/hero/logo.png" alt="logo"></a>
                                 </div>
                             </div>
                             <!-- Header Responsive menu -->
@@ -56,7 +56,7 @@
                                         <div class="menu-toggle" style="display: none;">
                                             <!-- Mobile logo -->
                                             <div class="mobile-logo">
-                                                <a href="#index.html"><img src="http://127.0.0.1:8000/images/hero/logo.png" alt="logo"></a>
+                                                <a href="#index.html"><img src="http://casfpic.org.br/images/hero/logo.png" alt="logo"></a>
                                             </div>
                                             <button type="button" id="menu-btn">
                                                 <span class="icon-bar"></span>
@@ -123,7 +123,7 @@
 					<div class="row">
                         <div class="col-xl-4 col-sm-6 col-md-6 col-lg-4">
                             <div class="footer-about">
-                                <a href="#"><img src="http://127.0.0.1:8000/images/hero/logo.png" alt="footer logo"></a>
+                                <a href="#"><img src="http://casfpic.org.br/images/hero/logo.png" alt="footer logo"></a>
                                 <p>Bdolorum eaque Velit libero fugit dolores repellendus consequatur nisi, deserunt aperiam.</p>
                             </div>
                         </div>
@@ -164,16 +164,16 @@
 
                         <div class="col-xl-12">
                             <div class="footer-shape-one">
-                                 <img src="http://127.0.0.1:8000/images/hero/hero-shape-3.png" alt="">
+                                 <img src="http://casfpic.org.br/images/hero/hero-shape-3.png" alt="">
                              </div>
                              <div class="footer-shape-two">
-                                 <img src="http://127.0.0.1:8000/images/hero/shape-small-01.png" alt="">
+                                 <img src="http://casfpic.org.br/images/hero/shape-small-01.png" alt="">
                              </div>
                              <div class="footer-shape-three">
-                                 <img src="http://127.0.0.1:8000/images/hero/shape-small-02.png" alt="">
+                                 <img src="http://casfpic.org.br/images/hero/shape-small-02.png" alt="">
                              </div>
                              <div class="footer-shape-four">
-                                 <img src="http://127.0.0.1:8000/images/hero/shape-small-03.png" alt="">
+                                 <img src="http://casfpic.org.br/images/hero/shape-small-03.png" alt="">
                              </div>
                         </div>
 					</div>
@@ -204,8 +204,8 @@
             <!-- scrollToTop end -->
 		</div>    
         
-        <script src="http://127.0.0.1:8000/js/app.js"></script>
-        <script src="http://127.0.0.1:8000/js/all.js"></script>
+        <script src="http://casfpic.org.br/js/app.js"></script>
+        <script src="http://casfpic.org.br/js/all.js"></script>
     
     </body>
 </html>
