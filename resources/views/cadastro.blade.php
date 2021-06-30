@@ -67,7 +67,7 @@
 
                         <div class="row">
                             <div class="col-xl-3">
-                            <img src="http://127.0.0.1:8000/images/icons/whatsapp.png" style="width:50px;" alt="">
+                            <img src="http://casfpic.org.br/images/icons/whatsapp.png" style="width:50px;" alt="">
                                 
                             </div>
                             <div class="col-xl-6 ">
@@ -78,7 +78,7 @@
 
                         <div class="row">
                             <div class="col-xl-3">
-                            <img src="http://127.0.0.1:8000/images/icons/phone.png" style="width:50px;" alt="">
+                            <img src="http://casfpic.org.br/images/icons/phone.png" style="width:50px;" alt="">
                                 
                             </div>
                             <div class="col-xl-6 ">
@@ -89,7 +89,7 @@
 
                         <div class="row">
                             <div class="col-xl-3">
-                            <img src="http://127.0.0.1:8000/images/icons/email.png" style="width:50px;" alt="">
+                            <img src="http://casfpic.org.br/images/icons/email.png" style="width:50px;" alt="">
                                 
                             </div>
                             <div class="col-xl-6 ">
