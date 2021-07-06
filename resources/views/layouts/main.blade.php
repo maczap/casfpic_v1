@@ -2,7 +2,7 @@
         @extends('layouts.app')
         <!-- hero start -->
         @section('content')
-        <section id="hero-section">
+            <section id="hero-section">
 		        <div class="container">
                      <div class="row">
                          <div class="col-xl-12">
@@ -36,7 +36,7 @@
 			<!-- hero end -->
 
             <!-- Service start -->
-            <section id="service-section" >
+            <section id="service-section" style="margin-top:40px;">
                 <div class="container">
                     <div class="row">
                         <div class="col-xl-6 col-sm-12 col-md-12 col-lg-7">
@@ -87,7 +87,7 @@
                                             <img src="./images/hero/08.png" alt="">
                                         </div>
                                         <div class="service-blurb-text">
-                                            <a href="http://html.iddrak.com/consolin/#"><h5>Precisou de uma consulta de emergência? Nossos planos cobrem.</h5></a>
+                                            <a href="http://html.iddrak.com/consolin/#"><h5>Precisou de algum atendimento de emergência? Nossos planos cobrem.</h5></a>
                                             <div class="service-blurb-btn mt-30">
                                                 
                                             </div>
@@ -273,78 +273,33 @@
                     </div>    
 
                     <div class="row ">
-                        <div class="col-xl-3 col-sm-6 col-md-6 col-lg-3 text-center">
+                        <div class="col-xl-8 offset-xl-2 col-sm-12 col-md-12 col-lg-12">
+                            <div class="row">
+                                <div class="col-xl-6 col-sm-6 col-md-6 col-lg-3 text-center">
 
-                            <div class="card" >
-                                <img class="card-img-top" src="/images/logo-operadora/odontoprev.jpg" alt="logo odontoprev">
-                                <div class="card-body">
-                                    
-                                    <p class="card-text">Com mais de 100 mil empresas clientes e mais de 7 milhões de beneficiários, A OdontoPrev é líder do segmento de Assistência Odontológica há mais de 20 anos e possui atualmente a maior operação da América Latina.</p>
-                                    
+                                    <div class="card mb-20" >
+                                        <img class="card-img-top" src="/images/logo-operadora/odontoprev.jpg" alt="logo odontoprev">
+                                        <div class="card-body">
+                                            
+                                            <p class="card-text">Com mais de 100 mil empresas clientes e mais de 7 milhões de beneficiários, A OdontoPrev é líder do segmento de Assistência Odontológica há mais de 20 anos e possui atualmente a maior operação da América Latina.</p>
+                                            
+                                        </div>
+                                    </div>                        
+                                                            
                                 </div>
-                            </div>                        
-                                                    
-                        </div>
-                        <div class="col-xl-3 col-sm-6 col-md-6 col-lg-3 text-center">
-                            <div class="card" >
-                                <img class="card-img-top" src="/images/logo-operadora/uniodonto.png" alt="logo uniodonto">
-                                <div class="card-body">
-                                    
-                                    <p class="card-text">A maior rede de atendimento em planos odontológicos do mundo, que consolidou o atendimento a 3 milhões usuários no Brasil, prestado por cerca de 22 mil cirurgiões dentistas cooperados, organizados em 117 singulares</p>
-                                    
-                                </div>
-                            </div>                          
-                        </div>
-                        <div class="col-xl-6 col-sm-6 col-md-6 col-lg-6">
-
-
-                        <div class="service-sequence mt-50">
-
-          
-                            <div class="service-sequence-cont">
-                                <div class="service-sequence-cmn service-sequence-icon">
-                                    <i class="fas fa-check-square"></i>
-                                </div>
-                                <div class="service-sequence-cmn service-sequence-text">
-                                    <h5>Rol Mínimo de coberturas - 1 Operadora de Planos Odontológico</h5>
-                                    <p>Poderá escolher a <strong>ODONTOPREV</strong> ou <strong>UNIODONTO</strong></p>
+                                <div class="col-xl-6 col-sm-6 col-md-6 col-lg-3 text-center">
+                                    <div class="card mb-20" >
+                                        <img class="card-img-top" src="/images/logo-operadora/uniodonto.png" alt="logo uniodonto">
+                                        <div class="card-body">
+                                            
+                                            <p class="card-text">A maior rede de atendimento em planos odontológicos do mundo, que consolidou o atendimento a 3 milhões usuários no Brasil, prestado por cerca de 22 mil cirurgiões dentistas cooperados, organizados em 117 singulares</p>
+                                            
+                                        </div>
+                                    </div>                          
                                 </div>
                             </div>
-                            <div class="clear"></div>
-                            <div class="service-sequence-cont">
-                                <div class="service-sequence-cmn service-sequence-icon">
-                                    <i class="fas fa-check-square"></i>
-                                </div>
-                                <div class="service-sequence-cmn service-sequence-text">
-                                    <h5>Rol Mínimo de coberturas - 2 Operadoras de Planos Odontológico</h5>
-                                    <p>Inclui as duas operadoras,  <strong>ODONTOPREV</strong> E <strong>UNIODONTO</strong></p>
-                                </div>
-                            </div>
-                            <div class="clear"></div>
-                            <div class="service-sequence-cont">
-                                <div class="service-sequence-cmn service-sequence-icon">
-                                    <i class="fas fa-check-square"></i>
-                                </div>
-                                <div class="service-sequence-cmn service-sequence-text">
-                                    <h5>Além do Rol Mínimo de coberturas - 1 Operadora de Planos Odontológico</h5>
-                                    <p>Poderá escolher a <strong>ODONTOPREV</strong> ou <strong>UNIODONTO</strong></p>
-                                </div>
-                            </div>  
-                            <div class="clear"></div>
-                            
-                            <div class="service-sequence-cont">
-                                <div class="service-sequence-cmn service-sequence-icon">
-                                    <i class="fas fa-check-square"></i>
-                                </div>
-                                <div class="service-sequence-cmn service-sequence-text">
-                                    <h5>Além do Rol Mínimo de coberturas - 2 Operadoras de Planos Odontológico</h5>
-                                    <p>Inclui as duas operadoras,  <strong>ODONTOPREV</strong> E <strong>UNIODONTO</strong></p>
-                                </div>
-                            </div>                                                                      
-                            </div>
-                            <div class="clear"></div>                        
-
                         </div>
+           
                     </div>
                 </div>        
             </section>
