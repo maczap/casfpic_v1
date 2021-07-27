@@ -112,7 +112,7 @@ class PostbackController extends Controller
         DB::table('postbacks')->insert([
             'postback' => json_encode($request->all())
         ]);
-        $this->transaction->cadastra_retorno($notificationCode,$notificationType, $request);
+        // $this->transaction->cadastra_retorno($notificationCode,$notificationType, $request);
 
         if($notificationType == "transaction"){
             $this->consultar_notificacao($notificationCode);
@@ -241,7 +241,7 @@ class PostbackController extends Controller
         $url =  $url_padrao.'transactions/notifications/'.$code.'?'.$data;
 
         $url = \str_replace("v2","v3", $url);
-        
+
 
         $curl = curl_init();
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
