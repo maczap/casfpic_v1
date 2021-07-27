@@ -224,7 +224,7 @@ class PostbackController extends Controller
 
             //     $this->sendEmail($email, $nome, $plano_nick, $url=null, $status ='Pago');
             // }
-        }        
+        // }        
         
         
     }
