@@ -183,7 +183,7 @@ class ControllerCadastro extends Controller
                         
                         $DadosArray['reference']        = $dados_sb['id'];
                         $DadosArray['currency']         = "BRL";
-                        $DadosArray['notificationURL']  = "http://casfpic.com.br/api/postback";
+                        $DadosArray['notificationURL']  = "https://casfpic.org.br/api/postback";
                         //item
                         $DadosArray['itemId1']          = $plano_codigo;
                         $DadosArray['itemDescription1'] = $plano_name;
@@ -394,7 +394,7 @@ class ControllerCadastro extends Controller
                         $data["email"]          = $this->pagseguro->_email;
                         $data["token"]          = $this->pagseguro->_token;
 
-                        $data['notificationURL']  = "http://casfpic.com.br/api/postback";
+                        $data['notificationURL']  = "https://casfpic.org.br/api/postback";
                         $data["paymentMode"]    = 'default';
                         $data['hash']           = $request['hashseller'];
                         $data['paymentMethod']  = 'boleto';
