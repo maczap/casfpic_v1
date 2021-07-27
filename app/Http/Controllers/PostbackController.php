@@ -129,6 +129,11 @@ class PostbackController extends Controller
             'postback' => json_encode($request->all())
         ]);
 
+        $dados =json_decode(json_encode($request), true);
+        if(isset($dados['code'])){
+            $this->transaction_code($dados['code']);
+        }
+
     }
 
     public function transaction_code($code)
