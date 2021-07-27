@@ -116,9 +116,10 @@ class PostbackController extends Controller
 
         if($notificationType == "transaction"){
             $this->consultar_notificacao($notificationCode);
-        } else {
-            $this->search_preaproval_notification($notificationCode);
-        }
+        } 
+        // else {
+        //     $this->search_preaproval_notification($notificationCode);
+        // }
 
         
 
