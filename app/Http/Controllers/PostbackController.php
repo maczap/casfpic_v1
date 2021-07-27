@@ -128,7 +128,7 @@ class PostbackController extends Controller
         $dados = json_encode($request->all());
 
         DB::table('postbacks')->insert([
-            'postback' => $dados->notificationCode
+            'postback' => $dados["notificationCode"]
         ]);
 
         // $notificationCode = $dados->notificationCode;
