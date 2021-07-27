@@ -36,6 +36,7 @@ Route::post('/payment/credit', [ControllerCadastro::class,'cadastro'])->name('pa
 Route::post('/payment/boleto', [ControllerCadastro::class,'boleto'])->name('payment_boleto');
 
 Route::get('consultar_transaction/{code}', [PostbackController::class,'transaction_code'])->name('consultar_transaction');
+Route::get('consultar_notification/{code}', [PostbackController::class,'consultar_notificacao'])->name('consultar_notificacao');
 
 
 

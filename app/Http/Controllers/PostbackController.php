@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Subscription;
 use App\User;
+use App\Plan;
 use Illuminate\Http\Request;
 use DB;
 use App\Services\Pagseguro;
@@ -235,8 +236,12 @@ class PostbackController extends Controller
         $data['email'] = $this->pagseguro->_email;
 
         $data = \http_build_query($data);
-                
-        $url = 'https://ws.pagseguro.uol.com.br/v3/transactions/notifications/'.$code.'?'.$data;
+        $url_padrao = $this->pagseguro->_url;
+
+        $url =  $url_padrao.'transactions/notifications/'.$code.'?'.$data;
+
+        $url = \str_replace("v2","v3", $url);
+        
 
         $curl = curl_init();
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
@@ -244,9 +249,9 @@ class PostbackController extends Controller
 
         $xml = curl_exec($curl);
         curl_close($curl);
-
         $xml = simplexml_load_string($xml);
-        // dd($xml);
+        
+
             $code  = $xml->code;
             $reference  = $xml->reference;
             $status     = $xml->status;
@@ -281,7 +286,7 @@ class PostbackController extends Controller
                 $nome  = $user->name;
                 $email = $user->email;
 
-                $this->sendEmail($email, $nome, $plano_nick, $url=null, $status ='Pago');
+                // $this->sendEmail($email, $nome, $plano_nick, $url=null, $status ='Pago');
             }
         }
     }
