@@ -14,7 +14,7 @@
                          <div class="col-xl-5 col-sm-12 col-md-12 col-lg-7">
 
                           <!-- form -->
-                          <cp-cadastro></cp-cadastro>   
+                          <!-- <cp-cadastro></cp-cadastro>    -->
                          </div>  
                                              
                      </div>     

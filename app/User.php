@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password','cep','endereco','numero','complemento','bairro','cidade','uf','cpf','rg','sexo','nascimento','ecivil','profissao','celular'
+        'name', 'email', 'password','cep','endereco','numero','complemento','bairro','cidade','uf','cpf','rg','sexo','nascimento','ecivil','profissao','celular','area_atuacao'
     ];
 
     /**
@@ -36,4 +36,9 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function subscriptions()
+    {
+        return $this->hasMany(Subscription::class);
+    }    
 }

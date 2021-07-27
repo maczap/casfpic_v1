@@ -203,11 +203,15 @@
                         </nav>
                         <div class="tab-content" id="nav-tabContent">
                             <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-                                
+                                <p class='p-2 mb-0 pb-0' v-if="dados_plano">Pagamento <span v-if="dados_plano.periodo =='mensal'">{{dados_plano.periodo}} de R$ {{formatPrice(dados_plano.amount)}}</span> </p>
                                 <div class="row">
-                                    <div class="input-group mb-3 mt-3">
-                                        <input type="phone" class="form-control col-xl-10" v-mask="'#### #### #### ####'" v-model="cartao_numero" id="cartao_numero" placeholder="Número Cartão" aria-label="cartao_numero" aria-describedby="addon-wrapping">
-                                    </div>   
+                                    <div class="mb-3 mt-3  col-xl-10">
+                                        <input type="phone" class="form-control" v-mask="'#### #### #### ####'" @blur="carregar" v-model="cartao_numero" id="cartao_numero" placeholder="Número Cartão" aria-label="cartao_numero" aria-describedby="addon-wrapping">
+                                    </div>  
+                                    <div class="mb-3 mt-3  col-xl-2">
+                                        <img :src="'https://stc.pagseguro.uol.com.br/public/img/payment-methods-flags/68x30/'+bandeira+'.png'" alt="" v-if="bandeira">
+                                    </div> 
+                                    
 
                                     <div class="input-group mb-3 ">
                                         <input type="text" class="form-control col-xl-10" v-model="cartao_nome" id="cartao_nome" placeholder="Nome no Cartão" aria-label="cartao_nome" aria-describedby="addon-wrapping">
@@ -222,6 +226,15 @@
                                         <input type="phone" class="form-control col-xl-10" v-mask="'(##) #####-####'" v-model="cartao_celular" id="cartao_celular" placeholder="Celular" aria-label="cartao_celular" aria-describedby="addon-wrapping">
                                     </div> 
 
+                                    <div class="form-group  mb-3 " v-if="periodo=='anual'">
+                                        
+                                            <select class='browser-default' id='cparcelas' v-if="installments">
+                                                <option value="" disabled selected>Quantidade de Parcelas</option>
+                                                <option v-for="(item, index) in installments" :key="index" :value="index">{{item.quantity}}x de R$ {{formatPrice(item.installmentAmount)}}</option>
+                                            </select>
+                                        
+                                    </div>                                        
+
                                     <div class="input-group mb-3 ">
                                         <input type="phone" class="form-control col-xl-10" v-mask="'##/##'" v-model="cartao_validade" id="cartao_validade" placeholder="Validade" aria-label="cartao_validade" aria-describedby="addon-wrapping">
                                         <input type="phone" class="form-control col-xl-10" v-mask="'####'" v-model="cartao_cvv" id="cartao_cvv" placeholder="CVV" aria-label="cartao_cvv" aria-describedby="addon-wrapping">
@@ -230,13 +243,30 @@
                                     
                                     </div>                                                                                                                                              
                                     <div class="d-grid gap-2">
-                                        <button type="button" class="btn btn-primary" @click="steps(5)">Finalizar Cadastro</button>
+                                        <button type="button" class="btn btn-primary" id="finalizar" @click="steps(5), 'credit_card'">Finalizar Cadastro</button>
                                     </div>                                                                                                                                                                                          
                                         
                                 </div>
                                 
                             </div>
-                            <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">boleto</div>
+                            <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                                    
+
+                            <div class="row" style="margin-top: 30px;">
+                                <div class="mb-12 center">
+                                    <div class="alert alert-danger text-center" role="alert" id="alert4_boleto"></div>  
+                                </div>    
+                            </div>    
+
+                            <div class="row">
+                                <div class="col-lg-12 text-center">
+                                    <button type="button" class="btn btn-primary" id="finalizar_boleto" @click="steps(6,'boleto')">Gerar Boleto</button>
+                                </div>    
+                            </div>                                                              
+
+
+                                 
+                            </div>
                         </div>                        
                     </div>                          
 
@@ -253,20 +283,23 @@ import ViaCep from 'vue-viacep'
 export default {
         data() {
             return {
+                installments:null,
+                hash:null,
                 plano:"",
                 periodo:"",
+                parcelas:"",
                 area:"",
                 nomemae:"",
-                cpf:"",
-                celular:"",
+                cpf:"26460284822",
+                celular:"(11) 98648-6514",
                 nome:"",
-                password:"",
-                email:"",
-                rg:"",
-                nascimento:"",
+                password:"florida1809",
+                email:"kinho2000@gmail.com",
+                rg:"302552352",
+                nascimento:"18/05/1979",
                 sexo:"",
                 ecivil:"",
-                profissao:"",
+                profissao:"PROGRAMADOR",
                 cep:"",
                 end:"",
                 numero:"",
@@ -274,17 +307,175 @@ export default {
                 bairro:"",
                 cidade:"",
                 uf:"",
-                cartao_numero:"",
-                cartao_nome:"",
-                cartao_cpf:"",
-                cartao_nasc:"",
-                cartao_cvv:"",
-                cartao_validade:"",
-                cartao_celular:"",
+                cartao_numero:"2306 5026 5920 5324",
+                cartao_nome:"MARCOS APARECIDO",
+                cartao_cpf:"26460284822",
+                cartao_nasc:"18/05/1979",
+                cartao_cvv:"123",
+                cartao_validade:"02/28",
+                cartao_celular:"(11) 98648-6514",
+                bandeira:null,
+                cardToken:null
 
             }
         },    
         methods: {
+
+        
+            async carregar(){
+                let set = this;
+
+    
+                if(this.sessionId != null ){
+                    PagSeguroDirectPayment.onSenderHashReady(function(response){
+                        
+                        if(response.status =="error"){
+                            console.log(response.message);
+                            
+                            return false;
+                        }
+                        set.hash = response.senderHash;
+
+                        set.setSessionId(set.sessionId);
+                        set.getPaymentMethods();
+            
+
+                    });
+                    
+                }
+            },             
+            setSessionId(hash){
+                PagSeguroDirectPayment.setSessionId(hash);
+            },     
+            getPaymentMethods(){
+                let set = this;
+                PagSeguroDirectPayment.getPaymentMethods({
+                    amount: 500.00,
+                    success: function(response) {
+                        // Retorna os meios de pagamento disponíveis.
+                        console.log(response.paymentMethods);
+                        set.getBrand();
+                        
+                    },
+                    error: function(response) {
+        
+                        for (var code in response.errors)
+                        {
+                            $("#alert4").css('display','block');
+                            $("#alert4").html(response.errors[code]);                            
+                        }
+                        
+                    },
+                    complete: function(response) {
+
+                    }
+                });            
+
+            },        
+            getBrand(){
+                let set = this;
+                
+                let numero = this.cartao_numero;
+                    numero = numero.replace(/\s+/g, '');
+                    numero = numero.substring(6,0);
+
+                    // console.log("numero "+numero);
+                
+                PagSeguroDirectPayment.getBrand({
+                    cardBin: numero,
+                    success: function(response) {
+                        console.log("bandeira "+ response.brand.name);
+                        set.bandeira = response.brand.name;
+                        if(set.periodo == "anual"){
+                            set.getInstallments(response.brand.name);
+                        }                         
+                    },
+                    error: function(response) {
+
+                            $("#alert4").css('display','block');
+                            $("#alert4").html("Verifique o número do cartão");                            
+                                    
+                    },
+                    complete: function(response) {
+                      
+                    }
+                });
+            },          
+            getInstallments(bandeira){
+                let set = this;
+
+                
+                if(this.$route.query.periodo == "anual"){
+
+                    console.log("get periodo " + this.$route.query.periodo );
+
+                    console.log("amount "+ set.valorProposta.replace(',', '.'));
+                    PagSeguroDirectPayment.getInstallments({
+                            amount: set.valorProposta.replace(',', '.'),
+                            maxInstallmentNoInterest: 0,
+                            brand: bandeira,
+                            success: function(response){
+                                console.log(response.installments[bandeira]);
+                                set.installments = response.installments[bandeira];
+                                
+                            },
+                            error: function(response) {
+                                console.log(response);
+                                
+                                Object.entries(response.errors).forEach(([key, value]) => {
+                                    $("#alert4").css('display','block');
+                                    $("#alert4").html(key);                                       
+                                });   
+                            },
+                            complete: function(response){
+                                
+                            }
+                    });    
+                }        
+
+            },               
+            async createCardToken(){
+                let set = this;
+
+
+                    if(this.cartao_validade){
+                        let numero = this.cartao_numero;
+                            numero = numero.replace(/\s+/g, '');  
+                        
+                        let parte = this.cartao_validade.split("/",2);
+                        let mes = parte[0];
+                        let ano = "20"+parte[1];
+                        
+                        await PagSeguroDirectPayment.createCardToken({
+                            cardNumber:         numero, // Número do cartão de crédito
+                            brand:              set.bandeira, // Bandeira do cartão
+                            cvv:                set.cartao_cvv, // CVV do cartão
+                            expirationMonth:    mes, // Mês da expiração do cartão
+                            expirationYear:     ano, // Ano da expiração do cartão, é necessário os 4 dígitos.
+                            success: function(response) {
+                                set.cardToken = response.card.token;
+                                console.log("cardtoken ");
+                                console.log(response.card.token);
+                                set.cadastro();
+                            },
+                            error: function(response) {
+                                console.log("card "+response);
+                                Object.entries(response.errors).forEach(([key, value]) => {
+                                    $("#alert4").css('display','block');
+                                    $("#alert4").html(key);      
+                                });  
+                            },
+                            complete: function(response) {
+                            
+                                    
+                            }
+                        });
+                    }
+                
+            },   
+            async pagarCartao(cardtoken){
+                
+            },
             buscaCep(){
                 let set = this;
                 let cep = $("#cep").val();
@@ -301,9 +492,9 @@ export default {
                         });
                     }
             },            
-            steps(item) {
+            steps(item, tipo = "") {
                 
-                let validacao = this.validacaoForm(item);
+                let validacao = this.validacaoForm(item, tipo);
                 if(validacao){
                    
                     $("#etapa1").css('display','none');
@@ -311,15 +502,28 @@ export default {
                     $("#etapa3").css('display','none');
                     $("#etapa4").css('display','none');
 
-                    $("#etapa"+item).css('display','block');
+                    
+                        $("#etapa"+item).css('display','block');
+                    
 
                     if(item == 5){
                         $("#etapa4").css('display','block');
                     }
+                    if(item == 6){
+                        $("#etapa4").css('display','block');
+                        this.boleto();
+                    }                    
                 }
             },
-
-            validacaoForm(item){
+            formatPrice: function(value) {
+                let val = (value/1).toFixed(2).replace('.', ',')
+                return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
+            },      
+            formatPrice2: function(value) {
+                let val = (value).toFixed(2);
+                return val;
+            },  
+            validacaoForm(item, tipo){
 
                 $("#alert1").css('display','none');
                 $("#alert1").html("");     
@@ -430,7 +634,7 @@ export default {
                         $("#alert3").html("UF Inválida");
                         return false;
                     }                                                                                                   
-                } else if(item == 5){
+                } else if(item == 5 && tipo == "credit_card"){
 
                     let numero_cartao = this.cartao_numero.replace(/\s/g, '');
                     let validade_cartao = this.cartao_validade.replace(/\//g, '');
@@ -472,17 +676,22 @@ export default {
                         return false;
                     }      
                     else{
-                        this.cadastro();
+                        this.createCardToken();
                         return true;
-                    }                 
+                    }              
                     
                 }
+                
                 return true;
                 
   
             },    
-            cadastro:function(){
-                //  $("#etapa3").css('display','block');
+            cadastro: function(){
+
+                $('#finalizar').text('Enviando...');
+                $('#finalizar').prop('disabled', true);
+                 
+                let set = this;
                 let plano     = this.plano;
                 let periodo   = this.periodo;
                 let cpf       = this.cpf;
@@ -496,6 +705,7 @@ export default {
                 let sexo      = this.sexo;
                 let ecivil    = this.ecivil;
                 let profissao = this.profissao;
+                let area      = this.area;
 
                 let cep       = this.cep;
                 
@@ -505,11 +715,26 @@ export default {
                 let bairro    = this.bairro;
                 let cidade    = this.cidade;
                 let uf        = this.uf;
+
+                let cartao_nome = this.cartao_nome;
+                let cartao_cpf  = this.cartao_cpf;
+                let cartao_nasc = this.cartao_nasc;
+                let cartao_celular = this.cartao_celular;
                 
 
-                this.$http.post('/cadastro', {
+                let qtdParcelas  = null;
+                
+
+            if(this.periodo == "anual"){
+                qtdParcelas = $( "#cparcelas option:selected" ).val();
+            }                
+
+                this.$http.post('http://127.0.0.1:8000/payment/credit', {
                     plano:          plano,
                     periodo:        periodo,
+
+                    payment_method: 'credit_card',
+
                     cpf:            cpf,
                     name:           nome,
                     email:          email,
@@ -521,6 +746,7 @@ export default {
                     sexo:           sexo,
                     ecivil:         ecivil,
                     profissao:      profissao,
+                    area:           area,
 
                     cep:            cep,
                     endereco:       endereco,
@@ -530,15 +756,129 @@ export default {
                     cidade:         cidade,
                     uf:             uf,
 
-                    payment_method: 'credit_card',
-                                        
+                    cartao_nome:    cartao_nome,
+                    cartao_cpf:     cartao_cpf,
+                    cartao_nasc:    cartao_nasc,
+                    cartao_celular: cartao_celular,
+
+                    nparcela:       this.installments[qtdParcelas].quantity,
+                    totalpagar:     this.installments[qtdParcelas].totalAmount,
+                    totalparcela:   this.installments[qtdParcelas].installmentAmount,                    
+                    
+                    hashseller:     set.hash,
+                    cardToken:      set.cardToken,
+
                     _token:         csrfToken
                 }).then(response => {
                     console.log(response);
+
+                    if(response.body.error){
+                        
+                        Object.entries(response.body.error).forEach(([key, value]) => {
+                            $("#alert4").css('display','block');
+                            $("#alert4").html(value);
+                            return false;
+                        });                    
+                    }    
+                    else {
+                        window.location.href = 'http://127.0.0.1:8000/success';
+                    }     
+                    $('#finalizar').text('Finalizar Cadastro');
+                    $('#finalizar').prop('disabled', false);                    
                 }).catch(error => {
-      
+                    console.log(error);
+                    $('#finalizar').text('Finalizar Cadastro');
+                    $('#finalizar').prop('disabled', false);                    
                 });
+
+                console.log("saiu cadastro");
             },     
+
+
+            boleto: function(){
+
+                $('#finalizar_boleto').text('Aguarde...');
+                $('#finalizar_boleto').prop('disabled', true);
+                 
+                let set = this;
+                let plano     = this.plano;
+                let periodo   = this.periodo;
+                let cpf       = this.cpf;
+                let nome      = this.nome;
+                let email     = this.email;
+                let celular   = this.celular;
+                let senha     = this.password;
+
+                let rg        = this.rg;
+                let nascimento= this.nascimento;
+                let sexo      = this.sexo;
+                let ecivil    = this.ecivil;
+                let profissao = this.profissao;
+                let area      = this.area;
+
+                let cep       = this.cep;
+                
+                let endereco  = this.end
+                let numero    = this.numero;
+                let complemento   = this.complemento;
+                let bairro    = this.bairro;
+                let cidade    = this.cidade;
+                let uf        = this.uf;
+
+
+                this.$http.post('http://127.0.0.1:8000/payment/boleto', {
+                    plano:          plano,
+                    periodo:        periodo,
+
+                    payment_method: 'boleto',
+
+                    cpf:            cpf,
+                    name:           nome,
+                    email:          email,
+                    celular:        celular,
+                    senha:          senha,
+
+                    rg:             rg,
+                    nascimento:     nascimento,
+                    sexo:           sexo,
+                    ecivil:         ecivil,
+                    profissao:      profissao,
+                    profissao:      profissao,
+
+                    cep:            cep,
+                    endereco:       endereco,
+                    bairro:         bairro,
+                    numero:         numero,
+                    complemento:    complemento,
+                    cidade:         cidade,
+                    uf:             uf,
+
+                    _token:         csrfToken
+                }).then(response => {
+                    console.log(response);
+
+                    if(response.body.error){
+                        
+                        Object.entries(response.body.error).forEach(([key, value]) => {
+                            $("#alert4_boleto").css('display','block');
+                            $("#alert4_boleto").html(value);
+                            return false;
+                        });                    
+                    }    
+                    else {
+                        // window.location.href = 'http://127.0.0.1:8000/success';
+                    }     
+                    $('#finalizar_boleto').text('Gerar Boleto');
+                    $('#finalizar_boleto').prop('disabled', false);                    
+                }).catch(error => {
+                    console.log(error);
+                    $('#finalizar_boleto').text('Gerar Boleto');
+                    $('#finalizar_boleto').prop('disabled', false);                    
+                });
+
+                console.log("saiu cadastro boleto");
+            },     
+
             validaCPF: function(){
                 let cpf = $("#cpf").val();
                 cpf = cpf.replace(/\./g, "");
@@ -630,18 +970,48 @@ export default {
         created: function(){
 
         },
+        computed:{
+            sessionId() {
+                return this.$store.state.sessionId;
+            },   
+            dados_plano() {
+                return this.$store.state.plan;
+            },      
+            valorProposta() {
+                let total=0;
+                total = this.$store.state.plan.amount;
+                return total;
+            },                   
+        },
         mounted: function() {
+
+            this.$store.dispatch('session_id');
 
             this.plano   = this.$route.query.plano
             this.periodo = this.$route.query.periodo
+
+            console.log("periodo inicial "+ this.$route.query.periodo);
+
+            let dados = {
+                'plano': this.plano,
+                'periodo': this.periodo
+            }
+
+            this.$store.dispatch('get_plan', dados);
             // console.log(this.plano + " " + this.periodo)
+
+            
 
             $(document).ready(function($){
 
-                // $("#etapa1").css('display','none');
+                $("#etapa1").css('display','block');
                 $("#etapa2").css('display','none');
                 $("#etapa3").css('display','none');
                 $("#etapa4").css('display','none');
+
+                $("#alert4_boleto").css('display','none');
+
+                
 
                 $("#alert1").css('display','none');
                 $("#alert2").css('display','none');

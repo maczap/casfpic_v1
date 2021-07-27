@@ -354,7 +354,7 @@
                                             <li>Rol Mínimo de coberturas - 1 Operadora de Planos Odontológico</li>
                                             </ul>
                                             <h2 style="text-align:center"> <span class='cifrao'>R$ </span> 40 <span class='month'>/mês</span></h2>
-                                            <a href="cadastro?plano=bronze&periodo=mensal">
+                                            <a href="/?plano=bronze&periodo=mensal#cadastro">
                                             <button type="button" class="text-center btn btn-primary btn-block" style="width:100%;">Assinar</button>
                                             </a>
 
@@ -377,7 +377,7 @@
                                                 <li>Rol Mínimo de coberturas - 2 Operadoras de Planos Odontológico</li>
                                             </ul>                                  
                                             <h2 style="text-align:center"> <span class='cifrao'>R$ </span> 55 <span class='month'>/mês</span></h2>
-                                            <a href="cadastro?plano=prata&periodo=mensal">
+                                            <a href="/?plano=prata&periodo=mensal#cadastro">
                                             <button type="button" class="text-center btn btn-primary btn-block" style="width:100%;">Assinar</button>                                  
                                             </a>
                                             <p class="card-text">Garantida a Cobertura do Plano
@@ -399,7 +399,7 @@
                                             <li>Além do Rol Mínimo de coberturas - 1 Operadora de Planos Odontológico</li>
                                             </ul>
                                             <h2 style="text-align:center"> <span class='cifrao'>R$ </span> 100 <span class='month'>/mês</span></h2>
-                                            <a href="cadastro?plano=ouro&periodo=mensal">
+                                            <a href="/?plano=ouro&periodo=mensal#cadastro">
                                             <button type="button" class="text-center btn btn-primary btn-block" style="width:100%;">Assinar</button>
                                             </a>
 
@@ -422,7 +422,7 @@
                                             <li>Além do Rol Mínimo de coberturas - 2 Operadoras de Planos Odontológico</li>
                                             </ul>                                  
                                             <h2 style="text-align:center"> <span class='cifrao'>R$ </span> 130 <span class='month'>/mês</span></h2>
-                                            <a href="cadastro?plano=diamante&periodo=mensal">
+                                            <a href="/?plano=diamante&periodo=mensal#cadastro">
                                             <button type="button" class="text-center btn btn-primary btn-block" style="width:100%;">Assinar</button>                                  
                                             </a>
                                             <p class="card-text">Garantida a Cobertura do Plano
@@ -452,7 +452,7 @@
                                             <li>Rol Mínimo de coberturas - 1 Operadora de Planos Odontológico</li>
                                             </ul>
                                             <h2 style="text-align:center"> <span class='cifrao'>R$ </span> 358,80 <span class='month'>/mês</span></h2>
-                                            <a href="cadastro?plano=bronze&periodo=anual">
+                                            <a href="/?plano=bronze&periodo=anual#cadastro">
                                             <button type="button" class="text-center btn btn-primary btn-block" style="width:100%;">Assinar</button>
                                             </a>
                                             <p class="card-text">Garantida a Cobertura do Plano
@@ -474,7 +474,7 @@
                                                 <li>Rol Mínimo de coberturas - 2 Operadoras de Planos Odontológico</li>
                                             </ul>                                  
                                             <h2 style="text-align:center"> <span class='cifrao'>R$ </span> 492,00 <span class='month'>/mês</span></h2>
-                                            <a href="cadastro?plano=prata&periodo=anual">
+                                            <a href="/?plano=prata&periodo=anual#cadastro">
                                             <button type="button" class="text-center btn btn-primary btn-block" style="width:100%;">Assinar</button>                                  
                                             </a>
                                             <p class="card-text">Garantida a Cobertura do Plano
@@ -496,7 +496,7 @@
                                             <li>Além do Rol Mínimo de coberturas - 1 Operadora de Planos Odontológico</li>
                                             </ul>
                                             <h2 style="text-align:center"> <span class='cifrao'>R$ </span> 960,00 <span class='month'>/mês</span></h2>
-                                            <a href="cadastro?plano=ouro&periodo=anual">
+                                            <a href="/?plano=ouro&periodo=anual#cadastro">
                                             <button type="button" class="text-center btn btn-primary btn-block" style="width:100%;">Assinar</button>
                                             </a>
 
@@ -518,7 +518,7 @@
                                             <li>Além do Rol Mínimo de coberturas - 2 Operadoras de Planos Odontológico</li>
                                             </ul>                                  
                                             <h2 style="text-align:center"> <span class='cifrao'>R$ </span> 1.200,00 <span class='month'>/mês</span></h2>
-                                            <a href="cadastro?plano=diamante&periodo=anual">
+                                            <a href="/?plano=diamante&periodo=anual#cadastrol">
                                             <button type="button" class="text-center btn btn-primary btn-block" style="width:100%;">Assinar</button>                                  
                                             </a>
                                             <p class="card-text">Garantida a Cobertura do Plano
@@ -545,7 +545,24 @@
                 </div>
             </section>            
 
-         
+            <section id="cadastro">
+		        <div class="container header">
+                     <div class="row justify-content-md-center ">
+                         <div class="col-xl-5 col-sm-12 col-md-12 col-lg-7">
+                            <h1>Faça parte de uma associação forte. </h1>
+                            <p>A Caixa Assistencial, nasceu com o objetivo de propiciar as melhores condições de bem-estar e benefícios em Planos Odontológicos aos funcionários públicos, da Indústria e Comércio no Estado de São Paulo.</p>
+                         </div>
+                         <div class="col-xl-1"></div>
+                         <div class="col-xl-5 col-sm-12 col-md-12 col-lg-7">
+
+                          <!-- form -->
+                          <cp-cadastro></cp-cadastro>   
+                         </div>  
+                                             
+                     </div>     
+                </div>
+                
+		    </section>            
 
             <!-- Team start -->
             <section id="team-section">
@@ -618,6 +635,8 @@
                 </div>
             </section>
             <!-- Team end -->
+
+         
 
             <!-- Testimonial start -->
             <section id="testimonial-section" class="mt-90">

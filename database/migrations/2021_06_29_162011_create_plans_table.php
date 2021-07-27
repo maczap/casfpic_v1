@@ -18,8 +18,8 @@ class CreatePlansTable extends Migration
             $table->integer('codigo');
             $table->float('amount', 8, 2);
             $table->string('descricao');
-            $table->foreignId('user_id');
-            $table->foreign('user_id')->references('id')->on('users');            
+            $table->string('nick');
+            $table->string('periodo');
             $table->timestamps();
         });
     }
