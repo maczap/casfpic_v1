@@ -125,9 +125,9 @@ class PostbackController extends Controller
 
     public function transaction(Request $request){
     
- 
+        $dados =json_decode(json_encode($request->all()), true);  
         DB::table('postbacks')->insert([
-            'postback' => $request->all()
+            'postback' => $dados
         ]);
 
         
