@@ -53,17 +53,17 @@ class PostbackController extends Controller
             $neWtransaction = Transaction::where('transaction_code', $current_transaction['id'])->first();
             $subscription_charge = $request->all()['subscription']['charges'];
 
-            if (is_null($neWtransaction)) {
-                $subscription->user->transactions()->create($this->managerTransactionData($current_transaction, $subscription_charge));
+            // if (is_null($neWtransaction)) {
+            //     $subscription->user->transactions()->create($this->managerTransactionData($current_transaction, $subscription_charge));
 
-                $charge = intval($subscription_charge - 1);
-                Transaction::where('subscription_code', $subscription_code )
-                           ->where('charge',$charge)
-                           ->update([
-                               'status' => $request->all()['subscription']['status']
+            //     $charge = intval($subscription_charge - 1);
+            //     Transaction::where('subscription_code', $subscription_code )
+            //                ->where('charge',$charge)
+            //                ->update([
+            //                    'status' => $request->all()['subscription']['status']
                                
-                           ]);                
-            } 
+            //                ]);                
+            // } 
           
 
             
@@ -192,21 +192,21 @@ class PostbackController extends Controller
 
         
 
-        $code       = $xml->code;
-        $reference  = $xml->reference;
-        $status     = $xml->status;
-        $amount     = $xml->grossAmount;        
-        $subscription = Subscription::where('id', $reference)->first();
+        // $code       = $xml->code;
+        // $reference  = $xml->reference;
+        // $status     = $xml->status;
+        // $amount     = $xml->grossAmount;        
+        // $subscription = Subscription::where('id', $reference)->first();
             
         
-        if(!empty($subscription)){
-            $plan_id = $subscription->plan_id;
-            $status = $this->tabela_status($status);
+        // if(!empty($subscription)){
+        //     $plan_id = $subscription->plan_id;
+        //     $status = $this->tabela_status($status);
 
-            if (!is_null($subscription)) {
-                $subscription->status = $status;
-                $subscription->save();
-            }
+        //     if (!is_null($subscription)) {
+        //         $subscription->status = $status;
+        //         $subscription->save();
+        //     }
 
             // $status = "Paga";
 
