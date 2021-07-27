@@ -137,7 +137,7 @@ class PostbackController extends Controller
         // $notificationCode = $dados->notificationCode;
 
         if(isset($notificationCode)){
-            // $this->transaction_code($notificationCode);
+            $this->transaction_code($notificationCode);
         }
 
     }
@@ -163,7 +163,7 @@ class PostbackController extends Controller
         $xml = simplexml_load_string($xml);
 
         $json =json_decode(json_encode($xml), true);
-        
+                
         $retorno = $this->managerTransactionData($json);
         
 
@@ -176,7 +176,6 @@ class PostbackController extends Controller
             'installments' => $retorno['installmentCount'],
             'updated_at' => $retorno['date'],
 
-            
         ]);
 
         $subscription = Subscription::where('id', $retorno['reference'])->first();
