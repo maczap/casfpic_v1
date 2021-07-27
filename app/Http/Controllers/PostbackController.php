@@ -137,7 +137,7 @@ class PostbackController extends Controller
         // $notificationCode = $dados->notificationCode;
 
         if(isset($notificationCode)){
-            $this->transaction_code($notificationCode);
+            // $this->transaction_code($notificationCode);
         }
 
     }
