@@ -307,13 +307,13 @@ export default {
                 bairro:"",
                 cidade:"",
                 uf:"",
-                cartao_numero:"2306 5026 5920 5324",
+                cartao_numero:"4444 4444 4444 4444",
                 cartao_nome:"MARCOS APARECIDO",
                 cartao_cpf:"26460284822",
                 cartao_nasc:"18/05/1979",
                 cartao_cvv:"123",
                 cartao_validade:"02/28",
-                cartao_celular:"(11) 98648-6514",
+                cartao_celular:"(11) 99999-9999",
                 bandeira:null,
                 cardToken:null
 

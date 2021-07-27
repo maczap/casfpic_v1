@@ -261,7 +261,6 @@ class PostbackController extends Controller
                 $subscription->amount           = $amount;
                 $subscription->save();
             }
-
             $status = "Paga";
 
             if($status == "Paga"){
