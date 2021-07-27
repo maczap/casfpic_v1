@@ -124,18 +124,16 @@ class PostbackController extends Controller
     }
 
     public function transaction(Request $request){
-
-        $notificationCode = $request["notificationCode"];
-        $notificationType = $request["notificationType"];        
+    
  
         DB::table('postbacks')->insert([
-            'postback' => json_encode($request->all())
+            'postback' => $request->all()
         ]);
 
         
-        if(isset($notificationCode)){
-            $this->transaction_code($notificationCode);
-        }
+        // if(isset($notificationCode)){
+        //     $this->transaction_code($notificationCode);
+        // }
 
     }
 
