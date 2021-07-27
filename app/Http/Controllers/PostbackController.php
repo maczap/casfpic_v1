@@ -125,7 +125,8 @@ class PostbackController extends Controller
 
     public function transaction(Request $request){
     
-        $dados = $request->all();
+        $xml = simplexml_load_string($request->all());     
+        $dados =json_decode(json_encode($xml), true);            
 
         DB::table('postbacks')->insert([
             'postback' => $dados
