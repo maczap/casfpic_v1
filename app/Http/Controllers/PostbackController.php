@@ -130,8 +130,8 @@ class PostbackController extends Controller
         ]);
 
         $dados =json_decode(json_encode($request), true);
-        if(isset($dados['code'])){
-            $this->transaction_code($dados['code']);
+        if(isset($dados['notificationCode'])){
+            $this->transaction_code($dados['notificationCode']);
         }
 
     }
