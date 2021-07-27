@@ -20,4 +20,4 @@ use App\Http\Controllers\PostbackController;
 //     return $request->user();
 // });
 
-Route::post('postback/transaction', [PostbackController::class,'transaction'])->name('transaction');
+Route::post('postback', [PostbackController::class,'transaction'])->name('transaction');
