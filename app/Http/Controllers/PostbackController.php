@@ -125,11 +125,10 @@ class PostbackController extends Controller
 
     public function transaction(Request $request){
     
-        $xml = simplexml_load_string($request->all());     
-        $dados =json_decode(json_encode($xml), true);            
+        $notificationCode = $request["notificationCode"];        
 
         DB::table('postbacks')->insert([
-            'postback' => $dados
+            'postback' => $notificationCode
         ]);
 
         // $notificationCode = $dados->notificationCode;
