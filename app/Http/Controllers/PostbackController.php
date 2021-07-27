@@ -234,7 +234,7 @@ class PostbackController extends Controller
 
         $url =  $url_padrao.'transactions/notifications/'.$code.'?'.$data;
 
-        $url = \str_replace("v2","v3", $url);
+        // $url = \str_replace("v2","v3", $url);
 
         $curl = curl_init();
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
@@ -243,7 +243,7 @@ class PostbackController extends Controller
         $xml = curl_exec($curl);
         curl_close($curl);
         $xml = simplexml_load_string($xml);
-
+        
             $code  = $xml->code;
             $reference  = $xml->reference;
             $status     = $xml->status;
