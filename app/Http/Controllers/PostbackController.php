@@ -130,11 +130,9 @@ class PostbackController extends Controller
             'postback' => json_encode($request->all())
         ]);
 
-        // $notificationCode = $dados->notificationCode;
-
-        // if(isset($notificationCode)){
-        //     $this->transaction_code($notificationCode);
-        // }
+        if(isset($notificationCode)){
+            $this->consultar_notificacao($notificationCode);
+        }
 
     }
 
@@ -246,43 +244,41 @@ class PostbackController extends Controller
         curl_close($curl);
         $xml = simplexml_load_string($xml);
 
-        //     $code  = $xml->code;
-        //     $reference  = $xml->reference;
-        //     $status     = $xml->status;
-        //     $amount     = $xml->grossAmount;
+            $code  = $xml->code;
+            $reference  = $xml->reference;
+            $status     = $xml->status;
+            $amount     = $xml->grossAmount;
         
-
-        // $subscription = Subscription::where('id', $reference)->first();
-            
+        $subscription = Subscription::where('id', $reference)->first();
         
-        // if(!empty($subscription)){
-        //     $plan_id = $subscription->plan_id;
-        //     $status = $this->tabela_status($status);
+        if(!empty($subscription)){
+            $plan_id = $subscription->plan_id;
+            $status = $this->tabela_status($status);
 
-        //     if (!is_null($subscription)) {
-        //         $subscription->status           = $status;
-        //         $subscription->transaction_code = $code;
-        //         $subscription->amount           = $amount;
-        //         $subscription->save();
-        //     }
+            if (!is_null($subscription)) {
+                $subscription->status           = $status;
+                $subscription->transaction_code = $code;
+                $subscription->amount           = $amount;
+                $subscription->save();
+            }
 
-            // $status = "Paga";
+            $status = "Paga";
 
-            // if($status == "Paga"){
+            if($status == "Paga"){
 
-            //     $plan = new Plan;
-            //     $plan = $plan::find($plan_id); 
-            //     $plano_nick = $plan->nick;
+                $plan = new Plan;
+                $plan = $plan::find($plan_id); 
+                $plano_nick = $plan->nick;
 
-            //     $user = new User;
-            //     $user = $user::find($subscription->user_id);  
+                $user = new User;
+                $user = $user::find($subscription->user_id);  
                 
-            //     $nome  = $user->name;
-            //     $email = $user->email;
+                $nome  = $user->name;
+                $email = $user->email;
 
-            //     // $this->sendEmail($email, $nome, $plano_nick, $url=null, $status ='Pago');
-            // }
-        //}
+                // $this->sendEmail($email, $nome, $plano_nick, $url=null, $status ='Pago');
+            }
+        }
     }
 
     public function sendEmail($email, $nome, $plano_plano, $url, $status){
