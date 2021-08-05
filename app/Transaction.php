@@ -7,12 +7,29 @@ use Illuminate\Database\Eloquent\Model;
 class Transaction extends Model
 {
     protected $fillable = [
-        'transaction_code',
         'user_id',
+        'date',
+        'code',
+        'reference',
+        'type',
         'status',
-        'authorization_code',
-        'amount',
-        'authorized_amount',
+        'lastEventDate',
+        'paymentMethodType',
+        'grossAmount',
+        'lastEventDate',
+        'discountAmount',
+        'lastEventDate',
+        'creditorFeesInstallmentFeeAmount',
+        'creditorFeesIntermediationRateAmount',
+        'creditorFeesIntermediationFeeAmount',
+        'netAmount',
+        'extraAmount',
+        'installmentCount',
+        'itemCount',
+        'itemId',
+        'itemDescription',
+        'itemQuantity',
+        'itemAmount',
         'paid_amount',
         'refunded_amount',
         'installments',
@@ -22,13 +39,13 @@ class Transaction extends Model
         'card_holder_name',
         'card_last_digits',
         'card_first_digits',
+        'card_last_digits',
         'card_brand',
         'payment_method',
         'boleto_url',
         'boleto_barcode',
-        'boleto_expiration_date',
-        'updated_at'
-        
+        'boleto_expiration_date'
+
     ];
 
     public function user()

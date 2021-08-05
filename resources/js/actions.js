@@ -17,6 +17,7 @@ export default {
         axios.get('/getplan/'+dados.plano+"/"+dados.periodo).then(response => {
             if(response.data){
                 context.commit(newLocal, response.data[0]);
+                console.log(response.data[0])
             }
         });           
     }    

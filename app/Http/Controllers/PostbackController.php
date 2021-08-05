@@ -627,4 +627,107 @@ class PostbackController extends Controller
                  
         return $status;                     
     }    
+
+    public function autorizacao()
+    {
+        $appID = $this->pagseguro->_appID;
+        $appKey = $this->pagseguro->_appKey;
+
+        // $appID  = "app8844053095copiar";
+        // $appKey = "220D5468999990511487AF8B40C9986B";        
+
+        $url = "https://ws.sandbox.pagseguro.uol.com.br/v2/authorizations/request/?appId=$appID&appKey=$appKey";
+
+        $curl = curl_init();
+        
+        curl_setopt_array($curl, array(
+          CURLOPT_URL => $url,
+          CURLOPT_RETURNTRANSFER => true,
+          CURLOPT_ENCODING => '',
+          CURLOPT_MAXREDIRS => 10,
+          CURLOPT_TIMEOUT => 0,
+          CURLOPT_FOLLOWLOCATION => true,
+          CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+          CURLOPT_CUSTOMREQUEST => 'POST',
+          CURLOPT_POSTFIELDS =>'<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+        <authorizationRequest>
+            <reference>REF1234</reference>
+            <permissions>
+                <code>CREATE_CHECKOUTS</code>
+                <code>RECEIVE_TRANSACTION_NOTIFICATIONS</code>
+                <code>SEARCH_TRANSACTIONS</code>
+                <code>MANAGE_PAYMENT_PRE_APPROVALS</code>
+                <code>DIRECT_PAYMENT</code>
+            </permissions>
+            <redirectURL>https://casfpic.org.br"</redirectURL>
+            <notificationURL>https://casfpic.org.br/api/postback"</notificationURL>
+        </authorizationRequest>',
+          CURLOPT_HTTPHEADER => array(
+            'Content-Type: application/xml'
+          ),
+        ));
+        
+        $response = curl_exec($curl);
+        
+        curl_close($curl);
+        echo $response;
+
+    }
+
+    public function consultar_autorizacao()
+    {
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+          CURLOPT_URL => 'https://sandbox.pagseguro.uol.com.br/v2/authorization/request.jhtml?code=65674F57D54B4D5D9B5C7A03A6E4504C',
+          CURLOPT_RETURNTRANSFER => true,
+          CURLOPT_ENCODING => '',
+          CURLOPT_MAXREDIRS => 10,
+          CURLOPT_TIMEOUT => 0,
+          CURLOPT_FOLLOWLOCATION => true,
+          CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+          CURLOPT_CUSTOMREQUEST => 'GET',
+          CURLOPT_HTTPHEADER => array(
+            'Content-Type: application/xml'
+          ),
+        ));
+        
+        $response = curl_exec($curl);
+        
+        curl_close($curl);
+        echo $response;        
+    }
+
+    public function createTransaction($retorno)
+    {
+        DB::table('transactions')->insert([
+            'user_id'           => 1,
+            'date'              => date('Y-m-d H:i:s', strtotime($retorno['date'])),
+            'code'              => $retorno['code'],
+            'reference'         => $retorno['reference'],
+            'type'              => $retorno['type'],
+            'status'            => $retorno['status'],
+            'lastEventDate'     => date('Y-m-d H:i:s', strtotime($retorno['lastEventDate'])),            
+            'paymentMethodType'     => $retorno['paymentMethod']['type'],                        
+            'paymentMethodCode'     => $retorno['paymentMethod']['code'],                        
+            
+            'grossAmount'            => $retorno['grossAmount'],
+            'discountAmount'         => $retorno['grossAmount'],
+            'creditorFeesInstallmentFeeAmount'     => $retorno['creditorFees']['installmentFeeAmount'],
+            'creditorFeesIntermediationRateAmount' => $retorno['creditorFees']['intermediationRateAmount'],
+            'creditorFeesIntermediationFeeAmount'  => $retorno['creditorFees']['intermediationFeeAmount'],
+
+            'netAmount'            => $retorno['netAmount'],
+            'extraAmount'          => $retorno['extraAmount'],
+            'installmentCount'     => $retorno['installmentCount'],
+            'itemCount'            => $retorno['itemCount'],
+
+            'itemId'            => $retorno['items']['item']['id'],
+            'itemDescription'   => $retorno['items']['item']['description'],
+            'itemQuantity'      => $retorno['items']['item']['quantity'],
+            'itemAmount'        => $retorno['items']['item']['amount']
+
+
+        ]);        
+    }
 }

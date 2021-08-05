@@ -25,9 +25,6 @@ Auth::routes();
 
 Route::get('/cadastro/{plano?}/{periodo?}', [ControllerHome::class,'home'])->name('home');
 
-
-
-
 Route::get('/getsession', [ControllerCadastro::class,'getSession'])->name('getsession');
 
 Route::get('/getplan/{plano}/{periodo}', [ControllerPlans::class,'get_plan'])->name('getplan');
@@ -37,6 +34,12 @@ Route::post('/payment/boleto', [ControllerCadastro::class,'boleto'])->name('paym
 
 Route::get('consultar_transaction/{code}', [PostbackController::class,'transaction_code'])->name('consultar_transaction');
 Route::get('consultar_notification/{code}', [PostbackController::class,'consultar_notificacao'])->name('consultar_notificacao');
+
+
+Route::get('autorizacao', [PostbackController::class,'autorizacao'])->name('autorizacao');
+Route::get('consultar_autorizacao', [PostbackController::class,'consultar_autorizacao'])->name('consultar_autorizacao');
+
+
 
 
 

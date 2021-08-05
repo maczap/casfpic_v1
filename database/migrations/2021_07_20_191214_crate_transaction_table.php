@@ -15,12 +15,32 @@ class CrateTransactionTable extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
-            $table->integer('transaction_code');
-            $table->foreignId('user_id');
-            $table->string('status');
-            $table->string('authorization_code')->nullable();
-            $table->integer('amount')->nullable();
-            $table->integer('authorized_amount')->nullable();
+            $table->integer('user_id');
+            $table->dateTime('date');
+            $table->string('code');
+            $table->integer('reference');
+            $table->integer('type');
+            $table->integer('status');
+            $table->dateTime('lastEventDate')->nullable();
+            $table->integer('paymentMethodType');
+            $table->integer('paymentMethodCode');
+            $table->float('grossAmount')->nullable();
+            $table->float('discountAmount')->nullable();
+
+            $table->float('creditorFeesInstallmentFeeAmount')->nullable();
+            $table->float('creditorFeesIntermediationRateAmount')->nullable();
+            $table->float('creditorFeesIntermediationFeeAmount')->nullable();
+
+            $table->float('netAmount')->nullable();
+            $table->float('extraAmount')->nullable();
+            $table->integer('installmentCount')->nullable();
+            $table->integer('itemCount')->nullable();
+
+            $table->integer('itemId');
+            $table->string('itemDescription');
+            $table->integer('itemQuantity');
+            $table->float('itemAmount');
+
             $table->integer('paid_amount')->nullable();
             $table->integer('refunded_amount')->nullable();
             $table->integer('installments')->nullable();
@@ -37,7 +57,7 @@ class CrateTransactionTable extends Migration
             $table->dateTime('boleto_expiration_date')->nullable();
             $table->timestamps();
 
-            $table->foreign('user_id')->references('id')->on('users');    
+             
         
         });
     }

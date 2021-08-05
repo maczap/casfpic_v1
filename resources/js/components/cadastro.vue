@@ -9,7 +9,7 @@
                     <!-- etapa 1 -->
                     <div class="card-body" id="etapa1">
                         <h5 class="card-title">Seja sócio e participe</h5>
-
+                            <p v-if="valorProposta">{{valorProposta.amount}}</p>
                         <div class="input-group mb-3">
                             <span class="input-group-text">Plano</span>
                             <select class="form-select" v-model="plano" id="plano"  >
@@ -228,10 +228,10 @@
 
                                     <div class="form-group  mb-3 " v-if="periodo=='anual'">
                                         
-                                            <select class='browser-default' id='cparcelas' v-if="installments">
-                                                <option value="" disabled selected>Quantidade de Parcelas</option>
-                                                <option v-for="(item, index) in installments" :key="index" :value="index">{{item.quantity}}x de R$ {{formatPrice(item.installmentAmount)}}</option>
-                                            </select>
+                                        <select class='browser-default' id='cparcelas' v-if="installments">
+                                            <option value="" disabled selected>Quantidade de Parcelas</option>
+                                            <option v-for="(item, index) in installments" :key="index" :value="index">{{item.quantity}}x de R$ {{formatPrice(item.installmentAmount)}}</option>
+                                        </select>
                                         
                                     </div>                                        
 
@@ -280,6 +280,8 @@
 
 <script>
 import ViaCep from 'vue-viacep'
+import swal from 'sweetalert';
+
 export default {
         data() {
             return {
@@ -307,7 +309,7 @@ export default {
                 bairro:"",
                 cidade:"",
                 uf:"",
-                cartao_numero:"4444 4444 4444 4444",
+                cartao_numero:"4111 1111 1111 1111",
                 cartao_nome:"MARCOS APARECIDO",
                 cartao_cpf:"26460284822",
                 cartao_nasc:"18/05/1979",
@@ -353,17 +355,21 @@ export default {
                     amount: 500.00,
                     success: function(response) {
                         // Retorna os meios de pagamento disponíveis.
-                        console.log(response.paymentMethods);
+                        // console.log(response.paymentMethods);
                         set.getBrand();
                         
                     },
                     error: function(response) {
         
-                        for (var code in response.errors)
-                        {
-                            $("#alert4").css('display','block');
-                            $("#alert4").html(response.errors[code]);                            
-                        }
+                        // for (var code in response.errors)
+                        // {
+                        //     $("#alert4").css('display','block');
+                        //     $("#alert4").html(response.errors[code]);                            
+                        // }
+                            // console.log(response);
+                                Object.entries(response.errors).forEach(([key, value]) => {
+                                    console.log(value)                                    ;
+                                });                           
                         
                     },
                     complete: function(response) {
@@ -385,15 +391,26 @@ export default {
                     cardBin: numero,
                     success: function(response) {
                         console.log("bandeira "+ response.brand.name);
+                        
                         set.bandeira = response.brand.name;
                         if(set.periodo == "anual"){
+                            console.log("periodo "+ set.periodo);
                             set.getInstallments(response.brand.name);
                         }                         
                     },
                     error: function(response) {
 
-                            $("#alert4").css('display','block');
-                            $("#alert4").html("Verifique o número do cartão");                            
+      
+                    Object.entries(response.errors).forEach(([key, value]) => {
+                        swal({
+                            title: "Erro nos dados do cartão",
+                            text: value,
+                            icon: "error",
+                            button: "OK",
+                        });                                        
+                    });                       
+                            
+                            
                                     
                     },
                     complete: function(response) {
@@ -404,14 +421,14 @@ export default {
             getInstallments(bandeira){
                 let set = this;
 
-                
-                if(this.$route.query.periodo == "anual"){
+                // if(this.periodo == "anual"){
 
                     console.log("get periodo " + this.$route.query.periodo );
 
-                    console.log("amount "+ set.valorProposta.replace(',', '.'));
+                    console.log("amount "+ this.valorProposta.amount);
+
                     PagSeguroDirectPayment.getInstallments({
-                            amount: set.valorProposta.replace(',', '.'),
+                            amount: set.valorProposta.amount,
                             maxInstallmentNoInterest: 0,
                             brand: bandeira,
                             success: function(response){
@@ -420,18 +437,20 @@ export default {
                                 
                             },
                             error: function(response) {
-                                console.log(response);
-                                
                                 Object.entries(response.errors).forEach(([key, value]) => {
-                                    $("#alert4").css('display','block');
-                                    $("#alert4").html(key);                                       
-                                });   
+                                    swal({
+                                        title: "Erro nos dados do cartão",
+                                        text: value,
+                                        icon: "error",
+                                        button: "OK",
+                                    });                                        
+                                });     
                             },
                             complete: function(response){
                                 
                             }
                     });    
-                }        
+                // }        
 
             },               
             async createCardToken(){
@@ -454,16 +473,17 @@ export default {
                             expirationYear:     ano, // Ano da expiração do cartão, é necessário os 4 dígitos.
                             success: function(response) {
                                 set.cardToken = response.card.token;
-                                console.log("cardtoken ");
-                                console.log(response.card.token);
                                 set.cadastro();
                             },
                             error: function(response) {
-                                console.log("card "+response);
                                 Object.entries(response.errors).forEach(([key, value]) => {
-                                    $("#alert4").css('display','block');
-                                    $("#alert4").html(key);      
-                                });  
+                                    swal({
+                                        title: "Erro nos dados do cartão",
+                                        text: value,
+                                        icon: "error",
+                                        button: "OK",
+                                    });                                        
+                                });     
                             },
                             complete: function(response) {
                             
@@ -508,6 +528,7 @@ export default {
 
                     if(item == 5){
                         $("#etapa4").css('display','block');
+                        this.createCardToken();
                     }
                     if(item == 6){
                         $("#etapa4").css('display','block');
@@ -539,37 +560,68 @@ export default {
                     if(this.plano == '' || this.plano == null){
                         $("#alert1").css('display','block');
                         $("#alert1").html("Selecione um plano");
+
+                        swal({
+                            title: "Erro Informe o Plano",
+                            text: "Selecione seu plano para continuar",
+                            icon: "error",
+                            button: "OK",
+                        });                        
                         return false;
                     }                        
                     else if(this.periodo == '' || this.periodo == null){
-                        $("#alert1").css('display','block');
-                        $("#alert1").html("Selecione um período");
+                        swal({
+                            title: "Informe o Período",
+                            text: "Informe o período para continuar",
+                            icon: "error",
+                            button: "OK",
+                        });    
                         return false;
                     }                       
                     else if (!cpf) {
-                        $("#alert1").css('display','block');
-                        $("#alert1").html("CPF Inválido");
+                        swal({
+                            title: "Informe o CPF",
+                            text: "Informe o cpf para continuar",
+                            icon: "error",
+                            button: "OK",
+                        });    
                     
                         return false;
                     }
                     else if(this.nome == ''){
-                        $("#alert1").css('display','block');
-                        $("#alert1").html("Nome Inválido");
+                        swal({
+                            title: "Informe o Nome",
+                            text: "Informe o nome para continuar",
+                            icon: "error",
+                            button: "OK",
+                        });    
                         return false;
                     }                
                     else if(!this.validaEmail() || this.email == ''){
-                        $("#alert1").css('display','block');
-                        $("#alert1").html("E-mail Inválido");          
+                        swal({
+                            title: "Informe o E-mail",
+                            text: "Informe o e-mail para continuar",
+                            icon: "error",
+                            button: "OK",
+                        });          
                         return false;
                     }
                     else if(this.celular.length <15){
-                        $("#alert1").css('display','block');
-                        $("#alert1").html("Celular Inválido");
+                        swal({
+                            title: "Informe o Celular",
+                            text: "Informe o celular para continuar",
+                            icon: "error",
+                            button: "OK",
+                        });    
                         return false;
                     }  
                     else if(this.password.length <6){
-                        $("#alert1").css('display','block');
-                        $("#alert1").html("Senha Inválida");             
+                        swal({
+                            title: "Informe o Senha",
+                            text: "Informe o senha para continuar",
+                            icon: "error",
+                            button: "OK",
+                        });                
                         return false;
                     }       
                 } else if(item == 3){
@@ -577,61 +629,122 @@ export default {
                     let sexo     = $( "#sexo option:selected" ).val();
       
                     if(this.rg == ''){
-                        $("#alert2").css('display','block');
-                        $("#alert2").html("RG Inválido");
+                        swal({
+                            title: "Informe o RG",
+                            text: "Informe o rg para continuar",
+                            icon: "error",
+                            button: "OK",
+                        });    
                         return false;
                     }                    
                     else if(this.nascimento.length <10){
-                        $("#alert2").css('display','block');
-                        $("#alert2").html("Nascimento Inválido");             
+                        swal({
+                            title: "Informe o Nascimento",
+                            text: "Informe o nascimento para continuar",
+                            icon: "error",
+                            button: "OK",
+                        });                
                         return false;
                     }          
                     else if(this.sexo == null || this.sexo == ""){
-                        $("#alert2").css('display','block');
-                        $("#alert2").html("Sexo Inválido");             
+                        swal({
+                            title: "Informe o Sexo",
+                            text: "Informe o sexo para continuar",
+                            icon: "error",
+                            button: "OK",
+                        });              
                         return false;
                     }  
                     else if(this.ecivil == null || this.ecivil == ""){
-                        $("#alert2").css('display','block');
-                        $("#alert2").html("Estado Civil Inválido");             
+                        swal({
+                            title: "Informe o Estado Civil",
+                            text: "Informe o estado civil para continuar",
+                            icon: "error",
+                            button: "OK",
+                        });              
                         return false;
                     }   
-                    else if(this.profissao == '' || this.profissao == null){
-                        $("#alert2").css('display','block');
-                        $("#alert2").html("Profissão Inválida");
+                    else if(this.area == null || this.area == ""){
+                        swal({
+                            title: "Informe a àrea de atuação",
+                            text: "Informe a àrea de atuacao para continuar",
+                            icon: "error",
+                            button: "OK",
+                        });              
                         return false;
-                    }                        
+                    }                       
+                    else if(this.profissao == '' || this.profissao == null){
+                        swal({
+                            title: "Informe a Profissão",
+                            text: "Informe a profissão para continuar",
+                            icon: "error",
+                            button: "OK",
+                        });    
+                        return false;
+                    }       
+                    else if(this.nomemae == '' || this.nomemae == null){
+                        swal({
+                            title: "Informe o Nome da Mãe",
+                            text: "Informe o Nome da Mãe para continuar",
+                            icon: "error",
+                            button: "OK",
+                        });    
+                        return false;
+                    }                                      
                 } else if(item == 4){
-                    // $("#etapa3").css('display','block');
-                    console.log("etapas "+item);
+                    
                     if(this.cep == '' || this.cep == null){
-                        $("#alert3").css('display','block');
-                        $("#alert3").html("CEP Inválido");
+                        swal({
+                            title: "Informe o CEP",
+                            text: "Informe o CEP para continuar",
+                            icon: "error",
+                            button: "OK",
+                        });    
                         return false;
                     }     
                     else if(this.end == '' || this.end == null){
-                        $("#alert3").css('display','block');
-                        $("#alert3").html("Endereço Inválido");
+                        swal({
+                            title: "Informe o Endereço",
+                            text: "Informe o endereço para continuar",
+                            icon: "error",
+                            button: "OK",
+                        });    
                         return false;
                     }         
                     else if(this.bairro == '' || this.bairro == null){
-                        $("#alert3").css('display','block');
-                        $("#alert3").html("Bairro Inválido");
+                        swal({
+                            title: "Informe o Bairro",
+                            text: "Informe o bairro para continuar",
+                            icon: "error",
+                            button: "OK",
+                        });    
                         return false;
                     }    
                     else if(this.numero == '' || this.numero == null){
-                        $("#alert3").css('display','block');
-                        $("#alert3").html("Numero Inválido");
+                        swal({
+                            title: "Informe o Número",
+                            text: "Informe o número para continuar",
+                            icon: "error",
+                            button: "OK",
+                        });    
                         return false;
                     }   
                     else if(this.cidade == '' || this.cidade == null){
-                        $("#alert3").css('display','block');
-                        $("#alert3").html("Cidade Inválida");
+                        swal({
+                            title: "Informe a Cidade",
+                            text: "Informe a cidade para continuar",
+                            icon: "error",
+                            button: "OK",
+                        });    
                         return false;
                     }      
                     else if(this.uf == '' || this.uf == null){
-                        $("#alert3").css('display','block');
-                        $("#alert3").html("UF Inválida");
+                        swal({
+                            title: "Informe o Estado",
+                            text: "Informe o estado para continuar",
+                            icon: "error",
+                            button: "OK",
+                        });    
                         return false;
                     }                                                                                                   
                 } else if(item == 5 && tipo == "credit_card"){
@@ -640,39 +753,67 @@ export default {
                     let validade_cartao = this.cartao_validade.replace(/\//g, '');
                     let cpf_cartao = this.validaCPFCARTAO();
                     let cvv_cartao        = $("#cartao_cvv").val();
-                    if(numero_cartao.length < 16){
-                            $("#alert4").css('display','block');
-                            $("#alert4").html("Cartão Inválido");                                  
+                    if(numero_cartao.length < 16 || numero_cartao == "" || numero_cartao == null){
+                        swal({
+                            title: "Informe o Número do Cartão",
+                            text: "Informe o número do cartão para continuar",
+                            icon: "error",
+                            button: "OK",
+                        });                                   
                         return false;
                     }       
                     else if(this.cartao_nome == '' || this.cartao_nome == null){
-                        $("#alert4").css('display','block');
-                        $("#alert4").html("Informe ao nome no cartão");
+                        swal({
+                            title: "Informe o Nome do Cartão",
+                            text: "Informe o Nome do Cartão para continuar",
+                            icon: "error",
+                            button: "OK",
+                        });    
                         return false;
                     }          
                     else if (!cpf_cartao) {
-                        $("#alert4").css('display','block');
-                        $("#alert4").html("CPF no cartão Inválido");
+                        swal({
+                            title: "Informe o CPF",
+                            text: "Informe o CPF do dono do Cartão",
+                            icon: "error",
+                            button: "OK",
+                        });    
                         return false;
                     }            
                     else if(this.cartao_nasc.length <10){
-                        $("#alert4").css('display','block');
-                        $("#alert4").html("Nascimento Inválido");             
+                        swal({
+                            title: "Informe o Nascimento",
+                            text: "Informe o nascimento do dono do Cartão",
+                            icon: "error",
+                            button: "OK",
+                        });               
                         return false;
                     }            
                     else if(this.cartao_celular.length <15){
-                        $("#alert4").css('display','block');
-                        $("#alert4").html("Celular Inválido");
+                        swal({
+                            title: "Informe o Celular",
+                            text: "Informe o celular do dono do Cartão",
+                            icon: "error",
+                            button: "OK",
+                        });    
                         return false;
                     }                                   
                     else if(validade_cartao.length < 4){
-                        $("#alert4").css('display','block');
-                        $("#alert4").html("Validade Inválida");
+                        swal({
+                            title: "Informe a Validade",
+                            text: "Informe a validade do Cartão",
+                            icon: "error",
+                            button: "OK",
+                        });    
                         return false;
                     }    
                     else if(cvv_cartao.length < 3){
-                        $("#alert4").css('display','block');
-                        $("#alert4").html("CVV Inválido");
+                        swal({
+                            title: "Informe o CVV",
+                            text: "Informe o CVV do Cartão",
+                            icon: "error",
+                            button: "OK",
+                        });    
                         return false;
                     }      
                     else{
@@ -688,8 +829,8 @@ export default {
             },    
             cadastro: function(){
 
-                $('#finalizar').text('Enviando...');
-                $('#finalizar').prop('disabled', true);
+                // $('#finalizar').text('Enviando...');
+                // $('#finalizar').prop('disabled', true);
                  
                 let set = this;
                 let plano     = this.plano;
@@ -725,9 +866,20 @@ export default {
                 let qtdParcelas  = null;
                 
 
-            if(this.periodo == "anual"){
-                qtdParcelas = $( "#cparcelas option:selected" ).val();
-            }                
+                if(this.periodo == "anual"){
+
+                    qtdParcelas = $( "#cparcelas option:selected" ).val();
+
+                    if(qtdParcelas <= 0){
+                        swal({
+                            title: "Informe a Quantidade de Parcelas",
+                            text: "Selecione a quantidade e tente novamente",
+                            icon: "error",
+                            button: "OK",
+                        });  
+                    }
+                  
+                }                
 
                 this.$http.post('http://127.0.0.1:8000/payment/credit', {
                     plano:          plano,
@@ -770,18 +922,23 @@ export default {
 
                     _token:         csrfToken
                 }).then(response => {
-                    console.log(response);
 
                     if(response.body.error){
                         
                         Object.entries(response.body.error).forEach(([key, value]) => {
-                            $("#alert4").css('display','block');
-                            $("#alert4").html(value);
+                            swal({
+                                title: "Erro",
+                                text: value,
+                                icon: "error",
+                                button: "OK",
+                            });  
                             return false;
-                        });                    
+                        });      
+                        
+                        
                     }    
                     else {
-                        window.location.href = 'http://127.0.0.1:8000/success';
+                        // window.location.href = 'http://127.0.0.1:8000/success';
                     }     
                     $('#finalizar').text('Finalizar Cadastro');
                     $('#finalizar').prop('disabled', false);                    
@@ -979,7 +1136,7 @@ export default {
             },      
             valorProposta() {
                 let total=0;
-                total = this.$store.state.plan.amount;
+                total = this.$store.state.plan;
                 return total;
             },                   
         },
@@ -1000,9 +1157,9 @@ export default {
             this.$store.dispatch('get_plan', dados);
             // console.log(this.plano + " " + this.periodo)
 
-            
-
             $(document).ready(function($){
+
+  
 
                 $("#etapa1").css('display','block');
                 $("#etapa2").css('display','none');
@@ -1010,8 +1167,6 @@ export default {
                 $("#etapa4").css('display','none');
 
                 $("#alert4_boleto").css('display','none');
-
-                
 
                 $("#alert1").css('display','none');
                 $("#alert2").css('display','none');

@@ -17,6 +17,15 @@ class CreateUsersTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
+            $table->boolean('admin')->default(0);
+            $table->boolean('supervisor')->default(0);
+            $table->boolean('promotor')->default(0);
+            $table->boolean('cliente')->default(0);
+
+            $table->string('code_pagseguro')->nullable();
+            $table->integer('super_id')->nullable();
+            $table->string('promotor_code',6)->nullable();
+
 
             $table->string('cep',12)->nullable();
             $table->string('endereco',80)->nullable();
@@ -41,6 +50,7 @@ class CreateUsersTable extends Migration
             $table->timestamps();
         });
     }
+
 
     /**
      * Reverse the migrations.

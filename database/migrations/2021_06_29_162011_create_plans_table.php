@@ -16,7 +16,7 @@ class CreatePlansTable extends Migration
         Schema::create('plans', function (Blueprint $table) {
             $table->id();
             $table->integer('codigo');
-            $table->float('amount', 8, 2);
+            $table->STRING('amount',15);
             $table->string('descricao');
             $table->string('nick');
             $table->string('periodo');
