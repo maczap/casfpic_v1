@@ -117,7 +117,6 @@ class PostbackController extends Controller
         //     $this->consultar_notificacao($notificationCode);
         // } 
 
-        
 
     }
 
