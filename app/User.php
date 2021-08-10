@@ -44,4 +44,11 @@ class User extends Authenticatable
     {
         return $this->hasMany(Subscription::class);
     }    
+
+    public function PromotorId($code){
+        return User::select("code_pagseguro")
+                ->where("promotor_code", $code)
+                ->where("promotor", 1)
+                ->first();
+    }    
 }

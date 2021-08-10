@@ -15,10 +15,16 @@ class CreateSubscriptionsTable extends Migration
     {
         Schema::create('subscriptions', function (Blueprint $table) {
             $table->id();
-            $table->integer('subscription_code');
+            $table->string('transaction_code')->nullable();
             $table->foreignId('plan_id');
             $table->foreignId('user_id');
+            $table->string('amount',15)->nullable();
+            $table->dateTime('vencimento');
             $table->string('status');
+            $table->string('periodo');
+            $table->string('payment_method');
+            $table->string('manage_url')->nullable();
+            
             $table->timestamps();
 
             $table->foreign('plan_id')->references('id')->on('plans');

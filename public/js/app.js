@@ -2364,34 +2364,36 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       });
     },
     getInstallments: function getInstallments(bandeira) {
-      var set = this; // if(this.periodo == "anual"){
+      var set = this;
 
-      console.log("get periodo " + this.$route.query.periodo);
-      console.log("amount " + this.valorProposta.amount);
-      PagSeguroDirectPayment.getInstallments({
-        amount: set.valorProposta.amount,
-        maxInstallmentNoInterest: 0,
-        brand: bandeira,
-        success: function success(response) {
-          console.log(response.installments[bandeira]);
-          set.installments = response.installments[bandeira];
-        },
-        error: function error(response) {
-          Object.entries(response.errors).forEach(function (_ref5) {
-            var _ref6 = _slicedToArray(_ref5, 2),
-                key = _ref6[0],
-                value = _ref6[1];
+      if (this.periodo == "anual") {
+        console.log("get periodo " + this.periodo);
+        console.log("amount " + this.valorProposta.amount);
+        PagSeguroDirectPayment.getInstallments({
+          amount: set.valorProposta.amount,
+          maxInstallmentNoInterest: 0,
+          brand: bandeira,
+          success: function success(response) {
+            console.log(response.installments[bandeira]);
+            set.installments = response.installments[bandeira];
+          },
+          error: function error(response) {
+            Object.entries(response.errors).forEach(function (_ref5) {
+              var _ref6 = _slicedToArray(_ref5, 2),
+                  key = _ref6[0],
+                  value = _ref6[1];
 
-            sweetalert__WEBPACK_IMPORTED_MODULE_2___default()({
-              title: "Erro nos dados do cartão",
-              text: value,
-              icon: "error",
-              button: "OK"
+              sweetalert__WEBPACK_IMPORTED_MODULE_2___default()({
+                title: "Erro no Número do cartão",
+                text: value,
+                icon: "error",
+                button: "OK"
+              });
             });
-          });
-        },
-        complete: function complete(response) {}
-      }); // }        
+          },
+          complete: function complete(response) {}
+        });
+      }
     },
     createCardToken: function createCardToken() {
       var _this2 = this;
@@ -2502,7 +2504,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
         if (item == 6) {
           $("#etapa4").css('display', 'block');
-          this.boleto();
+          this.carregarBoleto();
         }
       }
     },
@@ -2528,8 +2530,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         var cpf = this.validaCPF();
 
         if (this.plano == '' || this.plano == null) {
-          $("#alert1").css('display', 'block');
-          $("#alert1").html("Selecione um plano");
           sweetalert__WEBPACK_IMPORTED_MODULE_2___default()({
             title: "Erro Informe o Plano",
             text: "Selecione seu plano para continuar",
@@ -2800,13 +2800,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       if (this.periodo == "anual") {
         qtdParcelas = $("#cparcelas option:selected").val();
 
-        if (qtdParcelas <= 0) {
+        if (qtdParcelas < 0 || qtdParcelas == "" || qtdParcelas == null) {
           sweetalert__WEBPACK_IMPORTED_MODULE_2___default()({
             title: "Informe a Quantidade de Parcelas",
             text: "Selecione a quantidade e tente novamente",
             icon: "error",
             button: "OK"
           });
+          return false;
         }
       }
 
@@ -2843,11 +2844,25 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         cardToken: set.cardToken,
         _token: csrfToken
       }).then(function (response) {
-        if (response.body.error) {
-          Object.entries(response.body.error).forEach(function (_ref9) {
+        if (response.body.errors) {
+          Object.entries(response.body.errors).forEach(function (_ref9) {
             var _ref10 = _slicedToArray(_ref9, 2),
                 key = _ref10[0],
                 value = _ref10[1];
+
+            sweetalert__WEBPACK_IMPORTED_MODULE_2___default()({
+              title: key,
+              text: value[0],
+              icon: "error",
+              button: "OK"
+            });
+          });
+          return false;
+        } else if (response.body.error) {
+          Object.entries(response.body.error).forEach(function (_ref11) {
+            var _ref12 = _slicedToArray(_ref11, 2),
+                key = _ref12[0],
+                value = _ref12[1];
 
             sweetalert__WEBPACK_IMPORTED_MODULE_2___default()({
               title: "Erro",
@@ -2855,26 +2870,67 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               icon: "error",
               button: "OK"
             });
-            return false;
           });
-        } else {// window.location.href = 'http://127.0.0.1:8000/success';
+          return false;
+        } else {
+          console.log(response.body); // window.location.href = 'http://127.0.0.1:8000/success';
         }
 
         $('#finalizar').text('Finalizar Cadastro');
         $('#finalizar').prop('disabled', false);
       })["catch"](function (error) {
-        console.log(error);
+        if (error.body) {
+          sweetalert__WEBPACK_IMPORTED_MODULE_2___default()({
+            title: "Erro",
+            text: error.body.message,
+            icon: "error",
+            button: "OK"
+          });
+        }
+
         $('#finalizar').text('Finalizar Cadastro');
         $('#finalizar').prop('disabled', false);
       });
       console.log("saiu cadastro");
     },
+    carregarBoleto: function carregarBoleto() {
+      var _this3 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
+        var set;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                set = _this3;
+
+                if (_this3.sessionId != null) {
+                  PagSeguroDirectPayment.onSenderHashReady(function (response) {
+                    if (response.status == "error") {
+                      console.log(response.message);
+                      return false;
+                    }
+
+                    set.hash = response.senderHash;
+                    set.setSessionId(set.sessionId);
+                    set.boleto();
+                  });
+                }
+
+              case 2:
+              case "end":
+                return _context4.stop();
+            }
+          }
+        }, _callee4);
+      }))();
+    },
     boleto: function boleto() {
       var _this$$http$post;
 
-      $('#finalizar_boleto').text('Aguarde...');
-      $('#finalizar_boleto').prop('disabled', true);
-      var set = this;
+      var set = this; // $('#finalizar_boleto').text('Aguarde...');
+      // $('#finalizar_boleto').prop('disabled', true);
+
       var plano = this.plano;
       var periodo = this.periodo;
       var cpf = this.cpf;
@@ -2909,20 +2965,39 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         sexo: sexo,
         ecivil: ecivil,
         profissao: profissao
-      }, _defineProperty(_this$$http$post, "profissao", profissao), _defineProperty(_this$$http$post, "cep", cep), _defineProperty(_this$$http$post, "endereco", endereco), _defineProperty(_this$$http$post, "bairro", bairro), _defineProperty(_this$$http$post, "numero", numero), _defineProperty(_this$$http$post, "complemento", complemento), _defineProperty(_this$$http$post, "cidade", cidade), _defineProperty(_this$$http$post, "uf", uf), _defineProperty(_this$$http$post, "_token", csrfToken), _this$$http$post)).then(function (response) {
+      }, _defineProperty(_this$$http$post, "profissao", profissao), _defineProperty(_this$$http$post, "cep", cep), _defineProperty(_this$$http$post, "endereco", endereco), _defineProperty(_this$$http$post, "bairro", bairro), _defineProperty(_this$$http$post, "numero", numero), _defineProperty(_this$$http$post, "complemento", complemento), _defineProperty(_this$$http$post, "cidade", cidade), _defineProperty(_this$$http$post, "uf", uf), _defineProperty(_this$$http$post, "hashseller", set.hash), _defineProperty(_this$$http$post, "_token", csrfToken), _this$$http$post)).then(function (response) {
         console.log(response);
 
-        if (response.body.error) {
-          Object.entries(response.body.error).forEach(function (_ref11) {
-            var _ref12 = _slicedToArray(_ref11, 2),
-                key = _ref12[0],
-                value = _ref12[1];
+        if (response.body.errors) {
+          Object.entries(response.body.errors).forEach(function (_ref13) {
+            var _ref14 = _slicedToArray(_ref13, 2),
+                key = _ref14[0],
+                value = _ref14[1];
 
-            $("#alert4_boleto").css('display', 'block');
-            $("#alert4_boleto").html(value);
-            return false;
+            sweetalert__WEBPACK_IMPORTED_MODULE_2___default()({
+              title: key,
+              text: value[0],
+              icon: "error",
+              button: "OK"
+            });
           });
-        } else {// window.location.href = 'http://127.0.0.1:8000/success';
+          return false;
+        } else if (response.body.error) {
+          Object.entries(response.body.error).forEach(function (_ref15) {
+            var _ref16 = _slicedToArray(_ref15, 2),
+                key = _ref16[0],
+                value = _ref16[1];
+
+            sweetalert__WEBPACK_IMPORTED_MODULE_2___default()({
+              title: "Erro",
+              text: value,
+              icon: "error",
+              button: "OK"
+            });
+          });
+          return false;
+        } else {
+          console.log(response.body); // window.location.href = 'http://127.0.0.1:8000/success';
         }
 
         $('#finalizar_boleto').text('Gerar Boleto');

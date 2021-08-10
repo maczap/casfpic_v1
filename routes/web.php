@@ -5,6 +5,7 @@ use App\Http\Controllers\ControllerHome;
 use App\Http\Controllers\ControllerCadastro;
 use App\Http\Controllers\ControllerPlans;
 use App\Http\Controllers\PostbackController;
+use App\Http\Controllers\ControllerPromotores;
 
 /*
 |--------------------------------------------------------------------------
@@ -44,5 +45,7 @@ Route::get('consultar_autorizacao', [PostbackController::class,'consultar_autori
 
 
 Route::get('success', [ControllerCadastro::class,'success'])->name('success');
+
+Route::get('get-promotor/{code}', [ControllerPromotores::class,'getPromotor'])->name('getPromotor');
 
 

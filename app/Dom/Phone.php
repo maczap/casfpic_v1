@@ -16,7 +16,7 @@ class Phone extends Model
     public function __construct(int $areaCode, int $number)
     {
 
-        if (!$areaCode || $areaCode < 11 || $areaCode > 99)
+        if (!$areaCode || $areaCode < 11 || $areaCode > 99 || $areaCode == "")
         {
 
             throw new Exception("Informe o DDD do Telefone");

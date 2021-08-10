@@ -41,7 +41,8 @@ class CreateUsersTable extends Migration
 
             $table->date('nascimento')->nullable();
             $table->string('ecivil',12)->nullable();
-            $table->string('profissao',40)->nullable();
+            $table->string('area_atuacao',100)->nullable();
+            $table->string('profissao',80)->nullable();
             $table->string('celular',15)->nullable();
 
             $table->timestamp('email_verified_at')->nullable();

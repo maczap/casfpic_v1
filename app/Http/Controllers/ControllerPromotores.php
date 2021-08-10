@@ -4,11 +4,47 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use App\Promotores;
 
 class ControllerPromotores extends Controller
 {
 
+    private $_promotor = "PUBBD3CE3ECC27B43F6B2D2B8C64BCE27D8";
+    private $_supervisor = "PUBBE2CA50F60D249DEA62CB547437BD408";
 
+    public function getPromotor($code=null)
+    {
+        $this->promotores = new Promotores();
+
+        if($code == "" || $code== null)
+        {
+            $promotor   = $_promotor;
+            $supervisor = $_supervisor;               
+
+            $data = [
+                'promotor'   => $promotor,
+                'supervisor' => $supervisor
+            ];            
+
+        } else {
+
+            $dados = $this->promotores->getPromotor($code);
+    
+            if(isset($dados[0])){
+                $promotor   = $dados[0]->promotor;
+                $supervisor = $dados[0]->supervisor;
+            } else {
+                $promotor   = $this->_promotor;
+                $supervisor = $this->_supervisor;          
+            }
+    
+            $data = [
+                'promotor'   => $promotor,
+                'supervisor' => $supervisor
+            ];
+        }
+        return $data;
+    }
 
 
 

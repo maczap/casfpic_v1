@@ -118,18 +118,12 @@ class Payment extends Model
             
             break;
 
-            // case "boleto"
-
-            // //bank
-            // break;
-
 
         }
 
         $split = $this->split->getDOMElement();
         $split = $dom->importNode($split, true);
         $split = $payment->appendChild($split);        
-
 
         $recebedoes = $this->split->recebedores();
         $recebedoes = $dom->importNode($recebedoes, true);

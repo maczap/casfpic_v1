@@ -13,11 +13,12 @@ class Split extends Model
     private $receiver;
     private $amount;
 
-    public function __construct(float $amount, $receiver)
+    public function __construct($data, float $amount, $method = "creditCard")
     {
 
         $this->amount      = \number_format($amount,2,".","");
-        $this->receiver    = $receiver;
+        $this->receiver    = $data;
+        $this->method = $method;
     }
 
 
@@ -29,7 +30,7 @@ class Split extends Model
         $primaryReceiver = $dom->createElement("primaryReceiver");
         $primaryReceiver = $dom->appendChild($primaryReceiver);
 
-        $publicKey = $dom->createElement("publicKey", "PUBBD3CE3ECC27B43F6B2D2B8C64BCE27D8");
+        $publicKey = $dom->createElement("publicKey", "PUB2DDF1F0179F8449BADF6BD57F186B34F");
         $publicKey = $primaryReceiver->appendChild($publicKey);
 
         return $primaryReceiver;
@@ -41,19 +42,42 @@ class Split extends Model
         $dom = new \DOMDocument();
 
         $receivers = $dom->createElement("receivers");
-        $receivers = $dom->appendChild($receivers);     
+        $receivers = $dom->appendChild($receivers);   
         
+        
+        foreach ($this->receiver as $key => $value) {
+        
+            if($key == "promotor"){
+                $chave = $value; 
+                $valor_descontado = (36 / 100) * $this->amount ; 
+            }
+            if($key == "supervisor"){
+                $chave = $value;
+                $valor_descontado = (6 / 100) * $this->amount ; 
+            }       
+            
             $receiver = $dom->createElement("receiver");
             $receiver = $receivers->appendChild($receiver);   
             
-                $publicKey = $dom->createElement("publicKey", $this->receiver);
+                $publicKey = $dom->createElement("publicKey", $chave);
                 $publicKey = $receiver->appendChild($publicKey); 
 
                 $split = $dom->createElement("split");
                 $split = $receiver->appendChild($split);  
             
-                    $amount = $dom->createElement("amount", $this->amount);
-                    $amount = $split->appendChild($amount);       
+                    $amount = $dom->createElement("amount", number_format($valor_descontado, 2 ,".", "" ));
+                    $amount = $split->appendChild($amount);   
+                    
+                    if($this->method =="boleto"){
+                        $ratePercent = $dom->createElement("ratePercent", 0.00);
+                        $ratePercent = $split->appendChild($ratePercent);     
+                        
+                        $feePercent = $dom->createElement("feePercent", 0.00);
+                        $feePercent = $split->appendChild($feePercent);                        
+                    }
+              
+            
+        }        
 
         return $receivers;
     }    

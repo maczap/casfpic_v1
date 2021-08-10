@@ -421,9 +421,9 @@ export default {
             getInstallments(bandeira){
                 let set = this;
 
-                // if(this.periodo == "anual"){
+                if(this.periodo == "anual"){
 
-                    console.log("get periodo " + this.$route.query.periodo );
+                    console.log("get periodo " + this.periodo );
 
                     console.log("amount "+ this.valorProposta.amount);
 
@@ -439,7 +439,7 @@ export default {
                             error: function(response) {
                                 Object.entries(response.errors).forEach(([key, value]) => {
                                     swal({
-                                        title: "Erro nos dados do cartão",
+                                        title: "Erro no Número do cartão",
                                         text: value,
                                         icon: "error",
                                         button: "OK",
@@ -450,7 +450,7 @@ export default {
                                 
                             }
                     });    
-                // }        
+                }        
 
             },               
             async createCardToken(){
@@ -532,7 +532,7 @@ export default {
                     }
                     if(item == 6){
                         $("#etapa4").css('display','block');
-                        this.boleto();
+                        this.carregarBoleto();
                     }                    
                 }
             },
@@ -558,8 +558,6 @@ export default {
                 if(item == 2){
                     let cpf      = this.validaCPF();
                     if(this.plano == '' || this.plano == null){
-                        $("#alert1").css('display','block');
-                        $("#alert1").html("Selecione um plano");
 
                         swal({
                             title: "Erro Informe o Plano",
@@ -870,13 +868,15 @@ export default {
 
                     qtdParcelas = $( "#cparcelas option:selected" ).val();
 
-                    if(qtdParcelas <= 0){
+                    if(qtdParcelas < 0 || qtdParcelas == "" || qtdParcelas == null){
                         swal({
                             title: "Informe a Quantidade de Parcelas",
                             text: "Selecione a quantidade e tente novamente",
                             icon: "error",
                             button: "OK",
                         });  
+
+                        return false;
                     }
                   
                 }                
@@ -923,7 +923,22 @@ export default {
                     _token:         csrfToken
                 }).then(response => {
 
-                    if(response.body.error){
+                    
+                    
+                    if(response.body.errors){
+                           Object.entries(response.body.errors).forEach(([key, value]) => {
+   
+                                swal({
+                                        title: key,
+                                        text: value[0],
+                                        icon: "error",
+                                        button: "OK",
+                                });                                              
+                            });   
+                            return false;    
+                    }         
+                  
+                    else if(response.body.error){
                         
                         Object.entries(response.body.error).forEach(([key, value]) => {
                             swal({
@@ -932,18 +947,26 @@ export default {
                                 icon: "error",
                                 button: "OK",
                             });  
-                            return false;
+                            
                         });      
-                        
+                        return false;
                         
                     }    
                     else {
+                        console.log(response.body);
                         // window.location.href = 'http://127.0.0.1:8000/success';
                     }     
                     $('#finalizar').text('Finalizar Cadastro');
                     $('#finalizar').prop('disabled', false);                    
                 }).catch(error => {
-                    console.log(error);
+                    if(error.body){
+                        swal({
+                            title: "Erro",
+                            text: error.body.message,
+                            icon: "error",
+                            button: "OK",
+                        });      
+                    }                
                     $('#finalizar').text('Finalizar Cadastro');
                     $('#finalizar').prop('disabled', false);                    
                 });
@@ -951,13 +974,36 @@ export default {
                 console.log("saiu cadastro");
             },     
 
-
-            boleto: function(){
-
-                $('#finalizar_boleto').text('Aguarde...');
-                $('#finalizar_boleto').prop('disabled', true);
-                 
+            async carregarBoleto(){
                 let set = this;
+
+    
+                if(this.sessionId != null ){
+                    PagSeguroDirectPayment.onSenderHashReady(function(response){
+                        
+                        if(response.status =="error"){
+                            console.log(response.message);
+                            
+                            return false;
+                        }
+                        set.hash = response.senderHash;
+
+                        set.setSessionId(set.sessionId);
+                        set.boleto();
+            
+
+                    });
+                    
+                }
+            },
+            boleto: function(){
+                let set = this;
+                  
+
+                // $('#finalizar_boleto').text('Aguarde...');
+                // $('#finalizar_boleto').prop('disabled', true);
+                 
+                
                 let plano     = this.plano;
                 let periodo   = this.periodo;
                 let cpf       = this.cpf;
@@ -1009,20 +1055,41 @@ export default {
                     complemento:    complemento,
                     cidade:         cidade,
                     uf:             uf,
-
+                    hashseller:     set.hash,
                     _token:         csrfToken
                 }).then(response => {
                     console.log(response);
 
-                    if(response.body.error){
+                    
+                    if(response.body.errors){
+                           Object.entries(response.body.errors).forEach(([key, value]) => {
+   
+                                swal({
+                                        title: key,
+                                        text: value[0],
+                                        icon: "error",
+                                        button: "OK",
+                                });                                              
+                            });   
+                            return false;    
+                    }         
+                  
+                    else if(response.body.error){
                         
                         Object.entries(response.body.error).forEach(([key, value]) => {
-                            $("#alert4_boleto").css('display','block');
-                            $("#alert4_boleto").html(value);
-                            return false;
-                        });                    
+                            swal({
+                                title: "Erro",
+                                text: value,
+                                icon: "error",
+                                button: "OK",
+                            });  
+                            
+                        });      
+                        return false;
+                        
                     }    
                     else {
+                        console.log(response.body);
                         // window.location.href = 'http://127.0.0.1:8000/success';
                     }     
                     $('#finalizar_boleto').text('Gerar Boleto');

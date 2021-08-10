@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePlansTable extends Migration
+class CreatePostbacksTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,9 @@ class CreatePlansTable extends Migration
      */
     public function up()
     {
-        Schema::create('plans', function (Blueprint $table) {
+        Schema::create('postbacks', function (Blueprint $table) {
             $table->id();
-            $table->integer('codigo');
-            $table->string('amount',15);
-            $table->string('descricao');
-            $table->string('nick');
-            $table->string('periodo');
+            $table->mediumText('postback');
             $table->timestamps();
         });
     }
@@ -31,6 +27,6 @@ class CreatePlansTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('plans');
+        Schema::dropIfExists('postbacks');
     }
 }

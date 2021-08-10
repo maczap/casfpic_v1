@@ -10,6 +10,8 @@ use App\Plan;
 use App\Dom\Document;
 use App\Dom\Phone;
 use App\Dom\billingAddress;
+use App\Dom\shippingAddress;
+
 use App\Dom\Address;
 use App\Dom\Sender;
 use App\Dom\Holder;
@@ -22,6 +24,7 @@ use App\CreditCard;
 use App\Subscription;
 use App\Services\Pagseguro;
 use DB;
+Use \Carbon\Carbon;
 
 use DOMDocument;
 use Exception;
@@ -32,10 +35,13 @@ class ControllerCadastro extends Controller
 
     private $pagseguro;
     private $post;
+    private $promotores;
 
-    public function __construct(Pagseguro $pagseguro, PostbackController $post){
-        $this->pagseguro = $pagseguro;
-        $this->post = $post;
+    public function __construct(Pagseguro $pagseguro, PostbackController $post, ControllerPromotores $promotores){
+
+        $this->pagseguro  = $pagseguro;
+        $this->post       = $post;
+        $this->promotores = $promotores;
     }
 
     public function success(){
@@ -63,11 +69,23 @@ class ControllerCadastro extends Controller
 
     public function cadastro(Request $request)
     {
-
-        
-
         $payment_methods = $request["payment_method"];
 
+        $promotor_id = null;
+        $cookie = \Request::cookie('prmntcfpc');
+        if(isset($cookie)){
+            
+            $promotor = $this->promotores->getPromotor($cookie);
+            // if(isset($promotor->promotor_id)){
+            //     $promotor_id = $promotor->promotor_id;
+            // } 
+        }  else {
+            $promotor = $this->promotores->getPromotor(78979);
+        }      
+        
+
+
+        
        
         if($payment_methods == "credit_card")
         {
@@ -122,7 +140,7 @@ class ControllerCadastro extends Controller
 
         $validator = Validator::make($request->all(),$rules, $messages);
         if ($validator->fails()) {
-            return response()->json(['error' => $validator->errors()]);
+            return response()->json(['errors' => $validator->errors()]);
         } 
         else {
                 
@@ -195,7 +213,6 @@ class ControllerCadastro extends Controller
 
                 $shipping = new Shipping();
 
-                            
                 $installment = new Installment( $request["nparcela"], number_format($request["totalparcela"], 2 ,".", "" ));
 
                 $billingAddress = new billingAddress(
@@ -225,167 +242,119 @@ class ControllerCadastro extends Controller
                 );
 
                 $split = new Split(
-                    10.00,
-                    "PUB2DDF1F0179F8449BADF6BD57F186B34F"
+                    $promotor,
+                    number_format($plano_amount, 2 ,".", "" ),
+                    "creditCard"
+
                     
-                );                
-
-            $payment = new Payment(102, $sender, $shipping, $item, $split);
-            $payment->setCreditCard($creditCard);
-
-            $response = $this->pagseguro->sendTransaction($payment);
-
-            
-
-            if(isset($response["code"])){
-
+                );      
                 
-               $this->post->createTransaction($response);
-                return $response["code"];
-            }
-              
+                
+
+
+                // return $response["code"];
             
-
-
-            return [];
             
-            DB::beginTransaction();
-            try{
+                DB::beginTransaction();
+                try{
 
 
-                $dados = User::create([
-                    'name'      => \strtoupper($request['name']),
-                    'email'     => $request['email'],
-                    'cpf'       => $request['cpf'],
-                    'rg'        => $request['rg'],
-                    'sexo'      => $request['sexo'],
-                    'cep'       => $request['cep'],
-                    'endereco'  => \strtoupper($request['endereco']),
-                    'numero'    => $request['numero'],
-                    'complemento'   => \strtoupper($request['complemento']),
-                    'bairro'    => \strtoupper($request['bairro']),
-                    'cidade'    => \strtoupper($request['cidade']),
-                    'uf'        => \strtoupper($request['uf']),
-                    'celular'   => $request['celular'],
-                    'nascimento'=> $nascimento,
-                    'ecivil'    => $request['ecivil'],
-                    'profissao' => \strtoupper($request['profissao']),
-                    'area_atuacao' => $request['area'],
-                    'password' => Hash::make($senha)
-                ]);
+                    $dados = User::create([
+                        'name'      => \strtoupper($request['name']),
+                        'email'     => $request['email'],
+                        'cpf'       => $request['cpf'],
+                        'rg'        => $request['rg'],
+                        'sexo'      => $request['sexo'],
+                        'cep'       => $request['cep'],
+                        'endereco'  => \strtoupper($request['endereco']),
+                        'numero'    => $request['numero'],
+                        'complemento'   => \strtoupper($request['complemento']),
+                        'bairro'    => \strtoupper($request['bairro']),
+                        'cidade'    => \strtoupper($request['cidade']),
+                        'uf'        => \strtoupper($request['uf']),
+                        'celular'   => $request['celular'],
+                        'nascimento'=> $nascimento,
+                        'ecivil'    => $request['ecivil'],
+                        'profissao' => \strtoupper($request['profissao']),
+                        'area_atuacao' => $request['area'],
+                        'password' => Hash::make($senha)
+                    ]);
 
 
 
 
-                if(isset($dados["id"])){
+                    if(isset($dados["id"])){
 
-                    $user = new User;
-                    $user = $user::find($dados["id"]);  
+
+                        $payment = new Payment($dados["id"], $sender, $shipping, $item, $split);
+                        $payment->setCreditCard($creditCard);
+            
+                        $response = $this->pagseguro->sendTransaction($payment);
+                        
+                            
+                        if(isset($response["code"])){
+            
+                            $this->post->createTransaction($response);
+
+                            $user = new User;
+                            $user = $user::find($dados["id"]);  
+                            
+                            $dados_sb = $user->subscriptions()->create([
+                                'subscription_code' => $response["code"],
+                                'plan_id'           => $plano_id ,
+                                'user_id'           => $user->id,
+                                'status'            => $response["status"],
+                                'periodo'            => $periodo,
+                                'manage_url'        => null,
+                                'payment_method'    => "credit_card"
+                            ]);    
+
+                            $ddd        = $this->clear(substr($request['celular'], 1, 2));
+                            $celular    = $this->clear(substr($request['celular'], 4, 11));    
+                            
+                            $cpf = new Document(Document::CPF, $this->clear($request['cpf']));
+
+                                                            
+                        }                    
+                    }
                     
-                    $dados_sb = $user->subscriptions()->create([
-                        'subscription_code' => null,
-                        'plan_id'           => $plano_id ,
-                        'user_id'           => $user->id,
-                        'status'            => "Analisando",
-                        'periodo'            => $periodo,
-                        'manage_url'        => null,
-                        'payment_method'    => "credit_card"
-                    ]);    
+                    
 
-                    if(isset($dados_sb['id'])){
+                    DB::commit();
+                    if(isset($response["code"])){
+                        return $response["code"];
+                    } else {
+                        return [];
+                    }
+                } catch (Exception $e){
+                    \DB::rollback();
+                    return $e;
+                }  
 
-                        $ddd        = $this->clear(substr($request['celular'], 1, 2));
-                        $celular    = $this->clear(substr($request['celular'], 4, 11));    
-                        
-                        $cpf = new Document(Document::CPF, $this->clear($request['cpf']));
+               
+            
 
-                        
-                        
-                        // $DadosArray["email"]            = $this->pagseguro->_email;
-                        // $DadosArray["token"]            = $this->pagseguro->_token;
-                        
-                        // $DadosArray['reference']        = $dados_sb['id'];
-                        // $DadosArray['currency']         = "BRL";
-                        // $DadosArray['notificationURL']  = "https://casfpic.org.br/api/postback";
-                        // //item
-                        // $DadosArray['itemId1']          = $plano_codigo;
-                        // $DadosArray['itemDescription1'] = $plano_name;
-                        // $DadosArray['itemAmount1']      = number_format($plano_amount, 2 ,".", "" );
-                        // $DadosArray['itemQuantity1']    = 1;     
-                        // //comprador
-                        // $DadosArray['senderName']       = \strtoupper($request['name']);
-                        // $DadosArray['senderCPF']        = $this->clear($request['cpf']);
-                        // $DadosArray['senderAreaCode']   = $ddd;
-                        // $DadosArray['senderPhone']      = $celular;
-                        // //'c46290945644411234770@sandbox.pagseguro.com.br'
-                        // // $DadosArray['senderEmail']      = $request['email'];
-                        // $DadosArray['senderEmail']      = "c46290945644411234770@sandbox.pagseguro.com.br";
-                        // // $DadosArray['senderEmail']      = "c46290945644411234770@sandbox.pagseguro.com.br";
-                        // $DadosArray['senderHash']       = $request['hashseller'];
-                        
-                        // $DadosArray['shippingAddressRequired'] = false;
-                        // //endereco
-                        // $DadosArray['billingAddressStreet']         = \strtoupper($request['endereco']);
-                        // $DadosArray['billingAddressNumber']         = $request['numero'];
-                        // $DadosArray['billingAddressComplement']     = \strtoupper($request['complemento']);
-                        // $DadosArray['billingAddressDistrict']       = \strtoupper($request['bairro']);
-                        // $DadosArray['billingAddressPostalCode']     = $this->clear(\strtoupper($request['cep']));
-                        // $DadosArray['billingAddressCity']           = $this->remover_acentos(\strtoupper($request['cidade']));
-                        // $DadosArray['billingAddressState']          = \strtoupper($request['uf']);
-                        // $DadosArray['billingAddressCountry']        = "BRASIL";   
-                        
-                        // $DadosArray['creditCardToken']               = $request["cardToken"];
-                        // $DadosArray['installmentQuantity']           = $request["nparcela"];
-                        // $DadosArray['installmentValue']              = number_format($request["totalparcela"], 2 ,".", "" );
-                        
-                        // //cartao
-                        //     $ddd_cartao = $this->clear(substr($request['cartao_celular'], 1, 2));
-                        //     $celular_cartao = $this->clear(substr($request['cartao_celular'], 4, 11));                            
-                        // $DadosArray['creditCardHolderName']          = \strtoupper($request['cartao_nome']);
-                        // $DadosArray['creditCardHolderCPF']           = $this->clear($request['cartao_cpf']);
-                        // $DadosArray['creditCardHolderBirthDate']     = $request["cartao_nasc"];
-                        // $DadosArray['creditCardHolderAreaCode']      = $ddd_cartao;
-                        // $DadosArray['creditCardHolderPhone']         = $celular_cartao;   
 
-                        // $buildQuery = http_build_query($DadosArray);
-
-                        // $url = $this->pagseguro->_url."/transactions";
-
-                        // $curl = curl_init($url);
-                        // curl_setopt($curl, CURLOPT_HTTPHEADER, Array("Content-Type: application/x-www-form-urlencoded; charset=UTF-8"));
-                        // curl_setopt($curl, CURLOPT_POST, true);
-                        // curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, true);
-                        // curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-                        // curl_setopt($curl, CURLOPT_POSTFIELDS, $buildQuery);
-                        // $retorno = curl_exec($curl);
-                        // curl_close($curl);
-                         
-                        // $xml = simplexml_load_string($retorno);     
-                        // $json =json_decode(json_encode($xml), true);     
-                        
-                        // if(isset($json['code'])){
-    
-                        //     $this->post->transaction_code($json['code']);
-    
-                        // }                                       
-                    }                    
-                }
-                
-                
-
-                DB::commit();
-                return $cpf;
-            } catch (Exception $e){
-                \DB::rollback();
-                return $e;
-            }   
         }        
-        return $request;
+        
     }
 
 
     public function boleto(Request $request, PostbackController $post){
         $payment_methods = $request["payment_method"];
+        
+
+        $promotor_id = null;
+        $cookie = \Request::cookie('prmntcfpc');
+        if(isset($cookie)){
+            
+            $promotor = $this->promotores->getPromotor($cookie);
+            // if(isset($promotor->promotor_id)){
+            //     $promotor_id = $promotor->promotor_id;
+            // } 
+        }  else {
+            $promotor = $this->promotores->getPromotor(78979);
+        }          
 
        
         if($payment_methods == "boleto")
@@ -441,10 +410,11 @@ class ControllerCadastro extends Controller
 
             $validator = Validator::make($request->all(),$rules, $messages);
             if ($validator->fails()) {
-                return response()->json(['error' => $validator->errors()]);
+                return response()->json(['errors' => $validator->errors()]);
             } 
             else {
 
+                $vencimento = $this->vencimento($request['periodo']);
                 
                 $ns = $request['nascimento'];
                 $ns = explode("/",$ns);
@@ -460,6 +430,7 @@ class ControllerCadastro extends Controller
 
                 $plano      = $request['plano'];
                 $periodo    = $request['periodo'];
+
                 DB::beginTransaction();
                 try{
 
@@ -484,7 +455,7 @@ class ControllerCadastro extends Controller
                         'area_atuacao' => $request['area'],
                         'password' => Hash::make($senha)
                     ]);
-
+               
                     $dados_plano = $this->get_plan($plano, $periodo);
                         
                     $plano_codigo   = $dados_plano->codigo;
@@ -493,95 +464,87 @@ class ControllerCadastro extends Controller
                     $plano_nick     = $dados_plano->nick; 
                     $plano_amount   = $dados_plano->amount; 
 
-
+                    
                     if(isset($dados["id"])){
 
                         $user = new User;
                         $user = $user::find($dados["id"]);  
                         
                         $dados_sb = $user->subscriptions()->create([
-                            'subscription_code' => null,
+                            'transaction_code'  => null,
                             'plan_id'           => $plano_id ,
                             'user_id'           => $user->id,
                             'status'            => "Analisando",
-                            'periodo'            => $periodo,
+                            'vencimento'        => $vencimento,
+                            'periodo'           => $periodo,
                             'manage_url'        => null,
                             'payment_method'    => "credit_card"
                         ]);    
 
-
-
                         $ddd        = $this->clear(substr($request['celular'], 1, 2));
                         $celular    = $this->clear(substr($request['celular'], 4, 11));    
 
-                        $data["appId"]          = $this->pagseguro->_appID;
-                        $data["appKey"]         = $this->pagseguro->_appKey;
+                        $cpf   = new Document("CPF", $this->clear($request['cpf']));
 
-                        $data['notificationURL']  = "https://casfpic.org.br/api/postback";
-                        $data["paymentMode"]    = 'default';
-                        $data['hash']           = $request['hashseller'];
-                        $data['paymentMethod']  = 'boleto';
-                        $data['receiverEmail']  = 'financeiro@servclube.com.br';
-                        $data['senderName']     = \strtoupper($request['name']);
-                        $data['senderCPF']      = $this->clear($request['cpf']);
-                        $data['senderAreaCode']   = $ddd;
-                        $data['senderPhone']      = $celular;
-                        // $data['senderEmail']    = $request['email'];
-                        $data['senderEmail']      = 'c46290945644411234770@sandbox.pagseguro.com.br';
-                        $data['senderCPF']        = $this->clear($request['cpf']);
-                        $data['currency']         = 'BRL';
-                        $data['itemId1']          = $plano_codigo;
-                        $data['itemDescription1'] = $plano_name;
-                        $data['itemAmount1']      = number_format($plano_amount, 2 ,".", "" );
-                        $data['itemQuantity1']    = 1;     
-                        $data['reference']        = $dados_sb['id'];
+                        $phone = new Phone($ddd, $celular);
+        
+                        $address = new Address(
+                            \strtoupper($request['endereco']),
+                            $request['numero'],
+                            \strtoupper($request['complemento']),
+                            \strtoupper($request['bairro']),
+                            $this->clear(\strtoupper($request['cep'])),
+                            $this->remover_acentos(\strtoupper($request['cidade'])),
+                            \strtoupper($request['uf']),
+                            'BRASIL'
+        
+                        );
 
-                        $data['primaryReceiverPublicKey'] = 'PUB2DDF1F0179F8449BADF6BD57F186B34F';    
-                        $data['receiverPublicKey1'] = '220D5468999990511487AF8B40C9986B';
-                        $data['receiverSplit1'] = 10.00;
+                        $email = "financeiro@servclube.com.br";
+        
+                        $sender = new Sender(
+                            \strtoupper($request['name']),
+                            $cpf,
+                            $nascimento,
+                            $phone,
+                            $email,
+                            $request['hashseller']
+                        );
+                                
+                        $shipping = new Shipping();
+      
+                        $item = new Item(
+                            $plano_codigo,
+                            $plano_name,
+                            number_format($plano_amount, 2 ,".", "" ),
+                            1
+                        );
 
-                        $data['shippingAddressRequired'] = 'false';  
-
-                        $xml ="<payment>";
-
-                        $xml .="<payment>";
-
-                        
-                        
-                        $buildQuery = http_build_query($data);
-
-                        $url = $this->pagseguro->_url."/transactions";
-
-                        $curl = curl_init($url);
-                        curl_setopt($curl, CURLOPT_HTTPHEADER, Array(
-                            "Content-Type: application/x-www-form-urlencoded; charset=UTF-8"
-                        ));
-                        curl_setopt($curl, CURLOPT_POST, true);
-                        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, true);
-                        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-                        curl_setopt($curl, CURLOPT_POSTFIELDS, $buildQuery);
-                        $retorno = curl_exec($curl);
-                        curl_close($curl);
-                         
-                        return $retorno;
-                        $xml = simplexml_load_string($retorno);     
-                        $retorno =json_decode(json_encode($xml), true); 
-
-                        
-                        $subscription = Subscription::where('id', $retorno['reference'])->first();
-                
-                        if(!empty($subscription)){            
-                            // $plan_id = $subscription->plan_id;
+                        $split = new Split(
+                            $promotor,
+                            number_format($plano_amount, 2 ,".", "" ),
+                            $method="boleto"
                             
-                                $subscription->status           = $this->post->tabela_status($retorno['status']);
-                                $subscription->transaction_code = $retorno['code'];
-                                $subscription->amount           = $retorno['grossAmount'];
-                                $subscription->updated_at       = $retorno['date'];
-                                $subscription->manage_url       = $retorno['paymentLink'];
-                                $subscription->payment_method   = "boleto";
-                                $subscription->save();
-                            
-                        }                               
+                        );    
+                          
+                        $payment = new Payment($dados_sb["id"], $sender, $shipping, $item, $split);
+                        $payment->setBoleto();
+
+                        $retorno = $this->pagseguro->sendTransaction($payment);
+                        
+                        if(isset($retorno["code"])){
+                            $subscription = Subscription::where('id', $retorno['reference'])->first();
+                            if(!empty($subscription)){            
+                                    $subscription->status           = $this->post->tabela_status($retorno['status']);
+                                    $subscription->transaction_code = $retorno['code'];
+                                    $subscription->amount           = $retorno['grossAmount'];
+                                    $subscription->updated_at       = $retorno['date'];
+                                    $subscription->manage_url       = $retorno['paymentLink'];
+                                    $subscription->payment_method   = "boleto";
+                                    $subscription->save();
+                                
+                            }    
+                        }                           
 
 
                     }
@@ -589,7 +552,7 @@ class ControllerCadastro extends Controller
                         return $retorno;
                 } catch (Exception $e){
                         \DB::rollback();
-                        return [];
+                        return $e;
                 }
             }   
         }      
@@ -634,5 +597,18 @@ class ControllerCadastro extends Controller
         $mapping = array_combine($keys[0], $values[0]);
         return strtr($str, $mapping);  
     
+    }    
+
+    public function vencimento($periodo){
+
+        $atual = Carbon::now();
+        $atual = $atual->toDateTimeString();
+        if($periodo == "anual"){
+            $vencimento = date('Y-m-d', strtotime('+365 days'));
+        } else {
+            $vencimento = date('Y-m-d', strtotime('+30 days'));
+        }
+        
+        return $vencimento;        
     }    
 }
