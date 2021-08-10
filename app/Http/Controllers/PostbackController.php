@@ -117,7 +117,7 @@ class PostbackController extends Controller
         } 
     }
 
-    
+
     public function transaction(Request $request){
     
         if(isset($request["notificationCode"])){
@@ -133,9 +133,9 @@ class PostbackController extends Controller
         ]);
 
 
-        // if(isset($notificationCode)){
-        //     $this->consultar_notificacao($notificationCode);
-        // }
+        if(isset($notificationCode)){
+            $this->consultar_notificacao($notificationCode);
+        }
     }
 
     public function transaction_code($code)
