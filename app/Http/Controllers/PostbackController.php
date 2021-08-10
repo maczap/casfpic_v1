@@ -135,7 +135,6 @@ class PostbackController extends Controller
         // if(isset($notificationCode)){
         //     $this->consultar_notificacao($notificationCode);
         // }
-
     }
 
     public function transaction_code($code)
