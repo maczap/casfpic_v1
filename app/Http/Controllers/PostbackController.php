@@ -112,9 +112,9 @@ class PostbackController extends Controller
             'postback' => json_encode($request->all())
         ]);
 
-        // if($notificationType == "transaction"){
-        //     $this->consultar_notificacao($notificationCode);
-        // } 
+        if($notificationType == "transaction"){
+            $this->consultar_notificacao($notificationCode);
+        } 
     }
 
     public function transaction(Request $request){
@@ -126,9 +126,9 @@ class PostbackController extends Controller
             'postback' => json_encode($request->all())
         ]);
 
-        if(isset($notificationCode)){
-            $this->consultar_notificacao($notificationCode);
-        }
+        // if(isset($notificationCode)){
+        //     $this->consultar_notificacao($notificationCode);
+        // }
 
     }
 
