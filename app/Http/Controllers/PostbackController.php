@@ -131,6 +131,7 @@ class PostbackController extends Controller
             'postback' => json_encode($request->all())
         ]);
 
+        
         // if(isset($notificationCode)){
         //     $this->consultar_notificacao($notificationCode);
         // }
