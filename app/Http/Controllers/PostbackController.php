@@ -228,10 +228,7 @@ class PostbackController extends Controller
 
     public function consultar_notificacao($code){
 
-        $data['token'] = $this->pagseguro->_token;
-        $data['email'] = $this->pagseguro->_email;
-
-        $data = \http_build_query($data);
+        $data = \http_build_query($this->pagseguro->getAuthentication());
         $url_padrao = $this->pagseguro->_url;
 
         $url =  $url_padrao.'v3/transactions/notifications/'.$code.'?'.$data;
@@ -253,43 +250,53 @@ class PostbackController extends Controller
         
         curl_close($curl);
         
-        return $response;
-        $xml = simplexml_load_string($xml);
-        
+        $xml = simplexml_load_string($response);
+            
             $code  = $xml->code;
             $reference  = $xml->reference;
             $status     = $xml->status;
             $amount     = $xml->grossAmount;
-        
-        $subscription = Subscription::where('id', $reference)->first();
-        
-        if(!empty($subscription)){
-            $plan_id = $subscription->plan_id;
-            $status = $this->tabela_status($status);
 
-            if (!is_null($subscription)) {
-                $subscription->status           = $status;
-                $subscription->transaction_code = $code;
-                $subscription->amount           = $amount;
-                $subscription->save();
+            $paymentLink = null;
+            if(isset($xml->paymentLink))
+            {   
+                $paymentLink = $xml->paymentLink;
             }
-            $status = "Paga";
-
-            if($status == "Paga"){
-
-                $plan = new Plan;
-                $plan = $plan::find($plan_id); 
-                $plano_nick = $plan->nick;
-
-                $user = new User;
-                $user = $user::find($subscription->user_id);  
+            
+            if(isset($xml->code)){
+                $subscription = Subscription::where('id', $reference)->first();
                 
-                $nome  = $user->name;
-                $email = $user->email;
+                if(!empty($subscription)){
+                    $plan_id = $subscription->plan_id;
+                    $status = $this->tabela_status($status);
 
-                // $this->sendEmail($email, $nome, $plano_nick, $url=null, $status ='Pago');
+                    if (!is_null($subscription)) {
+                        $subscription->status           = $status;
+                        $subscription->transaction_code = $code;
+                            if(isset($xml->paymentLink))
+                            {
+                            $subscription->manage_url = $xml->paymentLink;
+                            }
+                        $subscription->save();
+                    }
+                    $status = "Paga";
+
+                    if($status == "Paga"){
+
+                        $plan = new Plan;
+                        $plan = $plan::find($plan_id); 
+                        $plano_nick = $plan->nick;
+
+                        $user = new User;
+                        $user = $user::find($subscription->user_id);  
+                        
+                        $nome  = $user->name;
+                        $email = $user->email;
+
+                        // $this->sendEmail($email, $nome, $plano_nick, $url=null, $status ='Pago');
+                    }
+                }
             }
-        }
     }
 
     public function sendEmail($email, $nome, $plano_plano, $url, $status){

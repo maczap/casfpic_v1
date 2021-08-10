@@ -26,6 +26,10 @@ class Pagseguro extends Model
     public $_ambiente = "sandbox";    
     
     public $_url = "https://ws.sandbox.pagseguro.uol.com.br/";
+
+    public $sandbox_notification_url    = "https://ws.sandbox.pagseguro.uol.com.br/v3/transactions/notifications/";
+    public $production_notification_url = "https://ws.sandbox.pagseguro.uol.com.br/";
+
     public $_urlTransaction = "https://ws.sandbox.pagseguro.uol.com.br/transactions";
 
     public function __construct(){
