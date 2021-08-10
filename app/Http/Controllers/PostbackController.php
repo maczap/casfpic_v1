@@ -117,6 +117,7 @@ class PostbackController extends Controller
         } 
     }
 
+    
     public function transaction(Request $request){
     
         if(isset($request["notificationCode"])){
@@ -131,7 +132,7 @@ class PostbackController extends Controller
             'postback' => json_encode($request->all())
         ]);
 
-        
+
         // if(isset($notificationCode)){
         //     $this->consultar_notificacao($notificationCode);
         // }
