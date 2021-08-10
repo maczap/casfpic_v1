@@ -103,7 +103,6 @@ class PostbackController extends Controller
             // 'boleto_expiration_date' => date('Y-m-d H:i:s', strtotime($transaction['boleto_expiration_date']))
         ];
     }
-
     public function notification(Request $request){
 
         $notificationCode = $request["notificationCode"];
