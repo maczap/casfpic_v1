@@ -143,6 +143,7 @@ class ControllerCadastro extends Controller
             return response()->json(['errors' => $validator->errors()]);
         } 
         else {
+            $vencimento = $this->vencimento($request['periodo']);
                 
             $ns = $request['nascimento'];
             $ns = explode("/",$ns);
@@ -300,11 +301,12 @@ class ControllerCadastro extends Controller
                             $user = $user::find($dados["id"]);  
                             
                             $dados_sb = $user->subscriptions()->create([
-                                'subscription_code' => $response["code"],
+                                'transaction_code' => $response["code"],
                                 'plan_id'           => $plano_id ,
                                 'user_id'           => $user->id,
                                 'status'            => $response["status"],
-                                'periodo'            => $periodo,
+                                'vencimento'        => $vencimento,
+                                'periodo'           => $periodo,
                                 'manage_url'        => null,
                                 'payment_method'    => "credit_card"
                             ]);    

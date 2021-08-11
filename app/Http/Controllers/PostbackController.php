@@ -275,7 +275,7 @@ class PostbackController extends Controller
                         $subscription->transaction_code = $code;
                             if(isset($xml->paymentLink))
                             {
-                            $subscription->manage_url = $xml->paymentLink;
+                                $subscription->manage_url = $xml->paymentLink;
                             }
                         $subscription->save();
                     }
