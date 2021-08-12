@@ -6,7 +6,7 @@
 <table style="background-color: #ffffff; font-family: Arial,sans-serif; height: 55px; max-width: 600px;" width="100%" cellspacing="0" cellpadding="0" align="center">
 <tbody>
 <tr>
-<td style="padding: 8px 24px;"><img style="display: block; max-height: 60%; width: auto; border: 0px;" src="https://casfpic.org.br/images/hero/logo-email.png" alt="logo afuse" width="112" height="29" border="0" /></td>
+<td style="padding: 8px 24px;"><img style="display: block; max-height: 100%; width: 86px; border: 0px;" src="https://casfpic.org.br/images/hero/logo-email.png" alt="logo afuse" border="0" /></td>
 </tr>
 <tr>
 <td style="padding: 8px 24px; background-color: #f35a24;">

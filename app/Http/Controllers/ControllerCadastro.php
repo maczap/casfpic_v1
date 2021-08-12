@@ -552,8 +552,9 @@ class ControllerCadastro extends Controller
                                     $subscription->manage_url       = $retorno['paymentLink'];
                                     $subscription->payment_method   = "boleto";
                                     $subscription->save();
-                                
                             }    
+
+                            $this->SendEmail($request['email'], $request['name'], $payment_methods, $retorno['paymentLink']);
                         }                           
 
 
@@ -622,12 +623,12 @@ class ControllerCadastro extends Controller
         return $vencimento;        
     }    
 
-    public function testaEmail(){
-        $email = "kinho2000@gmail.com";
+    public function SendEmail($email, $nome, $method, $link = null){
+        
         $dados = [
-            'nome'  => "Marcos",
-            'method' => "boleto",
-            'url' => "http://casfpic.org.br/"
+            'nome'   => $nome,
+            'method' => $method,
+            'url'    => $link
         ];
         Mail::to($email)->send(new Obrigado($dados));        
     }    
