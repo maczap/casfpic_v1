@@ -521,10 +521,8 @@ export default {
                     $("#etapa2").css('display','none');
                     $("#etapa3").css('display','none');
                     $("#etapa4").css('display','none');
-
                     
                         $("#etapa"+item).css('display','block');
-                    
 
                     if(item == 5){
                         $("#etapa4").css('display','block');

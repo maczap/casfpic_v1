@@ -560,7 +560,7 @@ class ControllerCadastro extends Controller
 
                     }
                         DB::commit();
-                        return $retorno;
+                        return $retorno["code"];
                 } catch (Exception $e){
                         \DB::rollback();
                         return $e;
@@ -624,9 +624,11 @@ class ControllerCadastro extends Controller
     }    
 
     public function SendEmail($email, $nome, $method, $link = null){
+
+        $name = explode($nome," ");
         
         $dados = [
-            'nome'   => $nome,
+            'nome'   => ucfirst($name[0]),
             'method' => $method,
             'url'    => $link
         ];

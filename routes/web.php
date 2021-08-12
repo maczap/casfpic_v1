@@ -46,7 +46,7 @@ Route::get('consultar_autorizacao', [PostbackController::class,'consultar_autori
 
 
 
-Route::get('success', [ControllerCadastro::class,'success'])->name('success');
+Route::get('success_boleto', [ControllerCadastro::class,'success'])->name('success');
 
 Route::get('get-promotor/{code}', [ControllerPromotores::class,'getPromotor'])->name('getPromotor');
 
