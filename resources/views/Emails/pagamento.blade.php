@@ -13,7 +13,7 @@
 <table style="width: 100%; max-width: 482px; margin: 0px auto;" role="presentation" border="0" width="100%" cellspacing="0" cellpadding="0" align="center">
 <tbody>
 <tr>
-<td style="margin: 0px; padding: 48px 10px;" align="center" valign="middle"><span style="color: #ffffff; font-family: 'Proxima Nova',_apple_system,'Helvetica Neue',Helvetica,Roboto,Arial,sans-serif; font-size: 26px; font-weight: 600; line-height: 1.21;">Ol&aacute; Fulano <br />Seu Plano foi ativado</span></td>
+<td style="margin: 0px; padding: 48px 10px;" align="center" valign="middle"><span style="color: #ffffff; font-family: 'Proxima Nova',_apple_system,'Helvetica Neue',Helvetica,Roboto,Arial,sans-serif; font-size: 26px; font-weight: 600; line-height: 1.21;">Ol&aacute; {{$nome}} <br />Seu Plano foi ativado</span></td>
 </tr>
 </tbody>
 </table>
