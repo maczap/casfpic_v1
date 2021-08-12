@@ -6,7 +6,7 @@
 <table style="background-color: #ffffff; font-family: Arial,sans-serif; height: 55px; max-width: 600px;" width="100%" cellspacing="0" cellpadding="0" align="center">
 <tbody>
 <tr>
-<td style="padding: 8px 24px;"><img style="display: block; max-height: 100%; width: auto; border: 0px;" src="https://casfpic.org.br/images/hero/logo.png" alt="logo afuse" width="112" height="29" border="0" /></td>
+<td style="padding: 8px 24px;"><img style="display: block; max-height: 100%; width: auto; border: 0px;" src="https://casfpic.org.br/images/hero/logo-email.png" alt="logo afuse" width="112" height="29" border="0" /></td>
 </tr>
 <tr>
 <td style="padding: 8px 24px; background-color: #f35a24;">
@@ -20,7 +20,7 @@
 </td>
 </tr>
 <tr>
-<td style="border: 0px; font-size: 12px; margin: 0px; padding: 0px; vertical-align: top; text-align: center; background: url('http://casfpic.org.br/images/email-barra-vertical.png') left top repeat-x; background-color: ##f35a24;" align="center" width="100%" height="100%">
+<td style="border: 0px; font-size: 12px; margin: 0px; padding: 0px; vertical-align: top; text-align: center; background: url('http://casfpic.org.br/images/email-barra-vertical.png') left top repeat-x; background-color: #f35a241;" align="center" width="100%" height="100%">
 <table style="width: 100%; max-width: 560px; overflow: hidden; margin: 0px auto;" role="presentation" width="100%" cellspacing="0" cellpadding="0" align="center">
 <tbody>
 <tr>
