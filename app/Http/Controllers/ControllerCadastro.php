@@ -625,8 +625,8 @@ class ControllerCadastro extends Controller
 
     public function SendEmail($email, $nome, $method, $link = null){
 
-        $name = explode($nome," ");
-        
+        $name = explode(" ", strtolower($nome));
+       
         $dados = [
             'nome'   => ucfirst($name[0]),
             'method' => $method,

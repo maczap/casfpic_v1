@@ -16,9 +16,12 @@ class Pagamento extends Mailable
      *
      * @return void
      */
-    public function __construct()
+
+    public $nome;
+
+    public function __construct($dados)
     {
-        //
+        $this->nome    = ucfirst($dados["nome"]);
     }
 
     /**
@@ -28,6 +31,11 @@ class Pagamento extends Mailable
      */
     public function build()
     {
-        return $this->view('view.name');
+        return $this->from('no-reply@servclube.com.br','CASFPIC')
+        ->subject('Confirmação de pagamento')
+        ->view('Emails.pagamento')
+        ->with([
+            'nome'   => $this->nome
+        ]);           
     }
 }

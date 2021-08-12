@@ -8,7 +8,9 @@ use App\User;
 use App\Plan;
 use Illuminate\Http\Request;
 use DB;
+use App\Mail\Pagamento;
 use App\Services\Pagseguro;
+use Illuminate\Support\Facades\Mail;
 
 class PostbackController extends Controller
 {
@@ -296,7 +298,12 @@ class PostbackController extends Controller
                         $nome  = $user->name;
                         $email = $user->email;
 
-                        // $this->sendEmail($email, $nome, $plano_nick, $url=null, $status ='Pago');
+                        $name = explode(" ", strtolower($nome));
+       
+                        $dados = [
+                            'nome'   => ucfirst($name[0])
+                        ];
+                        Mail::to($email)->send(new Pagamento($dados));                             
                     }
                 }
             }
