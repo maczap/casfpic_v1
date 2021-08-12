@@ -33,6 +33,8 @@ Route::get('/getplan/{plano}/{periodo}', [ControllerPlans::class,'get_plan'])->n
 Route::post('/payment/credit', [ControllerCadastro::class,'cadastro'])->name('payment_credit');
 Route::post('/payment/boleto', [ControllerCadastro::class,'boleto'])->name('payment_boleto');
 
+Route::get('/testa_email', [ControllerCadastro::class,'testaEmail'])->name('testaEmail');
+
 Route::get('consultar_transaction/{code}', [PostbackController::class,'transaction_code'])->name('consultar_transaction');
 Route::get('consultar_notification/{code}', [PostbackController::class,'consultar_notificacao'])->name('consultar_notificacao');
 

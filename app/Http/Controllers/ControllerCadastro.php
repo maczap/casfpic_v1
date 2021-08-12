@@ -11,7 +11,7 @@ use App\Dom\Document;
 use App\Dom\Phone;
 use App\Dom\billingAddress;
 use App\Dom\shippingAddress;
-
+use App\Mail\Obrigado;
 use App\Dom\Address;
 use App\Dom\Sender;
 use App\Dom\Holder;
@@ -23,6 +23,7 @@ use App\Dom\Split;
 use App\CreditCard;
 use App\Subscription;
 use App\Services\Pagseguro;
+use Illuminate\Support\Facades\Mail;
 use DB;
 Use \Carbon\Carbon;
 
@@ -281,50 +282,57 @@ class ControllerCadastro extends Controller
                         'password' => Hash::make($senha)
                     ]);
 
-
-
-
                     if(isset($dados["id"])){
 
+                        $user = new User;
+                        $user = $user::find($dados["id"]);  
+                        
+                        $dados_sb = $user->subscriptions()->create([
+                            'transaction_code'  => null,
+                            'plan_id'           => $plano_id ,
+                            'user_id'           => $user->id,
+                            'status'            => "Analisando",
+                            'vencimento'        => $vencimento,
+                            'periodo'           => $periodo,
+                            'manage_url'        => null,
+                            'payment_method'    => "credit_card"
+                        ]);    
 
-                        $payment = new Payment($dados["id"], $sender, $shipping, $item, $split);
+                        $ddd        = $this->clear(substr($request['celular'], 1, 2));
+                        $celular    = $this->clear(substr($request['celular'], 4, 11));   
+                        
+                        $cpf = new Document(Document::CPF, $this->clear($request['cpf']));
+
+                        $payment = new Payment($dados_sb["id"], $sender, $shipping, $item, $split);
                         $payment->setCreditCard($creditCard);
             
-                        $response = $this->pagseguro->sendTransaction($payment);
+                        $retorno = $this->pagseguro->sendTransaction($payment);
                         
-                            
-                        if(isset($response["code"])){
-            
-                            $this->post->createTransaction($response);
-
-                            $user = new User;
-                            $user = $user::find($dados["id"]);  
-                            
-                            $dados_sb = $user->subscriptions()->create([
-                                'transaction_code' => $response["code"],
-                                'plan_id'           => $plano_id ,
-                                'user_id'           => $user->id,
-                                'status'            => $response["status"],
-                                'vencimento'        => $vencimento,
-                                'periodo'           => $periodo,
-                                'manage_url'        => null,
-                                'payment_method'    => "credit_card"
-                            ]);    
-
-                            $ddd        = $this->clear(substr($request['celular'], 1, 2));
-                            $celular    = $this->clear(substr($request['celular'], 4, 11));    
-                            
-                            $cpf = new Document(Document::CPF, $this->clear($request['cpf']));
+                        if(isset($retorno["code"])){
+                            $subscription = Subscription::where('id', $retorno['reference'])->first();
+                            if(!empty($subscription)){            
+                                    $subscription->status           = $this->post->tabela_status($retorno['status']);
+                                    $subscription->transaction_code = $retorno['code'];
+                                    $subscription->amount           = $retorno['grossAmount'];
+                                    $subscription->updated_at       = $retorno['date'];
+                                    if(isset($retorno['paymentLink'])){
+                                        $subscription->manage_url       = $retorno['paymentLink'];
+                                    }
+                                    $subscription->payment_method   = "boleto";
+                                    $subscription->save();
+                                
+                            }    
+                        }                           
 
                                                             
-                        }                    
+                                         
                     }
                     
                     
 
                     DB::commit();
-                    if(isset($response["code"])){
-                        return $response["code"];
+                    if(isset($retorno["code"])){
+                        return $retorno["code"];
                     } else {
                         return [];
                     }
@@ -612,5 +620,15 @@ class ControllerCadastro extends Controller
         }
         
         return $vencimento;        
+    }    
+
+    public function testaEmail(){
+        $email = "kinho2000@gmail.com";
+        $dados = [
+            'nome'  => "Marcos",
+            'method' => "boleto",
+            'url' => "http://casfpic.org.br/"
+        ];
+        Mail::to($email)->send(new Obrigado($dados));        
     }    
 }

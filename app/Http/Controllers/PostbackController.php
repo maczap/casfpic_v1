@@ -251,6 +251,7 @@ class PostbackController extends Controller
         curl_close($curl);
         
         $xml = simplexml_load_string($response);
+        
             
             $code  = $xml->code;
             $reference  = $xml->reference;
@@ -264,9 +265,11 @@ class PostbackController extends Controller
             }
             
             if(isset($xml->code)){
+                
                 $subscription = Subscription::where('id', $reference)->first();
                 
                 if(!empty($subscription)){
+                    
                     $plan_id = $subscription->plan_id;
                     $status = $this->tabela_status($status);
 
