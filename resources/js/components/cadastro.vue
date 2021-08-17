@@ -472,6 +472,7 @@ export default {
                             expirationMonth:    mes, // Mês da expiração do cartão
                             expirationYear:     ano, // Ano da expiração do cartão, é necessário os 4 dígitos.
                             success: function(response) {
+                                console.log(response.card.token);
                                 set.cardToken = response.card.token;
                                 set.cadastro();
                             },
@@ -824,7 +825,7 @@ export default {
   
             },    
             cadastro: function(){
-
+                console.log("entrou cartao");
                 // $('#finalizar').text('Enviando...');
                 // $('#finalizar').prop('disabled', true);
                  
@@ -861,6 +862,9 @@ export default {
 
                 let qtdParcelas  = null;
                 
+                let nparcela     = null;
+                let totalpagar   = null;
+                let totalparcela = null;     
 
                 if(this.periodo == "anual"){
 
@@ -876,8 +880,12 @@ export default {
 
                         return false;
                     }
+
+                    nparcela     = this.installments[qtdParcelas].quantity;
+                    totalpagar   = this.installments[qtdParcelas].totalAmount;
+                    totalparcela = this.installments[qtdParcelas].installmentAmount;                     
                   
-                }                
+                }     
 
                 this.$http.post('http://127.0.0.1:8000/payment/credit', {
                     plano:          plano,
@@ -910,10 +918,10 @@ export default {
                     cartao_cpf:     cartao_cpf,
                     cartao_nasc:    cartao_nasc,
                     cartao_celular: cartao_celular,
-
-                    nparcela:       this.installments[qtdParcelas].quantity,
-                    totalpagar:     this.installments[qtdParcelas].totalAmount,
-                    totalparcela:   this.installments[qtdParcelas].installmentAmount,                    
+                    
+                    nparcela:       nparcela,
+                    totalpagar:     totalpagar,
+                    totalparcela:   totalparcela,                    
                     
                     hashseller:     set.hash,
                     cardToken:      set.cardToken,

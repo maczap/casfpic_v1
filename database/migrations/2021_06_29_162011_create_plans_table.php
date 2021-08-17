@@ -16,6 +16,7 @@ class CreatePlansTable extends Migration
         Schema::create('plans', function (Blueprint $table) {
             $table->id();
             $table->integer('codigo');
+            $table->string('codigo_pagseguro',80);
             $table->string('amount',15);
             $table->string('descricao');
             $table->string('nick');

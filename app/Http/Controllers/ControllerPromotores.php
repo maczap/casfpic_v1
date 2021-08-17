@@ -18,8 +18,8 @@ class ControllerPromotores extends Controller
 
         if($code == "" || $code== null)
         {
-            $promotor   = $_promotor;
-            $supervisor = $_supervisor;               
+            $promotor   = $this->_promotor;
+            $supervisor = $this->_supervisor;               
 
             $data = [
                 'promotor'   => $promotor,
@@ -29,7 +29,7 @@ class ControllerPromotores extends Controller
         } else {
 
             $dados = $this->promotores->getPromotor($code);
-    
+            
             if(isset($dados[0])){
                 $promotor   = $dados[0]->promotor;
                 $supervisor = $dados[0]->supervisor;

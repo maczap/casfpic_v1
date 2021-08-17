@@ -50,4 +50,7 @@ Route::get('success_boleto', [ControllerCadastro::class,'success'])->name('succe
 
 Route::get('get-promotor/{code}', [ControllerPromotores::class,'getPromotor'])->name('getPromotor');
 
+Route::get('teste_plan_create', [ControllerCadastro::class,'CreatePlan'])->name('createPlan');
+Route::get('assinatura', [ControllerCadastro::class,'Assinatura'])->name('assinatura');
+
 

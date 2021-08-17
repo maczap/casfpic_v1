@@ -20,7 +20,10 @@ use App\Dom\Installment;
 use App\Dom\Item;
 use App\Dom\Payment;
 use App\Dom\Split;
+use App\Dom\PlanCreate;
 use App\CreditCard;
+use App\Assinatura;
+use App\Dom\PreAproval;
 use App\Subscription;
 use App\Services\Pagseguro;
 use Illuminate\Support\Facades\Mail;
@@ -171,6 +174,7 @@ class ControllerCadastro extends Controller
             $plano_name     = $dados_plano->descricao;
             $plano_nick     = $dados_plano->nick; 
             $plano_amount   = $dados_plano->amount;             
+            $codigo_pagseguro   = $dados_plano->codigo_pagseguro;    
             
             //xml
                 $cpf   = new Document("CPF", $this->clear($request['cpf']));
@@ -204,7 +208,7 @@ class ControllerCadastro extends Controller
                 $celular_cartao = $this->clear(substr($request['cartao_celular'], 4, 11));   
 
                 $phone = new Phone($ddd_cartao, $celular_cartao);
-                $cpf   = new Document("CPF", $this->clear($request['cpf']));
+                $cpf   = new Document("CPF", $this->clear($request['cartao_cpf']));
 
                 $holder = new Holder(
                     \strtoupper($request['cartao_nome']),
@@ -215,7 +219,9 @@ class ControllerCadastro extends Controller
 
                 $shipping = new Shipping();
 
-                $installment = new Installment( $request["nparcela"], number_format($request["totalparcela"], 2 ,".", "" ));
+                if($periodo == "anual"){
+                 $installment = new Installment( $request["nparcela"], number_format($request["totalparcela"], 2 ,".", "" ));
+                }
 
                 $billingAddress = new billingAddress(
                     \strtoupper($request['endereco']),
@@ -228,13 +234,16 @@ class ControllerCadastro extends Controller
                     'BRASIL'
 
                 );
-                
-                $creditCard = new CreditCard(
-                    (string) $request["cardToken"],
-                    $installment,
-                    $holder,
-                    $billingAddress
-                );
+                if($periodo == "anual"){
+                    $creditCard = new CreditCard(
+                        (string) $request["cardToken"],
+                        $installment,
+                        $holder,
+                        $billingAddress
+                    );
+                }
+
+         
 
                 $item = new Item(
                     $plano_codigo,
@@ -242,104 +251,166 @@ class ControllerCadastro extends Controller
                     number_format($plano_amount, 2 ,".", "" ),
                     1
                 );
-
+                
                 $split = new Split(
                     $promotor,
                     number_format($plano_amount, 2 ,".", "" ),
                     "creditCard"
-
-                    
                 );      
                 
-                
-
-
-                // return $response["code"];
             
             
-                DB::beginTransaction();
-                try{
+                // DB::beginTransaction();
+                // try{
 
 
-                    $dados = User::create([
-                        'name'      => \strtoupper($request['name']),
-                        'email'     => $request['email'],
-                        'cpf'       => $request['cpf'],
-                        'rg'        => $request['rg'],
-                        'sexo'      => $request['sexo'],
-                        'cep'       => $request['cep'],
-                        'endereco'  => \strtoupper($request['endereco']),
-                        'numero'    => $request['numero'],
-                        'complemento'   => \strtoupper($request['complemento']),
-                        'bairro'    => \strtoupper($request['bairro']),
-                        'cidade'    => \strtoupper($request['cidade']),
-                        'uf'        => \strtoupper($request['uf']),
-                        'celular'   => $request['celular'],
-                        'nascimento'=> $nascimento,
-                        'ecivil'    => $request['ecivil'],
-                        'profissao' => \strtoupper($request['profissao']),
-                        'area_atuacao' => $request['area'],
-                        'password' => Hash::make($senha)
-                    ]);
+                    // $dados = User::create([
+                    //     'name'      => \strtoupper($request['name']),
+                    //     'email'     => $request['email'],
+                    //     'cpf'       => $request['cpf'],
+                    //     'rg'        => $request['rg'],
+                    //     'sexo'      => $request['sexo'],
+                    //     'cep'       => $request['cep'],
+                    //     'endereco'  => \strtoupper($request['endereco']),
+                    //     'numero'    => $request['numero'],
+                    //     'complemento'   => \strtoupper($request['complemento']),
+                    //     'bairro'    => \strtoupper($request['bairro']),
+                    //     'cidade'    => \strtoupper($request['cidade']),
+                    //     'uf'        => \strtoupper($request['uf']),
+                    //     'celular'   => $request['celular'],
+                    //     'nascimento'=> $nascimento,
+                    //     'ecivil'    => $request['ecivil'],
+                    //     'profissao' => \strtoupper($request['profissao']),
+                    //     'area_atuacao' => $request['area'],
+                    //     'password' => Hash::make($senha)
+                    // ]);
 
-                    if(isset($dados["id"])){
+                    // if(isset($dados["id"])){
 
-                        $user = new User;
-                        $user = $user::find($dados["id"]);  
+                        // $user = new User;
+                        // $user = $user::find($dados["id"]);  
                         
-                        $dados_sb = $user->subscriptions()->create([
-                            'transaction_code'  => null,
-                            'plan_id'           => $plano_id ,
-                            'user_id'           => $user->id,
-                            'status'            => "Analisando",
-                            'vencimento'        => $vencimento,
-                            'periodo'           => $periodo,
-                            'manage_url'        => null,
-                            'payment_method'    => "credit_card"
-                        ]);    
+                        // $dados_sb = $user->subscriptions()->create([
+                        //     'transaction_code'  => null,
+                        //     'plan_id'           => $plano_id ,
+                        //     'user_id'           => $user->id,
+                        //     'status'            => "Analisando",
+                        //     'vencimento'        => $vencimento,
+                        //     'periodo'           => $periodo,
+                        //     'manage_url'        => null,
+                        //     'payment_method'    => "credit_card"
+                        // ]);    
 
                         $ddd        = $this->clear(substr($request['celular'], 1, 2));
                         $celular    = $this->clear(substr($request['celular'], 4, 11));   
                         
                         $cpf = new Document(Document::CPF, $this->clear($request['cpf']));
 
-                        $payment = new Payment($dados_sb["id"], $sender, $shipping, $item, $split);
-                        $payment->setCreditCard($creditCard);
+                        if($periodo == "anual"){
+                            $payment = new Payment($dados_sb["id"], $sender, $shipping, $item, $split, $periodo);
+                        } else {
+
+                            $ref="45646546";
+
+                      
+                            $email = "c46290945644411234770@sandbox.pagseguro.com.br";
+                            $params = [
+                                'plan' => $codigo_pagseguro,
+                                'reference' => $ref,
+                                'sender' => [
+                                    'name' => \strtoupper($request['name']),
+                                    'email' => $email,
+                                    'hash'  => $request['hashseller'],
+                                    'phone' => [
+                                        'areaCode' => $ddd,
+                                        'number'   => $celular,
+                                    ],
+                                    'address' => [
+                                        'street'        => \strtoupper($request['endereco']),
+                                        'number'        => $request['numero'],
+                                        'complement'    => \strtoupper($request['complemento']),
+                                        'district'      => \strtoupper($request['bairro']),
+                                        'city'          => $this->remover_acentos(\strtoupper($request['cidade'])),
+                                        'state'         => \strtoupper($request['uf']),
+                                        'country'       => 'BRA',
+                                        'postalCode'    => $this->clear(\strtoupper($request['cep'])),
+                                    ],
+                                    'documents' => [
+                                        ['type' => 'CPF', 'value' => $this->clear(\strtoupper($request['cpf']))],
+                                    ],
+                                ],
+                                'paymentMethod' => [
+                                    'type' => 'CREDITCARD',
+                                    'creditCard' => [
+                                        'token' => $request["cardToken"],
+                                        'holder' => [
+                                            'name' => \strtoupper($request['cartao_nome']),
+                                            'birthDate' => $request["cartao_nasc"],
+                                            'documents' => [
+                                                ['type' => 'CPF', 'value' => $this->clear($request['cartao_cpf'])],
+                                            ],
+                                            'phone' => [
+                                                'areaCode' => $ddd_cartao,
+                                                'number' => $celular_cartao,
+                                            ],
+                                        ],
+                                    ],
+                                ],
+                            ];                            
+                        }
+
+                        if($periodo == "anual"){
+                            $payment->setCreditCard($creditCard);
+                            $retorno = $this->pagseguro->sendTransaction($payment);
+                        } else {
+                            
+                            $retorno = $this->pagseguro->setAssinatura($params);
+
+                            return $retorno;
+                          
+                        }
+
+                        // $dom = new DOMDocument;
+                        // $test = $payment->getDOMDocument();
+                        // echo $test->saveXML();
+
+                        // return [];
+
             
-                        $retorno = $this->pagseguro->sendTransaction($payment);
                         
-                        if(isset($retorno["code"])){
-                            $subscription = Subscription::where('id', $retorno['reference'])->first();
-                            if(!empty($subscription)){            
-                                    $subscription->status           = $this->post->tabela_status($retorno['status']);
-                                    $subscription->transaction_code = $retorno['code'];
-                                    $subscription->amount           = $retorno['grossAmount'];
-                                    $subscription->updated_at       = $retorno['date'];
-                                    if(isset($retorno['paymentLink'])){
-                                        $subscription->manage_url       = $retorno['paymentLink'];
-                                    }
-                                    $subscription->payment_method   = "boleto";
-                                    $subscription->save();
+                        
+                        // if(isset($retorno["code"])){
+                        //     $subscription = Subscription::where('id', $retorno['reference'])->first();
+                        //     if(!empty($subscription)){            
+                        //             $subscription->status           = $this->post->tabela_status($retorno['status']);
+                        //             $subscription->transaction_code = $retorno['code'];
+                        //             $subscription->amount           = $retorno['grossAmount'];
+                        //             $subscription->updated_at       = $retorno['date'];
+                        //             if(isset($retorno['paymentLink'])){
+                        //                 $subscription->manage_url       = $retorno['paymentLink'];
+                        //             }
+                        //             $subscription->payment_method   = "boleto";
+                        //             $subscription->save();
                                 
-                            }    
-                        }                           
+                        //     }    
+                        // }                           
 
                                                             
                                          
-                    }
+                    // }
                     
                     
 
-                    DB::commit();
+                    // DB::commit();
                     if(isset($retorno["code"])){
                         return $retorno["code"];
                     } else {
                         return [];
                     }
-                } catch (Exception $e){
-                    \DB::rollback();
-                    return $e;
-                }  
+                // } catch (Exception $e){
+                //     \DB::rollback();
+                //     return $e;
+                // }  
 
                
             
@@ -365,7 +436,7 @@ class ControllerCadastro extends Controller
         }  else {
             $promotor = $this->promotores->getPromotor(78979);
         }          
-
+        
        
         if($payment_methods == "boleto")
         {
@@ -569,7 +640,43 @@ class ControllerCadastro extends Controller
         }      
     }
 
+    public function CreatePlan()
+    {
 
+        $planos = new Plan();
+        $dados = $planos->get_plan();
+
+        foreach($dados as $plano){
+
+            $codigo = $plano->codigo;
+            $amount = $plano->amount;
+            $name   = $plano->descricao;
+
+            $amount = \number_format( $amount, 2, ".","");
+            
+            $plan = new PlanCreate($name, $amount, $codigo);
+            $data = $plan->getDOMElement();
+            $data = $data->saveXML();
+            $retorno = $this->pagseguro->PlanCreate($data);
+
+            if(isset($retorno["code"])){
+                $plan = new Plan;
+                $plan = $plan::where('codigo', $codigo)->first(); 
+
+                if(!empty($plan)){            
+                    $plan->codigo_pagseguro = $retorno["code"];
+                    $plan->save();
+                }               
+            }
+            
+        }
+        
+
+        
+        // return [$retorno];
+
+
+    }
     public function get_plan($plano, $periodo)
     {
         $dados = Plan::where('nick',$plano)

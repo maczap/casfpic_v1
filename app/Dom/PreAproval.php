@@ -3,16 +3,14 @@
 namespace App\Dom;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Assinatura;
 use DOMDocument;
 use Exception;
 use DOMElement;
-use App\CreditCard;
-use App\Assinatura;
-use App\Dom\Split;
 
-
-class Payment extends Model
+class PreAproval extends Model
 {
+
     private $mode = "default";
     private $currency = "BRL";
     private $extraAmount = 0;
@@ -21,62 +19,42 @@ class Payment extends Model
     private $sender;
     private $shipping;
     private $method;
+    private $plano;
     private $creditCard;
-    private $split;
-    private $period;
-    private $bank;
     private $notificationUrl ='https://casfpic.org.br/api/postback';
     private $receiverEmail = 'financeiro@servclube.com.br';
 
     public function __construct(
+        string $plano,
         string $reference,
         Sender $sender,
         Shipping $shipping,
-        Item $item,
-        Split $split,
-        string $period
+        Item $item
         
     ){
 
+        $this->plano        = $plano;
         $this->sender       = $sender;
         $this->shipping     = $shipping;
         $this->item         = $item;
         $this->reference    = $reference;
         // $this->extraAmount  = \number_format( $extraAmount, 2, ".","");
-        $this->split        = $split;
-        $this->period        = $period;
 
     }
-
-    // public function setBank(Bank $bank)
-    // {
-    //     $this->bank = $bank;
-    //     $this->method = "eft";
-    // }
-
-    public function setCreditCard(CreditCard $creditCard)
-    {
-        $this->creditCard = $creditCard;
-        $this->method = "creditCard";
-    }    
 
     public function setAssinatura(Assinatura $creditCard)
     {
         $this->creditCard = $creditCard;
         $this->method = "creditCard";
-    }    
+    }  
 
-    public function setBoleto()
-    {
-        $this->method = "boleto";
-    }   
     public function getDOMDocument():DOMDocument
     {
         $dom = new DOMDocument("1.0", "ISO-8859-1");
         $dom->xmlStandalone = true;
         
-        $payment = $dom->createElement("payment");
-        $payment = $dom->appendChild($payment);
+        $preApprovalRequest = $dom->createElement("preApprovalRequest");
+        $preApprovalRequest = $dom->appendChild($preApprovalRequest);
 
         $mode = $dom->createElement("mode", $this->mode);
         $mode = $payment->appendChild($mode);    
@@ -143,7 +121,5 @@ class Payment extends Model
 
         return $dom;
     }
-
-
-
+    
 }
