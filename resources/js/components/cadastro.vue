@@ -317,7 +317,8 @@ export default {
                 cartao_validade:"02/28",
                 cartao_celular:"(11) 99999-9999",
                 bandeira:null,
-                cardToken:null
+                cardToken:null,
+                url:'https://casfpic.org.br/'
 
             }
         },    
@@ -887,7 +888,7 @@ export default {
                   
                 }     
 
-                this.$http.post('http://127.0.0.1:8000/payment/credit', {
+                this.$http.post(this.url+'payment/credit', {
                     plano:          plano,
                     periodo:        periodo,
 
@@ -1035,7 +1036,7 @@ export default {
                 let uf        = this.uf;
 
 
-                this.$http.post('http://127.0.0.1:8000/payment/boleto', {
+                this.$http.post(this.url+'payment/boleto', {
                     plano:          plano,
                     periodo:        periodo,
 
