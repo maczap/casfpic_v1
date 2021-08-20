@@ -137,10 +137,10 @@ class PostbackController extends Controller
         
 
 
-        if(isset($request["data"]->id)){
+        if(isset($request["data"]["id"])){
             
             DB::table('postbacks')->insert([
-                'postback' => $request["data"]->id
+                'postback' => $request["data"]["id"]
             ]);
         }
     }
