@@ -19,10 +19,10 @@ class CreateSubscriptionsTable extends Migration
             $table->foreignId('plan_id');
             $table->foreignId('user_id');
             $table->string('amount',15)->nullable();
-            $table->dateTime('vencimento');
+            $table->dateTime('vencimento')->nullable();;
             $table->string('status');
             $table->string('periodo');
-            $table->string('payment_method');
+            $table->string('payment_method')->nullable();
             $table->string('manage_url')->nullable();
             
             $table->timestamps();

@@ -21,3 +21,7 @@ use App\Http\Controllers\PostbackController;
 // });
 
 Route::post('postback', [PostbackController::class,'transaction'])->name('transaction');
+Route::post('checkout/success', [PostbackController::class,'transaction'])->name('transaction');
+Route::post('checkout/failure', [PostbackController::class,'transaction'])->name('transaction');
+Route::post('checkout/pending', [PostbackController::class,'transaction'])->name('transaction');
+

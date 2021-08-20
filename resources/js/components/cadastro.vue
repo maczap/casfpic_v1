@@ -185,90 +185,26 @@
                         
                         </div>                     
                         <div class="d-grid gap-2">
-                            <button type="button" class="btn btn-primary" @click="steps(4)">Continuar</button>
+                            <button type="button" class="btn btn-primary" @click="steps(4)">Ir para</button>
                         </div>
 
                     </div>  
 
                     <!-- etapa 4 -->
                     <div class="card-body" id="etapa4">
-                        <h5 class="card-title">Forma de Pagamento</h5>
+                        <h5 class="card-title">Termos</h5>
+                        <p v-if="dados_plano"><strong>{{dados_plano.descricao}} - {{dados_plano.amount}} - {{dados_plano.periodo}}</strong></p> 
+                        <div style="max-height:240px; overflow:auto;margin-bottom:20px;" >
+                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+                        </div>
+                        <input type="checkbox" id="termos" name="termos" style = "margin-bottom:20px;">
+                        <label for="termos">Aceito o Termos</label>                        
 
-                        <nav>
-                            <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                                <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Cartão de Crédito</a>
-                                <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Boleto Bancário</a>
-                                
-                            </div>
-                        </nav>
-                        <div class="tab-content" id="nav-tabContent">
-                            <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-                                <p class='p-2 mb-0 pb-0' v-if="dados_plano">Pagamento <span v-if="dados_plano.periodo =='mensal'">{{dados_plano.periodo}} de R$ {{formatPrice(dados_plano.amount)}}</span> </p>
-                                <div class="row">
-                                    <div class="mb-3 mt-3  col-xl-10">
-                                        <input type="phone" class="form-control" v-mask="'#### #### #### ####'" @blur="carregar" v-model="cartao_numero" id="cartao_numero" placeholder="Número Cartão" aria-label="cartao_numero" aria-describedby="addon-wrapping">
-                                    </div>  
-                                    <div class="mb-3 mt-3  col-xl-2">
-                                        <img :src="'https://stc.pagseguro.uol.com.br/public/img/payment-methods-flags/68x30/'+bandeira+'.png'" alt="" v-if="bandeira">
-                                    </div> 
-                                    
-
-                                    <div class="input-group mb-3 ">
-                                        <input type="text" class="form-control col-xl-10" v-model="cartao_nome" id="cartao_nome" placeholder="Nome no Cartão" aria-label="cartao_nome" aria-describedby="addon-wrapping">
-                                    </div>   
-
-                                    <div class="input-group mb-3 ">
-                                        <input type="phone" class="form-control col-xl-6" v-mask="'###.###.###-##'" v-model="cartao_cpf" id="cartao_cpf" placeholder="CPF" aria-label="cartao_cpf" aria-describedby="addon-wrapping">
-                                        <input type="phone" class="form-control col-xl-6" v-mask="'##/##/####'" v-model="cartao_nasc" id="cartao_nasc" placeholder="Nascimento" aria-label="cartao_nascimento" aria-describedby="addon-wrapping">
-                                    </div>  
-
-                                    <div class="input-group mb-3 ">
-                                        <input type="phone" class="form-control col-xl-10" v-mask="'(##) #####-####'" v-model="cartao_celular" id="cartao_celular" placeholder="Celular" aria-label="cartao_celular" aria-describedby="addon-wrapping">
-                                    </div> 
-
-                                    <div class="form-group  mb-3 " v-if="periodo=='anual'">
-                                        
-                                        <select class='browser-default' id='cparcelas' v-if="installments">
-                                            <option value="" disabled selected>Quantidade de Parcelas</option>
-                                            <option v-for="(item, index) in installments" :key="index" :value="index">{{item.quantity}}x de R$ {{formatPrice(item.installmentAmount)}}</option>
-                                        </select>
-                                        
-                                    </div>                                        
-
-                                    <div class="input-group mb-3 ">
-                                        <input type="phone" class="form-control col-xl-10" v-mask="'##/##'" v-model="cartao_validade" id="cartao_validade" placeholder="Validade" aria-label="cartao_validade" aria-describedby="addon-wrapping">
-                                        <input type="phone" class="form-control col-xl-10" v-mask="'####'" v-model="cartao_cvv" id="cartao_cvv" placeholder="CVV" aria-label="cartao_cvv" aria-describedby="addon-wrapping">
-                                    </div>            
-                                    <div class="alert alert-danger" role="alert" id="alert4">
-                                    
-                                    </div>                                                                                                                                              
-                                    <div class="d-grid gap-2">
-                                        <button type="button" class="btn btn-primary" id="finalizar" @click="steps(5), 'credit_card'">Finalizar Cadastro</button>
-                                    </div>                                                                                                                                                                                          
-                                        
-                                </div>
-                                
-                            </div>
-                            <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-                                    
-
-                            <div class="row" style="margin-top: 30px;">
-                                <div class="mb-12 center">
-                                    <div class="alert alert-danger text-center" role="alert" id="alert4_boleto"></div>  
-                                </div>    
-                            </div>    
-
-                            <div class="row">
-                                <div class="col-lg-12 text-center">
-                                    <button type="button" class="btn btn-primary" id="finalizar_boleto" @click="steps(6,'boleto')">Gerar Boleto</button>
-                                </div>    
-                            </div>                                                              
-
-
-                                 
-                            </div>
-                        </div>                        
-                    </div>                          
+                        <div class="d-grid gap-2">
+                            <button type="button" class="btn btn-primary" id="finalizar_boleto" @click="steps(5,'termos')">Ir para Pagamento</button>
+                        </div>
+                    </div>    
 
 
                 </div> 
@@ -285,6 +221,8 @@ import swal from 'sweetalert';
 export default {
         data() {
             return {
+                formSend:"",
+                optIssue: null,
                 installments:null,
                 hash:null,
                 plano:"",
@@ -309,16 +247,19 @@ export default {
                 bairro:"",
                 cidade:"",
                 uf:"",
-                cartao_numero:"4111 1111 1111 1111",
-                cartao_nome:"MARCOS APARECIDO",
+                cartao_numero:"5031433215406351",
+                cartao_nome:"",
                 cartao_cpf:"26460284822",
                 cartao_nasc:"18/05/1979",
                 cartao_cvv:"123",
-                cartao_validade:"02/28",
+                cartao_validade_mes:"11/25",
+                cartao_validade_ano:"25",
                 cartao_celular:"(11) 99999-9999",
                 bandeira:null,
                 cardToken:null,
-                url:'https://casfpic.org.br/'
+                url:'http://127.0.0.1:8000/',
+                // url:'https://casfpic.org.br/',
+                
 
             }
         },    
@@ -350,35 +291,137 @@ export default {
             setSessionId(hash){
                 PagSeguroDirectPayment.setSessionId(hash);
             },     
-            getPaymentMethods(){
-                let set = this;
-                PagSeguroDirectPayment.getPaymentMethods({
-                    amount: 500.00,
-                    success: function(response) {
-                        // Retorna os meios de pagamento disponíveis.
-                        // console.log(response.paymentMethods);
-                        set.getBrand();
-                        
-                    },
-                    error: function(response) {
-        
-                        // for (var code in response.errors)
-                        // {
-                        //     $("#alert4").css('display','block');
-                        //     $("#alert4").html(response.errors[code]);                            
-                        // }
-                            // console.log(response);
-                                Object.entries(response.errors).forEach(([key, value]) => {
-                                    console.log(value)                                    ;
-                                });                           
-                        
-                    },
-                    complete: function(response) {
+            getPaymentMethods(){ //pagseguro 1
 
-                    }
-                });            
+                let numero = this.cartao_numero;
+                    numero = numero.replace(/\s+/g, '');
+                    numero = numero.substring(6,0);
 
-            },        
+                let cardnumber = numero
+                if (cardnumber.length >= 6) {
+                    let bin = cardnumber.substring(0,6);
+                    window.Mercadopago.getPaymentMethod({
+                        "bin": bin
+                    }, this.setPaymentMethod);
+                }          
+
+            },      
+            setPaymentMethod(status, response) { //pagseguro 2
+                if (status == 200) {
+                    let paymentMethod = response[0];
+                    document.getElementById('paymentMethodId').value = paymentMethod.id;
+                    this.bandeira = paymentMethod.id;
+                    this.getIssuers(paymentMethod.id);
+                } else {
+                    alert(`payment method info error: ${response}`);
+                }
+            },           
+            getIssuers(paymentMethodId) { //pagseguro 3
+                window.Mercadopago.getIssuers(
+                    paymentMethodId,
+                    this.setIssuers
+                );
+            },         
+            setIssuers(status, response) { //pagseguro 4
+                if (status == 200) {
+                    
+      
+
+                    let issuerSelect = document.getElementById('issuer');
+                    let opt = document.createElement('option');
+                        opt.text = "Banco Emissor";
+                        opt.value = "";
+                        opt.selected = "selected";                  
+                        opt.disabled = true;
+                        issuerSelect.appendChild(opt);  
+                    response.forEach( issuer => {
+                        opt = document.createElement('option');
+                        opt.text = issuer.name;
+                        opt.value = issuer.id;
+                        issuerSelect.appendChild(opt);
+                        // this.issuerSet.appendChild(opt);
+                    });
+
+                    this.getInstallments(
+                        document.getElementById('paymentMethodId').value,
+                        document.getElementById('transactionAmount').value,
+                        issuerSelect.value
+                    );
+
+                    this.issuerSelect = issuerSelect;
+                } else {
+                    alert(`issuers method info error: ${response}`);
+                }
+            },          
+            getInstallments(paymentMethodId, transactionAmount, issuerId){
+                window.Mercadopago.getInstallments({
+                    "payment_method_id": paymentMethodId,
+                    "amount": parseFloat(transactionAmount),
+                    "issuer_id": parseInt(issuerId)
+                }, this.setInstallments);
+            },     
+            setInstallments(status, response){
+                if (status == 200) {
+                    document.getElementById('installments').options.length = 0;
+                    
+
+                   let opt = document.createElement('option');
+                        opt.text = "Selecione a Parcela";
+                        opt.value = "";
+                        opt.selected = "selected";                  
+                        opt.disabled = true;
+                        document.getElementById('installments').appendChild(opt);
+                    response[0].payer_costs.forEach( payerCost => {
+                        opt = document.createElement('option');
+                        opt.text = payerCost.recommended_message;
+                        opt.value = payerCost.installments;
+                        document.getElementById('installments').appendChild(opt);
+                    });
+                    this.createForm();
+                } else {
+                    alert(`installments method info error: ${response}`);
+                }
+            },       
+            async getCardToken(){
+                let $form = document.getElementById('paymentForm');
+               await window.Mercadopago.createToken($form, this.setCardTokenAndPay);
+                return false;
+            },               
+            setCardTokenAndPay(status, response) {
+                if (status == 200 || status == 201) {
+                    let form = document.getElementById('paymentForm');
+                    let card = document.createElement('input');
+                    card.setAttribute('name', 'token');
+                    card.setAttribute('type', 'hidden');
+                    card.setAttribute('value', response.id);
+                    form.appendChild(card);
+                    this.cardToken = response.id;
+                    this.cadastro();
+                } else {
+                    alert("Verify filled data!\n"+JSON.stringify(response, null, 4));
+                }
+            },                  
+         
+            createForm(){
+                        
+                let form = document.getElementById('paymentForm');
+                console.log(form);
+
+                    
+            },   
+            createForm2(){
+
+                 let issuerSelect = document.getElementById('issuer');
+                     issuerSelect.setAttribute("name", "issuer2");
+                     issuerSelect.setAttribute("id", "issuer2");
+                                                      
+                
+      
+                this.formSend.appendChild(issuerSelect); 
+
+                console.log(this.formSend);
+                // console.log(banco);
+            },
             getBrand(){
                 let set = this;
                 
@@ -419,41 +462,7 @@ export default {
                     }
                 });
             },          
-            getInstallments(bandeira){
-                let set = this;
-
-                if(this.periodo == "anual"){
-
-                    console.log("get periodo " + this.periodo );
-
-                    console.log("amount "+ this.valorProposta.amount);
-
-                    PagSeguroDirectPayment.getInstallments({
-                            amount: set.valorProposta.amount,
-                            maxInstallmentNoInterest: 0,
-                            brand: bandeira,
-                            success: function(response){
-                                console.log(response.installments[bandeira]);
-                                set.installments = response.installments[bandeira];
-                                
-                            },
-                            error: function(response) {
-                                Object.entries(response.errors).forEach(([key, value]) => {
-                                    swal({
-                                        title: "Erro no Número do cartão",
-                                        text: value,
-                                        icon: "error",
-                                        button: "OK",
-                                    });                                        
-                                });     
-                            },
-                            complete: function(response){
-                                
-                            }
-                    });    
-                }        
-
-            },               
+                   
             async createCardToken(){
                 let set = this;
 
@@ -523,16 +532,17 @@ export default {
                     $("#etapa2").css('display','none');
                     $("#etapa3").css('display','none');
                     $("#etapa4").css('display','none');
+                    $("#etapa4").css('display','none');
                     
                         $("#etapa"+item).css('display','block');
 
                     if(item == 5){
                         $("#etapa4").css('display','block');
-                        this.createCardToken();
+                        this.cadastro();
                     }
                     if(item == 6){
-                        $("#etapa4").css('display','block');
-                        this.carregarBoleto();
+                        // $("#etapa4").css('display','block');
+                        // this.carregarBoleto();
                     }                    
                 }
             },
@@ -745,79 +755,19 @@ export default {
                         });    
                         return false;
                     }                                                                                                   
-                } else if(item == 5 && tipo == "credit_card"){
+                } else if(item == 5){
+                    
+                    if (!$('#termos').prop('checked')){
+                        swal({
+                            title: "Aceite os Termos",
+                            text: "É necessário aceitar os termos para continuar",
+                            icon: "error",
+                            button: "OK",
+                        });                            
+                        return false;
+                    }
+                    
 
-                    let numero_cartao = this.cartao_numero.replace(/\s/g, '');
-                    let validade_cartao = this.cartao_validade.replace(/\//g, '');
-                    let cpf_cartao = this.validaCPFCARTAO();
-                    let cvv_cartao        = $("#cartao_cvv").val();
-                    if(numero_cartao.length < 16 || numero_cartao == "" || numero_cartao == null){
-                        swal({
-                            title: "Informe o Número do Cartão",
-                            text: "Informe o número do cartão para continuar",
-                            icon: "error",
-                            button: "OK",
-                        });                                   
-                        return false;
-                    }       
-                    else if(this.cartao_nome == '' || this.cartao_nome == null){
-                        swal({
-                            title: "Informe o Nome do Cartão",
-                            text: "Informe o Nome do Cartão para continuar",
-                            icon: "error",
-                            button: "OK",
-                        });    
-                        return false;
-                    }          
-                    else if (!cpf_cartao) {
-                        swal({
-                            title: "Informe o CPF",
-                            text: "Informe o CPF do dono do Cartão",
-                            icon: "error",
-                            button: "OK",
-                        });    
-                        return false;
-                    }            
-                    else if(this.cartao_nasc.length <10){
-                        swal({
-                            title: "Informe o Nascimento",
-                            text: "Informe o nascimento do dono do Cartão",
-                            icon: "error",
-                            button: "OK",
-                        });               
-                        return false;
-                    }            
-                    else if(this.cartao_celular.length <15){
-                        swal({
-                            title: "Informe o Celular",
-                            text: "Informe o celular do dono do Cartão",
-                            icon: "error",
-                            button: "OK",
-                        });    
-                        return false;
-                    }                                   
-                    else if(validade_cartao.length < 4){
-                        swal({
-                            title: "Informe a Validade",
-                            text: "Informe a validade do Cartão",
-                            icon: "error",
-                            button: "OK",
-                        });    
-                        return false;
-                    }    
-                    else if(cvv_cartao.length < 3){
-                        swal({
-                            title: "Informe o CVV",
-                            text: "Informe o CVV do Cartão",
-                            icon: "error",
-                            button: "OK",
-                        });    
-                        return false;
-                    }      
-                    else{
-                        this.createCardToken();
-                        return true;
-                    }              
                     
                 }
                 
@@ -855,36 +805,12 @@ export default {
                 let cidade    = this.cidade;
                 let uf        = this.uf;
 
-                let cartao_nome = this.cartao_nome;
-                let cartao_cpf  = this.cartao_cpf;
-                let cartao_nasc = this.cartao_nasc;
-                let cartao_celular = this.cartao_celular;
-                
 
-                let qtdParcelas  = null;
-                
-                let nparcela     = null;
-                let totalpagar   = null;
-                let totalparcela = null;     
 
                 if(this.periodo == "anual"){
 
-                    qtdParcelas = $( "#cparcelas option:selected" ).val();
-
-                    if(qtdParcelas < 0 || qtdParcelas == "" || qtdParcelas == null){
-                        swal({
-                            title: "Informe a Quantidade de Parcelas",
-                            text: "Selecione a quantidade e tente novamente",
-                            icon: "error",
-                            button: "OK",
-                        });  
-
-                        return false;
-                    }
-
-                    nparcela     = this.installments[qtdParcelas].quantity;
-                    totalpagar   = this.installments[qtdParcelas].totalAmount;
-                    totalparcela = this.installments[qtdParcelas].installmentAmount;                     
+                 
+                  
                   
                 }     
 
@@ -892,7 +818,6 @@ export default {
                     plano:          plano,
                     periodo:        periodo,
 
-                    payment_method: 'credit_card',
 
                     cpf:            cpf,
                     name:           nome,
@@ -914,18 +839,6 @@ export default {
                     complemento:    complemento,
                     cidade:         cidade,
                     uf:             uf,
-
-                    cartao_nome:    cartao_nome,
-                    cartao_cpf:     cartao_cpf,
-                    cartao_nasc:    cartao_nasc,
-                    cartao_celular: cartao_celular,
-                    
-                    nparcela:       nparcela,
-                    totalpagar:     totalpagar,
-                    totalparcela:   totalparcela,                    
-                    
-                    hashseller:     set.hash,
-                    cardToken:      set.cardToken,
 
                     _token:         csrfToken
                 }).then(response => {
@@ -1063,6 +976,7 @@ export default {
                     cidade:         cidade,
                     uf:             uf,
                     hashseller:     set.hash,
+                    
                     _token:         csrfToken
                 }).then(response => {
                     console.log(response);
@@ -1150,10 +1064,8 @@ export default {
                     
             },   
             validaCPFCARTAO: function(){
-                let cpf = $("#cartao_cpf").val();
-                cpf = cpf.replace(/\./g, "");
-                cpf = cpf.replace(/-/g, "");
-                
+                let cpf = $("#docNumber").val();
+  
                 
                 var numeros, digitos, soma, i, resultado, digitos_iguais;
                 digitos_iguais = 1;
@@ -1216,7 +1128,9 @@ export default {
         },
         mounted: function() {
 
-            this.$store.dispatch('session_id');
+            
+
+            // this.$store.dispatch('session_id');
 
             this.plano   = this.$route.query.plano
             this.periodo = this.$route.query.periodo
@@ -1233,12 +1147,12 @@ export default {
 
             $(document).ready(function($){
 
-  
 
                 $("#etapa1").css('display','block');
                 $("#etapa2").css('display','none');
                 $("#etapa3").css('display','none');
                 $("#etapa4").css('display','none');
+                
 
                 $("#alert4_boleto").css('display','none');
 
@@ -1246,6 +1160,7 @@ export default {
                 $("#alert2").css('display','none');
                 $("#alert3").css('display','none');
                 $("#alert4").css('display','none');
+                $("#alert5").css('display','none');
 
                 
             });

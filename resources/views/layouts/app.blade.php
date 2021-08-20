@@ -8,6 +8,7 @@
     	<meta name="keywords" content="convênio odontológico uniodonto, convênio odontológico unimed,">
     	<meta name="author" content="Marcos Granziera">
         <meta name="csrf-token" content="{{ csrf_token() }}">
+        
 
     	<!-- Title -->
     	<title>CASFPIC</title>
@@ -30,6 +31,9 @@
     	<link href="css/hero/style.css" rel="stylesheet" type="text/css">
         <link href="css/hero/responsive.css" rel="stylesheet" type="text/css">
         <link href="css/app.css" rel="stylesheet" type="text/css">
+
+
+   
         
         
     </head>
@@ -206,8 +210,13 @@
         
         <script src="js/app.js"></script>
         <script src="js/all.js"></script>
-        <script src="https://stc.sandbox.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.directpayment.js"></script>   
-       <!-- <script src="https://stc.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.directpayment.js"></script>   -->        
+        <script src="https://secure.mlstatic.com/sdk/javascript/v1/mercadopago.js"></script>
+        <script src="https://www.mercadopago.com/v2/security.js" view="checkout" output="deviceId"></script>    
+        <script>
+            window.Mercadopago.setPublishableKey("TEST-ac6115de-e7b8-4b7e-8171-64183a0fd87e");
+            window.Mercadopago.getIdentificationTypes();
+        </script> 
     
     </body>
+   
 </html>

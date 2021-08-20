@@ -122,22 +122,22 @@ class PostbackController extends Controller
 
     public function transaction(Request $request){
     
-        if(isset($request["notificationCode"])){
-            $notificationCode = $request["notificationCode"];   
-        }
+        // if(isset($request["notificationCode"])){
+        //     $notificationCode = $request["notificationCode"];   
+        // }
 
-        if(isset($request["notificationType"])){
-            $notificationType = $request["notificationType"];   
-        }        
+        // if(isset($request["notificationType"])){
+        //     $notificationType = $request["notificationType"];   
+        // }        
 
         DB::table('postbacks')->insert([
             'postback' => json_encode($request->all())
         ]);
 
 
-        if(isset($notificationCode)){
-            $this->consultar_notificacao($notificationCode);
-        }
+        // if(isset($notificationCode)){
+        //     $this->consultar_notificacao($notificationCode);
+        // }
     }
 
     public function transaction_code($code)
@@ -226,6 +226,13 @@ class PostbackController extends Controller
         // }        
         
         
+    }
+
+    public function PesquisarPreferencia()
+    {
+        curl -X GET \
+        'https://api.mercadopago.com/checkout/preferences/search?sponsor_id=undefined&external_reference=undefined&site_id=undefined&marketplace=undefined' \
+        -H 'Authorization: Bearer YOUR_ACCESS_TOKEN'         
     }
 
     public function consultar_notificacao($code){
