@@ -7,7 +7,7 @@ use App\Subscription;
 use App\User;
 use App\Plan;
 use Illuminate\Http\Request;
-use DB;
+use Illuminate\Support\Facades\DB;
 use App\Mail\Pagamento;
 use App\Services\Pagseguro;
 use Illuminate\Support\Facades\Mail;
@@ -131,7 +131,7 @@ class PostbackController extends Controller
         // }        
         $dados = json_encode($request->all());
         DB::table('postbacks')->insert([
-            'postback' => json_encode($request->all())
+            'postback' => $dados
         ]);
 
 

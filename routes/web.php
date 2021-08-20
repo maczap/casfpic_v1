@@ -56,21 +56,6 @@ Route::get('assinatura', [ControllerCadastro::class,'Assinatura'])->name('assina
 
 Route::get('/test_json', function () {
 
-$json = '{
-            "action":"payment.created",
-            "api_version":"v1",
-            "data":{
-            "id":"1240011739"
-            },
-            "date_created":"2021-08-20T18:32:05Z",
-            "id":7882105515,
-            "live_mode":false,
-            "type":"payment",
-            "user_id":"180845407",
-            "data_id":"1240011739"
-        }';
-        dd(json_encode($json));
-        
 });
 
 
