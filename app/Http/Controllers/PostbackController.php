@@ -135,9 +135,12 @@ class PostbackController extends Controller
         ]);
 
 
-        // if(isset($notificationCode)){
-        //     $this->consultar_notificacao($notificationCode);
-        // }
+        if(isset($request)){
+            DB::table('postbacks')->insert([
+                'postback' => $request->data
+            ]);
+    
+        }
     }
 
     public function transaction_code($code)
