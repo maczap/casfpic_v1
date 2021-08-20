@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\DB;
 use App\Mail\Pagamento;
 use App\Services\Pagseguro;
 use Illuminate\Support\Facades\Mail;
+use MercadoPago;
+use App\Services\MercadoPago as Mp;
 
 class PostbackController extends Controller
 {
@@ -106,42 +108,26 @@ class PostbackController extends Controller
         ];
     }
     public function notification(Request $request){
+        $mp = new MP ("ENV_ACCESS_TOKEN");
 
-        $notificationCode = $request["notificationCode"];
-        $notificationType = $request["notificationType"];
-
-        DB::table('postbacks')->insert([
-            'postback' => json_encode($request->all())
-        ]);
-
-        if($notificationType == "transaction"){
-            $this->consultar_notificacao($notificationCode);
-        } 
+        $payment = $mp->get(
+            "/v1/payments/". $paymentId
+        );
     }
 
 
     public function transaction(Request $request){
     
-        // if(isset($request["notificationCode"])){
-        //     $notificationCode = $request["notificationCode"];   
-        // }
-
-        // if(isset($request["notificationType"])){
-        //     $notificationType = $request["notificationType"];   
-        // }        
         
-        
-            DB::table('postbacks')->insert([
-                'postback' => json_encode($request->all())
-            ]);
+        DB::table('postbacks')->insert([
+            'postback' => json_encode($request->all())
+        ]);
         
 
 
         if(isset($request["data"]["id"])){
             
-            DB::table('postbacks')->insert([
-                'postback' => $request["data"]["id"]
-            ]);
+            $this->consultar_notificacao($request["data"]["id"]);
         }
     }
 
@@ -240,83 +226,39 @@ class PostbackController extends Controller
 
     public function consultar_notificacao($code){
 
-        $data = \http_build_query($this->pagseguro->getAuthentication());
-        $url_padrao = $this->pagseguro->_url;
 
-        $url =  $url_padrao.'v3/transactions/notifications/'.$code.'?'.$data;
-        
         $curl = curl_init();
-
+        $token = config('services.mercadopago.access_token');
+        $url = "https://api.mercadopago.com/v1/payments/$code?access_token=$token";
+        
         curl_setopt_array($curl, array(
-          CURLOPT_URL => $url,
-          CURLOPT_RETURNTRANSFER => true,
-          CURLOPT_ENCODING => '',
-          CURLOPT_MAXREDIRS => 10,
-          CURLOPT_TIMEOUT => 0,
-          CURLOPT_FOLLOWLOCATION => true,
-          CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-          CURLOPT_CUSTOMREQUEST => 'GET',
-        ));
-        
-        $response = curl_exec($curl);
-        
-        curl_close($curl);
-        
-        $xml = simplexml_load_string($response);
-        
+            CURLOPT_URL => $url,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'GET',
+          ));
+          
+          $response = curl_exec($curl);
+          curl_close($curl);
+          $response = json_decode($response, true);
+          if(isset($response["status"]))
+          {
+            $status             =  $response["status"];
+            $external_reference =  $response["external_reference"];
+
+            $subscription = Subscription::where('id', $external_reference)->first();
+            if(!empty($subscription)){            
+                    $subscription->payment_id = $external_reference;
+                    $subscription->status     = $status;
+                    $subscription->save();
+            }               
             
-            $code  = $xml->code;
-            $reference  = $xml->reference;
-            $status     = $xml->status;
-            $amount     = $xml->grossAmount;
+          }
 
-            $paymentLink = null;
-            if(isset($xml->paymentLink))
-            {   
-                $paymentLink = $xml->paymentLink;
-            }
-            
-            if(isset($xml->code)){
-                
-                $subscription = Subscription::where('id', $reference)->first();
-                
-                if(!empty($subscription)){
-                    
-                    $plan_id = $subscription->plan_id;
-                    $status = $this->tabela_status($status);
-
-                    if (!is_null($subscription)) {
-                        $subscription->status           = $status;
-                        $subscription->transaction_code = $code;
-                            if(isset($xml->paymentLink))
-                            {
-                                $subscription->manage_url = $xml->paymentLink;
-                            }
-                        $subscription->save();
-                    }
-                    $status = "Paga";
-
-                    if($status == "Paga"){
-
-                        $plan = new Plan;
-                        $plan = $plan::find($plan_id); 
-                        $plano_nick = $plan->nick;
-
-                        $user = new User;
-                        $user = $user::find($subscription->user_id);  
-                        
-                        $nome  = $user->name;
-                        $email = $user->email;
-
-                        $name = explode(" ", strtolower($nome));
-       
-                        $dados = [
-                            'nome'   => ucfirst($name[0])
-                        ];
-                        Mail::to($email)->send(new Pagamento($dados));                             
-                    }
-                }
-            }
     }
 
     public function sendEmail($email, $nome, $plano_plano, $url, $status){

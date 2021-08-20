@@ -16,6 +16,7 @@ class CreateSubscriptionsTable extends Migration
         Schema::create('subscriptions', function (Blueprint $table) {
             $table->id();
             $table->string('transaction_code')->nullable();
+            $table->string('payment_id')->nullable();
             $table->foreignId('plan_id');
             $table->foreignId('user_id');
             $table->string('amount',15)->nullable();
