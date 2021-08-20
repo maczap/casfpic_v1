@@ -246,16 +246,23 @@ class PostbackController extends Controller
           
           $response = curl_exec($curl);
           curl_close($curl);
+
+          echo $response;
+          return[];
           $response = json_decode($response, true);
+          
           if(isset($response["status"]))
           {
             $status             =  $response["status"];
             $external_reference =  $response["external_reference"];
+            $payment_type_id    =  $response["payment_type_id"];
+            
 
             $subscription = Subscription::where('id', $external_reference)->first();
             if(!empty($subscription)){            
                     $subscription->payment_id = $external_reference;
                     $subscription->status     = $status;
+                    $subscription->payment_method     = $payment_type_id;
                     $subscription->save();
             }               
             
