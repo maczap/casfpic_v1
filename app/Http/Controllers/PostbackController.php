@@ -136,8 +136,9 @@ class PostbackController extends Controller
 
 
         if(isset($request)){
+            $retorno = json_decode($request);
             DB::table('postbacks')->insert([
-                'postback' => $request->data
+                'postback' => $retorno["data"]
             ]);
     
         }
