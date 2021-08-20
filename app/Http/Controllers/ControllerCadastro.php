@@ -224,6 +224,7 @@ class ControllerCadastro extends Controller
                           );  
                         $preference->external_reference= $dados_sb["id"];  
                         $preference->notification_url = "https://casfpic.org.br/api/postback";
+                        $preference->auto_return = "approved";
                         $preference->save();  
                 
                         
@@ -243,7 +244,11 @@ class ControllerCadastro extends Controller
                         
                     }
                     DB::commit();            
-                return json_encode($preference->id);
+
+                    if(isset($preference->init_point)){
+                        return $preference->init_point;
+                    }
+                    return [];
                 
 
                 }

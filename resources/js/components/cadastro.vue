@@ -873,8 +873,8 @@ export default {
                         
                     }    
                     else {
-                        console.log(response.body);
-                        // window.location.href = 'http://127.0.0.1:8000/success';
+                        
+                         window.location.href = response.body;
                     }     
                     $('#finalizar').text('Finalizar Cadastro');
                     $('#finalizar').prop('disabled', false);                    
