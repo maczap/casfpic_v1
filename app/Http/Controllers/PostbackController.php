@@ -230,9 +230,7 @@ class PostbackController extends Controller
 
     public function PesquisarPreferencia()
     {
-        curl -X GET \
-        'https://api.mercadopago.com/checkout/preferences/search?sponsor_id=undefined&external_reference=undefined&site_id=undefined&marketplace=undefined' \
-        -H 'Authorization: Bearer YOUR_ACCESS_TOKEN'         
+ 
     }
 
     public function consultar_notificacao($code){
