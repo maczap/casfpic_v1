@@ -130,6 +130,8 @@ class PostbackController extends Controller
             DB::table('postbacks')->insert([
                 'postback' => $request["data"]["id"]
             ]);
+
+            $this->consultar_notificacao($request["data"]["id"]);
         }
     }
 
