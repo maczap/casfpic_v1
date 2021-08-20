@@ -123,15 +123,13 @@ class PostbackController extends Controller
             'postback' => json_encode($request->all())
         ]);
         
-        
-        
         if(isset($request["data"])){
             
             DB::table('postbacks')->insert([
                 'postback' => $request["data"]["id"]
             ]);
-
-            $this->consultar_notificacao($request["data"]["id"]);
+            $id = $request["data"]["id"];
+            $this->consultar_notificacao($id);
         }
     }
 
