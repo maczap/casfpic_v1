@@ -218,9 +218,9 @@ class ControllerCadastro extends Controller
                         $preference->items = array($item);  
     
                         $preference->back_urls = array(  
-                            "success" => "https://casfpic.org.br/checkout/success",  
-                            "failure" => "https://casfpic.org.br/checkout/failure",  
-                            "pending" => "https://casfpic.org.br/checkout/pending"  
+                            "success" => "https://casfpic.org.br/api/checkout/success",  
+                            "failure" => "https://casfpic.org.br/api/checkout/failure",  
+                            "pending" => "https://casfpic.org.br/api/checkout/pending"  
                           );  
                         $preference->external_reference= $dados_sb["id"];  
                         $preference->notification_url = "https://casfpic.org.br/api/postback";
