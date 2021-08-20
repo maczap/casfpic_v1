@@ -129,9 +129,9 @@ class PostbackController extends Controller
         // if(isset($request["notificationType"])){
         //     $notificationType = $request["notificationType"];   
         // }        
-
+        $dados = json_decode($request->all());
         DB::table('postbacks')->insert([
-            'postback' => json_encode($request->all())
+            'postback' => $dados
         ]);
 
 
