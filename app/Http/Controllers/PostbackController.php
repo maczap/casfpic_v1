@@ -130,20 +130,19 @@ class PostbackController extends Controller
         //     $notificationType = $request["notificationType"];   
         // }        
         
-        if(isset($request["action"])){
+        
             DB::table('postbacks')->insert([
                 'postback' => json_encode($request->all())
             ]);
+        
+
+
+        if(isset($request["data"]->id)){
+            
+            DB::table('postbacks')->insert([
+                'postback' => $request["data"]->id
+            ]);
         }
-
-
-        // if(isset($request)){
-        //     $retorno = json_decode($request->all());
-        //     DB::table('postbacks')->insert([
-        //         'postback' => $retorno["data"]->id
-        //     ]);
-    
-        // }
     }
 
     public function transaction_code($code)
