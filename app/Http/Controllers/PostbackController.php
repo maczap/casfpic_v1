@@ -131,17 +131,17 @@ class PostbackController extends Controller
         // }        
 
         DB::table('postbacks')->insert([
-            'postback' => json_encode($request->all())
+            'postback' => json_decode($request->all())
         ]);
 
 
-        if(isset($request)){
-            $retorno = json_decode($request);
-            DB::table('postbacks')->insert([
-                'postback' => $retorno["data"]
-            ]);
+        // if(isset($request)){
+        //     $retorno = json_decode($request->all());
+        //     DB::table('postbacks')->insert([
+        //         'postback' => $retorno["data"]->id
+        //     ]);
     
-        }
+        // }
     }
 
     public function transaction_code($code)

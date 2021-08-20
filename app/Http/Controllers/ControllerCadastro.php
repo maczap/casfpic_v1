@@ -225,12 +225,15 @@ class ControllerCadastro extends Controller
                         $preference->external_reference= $dados_sb["id"];  
                         $preference->notification_url = "https://casfpic.org.br/api/postback";
                         $preference->save();  
+                
+                        
                         
                         if(isset($preference->init_point))
                         {
 
                             $subscription = Subscription::where('id', $dados_sb["id"])->first();
                             if(!empty($subscription)){            
+                                    $subscription->transaction_code = $preference->id;
                                     $subscription->status           = "Aguardando";
                                     $subscription->amount           = $plano_amount;
                                     $subscription->manage_url       = $preference->init_point;
@@ -241,7 +244,7 @@ class ControllerCadastro extends Controller
                         
                     }
                     DB::commit();            
-                return json_encode($preference);
+                return json_encode($preference->id);
                 
 
                 }
