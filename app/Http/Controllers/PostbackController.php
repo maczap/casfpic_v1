@@ -123,11 +123,10 @@ class PostbackController extends Controller
             'postback' => json_encode($request->all())
         ]);
         
-
-
-        if(isset($request["data"]["id"])){
+        $response = json_decode($request, true);
+        if(isset($response["data_id"])){
             
-            $this->consultar_notificacao($request["data"]["id"]);
+            $this->consultar_notificacao($response["data_id"]);
         }
     }
 

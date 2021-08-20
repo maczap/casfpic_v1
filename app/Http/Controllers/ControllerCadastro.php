@@ -228,6 +228,11 @@ class ControllerCadastro extends Controller
                 
                         
                         
+
+                        return $preference;
+
+                        
+                        
                         if(isset($preference->init_point))
                         {
 
