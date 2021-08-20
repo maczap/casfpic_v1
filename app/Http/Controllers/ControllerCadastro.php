@@ -227,12 +227,6 @@ class ControllerCadastro extends Controller
                         $preference->save();  
                 
                         
-                        
-
-                        return $preference;
-
-                        
-                        
                         if(isset($preference->init_point))
                         {
 
