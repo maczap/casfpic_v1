@@ -247,8 +247,7 @@ class PostbackController extends Controller
           $response = curl_exec($curl);
           curl_close($curl);
 
-          echo $response;
-          return[];
+    
           $response = json_decode($response, true);
           
           if(isset($response["status"]))
