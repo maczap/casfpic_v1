@@ -124,7 +124,7 @@ class PostbackController extends Controller
         ]);
         
         
-        $response = json_decode($response, true);;
+        $response = json_decode($request, true);;
         if(isset($response["data"])){
             
             DB::table('postbacks')->insert([
