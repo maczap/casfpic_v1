@@ -165,7 +165,7 @@ class ControllerCadastro extends Controller
             $celular    = $this->clear(substr($request['celular'], 4, 11));   
             DB::beginTransaction();
             try{
-                if($periodo == "anual"){
+                
 
                     $dados = User::create([
                         'name'      => \strtoupper($request['name']),
@@ -207,50 +207,107 @@ class ControllerCadastro extends Controller
                     }        
 //1240004735
                     if($dados_sb["id"]){
-
-                        MercadoPago\SDK::setAccessToken(config('services.mercadopago.access_token'));      
                         $external_reference = $dados_sb["id"]; 
-                        $preference = new MercadoPago\Preference();  
-                            $item = new MercadoPago\Item();  
-                            $item->title = $plano_name;  
-                            $item->quantity = 1;  
-                            $item->unit_price = (double) $plano_amount;  
-                        $preference->items = array($item);  
-    
-                        $preference->back_urls = array(  
-                            "success" => "https://casfpic.org.br/api/checkout/success",  
-                            "failure" => "https://casfpic.org.br/api/checkout/failure",  
-                            "pending" => "https://casfpic.org.br/api/checkout/pending"  
-                          );  
-                        $preference->external_reference= $dados_sb["id"];  
-                        $preference->notification_url = "https://casfpic.org.br/api/postback";
-                        $preference->auto_return = "approved";
-                        $preference->save();  
-                        
-                        if(isset($preference->init_point))
-                        {
+                        if($periodo == "anual"){                        
 
-                            $subscription = Subscription::where('id', $dados_sb["id"])->first();
-                            if(!empty($subscription)){            
-                                    $subscription->transaction_code = $preference->id;
-                                    $subscription->status           = "Aguardando";
-                                    $subscription->amount           = $plano_amount;
-                                    $subscription->manage_url       = $preference->init_point;
-                                    $subscription->save();
-                                
-                            }                             
+                            MercadoPago\SDK::setAccessToken(config('services.mercadopago.access_token'));      
+                            
+                            $preference = new MercadoPago\Preference();  
+                                $item = new MercadoPago\Item();  
+                                $item->title = $plano_name;  
+                                $item->quantity = 1;  
+                                $item->unit_price = (double) $plano_amount;  
+                            $preference->items = array($item);  
+        
+                            $preference->back_urls = array(  
+                                "success" => "https://casfpic.org.br/api/checkout/success",  
+                                "failure" => "https://casfpic.org.br/api/checkout/failure",  
+                                "pending" => "https://casfpic.org.br/api/checkout/pending"  
+                            );  
+                            $preference->external_reference= $dados_sb["id"];  
+                            $preference->notification_url = "https://casfpic.org.br/api/postback";
+                            $preference->auto_return = "approved";
+                            $preference->save();  
+                            
+                            if(isset($preference->init_point))
+                            {
+                                $url = $preference->init_point;
+                                $subscription = Subscription::where('id', $dados_sb["id"])->first();
+                                if(!empty($subscription)){            
+                                        $subscription->transaction_code = $preference->id;
+                                        $subscription->status           = "Aguardando";
+                                        $subscription->amount           = $plano_amount;
+                                        $subscription->manage_url       = $preference->init_point;
+                                        $subscription->save();
+                                    
+                                }                             
+                            }
+                        }  else {
+        
+                            $curl = curl_init();
+                            $token = config('services.mercadopago.access_token');
+                            // $token = "TEST-ac6115de-e7b8-4b7e-8171-64183a0fd87e";
+
+                            $url = "https://api.mercadopago.com/preapproval";
+                    
+                            curl_setopt($curl, CURLOPT_URL,$url);
+                            curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1 );
+                            curl_setopt($curl, CURLOPT_POST,           1 );
+                            curl_setopt($curl, CURLOPT_HTTPHEADER, array(
+                                'Authorization: Bearer ' . $token,
+                                'Content-type: application/json',
+                              ));        
+                            curl_setopt($curl, CURLOPT_POSTFIELDS,     '{
+                                "auto_recurring": {
+                                  "currency_id": "BRL",
+                                  "transaction_amount": "'.(double) $plano_amount.'",
+                                  "frequency": 1,
+                                  "frequency_type": "months",
+                                  "end_date": "2022-07-20T11:59:52.581-04:00"
+                                  
+                                },
+                                "back_url": "https://casfpic.org.br/api/postback",
+                                "collector_id": 809694921,
+                                "external_reference": "'.$external_reference.'",
+                                "payer_email": "test_user_42985068@testuser.com",
+                                "reason": "'.$plano_name.'",
+                                "status": "pending"
+                              }'
+                            );    
+                            
+                            $response = curl_exec($curl);
+                            curl_close($curl);
+                            $response = json_decode($response, true);
+
+                            
+
+                            if(isset($response["init_point"]))
+                            {
+                                $url = $response["init_point"];
+                                $subscription = Subscription::where('id', $dados_sb["id"])->first();
+                                if(!empty($subscription)){            
+                                        $subscription->transaction_code = $response['id'];
+                                        $subscription->status           = $response['status'];
+                                        $subscription->amount           = $plano_amount;
+                                        $subscription->manage_url       = $response['init_point'];
+                                        $subscription->save();
+                                    
+                                }                             
+                            }                            
+
+                            // return $response;
                         }
                         
                     }
                     DB::commit();            
-
-                    if(isset($preference->init_point)){
-                        return $preference->init_point;
+                    return $response;
+                    if(isset($url)){
+                        return $url;
                     }
                     return [];
                 
 
-                }
+                
                 
                     // } else {
 

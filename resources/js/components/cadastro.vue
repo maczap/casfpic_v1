@@ -209,7 +209,7 @@
                         
                         </div>                     
                         <div class="d-grid gap-2">
-                            <button type="button" class="btn btn-primary" @click="steps(4)">Ir para</button>
+                            <button type="button" class="btn btn-primary" @click="steps(4)">Continuar</button>
                         </div>
 
                     </div>  
@@ -298,7 +298,7 @@ export default {
                     PagSeguroDirectPayment.onSenderHashReady(function(response){
                         
                         if(response.status =="error"){
-                            console.log(response.message);
+                            
                             
                             return false;
                         }
@@ -426,13 +426,7 @@ export default {
                 }
             },                  
          
-            createForm(){
-                        
-                let form = document.getElementById('paymentForm');
-                console.log(form);
-
-                    
-            },   
+  
             createForm2(){
 
                  let issuerSelect = document.getElementById('issuer');
@@ -443,8 +437,8 @@ export default {
       
                 this.formSend.appendChild(issuerSelect); 
 
-                console.log(this.formSend);
-                // console.log(banco);
+                
+                
             },
          
             buscaCep(){
@@ -452,14 +446,14 @@ export default {
                 let cep = $("#cep").val();
                     cep.replace(/-/g, "");
 
-                    console.log("cep "+cep);
+                    
                     if(cep.length == 9){
                         this.$viaCep.buscarCep(cep).then((obj) => {
                         set.end = obj.logradouro;
                         set.bairro = obj.bairro;
                         set.cidade = obj.localidade;
                         set.uf = obj.uf;
-                        console.log(obj.uf);
+                        
                         });
                     }
             },            
@@ -729,7 +723,7 @@ export default {
                 } 
             },
             cadastro: function(){
-                console.log("entrou cartao");
+                
                 // $('#finalizar').text('Enviando...');
                 // $('#finalizar').prop('disabled', true);
                  
@@ -827,7 +821,7 @@ export default {
                     }    
                     else {
                         
-                         window.location.href = response.body;
+                        //  window.location.href = response.body;
                     }     
                     $('#finalizar').text('Finalizar Cadastro');
                     $('#finalizar').prop('disabled', false);                    
@@ -844,7 +838,7 @@ export default {
                     $('#finalizar').prop('disabled', false);                    
                 });
 
-                console.log("saiu cadastro");
+                
             },     
 
             async carregarBoleto(){
@@ -855,7 +849,7 @@ export default {
                     PagSeguroDirectPayment.onSenderHashReady(function(response){
                         
                         if(response.status =="error"){
-                            console.log(response.message);
+                            
                             
                             return false;
                         }
@@ -932,7 +926,7 @@ export default {
                     
                     _token:         csrfToken
                 }).then(response => {
-                    console.log(response);
+                    
 
                     
                     if(response.body.errors){
@@ -963,18 +957,18 @@ export default {
                         
                     }    
                     else {
-                        console.log(response.body);
+                        
                         // window.location.href = 'http://127.0.0.1:8000/success';
                     }     
                     $('#finalizar_boleto').text('Gerar Boleto');
                     $('#finalizar_boleto').prop('disabled', false);                    
                 }).catch(error => {
-                    console.log(error);
+                    
                     $('#finalizar_boleto').text('Gerar Boleto');
                     $('#finalizar_boleto').prop('disabled', false);                    
                 });
 
-                console.log("saiu cadastro boleto");
+                
             },     
 
             validaCPF: function(){
