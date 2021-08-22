@@ -719,4 +719,39 @@ class PostbackController extends Controller
 
         ]);        
     }
+
+    public function success(Request $request){
+        if($request["external_reference"]){
+            $external_reference = $request["external_reference"];
+            $payment_type       = $request["payment_type"];
+            $preference_id      = $request["preference_id"];
+            $payment_id         = $request["payment_id"];
+            $status             = $request["status"];
+            
+            $subscription = Subscription::where('id', $external_reference)->first(); 
+            if(isset($subscription)) {
+                $user_id = $subscription["user_id"];
+                $plan_id = $subscription["plan_id"];
+
+                $plan = Plan::where('id', $plan_id)->first(); 
+                $plan_name      = $plan["descricao"];
+                $plan_nick      = $plan["nick"];
+                $plan_periodo   = $plan["periodo"];
+                
+                $user = User::where('id', $user_id)->first(); 
+                
+                $nome = $user["name"];
+                $nome = \explode(" ", $nome);
+                if(isset($nome[0]))
+                {
+                    $nome = \strtolower($nome[0]);
+                    $nome = \ucfirst($nome);
+                }
+                return view('layouts.success', ['nome' => $nome, 'plano' => $plan_name ]);;
+            }          
+            
+        }
+
+        return [];
+    }
 }

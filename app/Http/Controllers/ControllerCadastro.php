@@ -226,7 +226,6 @@ class ControllerCadastro extends Controller
                         $preference->notification_url = "https://casfpic.org.br/api/postback";
                         $preference->auto_return = "approved";
                         $preference->save();  
-                
                         
                         if(isset($preference->init_point))
                         {
@@ -540,34 +539,6 @@ class ControllerCadastro extends Controller
     public function CreatePlan()
     {
 
-        $planos = new Plan();
-        $dados = $planos->get_plan();
-
-        foreach($dados as $plano){
-
-            $codigo = $plano->codigo;
-            $amount = $plano->amount;
-            $name   = $plano->descricao;
-
-            $amount = \number_format( $amount, 2, ".","");
-            
-            $plan = new PlanCreate($name, $amount, $codigo);
-            $data = $plan->getDOMElement();
-            $data = $data->saveXML();
-            $retorno = $this->pagseguro->PlanCreate($data);
-
-            if(isset($retorno["code"])){
-                $plan = new Plan;
-                $plan = $plan::where('codigo', $codigo)->first(); 
-
-                if(!empty($plan)){            
-                    $plan->codigo_pagseguro = $retorno["code"];
-                    $plan->save();
-                }               
-            }
-            
-        }
-        
 
         
         // return [$retorno];

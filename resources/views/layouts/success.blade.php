@@ -7,21 +7,23 @@
              
                     <div class="row">
                         <div class="col-sm-12">
-                        <h2 class='pgh2smart' style="margin-bottom:40px;">Cadastro realizado com sucesso</h2>
+                        <h2 class='pgh2smart' style="margin-bottom:40px;">Pagamento efetuado com sucesso</h2>
                         
-                        <h3>Seja bem-vindo(a) à CASFPIC</h3>
-                        <p style="font-weight:normal;">Recebemos o seu cadastro. Você será informado(a) por e-mail sobre o andamento de sua adesão</p>
+                        <p style="font-weight:normal;"> <strong>{{$nome}}</strong>, a ativação do seu plano <strong> {{$plano}}</strong> foi concluída com sucesso.</br>Desejamos boas-vindas à CASFPIC Que bom ter você com a gente!</p>
+                        <p style="font-weight:normal;" >Para utilizar seu plano, basta seguir o passo a passo abaixo: </p>
+
+                            <ul>
+                                <li>Passo 1</li>
+                                <li>Passo 2</li>
+                                <li>Passo 3</li>
+                                <li>Passo 4</li>
+                                <li>Passo 5</li>
+                            </ul>                        
                         </div>
                     </div>
 
                     <div class="row">
-                        <div class="colsm-12">
-                            <p>Imprime o boleto clicando no botão abaixo</p>
-                        </div>
-                        <div class="col-sm-12 text-center" style="margin-bottom:40px;">
-                            
-                            <a class="btn-lg btn-primary"  target="blank">Imprimir Boleto</a>
-                        </div>
+
                     </div>     
 
                     <div class="row" style="margin-top:40px;">

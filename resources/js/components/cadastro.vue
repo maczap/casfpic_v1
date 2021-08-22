@@ -4,34 +4,60 @@
             <div class="header">
       
 
-                <div class="card" style="width: 28rem;">
+                <div class="card" >
 
                     <!-- etapa 1 -->
                     <div class="card-body" id="etapa1">
                         <h5 class="card-title">Seja sócio e participe</h5>
                             <p v-if="valorProposta">{{valorProposta.amount}}</p>
-                        <div class="input-group mb-3">
-                            <span class="input-group-text">Plano</span>
+
+                        <div class="input-group mb-3 d-sm-block d-md-none">
+                            <span class="input-group-text ">Plano</span>
                             <select class="form-select" v-model="plano" id="plano"  >
-                                <option value="" disabled selected>Plano</option>
+                                <option disabled selected>Plano</option>
                                 <option value="bronze">Bronze</option>
                                 <option value="prata">Prata</option>
                                 <option value="ouro">Ouro</option>
                                 <option value="diamante">Diamante</option>
                             </select>
-
+                        </div>
+                        <div class="input-group mb-3 d-sm-block d-md-none">
                             <span class="input-group-text">Período</span>
                             <select class="form-select" v-model="periodo" id="periodo"  >
-                                <option value="" disabled selected>Período</option>
+                                <option  disabled selected>Período</option>
                                 <option value="mensal">Mensal</option>
                                 <option value="anual">Anual</option>
                             </select>  
-
                         </div>  
+
+                        <div class="d-none d-md-block">
+                            <div class="input-group mb-3  ">
+                                <div class="input-group-prepend" style="width:20%">
+                                    <label class="input-group-text" for="inputGroupSelect01">Plano</label>
+                                </div>
+                                <select class="custom-select" v-model="plano" id="plano"  style="width:30%">
+                                        <option value="bronze">Bronze</option>
+                                        <option value="prata">Prata</option>
+                                        <option value="ouro">Ouro</option>
+                                        <option value="diamante">Diamante</option>
+                                </select>
+                
+                                <div class="input-group-prepend" style="width:20%">
+                                    <span class="input-group-text">Período</span>
+                                </div>
+                                <select class="custom-select" v-model="periodo" id="periodo" style="width:30%" >
+                                    <option value="mensal">Mensal</option>
+                                    <option value="anual">Anual</option>
+                                </select>  
+                            </div> 
+                        </div> 
+
+                                         
+
                         <div class="input-group mb-3">
                                        
                         </div>                              
-                
+                    
                         <div class="input-group mb-3">
                             <input type="text" v-model="cpf" id="cpf" v-mask="'###.###.###-##'" class="form-control" placeholder="CPF" aria-label="CPF" aria-describedby="addon-wrapping">
                         </div>
@@ -57,7 +83,7 @@
                             <button type="button" class="btn btn-primary" @click="steps(2)">Iniciar Cadastro</button>
                         </div>
                     </div>
-
+                
                     <!-- etapa 2 -->
                     <div class="card-body" id="etapa2">
                         <h5 class="card-title">Dados Cadastrais</h5>
@@ -225,7 +251,7 @@ export default {
                 optIssue: null,
                 installments:null,
                 hash:null,
-                plano:"",
+                plano:null,
                 periodo:"",
                 parcelas:"",
                 area:"",

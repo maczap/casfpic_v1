@@ -21,16 +21,15 @@
     	<link href="#images/apple-touch-icon-144x144.png" rel="apple-touch-icon" sizes="144x144">
     
     	<!-- Stylesheet -->
-        
-    	<link href="css/hero/bootstrap.min.css" rel="stylesheet" type="text/css">
-    	<link href="css/hero/ace-responsive-menu.css" rel="stylesheet" type="text/css">
-        <link rel="stylesheet" type="text/css" href="css/hero/all.min.css">
-        <link rel="stylesheet" type="text/css" href="css/hero/flaticon.css">
-        <link rel="stylesheet" type="text/css" href="css/hero/owl.carousel.min.css">
-    	<link href="css/hero/default.css" rel="stylesheet" type="text/css">
-    	<link href="css/hero/style.css" rel="stylesheet" type="text/css">
-        <link href="css/hero/responsive.css" rel="stylesheet" type="text/css">
-        <link href="css/app.css" rel="stylesheet" type="text/css">
+        <link href="{{ asset('css/hero/bootstrap.min.css') }}" rel="stylesheet" type="text/css">    
+        <link href="{{ asset('css/hero/ace-responsive-menu.css') }}" rel="stylesheet" type="text/css">        
+        <link href="{{ asset('css/hero/all.min.css') }}" rel="stylesheet" type="text/css">        
+        <link href="{{ asset('css/hero/flaticon.css') }}" rel="stylesheet" type="text/css">        
+        <link href="{{ asset('css/hero/owl.carousel.min.css') }}" rel="stylesheet" type="text/css">        
+    	<link href="{{ asset('css/hero/default.css') }}" rel="stylesheet" type="text/css">
+        <link href="{{ asset('css/hero/style.css') }}" rel="stylesheet" type="text/css">
+        <link href="{{ asset('css/hero/responsive.css') }}" rel="stylesheet" type="text/css">
+        <link href="{{ asset('css/app.css') }}" rel="stylesheet" type="text/css">
 
 
    
@@ -49,7 +48,7 @@
                             <!-- Header logo -->
                             <div class="col-xl-3 col-lg-3 col-md-3">
                                 <div class="header-logo d-none d-md-block d-lg-block d-xl-block">
-                                    <a href="#index.html"><img src="images/hero/logo.png" alt="logo"></a>
+                                    <a href="#"><img src="{{ asset('images/hero/logo.png') }}" alt="logo"></a>
                                 </div>
                             </div>
                             <!-- Header Responsive menu -->
@@ -60,7 +59,7 @@
                                         <div class="menu-toggle" style="display: none;">
                                             <!-- Mobile logo -->
                                             <div class="mobile-logo">
-                                                <a href="#index.html"><img src="images/hero/logo.png" alt="logo"></a>
+                                                <a href="#index.html"><img src="{{ asset('images/hero/logo.png') }}" alt="logo"></a>
                                             </div>
                                             <button type="button" id="menu-btn">
                                                 <span class="icon-bar"></span>
@@ -127,7 +126,7 @@
 					<div class="row">
                         <div class="col-xl-4 col-sm-6 col-md-6 col-lg-4">
                             <div class="footer-about">
-                                <a href="#"><img src="images/hero/logo.png" alt="footer logo"></a>
+                                <a href="#"><img src="{{ asset('images/hero/logo.png') }}" alt="footer logo"></a>
                                 <p>Bdolorum eaque Velit libero fugit dolores repellendus consequatur nisi, deserunt aperiam.</p>
                             </div>
                         </div>
@@ -168,16 +167,16 @@
 
                         <div class="col-xl-12">
                             <div class="footer-shape-one">
-                                 <img src="images/hero/hero-shape-3.png" alt="">
+                                 <img src="{{ asset('images/hero/hero-shape-3.png') }}" alt="">
                              </div>
                              <div class="footer-shape-two">
-                                 <img src="images/hero/shape-small-01.png" alt="">
+                                 <img src="{{ asset('images/hero/shape-small-01.png') }}" alt="">
                              </div>
                              <div class="footer-shape-three">
-                                 <img src="images/hero/shape-small-02.png" alt="">
+                                 <img src="{{ asset('images/hero/shape-small-02.png') }}" alt="">
                              </div>
                              <div class="footer-shape-four">
-                                 <img src="images/hero/shape-small-03.png" alt="">
+                                 <img src="{{ asset('images/hero/shape-small-03.png') }}" alt="">
                              </div>
                         </div>
 					</div>
@@ -208,8 +207,8 @@
             <!-- scrollToTop end -->
 		</div>    
         
-        <script src="js/app.js"></script>
-        <script src="js/all.js"></script>
+        <script src="{{ asset('js/app.js') }}"></script>
+        <script src="{{ asset('js/all.js') }}"></script>
         <script src="https://secure.mlstatic.com/sdk/javascript/v1/mercadopago.js"></script>
         <script src="https://www.mercadopago.com/v2/security.js" view="checkout" output="deviceId"></script>    
         <script>
