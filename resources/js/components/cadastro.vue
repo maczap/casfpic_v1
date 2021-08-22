@@ -821,7 +821,7 @@ export default {
                     }    
                     else {
                         
-                        //  window.location.href = response.body;
+                         window.location.href = response.body;
                     }     
                     $('#finalizar').text('Finalizar Cadastro');
                     $('#finalizar').prop('disabled', false);                    

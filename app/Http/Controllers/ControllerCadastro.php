@@ -300,7 +300,7 @@ class ControllerCadastro extends Controller
                         
                     }
                     DB::commit();            
-                    return $response;
+                    // return $response;
                     if(isset($url)){
                         return $url;
                     }
