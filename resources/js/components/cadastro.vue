@@ -9,12 +9,11 @@
                     <!-- etapa 1 -->
                     <div class="card-body" id="etapa1">
                         <h5 class="card-title">Seja sócio e participe</h5>
-                            <p v-if="valorProposta">{{valorProposta.amount}}</p>
+                            
 
                         <div class="input-group mb-3 d-sm-block d-md-none">
                             <span class="input-group-text ">Plano</span>
-                            <select class="form-select" v-model="plano" id="plano"  >
-                                <option disabled selected>Plano</option>
+                            <select class="form-select" v-model="plano" id="plano"  @change="setPlan">
                                 <option value="bronze">Bronze</option>
                                 <option value="prata">Prata</option>
                                 <option value="ouro">Ouro</option>
@@ -23,8 +22,7 @@
                         </div>
                         <div class="input-group mb-3 d-sm-block d-md-none">
                             <span class="input-group-text">Período</span>
-                            <select class="form-select" v-model="periodo" id="periodo"  >
-                                <option  disabled selected>Período</option>
+                            <select class="form-select" v-model="periodo" id="periodo" @change="setPlan" >
                                 <option value="mensal">Mensal</option>
                                 <option value="anual">Anual</option>
                             </select>  
@@ -35,7 +33,7 @@
                                 <div class="input-group-prepend" style="width:20%">
                                     <label class="input-group-text" for="inputGroupSelect01">Plano</label>
                                 </div>
-                                <select class="custom-select" v-model="plano" id="plano"  style="width:30%">
+                                <select class="custom-select" v-model="plano" id="plano"  style="width:30%" @change="setPlan">
                                         <option value="bronze">Bronze</option>
                                         <option value="prata">Prata</option>
                                         <option value="ouro">Ouro</option>
@@ -45,7 +43,7 @@
                                 <div class="input-group-prepend" style="width:20%">
                                     <span class="input-group-text">Período</span>
                                 </div>
-                                <select class="custom-select" v-model="periodo" id="periodo" style="width:30%" >
+                                <select class="custom-select" v-model="periodo" id="periodo" style="width:30%" @change="setPlan">
                                     <option value="mensal">Mensal</option>
                                     <option value="anual">Anual</option>
                                 </select>  
@@ -54,8 +52,8 @@
 
                                          
 
-                        <div class="input-group mb-3">
-                                       
+                        <div class="input-group" >
+                                       <p style="text-align: center;" v-if="valorProposta">PLANO: {{dados_plano.descricao}}  R$ {{valorProposta.amount}}</p>
                         </div>                              
                     
                         <div class="input-group mb-3">
@@ -256,16 +254,16 @@ export default {
                 parcelas:"",
                 area:"",
                 nomemae:"",
-                cpf:"26460284822",
-                celular:"(11) 98648-6514",
+                cpf:"",
+                celular:"",
                 nome:"",
-                password:"florida1809",
-                email:"kinho2000@gmail.com",
-                rg:"302552352",
-                nascimento:"18/05/1979",
+                password:"",
+                email:"",
+                rg:"",
+                nascimento:"",
                 sexo:"",
                 ecivil:"",
-                profissao:"PROGRAMADOR",
+                profissao:"",
                 cep:"",
                 end:"",
                 numero:"",
@@ -273,14 +271,14 @@ export default {
                 bairro:"",
                 cidade:"",
                 uf:"",
-                cartao_numero:"5031433215406351",
+                cartao_numero:"",
                 cartao_nome:"",
-                cartao_cpf:"26460284822",
-                cartao_nasc:"18/05/1979",
-                cartao_cvv:"123",
-                cartao_validade_mes:"11/25",
-                cartao_validade_ano:"25",
-                cartao_celular:"(11) 99999-9999",
+                cartao_cpf:"",
+                cartao_nasc:"",
+                cartao_cvv:"",
+                cartao_validade_mes:"",
+                cartao_validade_ano:"",
+                cartao_celular:"",
                 bandeira:null,
                 cardToken:null,
                 url:'http://127.0.0.1:8000/',
@@ -448,91 +446,7 @@ export default {
                 console.log(this.formSend);
                 // console.log(banco);
             },
-            getBrand(){
-                let set = this;
-                
-                let numero = this.cartao_numero;
-                    numero = numero.replace(/\s+/g, '');
-                    numero = numero.substring(6,0);
-
-                    // console.log("numero "+numero);
-                
-                PagSeguroDirectPayment.getBrand({
-                    cardBin: numero,
-                    success: function(response) {
-                        console.log("bandeira "+ response.brand.name);
-                        
-                        set.bandeira = response.brand.name;
-                        if(set.periodo == "anual"){
-                            console.log("periodo "+ set.periodo);
-                            set.getInstallments(response.brand.name);
-                        }                         
-                    },
-                    error: function(response) {
-
-      
-                    Object.entries(response.errors).forEach(([key, value]) => {
-                        swal({
-                            title: "Erro nos dados do cartão",
-                            text: value,
-                            icon: "error",
-                            button: "OK",
-                        });                                        
-                    });                       
-                            
-                            
-                                    
-                    },
-                    complete: function(response) {
-                      
-                    }
-                });
-            },          
-                   
-            async createCardToken(){
-                let set = this;
-
-
-                    if(this.cartao_validade){
-                        let numero = this.cartao_numero;
-                            numero = numero.replace(/\s+/g, '');  
-                        
-                        let parte = this.cartao_validade.split("/",2);
-                        let mes = parte[0];
-                        let ano = "20"+parte[1];
-                        
-                        await PagSeguroDirectPayment.createCardToken({
-                            cardNumber:         numero, // Número do cartão de crédito
-                            brand:              set.bandeira, // Bandeira do cartão
-                            cvv:                set.cartao_cvv, // CVV do cartão
-                            expirationMonth:    mes, // Mês da expiração do cartão
-                            expirationYear:     ano, // Ano da expiração do cartão, é necessário os 4 dígitos.
-                            success: function(response) {
-                                console.log(response.card.token);
-                                set.cardToken = response.card.token;
-                                set.cadastro();
-                            },
-                            error: function(response) {
-                                Object.entries(response.errors).forEach(([key, value]) => {
-                                    swal({
-                                        title: "Erro nos dados do cartão",
-                                        text: value,
-                                        icon: "error",
-                                        button: "OK",
-                                    });                                        
-                                });     
-                            },
-                            complete: function(response) {
-                            
-                                    
-                            }
-                        });
-                    }
-                
-            },   
-            async pagarCartao(cardtoken){
-                
-            },
+         
             buscaCep(){
                 let set = this;
                 let cep = $("#cep").val();
@@ -801,6 +715,19 @@ export default {
                 
   
             },    
+            setPlan(){
+
+                if(this.plano && this.periodo){
+
+                    let dados = {
+                        'plano': this.plano,
+                        'periodo': this.periodo
+                    }
+
+                    this.$store.dispatch('get_plan', dados);
+
+                } 
+            },
             cadastro: function(){
                 console.log("entrou cartao");
                 // $('#finalizar').text('Enviando...');
@@ -840,7 +767,7 @@ export default {
                   
                 }     
 
-                this.$http.post(this.url+'payment/credit', {
+                this.$http.post('payment/credit', {
                     plano:          plano,
                     periodo:        periodo,
 
@@ -975,7 +902,7 @@ export default {
                 let uf        = this.uf;
 
 
-                this.$http.post(this.url+'payment/boleto', {
+                this.$http.post('payment/boleto', {
                     plano:          plano,
                     periodo:        periodo,
 
@@ -1154,14 +1081,9 @@ export default {
         },
         mounted: function() {
 
-            
-
-            // this.$store.dispatch('session_id');
 
             this.plano   = this.$route.query.plano
             this.periodo = this.$route.query.periodo
-
-            console.log("periodo inicial "+ this.$route.query.periodo);
 
             let dados = {
                 'plano': this.plano,
@@ -1169,7 +1091,6 @@ export default {
             }
 
             this.$store.dispatch('get_plan', dados);
-            // console.log(this.plano + " " + this.periodo)
 
             $(document).ready(function($){
 
