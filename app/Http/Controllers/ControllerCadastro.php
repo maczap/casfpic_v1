@@ -246,6 +246,8 @@ class ControllerCadastro extends Controller
                             }
                         }  else {
         
+                            $email = $request['email'];
+
                             $curl = curl_init();
                             $token = config('services.mercadopago.access_token');
                             // $token = "TEST-ac6115de-e7b8-4b7e-8171-64183a0fd87e";
@@ -264,19 +266,18 @@ class ControllerCadastro extends Controller
                                   "currency_id": "BRL",
                                   "transaction_amount": "'.(double) $plano_amount.'",
                                   "frequency": 1,
-                                  "frequency_type": "months",
-                                  "end_date": "2022-07-20T11:59:52.581-04:00"
+                                  "frequency_type": "months"
                                   
                                 },
                                 "back_url": "https://casfpic.org.br/api/postback",
-                                "collector_id": 812506480,
+                                "collector_id": 7872711062833317,
                                 "external_reference": "'.$external_reference.'",
-                                "payer_email": "test_user_91922613@testuser.com",
+                                "payer_email": "'.$email.'",
                                 "reason": "'.$plano_name.'",
                                 "status": "pending"
                               }'
                             );    
-                            
+                            // "payer_email": "test_user_91922613@testuser.com",
                             $response = curl_exec($curl);
                             curl_close($curl);
                             $response = json_decode($response, true);
@@ -298,71 +299,17 @@ class ControllerCadastro extends Controller
                                 }                             
                             }                            
 
-                            // return $response;
+                            
                         }
                         
                     }
                     DB::commit();            
-                    // return $response;
+                    
                     if(isset($url)){
                         return $url;
                     }
                     return [];
                 
-
-                
-                
-                    // } else {
-
-                    //     $ref="45646546";
-                                
-                    // }
-
-                    // if($periodo == "anual"){
-
-                    // } else {
-                        
-                    //     return $retorno;
-                        
-                    // }
-
-                        // $dom = new DOMDocument;
-                        // $test = $payment->getDOMDocument();
-                        // echo $test->saveXML();
-
-                        // return [];
-
-            
-                        
-                        
-                        // if(isset($retorno["code"])){
-                        //     $subscription = Subscription::where('id', $retorno['reference'])->first();
-                        //     if(!empty($subscription)){            
-                        //             $subscription->status           = $this->post->tabela_status($retorno['status']);
-                        //             $subscription->transaction_code = $retorno['code'];
-                        //             $subscription->amount           = $retorno['grossAmount'];
-                        //             $subscription->updated_at       = $retorno['date'];
-                        //             if(isset($retorno['paymentLink'])){
-                        //                 $subscription->manage_url       = $retorno['paymentLink'];
-                        //             }
-                        //             $subscription->payment_method   = "boleto";
-                        //             $subscription->save();
-                                
-                        //     }    
-                        // }                           
-
-                                                            
-                                         
-                    // }
-                    
-                    
-
-                     
-                    // if(isset($retorno["code"])){
-                    //     return $retorno["code"];
-                    // } else {
-                    //     return [];
-                    // }
             } catch (Exception $e){
                 \DB::rollback();
                 return $e;
