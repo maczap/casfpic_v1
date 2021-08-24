@@ -209,12 +209,8 @@
         
         <script src="{{ asset('js/app.js') }}"></script>
         <script src="{{ asset('js/all.js') }}"></script>
-        <script src="https://secure.mlstatic.com/sdk/javascript/v1/mercadopago.js"></script>
+
         <script src="https://www.mercadopago.com/v2/security.js" view="checkout" output="deviceId"></script>    
-        <script>
-            window.Mercadopago.setPublishableKey("7872711062833317");
-            window.Mercadopago.getIdentificationTypes();
-        </script> 
     
     </body>
    
