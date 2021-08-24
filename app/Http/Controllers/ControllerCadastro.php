@@ -234,13 +234,13 @@ class ControllerCadastro extends Controller
                             $payer->address = array(
                               "street_name" => $request['endereco'],
                               "street_number" => $request['numero'],
-                              "zip_code" => "06233200"
+                              "zip_code" => $cep
                             );                            
                             
                             $preference = new MercadoPago\Preference();  
 
                                 $preference->payer = array($payer);  
-                                
+
                                 $item = new MercadoPago\Item();  
                                 $item->id          = $plano_codigo;
                                 $item->title       = $plano_name;  
