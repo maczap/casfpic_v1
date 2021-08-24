@@ -248,7 +248,7 @@ class ControllerCadastro extends Controller
                                 $item->unit_price = (double) $plano_amount; 
 
                             $preference->items = array($item);  
-                            $preference->payer = array($payer);
+                            $preference->payer = $payer;
         
                             $preference->back_urls = array(  
                                 "success" => "https://casfpic.org.br/api/checkout/success",  
