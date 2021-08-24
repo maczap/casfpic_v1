@@ -216,30 +216,28 @@ class ControllerCadastro extends Controller
                             $nome = $nm[0];
                             $surname = $nm[1];
                             $cep = \str_replace("-","", $request['cep']);
-                            
-                            $payer = new MercadoPago\Payer();
-                            $payer->name = $nome;
-                            $payer->surname = $surname;
-                            $payer->email = $request['email'];
-                            $payer->phone = array(
-                              "area_code" => $ddd,
-                              "number" => $celular
-                            );
-                              
-                            $payer->identification = array(
-                              "type"   => "CPF",
-                              "number" => $cpf
-                            );
-                              
-                            $payer->address = array(
-                              "street_name" => $request['endereco'],
-                              "street_number" => $request['numero'],
-                              "zip_code" => $cep
-                            );                            
-                            
-                            $preference = new MercadoPago\Preference();  
 
-                                $preference->payer = array($payer);  
+                            $preference = new MercadoPago\Preference();  
+                            
+                                $payer = new MercadoPago\Payer();
+                                $payer->name = $nome;
+                                $payer->surname = $surname;
+                                $payer->email = $request['email'];
+                                $payer->phone = array(
+                                "area_code" => $ddd,
+                                "number" => $celular
+                                );
+                                
+                                $payer->identification = array(
+                                "type"   => "CPF",
+                                "number" => $cpf
+                                );
+                                
+                                $payer->address = array(
+                                "street_name" => $request['endereco'],
+                                "street_number" => $request['numero'],
+                                "zip_code" => $cep
+                                );                            
 
                                 $item = new MercadoPago\Item();  
                                 $item->id          = $plano_codigo;
@@ -247,8 +245,10 @@ class ControllerCadastro extends Controller
                                 $item->description = $plano_name;  
                                 $item->quantity = 1;  
                                 $item->currency_id = "BRL";
-                                $item->unit_price = (double) $plano_amount;  
+                                $item->unit_price = (double) $plano_amount; 
+
                             $preference->items = array($item);  
+                            $preference->payer = array($payer);
         
                             $preference->back_urls = array(  
                                 "success" => "https://casfpic.org.br/api/checkout/success",  
