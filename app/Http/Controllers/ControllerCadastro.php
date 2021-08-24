@@ -228,9 +228,11 @@ class ControllerCadastro extends Controller
                             $preference->notification_url = "https://casfpic.org.br/api/postback";
                             $preference->auto_return = "approved";
                             $preference->save();  
-                            
+       
                             if(isset($preference->init_point))
                             {
+                                
+                                
                                 $url = $preference->init_point;
                                 $subscription = Subscription::where('id', $dados_sb["id"])->first();
                                 if(!empty($subscription)){            
@@ -267,9 +269,9 @@ class ControllerCadastro extends Controller
                                   
                                 },
                                 "back_url": "https://casfpic.org.br/api/postback",
-                                "collector_id": 809694921,
+                                "collector_id": 812506480,
                                 "external_reference": "'.$external_reference.'",
-                                "payer_email": "test_user_42985068@testuser.com",
+                                "payer_email": "test_user_91922613@testuser.com",
                                 "reason": "'.$plano_name.'",
                                 "status": "pending"
                               }'
@@ -278,7 +280,8 @@ class ControllerCadastro extends Controller
                             $response = curl_exec($curl);
                             curl_close($curl);
                             $response = json_decode($response, true);
-
+                            return $response;
+            
                             
 
                             if(isset($response["init_point"]))

@@ -8,6 +8,7 @@
 
                     <!-- etapa 1 -->
                     <div class="card-body" id="etapa1">
+                        
                         <h5 class="card-title">Seja sócio e participe</h5>
                             
 
@@ -84,6 +85,7 @@
                 
                     <!-- etapa 2 -->
                     <div class="card-body" id="etapa2">
+                        <div class='voltar'><i class="fas fa-angle-left"></i> Voltar</div>
                         <h5 class="card-title">Dados Cadastrais</h5>
 
                        
@@ -219,8 +221,38 @@
                         <h5 class="card-title">Termos</h5>
                         <p v-if="dados_plano"><strong>{{dados_plano.descricao}} - {{dados_plano.amount}} - {{dados_plano.periodo}}</strong></p> 
                         <div style="max-height:240px; overflow:auto;margin-bottom:20px;" >
-                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+                            <p>Declaro para todos os fins de direito, estar ciente e DE acordo com as seguintes normas, às quais me obrigo, por mim e por meus Dependentes e/ou Agregados:</p>
+                            <p>a) Conhecer o Estatuto da CASFPIC, o qual está disponível para todos os associados no site   Associação, bem como respeitá-lo em toda a sua plenitude.</p>
+                            <p>&nbsp&nbsp  a.1) A nome CASFPIC poderá ser utilizada com a marca SERVCLUBE DE BENEFICIOS em conjunto ou isoladamente em todos os meios de divulgação disponíveis no mercado publicitário e nas propostas/contratos firmados com os parceiros/associados.</p>
+                            <p>b) A filiação se dará opcionalmente em uma das seguintes categorias:</p>
+                            <p>&nbsp&nbsp  b.1) Associado Bronze: Garantida a Cobertura do Plano Odontológico Rol Mínimo de coberturas estipulado junto a ANS- Agencia Nacional de Saúde Suplementar em contratos firmados juntos a 01 (uma) Operadora de Planos Odontológico Privados;</p>
+                            <p>&nbsp&nbsp  b.2) Associado Prata: Garantida a Cobertura do Plano Odontológico Rol Mínimo de coberturas estipulado junto a ANS- Agencia Nacional de Saúde Suplementar em contratos firmados juntos as 02(duas) Operadoras de Planos Odontológico Privados;</p>
+                            <p>&nbsp&nbsp  b.3) Associado Ouro: Garantida a Cobertura do Plano Odontológico além Rol Mínimo de coberturas estipulado junto a ANS- Agencia Nacional de Saúde Suplementar em contratos firmados juntos a 01(uma) Operadora de Planos Odontológico Privados;</p>
+                            <p>&nbsp&nbsp  b.4) Associado Diamante: Garantida a Cobertura do Plano Odontológico além Rol Mínimo de coberturas estipulado junto a ANS- Agencia Nacional de Saúde Suplementar em contratos firmados juntos as 02(duas) Operadoras de Planos Odontológico Privados.</p>
+                            <p>c) Os beneficiários Dependentes e os Agregados, estão adstritos à mesma categoria, benefícios, direitos e obrigações do titular. </p>
+                            <p>d) O valor da Taxa Anual/Mensal Individual será reajustado na forma e nas condições determinadas no Contrato de Plano Privado de Assistência à Saúde Plano Odontológico, celebrado entre a CASFPIC e a (s) parceira (s) mantenedora (s) do Plano/Benefício. </p>
+                            <p>e) Perante a todo os envolvidos, sou o(a) único(a) responsável pela correta utilização dos serviços concedidos pela CASFPIC, além do respectivo Plano Odontológico, respondendo integralmente pelos atos por mim ou por qualquer de meus Dependentes e/ou Agregados.</p>
+                            <p>f) A CASFPIC poderá recusar a adesão de qualquer pretendente que não atenda aos critérios de aceitação.</p>
+                            <p>g) Mediante a aceitação da adesão e quitação da Taxa de Adesão, quando for o caso, poderá ser fornecido CARTÃO DE IDENTIFICAÇÃO aos USUÁRIOS, confeccionado pela CASFPIC, com validade de um (01) ano.</p>
+                            <p>h) Para cobrir custos de emissão do cartão, impressos e postagens, será cobrada uma Taxa de Adesão, conforme tabela da CASFPIC, a qual deverá ser paga por ocasião da adesão e nas renovações.</p>
+                            <p>i) A CASFPIC poderá, a seu critério exclusivo, abonar os ASSOCIADOS da Taxa de Adesão, mediante a aquisição e manutenção de produtos e serviços vinculados à “CASFPIC”.</p>
+                            <p>j) Caso o ASSOCIADO, por solicitação, cancelamento decorrente do descumprimento deste regulamento ou por inadimplência de qualquer produto ou serviço vinculado à CASFPIC, deixe de fazer parte do quadro de associados, o valor da taxa de administração, não lhe será devolvido, independentemente do tempo em que permaneceu como ASSOCIADO.</p>
+                            <p>k) Em produtos ou serviços cuja contratação com o fornecedor esteja vinculada diretamente à “CASFPIC”, poderá haver cobrança complementar ou agravamento do valor de aquisição, correspondente à administração e operacionalização da atividade.</p>
+                            <p>l) Aceita a adesão e de posse do CARTÃO DE IDENTIFICAÇÃO, o ASSOCIADO e/ou USUÁRIO passarão a usufruir as vantagens e benefícios diretamente nos produtos e serviços oferecidos pela CASFPIC, bem como pelos “PARCEIROS”.</p>
+                            <p>m) A CASFPIC, a seu critério, definirá o quadro de PARCEIROS, podendo a qualquer tempo, promover a entrada ou saída de PARCEIROS, que não atendam mais ao propósito da parceria ou aos critérios de permanência.</p>
+                            <p>n) O ASSOCIADO ou USUÁRIO que na utilização dos serviços ou benefícios propostos pelos PARCEIROS sentir-se prejudicado ou mal atendido deverá, além de utilizar de seus próprios meios de questionamento, informar a CASFPIC para que conste nos critérios de avaliação e permanência de PARCEIROS, podendo, conforme a gravidade e incidência da ocorrência levá-lo à exclusão do sistema.</p>
+                            <p>o) A apresentação do CARTÃO DE IDENTIFICAÇÃO, dentro de sua validade, é indispensável para a obtenção das vantagens e benefícios concedidos.</p>
+                            <p>p) Os “PARCEIROS” poderão, a seu critério, além da apresentação do CARTÃO DE IDENTIFICAÇÃO, exigir outro documento que identifique o USUÁRIO ou ASSOCIADO.</p>
+                            <p>q) A CASFPIC não se responsabiliza por produtos, serviços, defeitos, atendimento, omissões ou não concessão de vantagens e benefícios devidos por parte dos PARCEIROS aos ASSOCIADOS, cabendo a ele apenas o monitoramento das parcerias com vista à permanência no sistema proposto.</p>
+                            <p>r) A CASFPIC não será responsável por qualquer promessa, propaganda ou divulgação que por ventura venha a ser realizada pelos PARCEIROS, cabendo aos ASSOCIADOS a verificação e aceitação dos produtos e serviços oferecidos.</p>
+                            <p>s) Em caso de perda, furto, roubo ou extravio do CARTÃO DE IDENTIFICAÇÃO, caberá ao ASSOCIADO a obrigação de comunicação da ocorrência à CASFPIC, solicitando a emissão de outro cartão, mediante ao pagamento da taxa de reemissão.</p>
+                            <p>t) A CASFPIC não se responsabiliza perante aos ASSOCIADOS e aos PARCEIROS pela utilização indevida do CARTÃO DE IDENTIFICAÇÃO.</p>
+                            <p>u) O ASSOCIADO reconhece que o CARTÃO DE IDENTIFICAÇÃO é de propriedade do CASFPIC e se obriga a conservá-lo sob sua guarda para seu uso exclusivo, sendo nominativo e intransferível e ao devolvê-lo, caso perda a condição de ASSOCIADO.</p>
+                            <p>v) O ASSOCIADO no ato de sua adesão autoriza a CASFPIC, utilizar para fins administrativos e de marketing, bem como para a execução do programa de benefícios, todos os dados fornecidos, sem a incidência de qualquer tipo de ônus, ficando o mesmo, comprometido a comunicar qualquer alteração desses dados, sob pena de exclusão da CASFPIC.</p>
+                            <p>w) Todas as condições do regulamento poderão, a qualquer tempo, ser alteradas total ou parcialmente, exclusivamente a critério da CASFPIC.</p>
+                            <p>x) Em caso de dúvidas sobre o Plano Odontológico, deverei entrar em contato com a CASFPIC. </p>
+                            <p>y) Para a aceitação, por parte da CASFPIC, de meu pedido de exclusão, deverei ter permanecido por um período mínimo de 12 (doze) meses, juntamente com meus dependentes, se o caso e, comunica-la com antecedência mínima de 30 (trinta) dias.  Estou ciente que se, ao solicitar o cancelamento antes de 12 (doze) meses, será de minha responsabilidade a manutenção do valor do pagamento, eventuais mensalidades faltantes, até complementação do período. </p>
+                            <p>z) A exclusão do ASSOCIADO e/ou seus dependentes, por parte da CASFPIC, se dará em observância ao firmado no Estatuto.</p>
                         </div>
                         <input type="checkbox" id="termos" name="termos" style = "margin-bottom:20px;">
                         <label for="termos">Aceito o Termos</label>                        

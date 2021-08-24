@@ -58,4 +58,16 @@ Route::get('/test_json', function () {
 
 });
 
+Route::middleware(['admin'])->group(function () {
+    Route::get('admin',function() {
+        dd("voce é admin");
+    });
+});
+
+Route::middleware(['client'])->group(function (){
+    Route::get('client',function() {
+        dd("voce é admin");
+    });
+});
+
 

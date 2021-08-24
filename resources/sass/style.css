@@ -30,7 +30,9 @@
 .card-text{
     text-align: center;
 }
-
+.card-body{
+    position: relative;
+}
 
 .card-body h2{
     font-size: 1.6rem;
@@ -55,6 +57,12 @@ h2 .month{
 #cadastro1{
     position: relative;
     
+}
+.voltar{
+    position:absolute;
+    left:10px;
+    top:5px;
+    cursor: pointer;
 }
 #cadastro{
     margin-top:50px;

@@ -161,6 +161,7 @@ class PostbackController extends Controller
         DB::table('transactions')->insert([
             'transaction_code' => $retorno['code'],
             'status' => $retorno['status'],
+            
             'reference' => $retorno['reference'],
             'amount' => $retorno['amount'],
             'netAmount' => $retorno['netAmount'],
@@ -246,22 +247,27 @@ class PostbackController extends Controller
           
           $response = curl_exec($curl);
           curl_close($curl);
-
+      
     
           $response = json_decode($response, true);
           
           if(isset($response["status"]))
           {
             $status             =  $response["status"];
+            $status_detail      =  $response["status_detail"];
+            
             $external_reference =  $response["external_reference"];
             $payment_type_id    =  $response["payment_type_id"];
-            
 
-            $subscription = Subscription::where('id', $external_reference)->first();
+            $mensagem = $this->tabela_status($status, $status_detail);
+            
+            $subscription = Subscription::where('user_id', $external_reference)->first();
             if(!empty($subscription)){            
-                    $subscription->payment_id = $external_reference;
-                    $subscription->status     = $status;
-                    $subscription->payment_method     = $payment_type_id;
+                    $subscription->payment_id       = $external_reference;
+                    $subscription->status           = $status;
+                    $subscription->status_detail    = $status_detail;
+                    $subscription->status_msg       = $mensagem;
+                    $subscription->payment_method   = $payment_type_id;
                     $subscription->save();
             }               
             
@@ -523,64 +529,61 @@ class PostbackController extends Controller
 
     }
 
-    public function tabela_status($id){
+    public function tabela_status($status, $status_details){
 
-        $status = $id;
-        if($id == 1){
-            $status = "Aguardando pagamento";
+        
+        if($status == "approved" && $status_details == "accredited" ){
+            $mensagem = "Pagamento aprovado";
         }
-        else if ($id == 2){
-            $status = "Em análise";
-        }
-        else if ($id == 3){
-            $status = "Paga";
-        }  
-        else if ($id == 4){
-            $status = "Disponível";
-        }  
-        else if ($id == 5){
-            $status = "Em disputa";
-        }     
-        else if ($id == 6){
-            $status = "Devolvida";
-        }      
-        else if ($id == 7){
-            $status = "Cancelada";
-        }            
-        else if ($id == 8){
-            $status = "Debitado";
-        }     
-        else if ($id == 9){
-            $status = "Retenção temporária";
-        }                    
-        else if($id == 'INITIATED'){
-            $status = "Iniciada";
-        }
-        else if ($id == 'PENDING'){
-            $status = "Em análise";
-        }
-        else if ($id == 'ACTIVE'){
-            $status = "Ativa";
-        }  
-        else if ($id == 'PAYMENT_METHOD_CHANGE'){
-            $status = "Problema no Cartão";
-        }  
-        else if ($id == 'SUSPENDED'){
-            $status = "	Recorrência Suspensa";
-        }     
-        else if ($id =='CANCELLED'){
-            $status = "Cancelada PagSeguro";
-        }      
-        else if ($id == 'CANCELLED_BY_RECEIVER'){
-            $status = "Cancelada Vendedor";
+        else if($status == "in_process" && $status_details == "pending_contingency" ){
+            $mensagem = "Estamos processando o pagamento. Não se preocupe, em menos de 2 dias úteis informaremos por e-mail se foi creditado.";
+        }        
+        else if($status == "approved" && $status_details == "pending_review_manual" ){
+            $mensagem = "Não se preocupe, em menos de 2 dias úteis informaremos por e-mail se foi creditado ou se necessitamos de mais informação.";
+        }       
+        else if($status == "rejected" && $status_details == "cc_rejected_bad_filled_card_number" ){
+            $mensagem = "Revise o número do cartão.";
         }    
-        else if ($id == 'CANCELLED_BY_SENDER'){
-            $status = "Cancelada Comprador";
-        }                   
-        else if ($id == 'EXPIRED'){
-            $status = "Expirada";
-        }             
-        return $status;                     
+        else if($status == "rejected" && $status_details == "cc_rejected_bad_filled_date" ){
+            $mensagem = "Revise a data de vencimento.";
+        }           
+        else if($status == "rejected" && $status_details == "cc_rejected_bad_filled_other" ){
+            $mensagem = "Revise os dados.";
+        }      
+        else if($status == "rejected" && $status_details == "cc_rejected_bad_filled_security_code" ){
+            $mensagem = "Revise o código de segurança do cartão.";
+        }          
+        else if($status == "rejected" && $status_details == "cc_rejected_blacklist" ){
+            $mensagem = "Não pudemos processar seu pagamento.";
+        }          
+        else if($status == "rejected" && $status_details == "cc_rejected_call_for_authorize" ){
+            $mensagem = "Você deve autorizar ao payment_method_id o pagamento do valor ao Mercado Pago.";
+        }        
+        else if($status == "rejected" && $status_details == "cc_rejected_card_disabled" ){
+            $mensagem = "Ligue para o payment_method_id para ativar seu cartão. O telefone está no verso do seu cartão.";
+        }    
+        else if($status == "rejected" && $status_details == "cc_rejected_card_error" ){
+            $mensagem = "Não conseguimos processar seu pagamento.";
+        }           
+        else if($status == "rejected" && $status_details == "cc_rejected_duplicated_payment" ){
+            $mensagem = "Você já efetuou um pagamento com esse valor. Caso precise pagar novamente, utilize outro cartão ou outra forma de pagamento.";
+        }              
+        else if($status == "rejected" && $status_details == "cc_rejected_high_risk" ){
+            $mensagem = "Escolha outra forma de pagamento. Recomendamos meios de pagamento em dinheiro.";
+        }       
+        else if($status == "rejected" && $status_details == "cc_rejected_insufficient_amount" ){
+            $mensagem = "O payment_method_id possui saldo insuficiente.";
+        }         
+        else if($status == "rejected" && $status_details == "cc_rejected_invalid_installments" ){
+            $mensagem = "O payment_method_id não processa pagamentos em installments parcelas.";
+        }       
+        else if($status == "rejected" && $status_details == "cc_rejected_max_attempts" ){
+            $mensagem = "Escolha outro cartão ou outra forma de pagamento.";
+        }       
+        else if($status == "rejected" && $status_details == "cc_rejected_other_reason" ){
+            $mensagem = "payment_method_id não processa o pagamento.";
+        }                                                                                  
+        return $mensagem;                     
     }
 
     public function tabela_status_recorrencia($id){
