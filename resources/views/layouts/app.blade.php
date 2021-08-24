@@ -212,7 +212,7 @@
         <script src="https://secure.mlstatic.com/sdk/javascript/v1/mercadopago.js"></script>
         <script src="https://www.mercadopago.com/v2/security.js" view="checkout" output="deviceId"></script>    
         <script>
-            window.Mercadopago.setPublishableKey("TEST-ac6115de-e7b8-4b7e-8171-64183a0fd87e");
+            window.Mercadopago.setPublishableKey("7872711062833317");
             window.Mercadopago.getIdentificationTypes();
         </script> 
     
