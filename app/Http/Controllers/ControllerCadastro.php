@@ -210,12 +210,43 @@ class ControllerCadastro extends Controller
                         $external_reference = $dados_sb["id"]; 
                         if($periodo == "anual"){                        
 
-                            MercadoPago\SDK::setAccessToken(config('services.mercadopago.access_token'));      
+                            MercadoPago\SDK::setAccessToken(config('services.mercadopago.access_token')); 
+                            
+                            $nm = \explode(" ", $request['name']);
+                            $nome = $nm[0];
+                            $surname = $nm[1];
+                            $cep = \str_replace("-","", $request['cep']);
+                            
+                            $payer = new MercadoPago\Payer();
+                            $payer->name = $nome;
+                            $payer->surname = $surname;
+                            $payer->email = $request['email'];
+                            $payer->phone = array(
+                              "area_code" => $ddd,
+                              "number" => $celular
+                            );
+                              
+                            $payer->identification = array(
+                              "type"   => "CPF",
+                              "number" => $cpf
+                            );
+                              
+                            $payer->address = array(
+                              "street_name" => $request['endereco'],
+                              "street_number" => $request['numero'],
+                              "zip_code" => "06233200"
+                            );                            
                             
                             $preference = new MercadoPago\Preference();  
+
+                                $preference->payer = array($payer);  
+                                
                                 $item = new MercadoPago\Item();  
-                                $item->title = $plano_name;  
+                                $item->id          = $plano_codigo;
+                                $item->title       = $plano_name;  
+                                $item->description = $plano_name;  
                                 $item->quantity = 1;  
+                                $item->currency_id = "BRL";
                                 $item->unit_price = (double) $plano_amount;  
                             $preference->items = array($item);  
         
