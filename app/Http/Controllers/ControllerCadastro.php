@@ -252,13 +252,13 @@ class ControllerCadastro extends Controller
                             $preference->expires = true;  
                             $preference->expiration_date_from = $date_from;  
                             $preference->expiration_date_to = $date_to;  
-                                                        
+
                             $preference->save();  
        
                             if(isset($preference->init_point))
                             {
                                 $url = $preference->init_point;
-                                return $url;
+                                
                                 $subscription = Subscription::where('id', $dados_sb["id"])->first();
                                 if(!empty($subscription)){            
                                         $subscription->transaction_code = $preference->id;
@@ -292,14 +292,13 @@ class ControllerCadastro extends Controller
                                   "transaction_amount": "'.(double) $plano_amount.'",
                                   "frequency": 1,
                                   "frequency_type": "months"
-                                  
                                 },
                                 "back_url": "https://casfpic.org.br/api/postback",
                                 "collector_id": 655553401,
                                 "external_reference": "'.$external_reference.'",
                                 "payer_email": "'.$email.',
-                                "reason": "'.$plano_name.'",
-                                "status": "pending"
+                                "reason": "'.$plano_name.'"
+                                
                               }'
                             );   
                             //"collector_id": 655553401, producao
