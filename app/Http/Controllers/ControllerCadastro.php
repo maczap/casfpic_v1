@@ -284,11 +284,13 @@ class ControllerCadastro extends Controller
                                 "back_url": "https://casfpic.org.br/api/postback",
                                 "collector_id": 655553401,
                                 "external_reference": "'.$external_reference.'",
-                                "payer_email": "'.$email.'",
+                                "payer_email": "'.$email.',
                                 "reason": "'.$plano_name.'",
                                 "status": "pending"
                               }'
-                            );    
+                            );   
+                            //"collector_id": 655553401, producao
+                            //"collector_id": 812506480, teste
                             // "payer_email": "test_user_91922613@testuser.com",
                             $response = curl_exec($curl);
                             curl_close($curl);

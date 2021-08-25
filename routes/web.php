@@ -41,6 +41,7 @@ Route::get('consultar_notification/{code}', [PostbackController::class,'consulta
 
 Route::get('autorizacao', [PostbackController::class,'autorizacao'])->name('autorizacao');
 Route::get('consultar_autorizacao', [PostbackController::class,'consultar_autorizacao'])->name('consultar_autorizacao');
+Route::get('consultar_pagamento/{id}', [PostbackController::class,'consultar_pagamento'])->name('consultar_pagamento');
 
 
 Route::get('success_boleto', [ControllerCadastro::class,'success'])->name('success');

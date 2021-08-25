@@ -247,19 +247,31 @@ class PostbackController extends Controller
           
           $response = curl_exec($curl);
           curl_close($curl);
-      
-    
+         
           $response = json_decode($response, true);
           
           if(isset($response["status"]))
           {
             $status             =  $response["status"];
-            $status_detail      =  $response["status_detail"];
+            $status_detail = null;
+            if(isset($response["status_detail"])){
+                $status_detail      =  $response["status_detail"];
+            }
+            $external_reference = null;
+            if(isset($response["external_reference"])){
+                $external_reference      =  $response["external_reference"];
+            }            
             
-            $external_reference =  $response["external_reference"];
-            $payment_type_id    =  $response["payment_type_id"];
+            $payment_type_id = null;
+            if(isset($response["payment_type_id"])){
+                $payment_type_id      =  $response["payment_type_id"];
+            } 
+                $mensagem = null;
+            if(isset($status) && isset($status_detail)) {
+                $mensagem = $this->tabela_status($status, $status_detail);
+            }
 
-            $mensagem = $this->tabela_status($status, $status_detail);
+            
             
             $subscription = Subscription::where('user_id', $external_reference)->first();
             if(!empty($subscription)){            
@@ -273,6 +285,38 @@ class PostbackController extends Controller
             
           }
 
+    }
+
+    public function consultar_pagamento(Request $request){
+
+        $id = $request["id"];
+
+     
+        $curl = curl_init();
+        $token = config('services.mercadopago.access_token');
+        // $token = "TEST-ac6115de-e7b8-4b7e-8171-64183a0fd87e";
+
+        $url = "https://api.mercadopago.com/v1/payments/search?sort=date_created&criteria=desc&external_reference=$id";
+
+        curl_setopt($curl, CURLOPT_URL,$url);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1 );
+        curl_setopt($curl, CURLOPT_HTTPHEADER, array(
+            'Authorization: Bearer ' . $token,
+            'Content-type: application/json',
+          ));        
+        
+        // "payer_email": "test_user_91922613@testuser.com",
+        $response = curl_exec($curl);
+        curl_close($curl);
+        
+        $response = json_decode($response, true);
+          if(isset($response["results"])){
+              if(isset($response["results"][0])){
+                 
+                $this->consultar_notificacao($response["results"][0]["id"]);
+              }
+          }
+        
     }
 
     public function sendEmail($email, $nome, $plano_plano, $url, $status){
