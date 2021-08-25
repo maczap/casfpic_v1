@@ -387,6 +387,11 @@ class ControllerCadastro extends Controller
         return $vencimento;        
     }    
 
+    public function preaproval(){
+
+        return view('welcome');
+    }
+
     public function SendEmail($email, $nome, $method, $link = null){
 
         $name = explode(" ", strtolower($nome));
