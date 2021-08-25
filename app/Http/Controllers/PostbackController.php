@@ -228,8 +228,7 @@ class PostbackController extends Controller
     }
 
     public function consultar_notificacao($code){
-
-
+        
         $curl = curl_init();
         $token = config('services.mercadopago.access_token');
         $url = "https://api.mercadopago.com/v1/payments/$code?access_token=$token";
@@ -247,7 +246,7 @@ class PostbackController extends Controller
           
           $response = curl_exec($curl);
           curl_close($curl);
-         
+          
           $response = json_decode($response, true);
           
           if(isset($response["status"]))
@@ -260,8 +259,8 @@ class PostbackController extends Controller
             $external_reference = null;
             if(isset($response["external_reference"])){
                 $external_reference      =  $response["external_reference"];
-            }            
-            
+            }      
+
             $payment_type_id = null;
             if(isset($response["payment_type_id"])){
                 $payment_type_id      =  $response["payment_type_id"];
@@ -271,9 +270,8 @@ class PostbackController extends Controller
                 $mensagem = $this->tabela_status($status, $status_detail);
             }
 
-            
-            
-            $subscription = Subscription::where('user_id', $external_reference)->first();
+          
+            $subscription = Subscription::where('id', $external_reference)->first();
             if(!empty($subscription)){            
                     $subscription->payment_id       = $external_reference;
                     $subscription->status           = $status;
@@ -291,7 +289,6 @@ class PostbackController extends Controller
 
         $id = $request["id"];
 
-     
         $curl = curl_init();
         $token = config('services.mercadopago.access_token');
         // $token = "TEST-ac6115de-e7b8-4b7e-8171-64183a0fd87e";
@@ -313,7 +310,9 @@ class PostbackController extends Controller
           if(isset($response["results"])){
               if(isset($response["results"][0])){
                  
-                $this->consultar_notificacao($response["results"][0]["id"]);
+                $id = $response["results"][0]["id"];
+                
+                $this->consultar_notificacao($id);
               }
           }
         
@@ -335,247 +334,9 @@ class PostbackController extends Controller
     }        
 
 
-    public function search_preaproval_notification($code){
-
-
-        $data['token'] = $this->pagseguro->_token;
-        $data['email'] = $this->pagseguro->_email;
-
-        $data = \http_build_query($data);
-                
-        $url = $this->pagseguro->_url.'v2/pre-approvals/notifications/'.$code.'?'.$data;
-
-        $curl = curl_init();
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($curl, CURLOPT_URL, $url);
-
-        $xml = curl_exec($curl);
-        curl_close($curl);
-
-        $xml = simplexml_load_string($xml);
-        
-            $code  = $xml->code;
-            $reference  = $xml->reference;
-            $status     = $xml->status;
-            $amount     = null;
-            $status = $this->tabela_status_recorrencia($status);
-
-            $subscription = Subscription::where('id', $reference)->first();
-        
-            if(!empty($subscription)){            
-                $plan_id = $subscription->plan_id;
-                if (!is_null($xml)) {
-                    $subscription->status           = $status;
-                    $subscription->transaction_code = $code;
-                    $subscription->amount           = $amount;
-                    $subscription->save();
-
-                    if($status == "Ativa"){
-
-                        $plan = new Plan;
-                        $plan = $plan::find($plan_id); 
-                        $plano_nick = $plan->nick;
-        
-                        $user = new User;
-                        $user = $user::find($subscription->user_id);  
-                        
-                        $nome  = $user->name;
-                        $email = $user->email;
-        
-                        $this->sendEmail($email, $nome, $plano_nick, $url=null, $status ='Pago');
-                    }                    
-                }            
-                
-            }
-
-    }
-
-
-    public function search_preaproval_transaction($code){
-
-
-        $data['token'] = $this->pagseguro->_token;
-        $data['email'] = $this->pagseguro->_email;
-
-        $data = \http_build_query($data);
-                
-        $url = $this->pagseguro->_url.'/pre-approvals/'.$code.'?'.$data;
-
-        $curl = curl_init();
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($curl, CURLOPT_URL, $url);
-
-        $xml = curl_exec($curl);
-        curl_close($curl);
-
-       
-
-        $xml = simplexml_load_string($xml);
-        
-            $code  = $xml->code;
-            $reference  = $xml->reference;
-            $status     = $xml->status;
-            $amount     = null;
-
-            
-            $status = $this->tabela_status_recorrencia($status);
-            
-
-            $subscription = Subscription::where('id', $reference)->first();
-        
-            if(!empty($subscription)){            
-                $plan_id = $subscription->plan_id;
-                if (!is_null($xml)) {
-                    $subscription->status           = $status;
-                    $subscription->transaction_code = $code;
-                    $subscription->amount           = $amount;
-                    $subscription->save();
-
-                    if($status == "Ativa"){
-
-                        $plan = new Plan;
-                        $plan = $plan::find($plan_id); 
-                        $plano_nick = $plan->nick;
-        
-                        $user = new User;
-                        $user = $user::find($subscription->user_id);  
-                        
-                        $nome  = $user->name;
-                        $email = $user->email;
-        
-                        $this->sendEmail($email, $nome, $plano_nick, $url=null, $status ='Pago');
-                    }                    
-                }            
-                
-            }
-
-    }
-
-    public function search_transaction_code($code){
-
-        $data['token'] = $this->pagseguro->_token;
-        $data['email'] = $this->pagseguro->_email;
-
-        $data = \http_build_query($data);
-                
-        $url = $this->pagseguro->_url.'/transactions/'.$code.'?'.$data;
-
-        $curl = curl_init();
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($curl, CURLOPT_URL, $url);
-
-        $xml = curl_exec($curl);
-        curl_close($curl);
-
-       
-
-        $xml = simplexml_load_string($xml);
-        
-            $code  = $xml->code;
-            $reference  = $xml->reference;
-            $status     = $xml->status;
-            $amount     = null;
-            
-            $status = $this->tabela_status_recorrencia($status);
-            
-
-            $subscription = Subscription::where('id', $reference)->first();
-        
-            if(!empty($subscription)){            
-                $plan_id = $subscription->plan_id;
-                if (!is_null($xml)) {
-                    $subscription->status           = $status;
-                    $subscription->transaction_code = $code;
-                    $subscription->amount           = $amount;
-                    $subscription->save();
-
-                    if($status == "Ativa"){
-
-                        $plan = new Plan;
-                        $plan = $plan::find($plan_id); 
-                        $plano_nick = $plan->nick;
-        
-                        $user = new User;
-                        $user = $user::find($subscription->user_id);  
-                        
-                        $nome  = $user->name;
-                        $email = $user->email;
-        
-                        $this->sendEmail($email, $nome, $plano_nick, $url=null, $status ='Pago');
-                    }                    
-                }            
-                
-            }
-
-
-    }
-
-    public function consulta_pagto_card_reference($reference){
-
-
-        $data['token'] = $this->pagseguro->_token;
-        $data['email'] = $this->pagseguro->_email;
-
-        $data = \http_build_query($data);
-                
-        $url = $this->pagseguro->_url.'v2/transactions?reference='.$reference.'&'.$data;
-        
-        $Curl=curl_init($url);
-        curl_setopt($Curl,CURLOPT_SSL_VERIFYPEER,false);
-        curl_setopt($Curl,CURLOPT_RETURNTRANSFER,true);
-        $Retorno=curl_exec($Curl);
-        curl_close($Curl);
-            $xml = simplexml_load_string($Retorno);
-            if(!empty($xml)){  
-                // dd($xml);
-                $code   = $xml->transactions->transaction->code;
-                $status = $xml->transactions->transaction->status;
-                $amount = $xml->transactions->transaction->grossAmount;
-                
-                $status = $this->tabela_status($status);
-
-                $subscription = Subscription::where('id', $reference)->first();
-        
-                if(!empty($subscription)){            
-                    $plan_id = $subscription->plan_id;
-                    if (!is_null($xml)) {
-                        echo $status;
-                        $subscription->status           = $status;
-                        $subscription->transaction_code = $code;
-                        $subscription->amount           = $amount;
-                        $subscription->save();
-                    }
-                }
-            }
-
-    }
-
-
-    public function testa_consulta_pagto_card_reference($reference){
-
-
-        $data['token'] = $this->pagseguro->_token;
-        $data['email'] = $this->pagseguro->_email;
-
-        $data = \http_build_query($data);
-                
-        $url = $this->pagseguro->_url.'v2/transactions?reference='.$reference.'&'.$data;
-
-
-        $Curl=curl_init($url);
-        curl_setopt($Curl,CURLOPT_SSL_VERIFYPEER,false);
-        curl_setopt($Curl,CURLOPT_RETURNTRANSFER,true);
-        $Retorno=curl_exec($Curl);
-        curl_close($Curl);
-            
-           
-
-
-    }
-
     public function tabela_status($status, $status_details){
 
-        
+        $mensagem = "";
         if($status == "approved" && $status_details == "accredited" ){
             $mensagem = "Pagamento aprovado";
         }
