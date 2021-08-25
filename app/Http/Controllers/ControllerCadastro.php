@@ -312,9 +312,7 @@ class ControllerCadastro extends Controller
                             $response = curl_exec($curl);
                             curl_close($curl);
                             $response = json_decode($response, true);
-                            return $response;
-            
-                            
+                           
 
                             if(isset($response["init_point"]))
                             {
