@@ -188,6 +188,10 @@ class ControllerCadastro extends Controller
                     }        
 //1240004735
                     if($dados_sb["id"]){
+
+                        $date_from =  (new \DateTime())->format('Y-m-d\TH:i:s');
+                        $date_to = date("Y-m-d\TH:i:s", strtotime($date_from.'+ 27 days'));   
+
                         $external_reference = $dados_sb["id"]; 
                         if($periodo == "anual"){                        
 
@@ -224,6 +228,7 @@ class ControllerCadastro extends Controller
                                 $item->id          = $plano_codigo;
                                 $item->title       = $plano_name;  
                                 $item->description = $plano_name;  
+                                $item->category_id = $plano_codigo;
                                 $item->quantity = 1;  
                                 $item->currency_id = "BRL";
                                 $item->unit_price = (double) $plano_amount; 
@@ -239,13 +244,21 @@ class ControllerCadastro extends Controller
                             $preference->external_reference= $dados_sb["id"];  
                             $preference->notification_url = "https://casfpic.org.br/api/postback";
                             $preference->auto_return = "approved";
+                            $preference->payment_methods = array(
+                                "installments" => 12
+                            );                         
+                            $preference->statement_descriptor = "ASSOCIACAO CASFPIC"; 
+                            
+                            $preference->expires = true;  
+                            $preference->expiration_date_from = $date_from;  
+                            $preference->expiration_date_to = $date_to;  
+                                                        
                             $preference->save();  
        
                             if(isset($preference->init_point))
                             {
-                                
-                                
                                 $url = $preference->init_point;
+                                return $url;
                                 $subscription = Subscription::where('id', $dados_sb["id"])->first();
                                 if(!empty($subscription)){            
                                         $subscription->transaction_code = $preference->id;
@@ -405,4 +418,29 @@ class ControllerCadastro extends Controller
         ];
         Mail::to($email)->send(new Obrigado($dados));        
     }    
+
+    public function generatePassword($qtyCaraceters = 6)
+    {
+        //Letras minúsculas embaralhadas
+        $smallLetters = str_shuffle('abcdefghijklmnopqrstuvwxyz');
+     
+        //Letras maiúsculas embaralhadas
+        $capitalLetters = str_shuffle('ABCDEFGHIJKLMNOPQRSTUVWXYZ');
+     
+        //Números aleatórios
+        $numbers = (((date('Ymd') / 12) * 24) + mt_rand(800, 9999));
+        $numbers .= 1234567890;
+     
+        //Caracteres Especiais
+        $specialCharacters = str_shuffle('!@#$%*-');
+     
+        //Junta tudo
+        $characters = $capitalLetters.$smallLetters.$numbers;
+     
+        //Embaralha e pega apenas a quantidade de caracteres informada no parâmetro
+        $password = substr(str_shuffle($characters), 0, $qtyCaraceters);
+        $password = \strtoupper($password);
+        //Retorna a senha
+        return $password;
+    }          
 }

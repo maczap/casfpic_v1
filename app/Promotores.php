@@ -29,4 +29,14 @@ class Promotores extends Model
         
     }
 
+    public function testaPromotor($code)
+    {
+
+            return User::select("id")
+            ->where("promotor_code", $code)
+            ->Where("promotor", 1)
+            ->get();    
+        
+    }    
+
 }

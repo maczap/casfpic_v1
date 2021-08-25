@@ -6,16 +6,51 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Promotores;
 
+
 class ControllerPromotores extends Controller
 {
+    private $_promotor = null;
+    private $_supervisor = null;
 
-    private $_promotor = "PUBBD3CE3ECC27B43F6B2D2B8C64BCE27D8";
-    private $_supervisor = "PUBBE2CA50F60D249DEA62CB547437BD408";
+    public function link_promotor(Request $request){
+        $code = $request["code"];
+
+        
+        $user = new Promotores();
+
+        $teste = $user->testaPromotor($code);
+
+        if(count($teste) > 0){
+            
+            if(isset($code))
+            {
+                // $response = new \Illuminate\Http\Response('Hello World');
+                // $response->withCookie(cookie('promotor_servclube', $code, 87660));
+                return response(view("welcome"))->cookie(
+                    'promotor_casfpic', $code, 87660
+                );
+
+            } else {
+                $code = "ATYEAU";
+                
+                // return view($plano);
+                return response(view("welcome"))->cookie(
+                    'promotor_casfpic', $code, 87660
+                );
+            }
+        } else {
+            abort(404);
+        }
+        
+        
+    }
+
 
     public function getPromotor($code=null)
     {
         $this->promotores = new Promotores();
-
+        $promotor = null;
+        $supervisor = null;
         if($code == "" || $code== null)
         {
             $promotor   = $this->_promotor;
@@ -29,6 +64,7 @@ class ControllerPromotores extends Controller
         } else {
 
             $dados = $this->promotores->getPromotor($code);
+            
             
             if(isset($dados[0])){
                 $promotor   = $dados[0]->promotor;

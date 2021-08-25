@@ -53,6 +53,10 @@ Route::get('get-promotor/{code}', [ControllerPromotores::class,'getPromotor'])->
 Route::get('teste_plan_create', [ControllerPlans::class,'CreatePlan'])->name('createPlan');
 Route::get('assinatura', [ControllerCadastro::class,'Assinatura'])->name('assinatura');
 
+Route::get('gerar_token', [ControllerCadastro::class,'generatePassword'])->name('generatePassword');
+
+Route::get('p/{code}', [ControllerPromotores::class,'link_promotor'])->name('link_promotor');
+
 
 Route::get('/test_json', function () {
 
@@ -69,5 +73,14 @@ Route::middleware(['client'])->group(function (){
         dd("voce é admin");
     });
 });
+
+Route::get('/teste_data', function () {
+    $data =  (new \DateTime())->format('Y-m-d\TH:i:s');
+
+    $date1 = date("Y-m-d\TH:i:s", strtotime($data.'+ 5 days'));
+    // $data = $data->format('Y-m-d\TH:i:s.u'); 
+    return $date1;
+});
+
 
 

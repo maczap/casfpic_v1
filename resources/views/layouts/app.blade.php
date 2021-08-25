@@ -210,7 +210,7 @@
         <script src="{{ asset('js/app.js') }}"></script>
         <script src="{{ asset('js/all.js') }}"></script>
 
-        <script src="https://www.mercadopago.com/v2/security.js" view="checkout" output="deviceId"></script>    
+        <script src="https://www.mercadopago.com/v2/security.js" view="home" output="deviceId"></script>    
     
     </body>
    
