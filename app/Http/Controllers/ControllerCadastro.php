@@ -301,7 +301,7 @@ class ControllerCadastro extends Controller
                                   
                                 },
                                 "back_url": "https://casfpic.org.br/api/postback",
-                                "collector_id": 7872711062833317,
+                                "collector_id": 655553401,
                                 "external_reference": "'.$external_reference.'",
                                 "payer_email": "'.$email.'",
                                 "reason": "'.$plano_name.'",
@@ -313,7 +313,7 @@ class ControllerCadastro extends Controller
                             curl_close($curl);
                             $response = json_decode($response, true);
                            
-
+                            
                             if(isset($response["init_point"]))
                             {
                                 $url = $response["init_point"];
