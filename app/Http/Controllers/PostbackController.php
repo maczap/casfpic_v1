@@ -189,6 +189,9 @@ class PostbackController extends Controller
             $payment_type_id = null;
             if(isset($response["payment_type_id"])){
                 $payment_type_id      =  $response["payment_type_id"];
+                $payment_id      =  $response["payment_id"];
+
+                dd($payment_id);
             } 
                 $mensagem = null;
             if(isset($status) && isset($status_detail)) {
@@ -523,4 +526,40 @@ class PostbackController extends Controller
 
         return [];
     }    
+
+    public function failure(Request $request){
+        if($request["external_reference"]){
+            $external_reference = $request["external_reference"];
+            $payment_type       = $request["payment_type"];
+            $preference_id      = $request["preference_id"];
+            $payment_id         = $request["payment_id"];
+            $status             = $request["status"];
+            
+            $subscription = Subscription::where('id', $external_reference)->first(); 
+            if(isset($subscription)) {
+                $user_id = $subscription["user_id"];
+                $plan_id = $subscription["plan_id"];
+
+                $plan = Plan::where('id', $plan_id)->first(); 
+                $plan_name      = $plan["descricao"];
+                $plan_nick      = $plan["nick"];
+                $plan_periodo   = $plan["periodo"];
+                
+                $user = User::where('id', $user_id)->first(); 
+                
+                $nome = $user["name"];
+                $nome = \explode(" ", $nome);
+                if(isset($nome[0]))
+                {
+                    $nome = \strtolower($nome[0]);
+                    $nome = \ucfirst($nome);
+                }
+                return view('layouts.pending', ['nome' => $nome, 'plano' => $plan_name ]);;
+            }          
+            
+        }
+
+        return [];
+    }    
+    
 }
