@@ -127,16 +127,16 @@
                         <div class="col-xl-4 col-sm-6 col-md-6 col-lg-4">
                             <div class="footer-about">
                                 <a href="#"><img src="{{ asset('images/hero/logo.png') }}" alt="footer logo"></a>
-                                <p>Bdolorum eaque Velit libero fugit dolores repellendus consequatur nisi, deserunt aperiam.</p>
+                                
                             </div>
                         </div>
                         <div class="col-xl-2 col-sm-6 col-md-6 col-lg-2">
                             <div class="footer-cmn footer-menu">
                                 <h5>Institucional</h5>
                                 <ul>
-                                    <li><a href="#">Diretoria</a></li>
-                                    <li><a href="#">Estatuto</a></li>
-                                    <li><a href="#">Critérios</a></li>
+                                    <li><a href="https://casfpic.org.br/pdfs/estatuto.pdf">Estatuto</a></li>
+                                    <li><a href="https://casfpic.org.br/pdfs/normas-associativas.pdf">Normas Associativa</a></li>
+                                    <li><a href="https://casfpic.org.br/politica">Política de Privacidade</a></li>
                                     
                                 </ul>
                             </div>
@@ -145,23 +145,22 @@
                             <div class="footer-cmn footer-quick-link">
                                 <h5>Contato</h5>
                                 <ul>
-                                    <li><a href="#">contato@casfpic.org.br</a></li>
-                                    <li><a href="#">((11)0000-0000</a></li>
+                                    
+                                    <li>contato@casfpic.org.br</li>
+                                    <li>Whatsapp: <br>(11) 94019-4371</li>
+                                    <li>Telefone: <br>(14) 3714-0525 </li>
+                                    
                        
                                 </ul>
                             </div>
                         </div>
                         <div class="col-xl-4 col-sm-6 col-md-6 col-lg-4">
                             <div class="footer-cmn footer-social-link">
-                                <h5>Redes sociais</h5>
-                                <ul>
-                                    <li><a class="social-bg-fb" href="#"><i class="flaticon-facebook"></i> Facebook</a></li>
-                                    <li><a class="social-bg-link" href="#"><i class="flaticon-linkedin"></i> Linkedin</a></li>
-                                    <li><a class="social-bg-twit" href="#"><i class="flaticon-twitter"></i> Twitter</a></li>
-                                    <li><a class="social-bg-dribb" href="#"><i class="flaticon-dribbble-logo"></i> Dribbble</a></li>
-                                    <li><a class="social-bg-inst" href="#"><i class="flaticon-instagram"></i> Instagram</a></li>
-                                    <li><a class="social-bg-pint" href="#"><i class="flaticon-pinterest"></i> Pinterest</a></li>
-                                </ul>
+                                <h5>Endereço</h5>
+                                <li>Rua Sete de Setembro 270 - Centro</li>
+                                <li>CEP: 1876O- 037</li>
+                                <li>Cerqueira Cesar - SP</li>
+                  
                             </div>
                         </div>
 
@@ -205,8 +204,15 @@
                 <a href="#" class="scrollToTop" style="display: inline;"><i class="flaticon-up-arrow"></i></a>
             </div>
             <!-- scrollToTop end -->
+            @if($cookie == 1)
+            <cp-cookie></cp-cookie>
+            @endif            
 		</div>    
+
         
+        
+
+
         <script src="{{ asset('js/app.js') }}"></script>
         <script src="{{ asset('js/all.js') }}"></script>
 

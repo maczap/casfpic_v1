@@ -123,3 +123,27 @@ select{
     border-radius: .25rem;  
     color: #777777;
 }
+
+.cookie{
+
+    position: fixed;
+    left: 50%;
+    transform: translate(-50%, 0);
+
+    box-shadow: 0 2px 4px 0 rgb(0 0 0 / 16%);
+    z-index: 999999999;
+    background-color: #fefefe;
+    padding: 10px 10px 5px 10px;
+    border: 1px rgba(112, 112, 112, 0.25) solid;
+    border-radius: 5px;
+    max-width: 1170px;    
+    width: 100%;
+    bottom: 20px;
+    margin: 0 auto;    
+}
+.cookie p{
+    font-size:12px;
+}
+.cookie img{
+    float:left;
+}

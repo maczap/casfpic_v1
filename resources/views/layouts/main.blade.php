@@ -644,7 +644,7 @@
                     <div class="row">
                         <div class="col-xl-5 col-sm-12 col-md-12 col-lg-4">
                             <div class="testimonial-ceo-mesg section-title">
-                                <h2>“Estamos comprometidos com o seu <span>sucesso"</span></h2>
+                                <h2>“Estamos comprometidos com o seu <span>bem-estar"</span></h2>
                                 <img src="./images/hero/signature.png" alt="">
                                 <h5>José Lourenço Júnior</h5>
               
