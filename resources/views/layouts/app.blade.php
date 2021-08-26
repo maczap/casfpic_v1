@@ -48,7 +48,7 @@
                             <!-- Header logo -->
                             <div class="col-xl-3 col-lg-3 col-md-3">
                                 <div class="header-logo d-none d-md-block d-lg-block d-xl-block">
-                                    <a href="#"><img src="{{ asset('images/hero/logo.png') }}" alt="logo"></a>
+                                    <a href="#"><img src="https://casfpic.org.br/images/hero/logo.png" alt="logo"></a>
                                 </div>
                             </div>
                             <!-- Header Responsive menu -->
@@ -59,7 +59,7 @@
                                         <div class="menu-toggle" style="display: none;">
                                             <!-- Mobile logo -->
                                             <div class="mobile-logo">
-                                                <a href="#index.html"><img src="{{ asset('images/hero/logo.png') }}" alt="logo"></a>
+                                                <a href="#index.html"><img src="https://casfpic.org.br/images/hero/logo.png" alt="logo"></a>
                                             </div>
                                             <button type="button" id="menu-btn">
                                                 <span class="icon-bar"></span>
@@ -126,7 +126,7 @@
 					<div class="row">
                         <div class="col-xl-4 col-sm-6 col-md-6 col-lg-4">
                             <div class="footer-about">
-                                <a href="#"><img src="http://casfpic.org.br/images/hero/logo.png" alt="footer logo"></a>
+                                <a href="#"><img src="https://casfpic.org.br/images/hero/logo.png" alt="footer logo"></a>
                                 
                             </div>
                         </div>
@@ -166,16 +166,16 @@
 
                         <div class="col-xl-12">
                             <div class="footer-shape-one">
-                                 <img src="http://casfpic.org.br/images/hero/hero-shape-3.png" lt="">
+                                 <img src="https://casfpic.org.br/images/hero/hero-shape-3.png" lt="">
                              </div>
                              <div class="footer-shape-two">
-                                 <img src="http://casfpic.org.br/images/hero/shape-small-01.png" alt="">
+                                 <img src="https://casfpic.org.br/images/hero/shape-small-01.png" alt="">
                              </div>
                              <div class="footer-shape-three">
-                                 <img src="http://casfpic.org.br/images/hero/shape-small-02.png" alt="">
+                                 <img src="https://casfpic.org.br/images/hero/shape-small-02.png" alt="">
                              </div>
                              <div class="footer-shape-four">
-                                 <img src="http://casfpic.org.br/images/hero/shape-small-03.png" alt="">
+                                 <img src="https://casfpic.org.br/images/hero/shape-small-03.png" alt="">
                              </div>
                         </div>
 					</div>

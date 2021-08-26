@@ -12,22 +12,22 @@
   
                              </div>
                              <div class="hero-shape-one">
-                                 <img src="./images/hero/hero-shape.png" alt="">
+                                 <img src="https://casfpic.org.br/images/hero/hero-shape.png" alt="">
                              </div>
                              <div class="hero-shape-two">
-                                 <img src="./images/hero/hero-shape-2.png" alt="">
+                                 <img src="https://casfpic.org.br/images/hero/hero-shape-2.png" alt="">
                              </div>
                              <div class="hero-shape-three">
-                                 <img src="./images/hero/hero-shape-3.png" alt="">
+                                 <img src="https://casfpic.org.br/images/hero/hero-shape-3.png" alt="">
                              </div>
                              <div class="hero-shape-four">
-                                 <img src="./images/hero/shape-small-01.png" alt="">
+                                 <img src="https://casfpic.org.br/images/hero/shape-small-01.png" alt="">
                              </div>
                              <div class="hero-shape-five">
-                                 <img src="./images/hero/shape-small-02.png" alt="">
+                                 <img src="https://casfpic.org.br/images/hero/shape-small-02.png" alt="">
                              </div>
                              <div class="hero-shape-six">
-                                 <img src="./images/hero/shape-small-03.png" alt="">
+                                 <img src="https://casfpic.org.br/images/hero/shape-small-03.png" alt="">
                              </div>
                          </div>
                      </div>     
@@ -44,10 +44,10 @@
                                 <div class="col-xl-6 col-sm-6 col-md-6">
                                     <div class="service-blurb-cont service-blurb-cont-01 text-center">
                                         <div class="service-blurb-img">
-                                            <img src="./images/hero/05.png" alt="">
+                                            <img src="https://casfpic.org.br/images/hero/05.png" alt="">
                                         </div>
                                         <div class="service-blurb-text">
-                                            <a href="http://html.iddrak.com/consolin/#"><h5>São mais de 50 mil consultórios credenciados!</h5></a>
+                                            <a href="https://html.iddrak.com/consolin/#"><h5>São mais de 50 mil consultórios credenciados!</h5></a>
                                             <div class="service-blurb-btn mt-30">
                                                 
                                             </div>
@@ -57,10 +57,10 @@
                                 <div class="col-xl-6 col-sm-6 col-md-6">
                                     <div class="service-blurb-cont service-blurb-cont-02 text-center mt-30">
                                         <div class="service-blurb-img service-blurb-img-03">
-                                            <img src="./images/hero/10.png" alt="">
+                                            <img src="https://casfpic.org.br/images/hero/10.png" alt="">
                                         </div>
                                         <div class="service-blurb-text">
-                                            <a href="http://html.iddrak.com/consolin/#"><h5>Negociamos as melhores condições de benefícios nos diversos segmentos</h5></a>
+                                            <a href="https://html.iddrak.com/consolin/#"><h5>Negociamos as melhores condições de benefícios nos diversos segmentos</h5></a>
                                             <div class="service-blurb-btn mt-30">
                                                 
                                             </div>
@@ -70,10 +70,10 @@
                                 <div class="col-xl-6 col-sm-6 col-md-6">
                                     <div class="service-blurb-cont service-blurb-cont-03 text-center mt-30">
                                         <div class="service-blurb-img">
-                                            <img src="./images/hero/06.png" alt="">
+                                            <img src="https://casfpic.org.br/images/hero/06.png" alt="">
                                         </div>
                                         <div class="service-blurb-text">
-                                            <a href="http://html.iddrak.com/consolin/#"><h5>Atualizamos nosso Clube de Vantagens mês a
+                                            <a href="https://html.iddrak.com/consolin/#"><h5>Atualizamos nosso Clube de Vantagens mês a
                                                 mês.</h5></a>
                                             <div class="service-blurb-btn mt-30">
                                                 
@@ -84,10 +84,10 @@
                                 <div class="col-xl-6 col-sm-6 col-md-6">
                                     <div class="service-blurb-cont service-blurb-cont-04 text-center mt-30">
                                         <div class="service-blurb-img service-blurb-img-04">
-                                            <img src="./images/hero/08.png" alt="">
+                                            <img src="https://casfpic.org.br/images/hero/08.png" alt="">
                                         </div>
                                         <div class="service-blurb-text">
-                                            <a href="http://html.iddrak.com/consolin/#"><h5>Precisou de algum atendimento de emergência? Nossos planos cobrem.</h5></a>
+                                            <a href="https://html.iddrak.com/consolin/#"><h5>Precisou de algum atendimento de emergência? Nossos planos cobrem.</h5></a>
                                             <div class="service-blurb-btn mt-30">
                                                 
                                             </div>
@@ -149,16 +149,16 @@
                         </div>
                         <div class="col-xl-12">                            
                              <div class="service-shape-one">
-                                 <img src="./images/hero/hero-shape.png" alt="">
+                                 <img src="https://casfpic.org.br/images/hero/hero-shape.png" alt="">
                              </div>
                              <div class="service-shape-two">
-                                 <img src="./images/hero/hero-shape-2.png" alt="">
+                                 <img src="https://casfpic.org.br/images/hero/hero-shape-2.png" alt="">
                              </div>
                              <div class="service-shape-three">
-                                 <img src="./images/hero/hero-shape-3.png" alt="">
+                                 <img src="https://casfpic.org.br/images/hero/hero-shape-3.png" alt="">
                              </div>
                              <div class="service-shape-four">
-                                 <img src="./images/hero/hero-shape-4.png" alt="">
+                                 <img src="https://casfpic.org.br/images/hero/hero-shape-4.png" alt="">
                              </div>
                         </div>
                     </div>
@@ -239,18 +239,18 @@
                               
                             
                             <div class="about-shape-four">
-                                <img src="./images/hero/shape-small-01.png" alt="">
+                                <img src="https://casfpic.org.br/images/hero/shape-small-01.png" alt="">
                             </div>
                             <div class="about-shape-five">
-                                <img src="./images/hero/shape-small-02.png" alt="">
+                                <img src="https://casfpic.org.br/images/hero/shape-small-02.png" alt="">
                             </div>
                             <div class="about-shape-six">
-                                <img src="./images/hero/shape-small-03.png" alt="">
+                                <img src="https://casfpic.org.br/images/hero/shape-small-03.png" alt="">
                             </div>
                         </div>
                         <div class="col-xl-6 col-sm-12 col-md-12 col-lg-6">
                             <div class="about-content-img">
-                                <img src="./images/hero/01.jpg" alt="">
+                                <img src="https://casfpic.org.br/images/hero/01.jpg" alt="">
                             </div>
                         </div>
                     </div>
@@ -265,7 +265,7 @@
                         <div class="col-xl-12 col-sm-12 col-md-12 col-lg-12">
                             <div class="about-content section-title">
                                 <h2>Empresas <span>Parceiras</span></h2>
-                                <img src="/images/hero/ttile-shape.png" alt="">
+                                <img src="https://casfpic.org.br/images/hero/ttile-shape.png" alt="">
                                 
                             </div>
 
@@ -278,7 +278,7 @@
                                 <div class="col-xl-6 col-sm-6 col-md-6 col-lg-3 text-center">
 
                                     <div class="card mb-20" >
-                                        <img class="card-img-top" src="/images/logo-operadora/odontoprev.jpg" alt="logo odontoprev">
+                                        <img class="card-img-top" src="https://casfpic.org.br/images/logo-operadora/odontoprev.jpg" alt="logo odontoprev">
                                         <div class="card-body">
                                             
                                             <p class="card-text">Com mais de 100 mil empresas clientes e mais de 7 milhões de beneficiários, A OdontoPrev é líder do segmento de Assistência Odontológica há mais de 20 anos e possui atualmente a maior operação da América Latina.</p>
@@ -289,7 +289,7 @@
                                 </div>
                                 <div class="col-xl-6 col-sm-6 col-md-6 col-lg-3 text-center">
                                     <div class="card mb-20" >
-                                        <img class="card-img-top" src="/images/logo-operadora/uniodonto.png" alt="logo uniodonto">
+                                        <img class="card-img-top" src="https://casfpic.org.br/images/logo-operadora/uniodonto.png" alt="logo uniodonto">
                                         <div class="card-body">
                                             
                                             <p class="card-text">A maior rede de atendimento em planos odontológicos do mundo, que consolidou o atendimento a 3 milhões usuários no Brasil, prestado por cerca de 22 mil cirurgiões dentistas cooperados, organizados em 117 singulares</p>
@@ -313,7 +313,7 @@
                         <div class="col-xl-12 col-sm-12 col-md-12 col-lg-12">
                             <div class="section-title">
                                 <h2>Categoria dos <span>Associados</span></h2>
-                                <img src="./images/hero/ttile-shape.png" alt="">
+                                <img src="https://casfpic.org.br/images/hero/ttile-shape.png" alt="">
                                
                             </div>
 
@@ -575,14 +575,14 @@
                                     o associado encontre na CASFPIC soluções
                                     realmente eficazes para seu dia a dia e que
                                     melhor se enquadre a sua necessidade.</p>
-                                <img src="./images/hero/ttile-shape-02.png" alt="">
+                                <img src="https://casfpic.org.br/images/hero/ttile-shape-02.png" alt="">
                             </div>
                         </div>
                         <div class="col-xl-3 col-sm-6 col-md-6 col-lg-3">
                             <div class="team-card">
                                 <div class="card-cont">
                                     <h3>01</h3>
-                                    <img src="./images/hero/04.jpg" alt="">
+                                    <img src="https://casfpic.org.br/images/hero/04.jpg" alt="">
                                 </div>
                             </div>
                         </div>
@@ -590,7 +590,7 @@
                             <div class="team-card">
                                 <div class="card-cont">
                                     <h3>02</h3>
-                                    <img src="./images/hero/05.jpg" alt="">
+                                    <img src="https://casfpic.org.br/images/hero/05.jpg" alt="">
                                 </div>
                             </div>
                         </div>
@@ -598,7 +598,7 @@
                             <div class="team-card">
                                 <div class="card-cont">
                                     <h3>03</h3>
-                                    <img src="./images/hero/06.jpg" alt="">
+                                    <img src="https://casfpic.org.br/images/hero/06.jpg" alt="">
                                 </div>
                             </div>
                         </div>
@@ -606,29 +606,29 @@
                             <div class="team-card">
                                 <div class="card-cont">
                                     <h3>04</h3>
-                                    <img src="./images/hero/07.jpg" alt="">
+                                    <img src="https://casfpic.org.br/images/hero/07.jpg" alt="">
                                 </div>
                             </div>
                         </div>
 
                         <div class="col-xl-12">
                              <div class="team-shape-one">
-                                 <img src="./images/hero/shape-small-01.png" alt="">
+                                 <img src="https://casfpic.org.br/images/hero/shape-small-01.png" alt="">
                              </div>
                              <div class="team-shape-two">
-                                 <img src="./images/hero/shape-small-02.png" alt="">
+                                 <img src="https://casfpic.org.br/images/hero/shape-small-02.png" alt="">
                              </div>
                              <div class="team-shape-three">
-                                 <img src="./images/hero/shape-small-03.png" alt="">
+                                 <img src="https://casfpic.org.br/images/hero/shape-small-03.png" alt="">
                              </div>
                              <div class="team-shape-four">
-                                 <img src="./images/hero/shape-small-01.png" alt="">
+                                 <img src="https://casfpic.org.br/images/hero/shape-small-01.png" alt="">
                              </div>
                              <div class="team-shape-five">
-                                 <img src="./images/hero/shape-small-02.png" alt="">
+                                 <img src="https://casfpic.org.br/images/hero/shape-small-02.png" alt="">
                              </div>
                              <div class="team-shape-six">
-                                 <img src="./images/hero/shape-small-03.png" alt="">
+                                 <img src="https://casfpic.org.br/images/hero/shape-small-03.png" alt="">
                              </div>
                         </div>
                     </div>
@@ -645,7 +645,7 @@
                         <div class="col-xl-5 col-sm-12 col-md-12 col-lg-4">
                             <div class="testimonial-ceo-mesg section-title">
                                 <h2>“Estamos comprometidos com o seu <span>bem-estar"</span></h2>
-                                <img src="./images/hero/signature.png" alt="">
+                                <img src="https://casfpic.org.br/images/hero/signature.png" alt="">
                                 <h5>José Lourenço Júnior</h5>
               
                             </div>
@@ -658,98 +658,98 @@
                             <div class="owl-stage-outer"><div class="owl-stage" style="transform: translate3d(-2202px, 0px, 0px); transition: all 0s ease 0s; width: 5141px;"><div class="owl-item cloned" style="width: 734.328px;"><div class="item">
                                     <div class="testimonial-item">
                                         <div class="testimonial-item-cmn testimonial-img">
-                                            <img src="./images/hero/02.jpg" alt="">
+                                            <img src="https://casfpic.org.br/images/hero/02.jpg" alt="">
                                         </div>
                                         <div class="testimonial-item-cmn testimonial-text">
                                             <i class="angle-quote-top flaticon-straight-quotes"></i>
                                             <h3>Lídia Ramos</h3>
                                             <!-- <p>Duis consectetur feugiat auctor. Morbi nec enim luctus, feugiat arcu id, ultricies ante. Duis vel massa eleifend, porta est non, feugiat metus. feugiat ultricies.</p> -->
                                             <h5>Graphic Designer</h5>
-                                            <!-- <img src="./images/hero/arrow.png" alt=""> -->
+                                            <!-- <img src="https://casfpic.org.br/images/hero/arrow.png" alt=""> -->
                                             <i class="angle-quote-btm flaticon-blocks-with-angled-cuts"></i>
                                         </div>
                                     </div>
                                 </div></div><div class="owl-item cloned" style="width: 734.328px;"><div class="item">
                                     <div class="testimonial-item">
                                         <div class="testimonial-item-cmn testimonial-img">
-                                            <img src="./images/hero/03.jpg" alt="">
+                                            <img src="https://casfpic.org.br/images/hero/03.jpg" alt="">
                                         </div>
                                         <div class="testimonial-item-cmn testimonial-text">
                                             <i class="angle-quote-top flaticon-straight-quotes"></i>
                                             <h3>Jonatan Ropdrigues</h3>
                                             <!-- <p>Duis consectetur feugiat auctor. Morbi nec enim luctus, feugiat arcu id, ultricies ante. Duis vel massa eleifend, porta est non, feugiat metus. feugiat ultricies.</p> -->
                                             <h5>Diretor Comercial</h5>
-                                            <!-- <img src="./images/hero/arrow.png" alt=""> -->
+                                            <!-- <img src="https://casfpic.org.br/images/hero/arrow.png" alt=""> -->
                                             <i class="angle-quote-btm flaticon-blocks-with-angled-cuts"></i>
                                         </div>
                                     </div>
                                 </div></div><div class="owl-item" style="width: 734.328px;"><div class="item">
                                     <div class="testimonial-item">
                                         <div class="testimonial-item-cmn testimonial-img">
-                                            <img src="./images/hero/01(1).jpg" alt="">
+                                            <img src="https://casfpic.org.br/images/hero/01(1).jpg" alt="">
                                         </div>
                                         <div class="testimonial-item-cmn testimonial-text">
                                             <i class="angle-quote-top flaticon-straight-quotes"></i>
                                             <h3>Junior Figueiredo</h3>
                                             <!-- <p>Duis consectetur feugiat auctor. Morbi nec enim luctus, feugiat arcu id, ultricies ante. Duis vel massa eleifend, porta est non, feugiat metus. feugiat ultricies.</p> -->
                                             <h5>Consultor</h5>
-                                            <!-- <img src="./images/hero/arrow.png" alt=""> -->
+                                            <!-- <img src="https://casfpic.org.br/images/hero/arrow.png" alt=""> -->
                                             <i class="angle-quote-btm flaticon-blocks-with-angled-cuts"></i>
                                         </div>
                                     </div>
                                 </div></div><div class="owl-item animated owl-animated-in fadeIn active" style="width: 734.328px;"><div class="item">
                                     <div class="testimonial-item">
                                         <div class="testimonial-item-cmn testimonial-img">
-                                            <img src="./images/hero/02.jpg" alt="">
+                                            <img src="https://casfpic.org.br/images/hero/02.jpg" alt="">
                                         </div>
                                         <div class="testimonial-item-cmn testimonial-text">
                                             <i class="angle-quote-top flaticon-straight-quotes"></i>
                                             <h3>Lídia Ramos</h3>
                                             <!-- <p>Duis consectetur feugiat auctor. Morbi nec enim luctus, feugiat arcu id, ultricies ante. Duis vel massa eleifend, porta est non, feugiat metus. feugiat ultricies.</p> -->
                                             <h5>Gerente Comercial</h5>
-                                            <!-- <img src="./images/hero/arrow.png" alt=""> -->
+                                            <!-- <img src="https://casfpic.org.br/images/hero/arrow.png" alt=""> -->
                                             <i class="angle-quote-btm flaticon-blocks-with-angled-cuts"></i>
                                         </div>
                                     </div>
                                 </div></div><div class="owl-item animated owl-animated-in fadeIn" style="width: 734.328px;"><div class="item">
                                     <div class="testimonial-item">
                                         <div class="testimonial-item-cmn testimonial-img">
-                                            <img src="./images/hero/03.jpg" alt="">
+                                            <img src="https://casfpic.org.br/images/hero/03.jpg" alt="">
                                         </div>
                                         <div class="testimonial-item-cmn testimonial-text">
                                             <i class="angle-quote-top flaticon-straight-quotes"></i>
                                             <h3>Jonatan Ropdrigue</h3>
                                             <!-- <p>Duis consectetur feugiat auctor. Morbi nec enim luctus, feugiat arcu id, ultricies ante. Duis vel massa eleifend, porta est non, feugiat metus. feugiat ultricies.</p> -->
                                             <h5>Diretor Comercial</h5>
-                                            <!-- <img src="./images/hero/arrow.png" alt=""> -->
+                                            <!-- <img src="https://casfpic.org.br/images/hero/arrow.png" alt=""> -->
                                             <i class="angle-quote-btm flaticon-blocks-with-angled-cuts"></i>
                                         </div>
                                     </div>
                                 </div></div><div class="owl-item cloned" style="width: 734.328px;"><div class="item">
                                     <div class="testimonial-item">
                                         <div class="testimonial-item-cmn testimonial-img">
-                                            <img src="./images/hero/01(1).jpg" alt="">
+                                            <img src="https://casfpic.org.br/images/hero/01(1).jpg" alt="">
                                         </div>
                                         <div class="testimonial-item-cmn testimonial-text">
                                             <i class="angle-quote-top flaticon-straight-quotes"></i>
                                             <h3>Rebel Carbscop</h3>
                                             <p>Duis consectetur feugiat auctor. Morbi nec enim luctus, feugiat arcu id, ultricies ante. Duis vel massa eleifend, porta est non, feugiat metus. feugiat ultricies.</p>
                                             <h5>Sr. Consultant</h5>
-                                            <!-- <img src="./images/hero/arrow.png" alt=""> -->
+                                            <!-- <img src="https://casfpic.org.br/images/hero/arrow.png" alt=""> -->
                                             <i class="angle-quote-btm flaticon-blocks-with-angled-cuts"></i>
                                         </div>
                                     </div>
                                 </div></div><div class="owl-item cloned" style="width: 734.328px;"><div class="item">
                                     <div class="testimonial-item">
                                         <div class="testimonial-item-cmn testimonial-img">
-                                            <img src="./images/hero/02.jpg" alt="">
+                                            <img src="https://casfpic.org.br/images/hero/02.jpg" alt="">
                                         </div>
                                         <div class="testimonial-item-cmn testimonial-text">
                                             <i class="angle-quote-top flaticon-straight-quotes"></i>
                                             <h3>Liridona Rams</h3>
                                             <p>Duis consectetur feugiat auctor. Morbi nec enim luctus, feugiat arcu id, ultricies ante. Duis vel massa eleifend, porta est non, feugiat metus. feugiat ultricies.</p>
                                             <h5>Graphic Designer</h5>
-                                            <!-- <img src="./images/hero/arrow.png" alt=""> -->
+                                            <!-- <img src="https://casfpic.org.br/images/hero/arrow.png" alt=""> -->
                                             <i class="angle-quote-btm flaticon-blocks-with-angled-cuts"></i>
                                         </div>
                                     </div>
@@ -757,19 +757,19 @@
                         </div>
                         <div class="col-xl-12">
                             <div class="testimonial-shape-two">
-                                 <img src="./images/hero/hero-shape-3.png" alt="">
+                                 <img src="https://casfpic.org.br/images/hero/hero-shape-3.png" alt="">
                              </div>
                             <div class="testimonial-shape-three">
-                                 <img src="./images/hero/hero-shape-2.png" alt="">
+                                 <img src="https://casfpic.org.br/images/hero/hero-shape-2.png" alt="">
                              </div>
                              <div class="testimonial-shape-four">
-                                 <img src="./images/hero/shape-small-01.png" alt="">
+                                 <img src="https://casfpic.org.br/images/hero/shape-small-01.png" alt="">
                              </div>
                              <div class="testimonial-shape-five">
-                                 <img src="./images/hero/shape-small-02.png" alt="">
+                                 <img src="https://casfpic.org.br/images/hero/shape-small-02.png" alt="">
                              </div>
                              <div class="testimonial-shape-six">
-                                 <img src="./images/hero/shape-small-03.png" alt="">
+                                 <img src="https://casfpic.org.br/images/hero/shape-small-03.png" alt="">
                              </div>
                         </div>
                     </div>
@@ -785,7 +785,7 @@
                             <div class="blog-content section-title text-center">
                                 <h2><span>- Últimas - </span> <br>informações do nosso <span>blog</span></h2>
                                 <!-- <p>Modi perferendis ipsa, dolorum eaque Velit libero fugit dolores repellendus consequatur nisi, deserunt aperiam </p> -->
-                                <img src="./images/hero/ttile-shape.png" alt="">
+                                <img src="https://casfpic.org.br/images/hero/ttile-shape.png" alt="">
                             </div>
                         </div>
                     </div>
@@ -793,18 +793,18 @@
                         <div class="col-xl-4 col-sm-6 col-md-6 col-lg-4">
                             <div class="blog-item">
                                 <div class="blog-item-img">
-                                    <img src="./images/hero/01(2).jpg" alt="">
+                                    <img src="https://casfpic.org.br/images/hero/01(2).jpg" alt="">
                                 </div>
                                 <div class="blog-item-text">
                                     <div class="blog-info mb-20">
-                                        <a href="http://html.iddrak.com/consolin/#"><span><i class="flaticon-call-center-agent"></i>Robert Hook</span></a>
+                                        <a href="https://html.iddrak.com/consolin/#"><span><i class="flaticon-call-center-agent"></i>Robert Hook</span></a>
                                         <span><i class="flaticon-calendar-1"></i>Mar 03, 2021</span>
-                                        <a href="http://html.iddrak.com/consolin/#"><span><i class="flaticon-speech-bubble"></i>23</span></a>
+                                        <a href="https://html.iddrak.com/consolin/#"><span><i class="flaticon-speech-bubble"></i>23</span></a>
                                     </div>
-                                    <a href="http://html.iddrak.com/consolin/single-blog.html"><h5>Venda online de flores deve ter alta de até 8% no Dia dos Namorados</h5></a>
+                                    <a href="https://html.iddrak.com/consolin/single-blog.html"><h5>Venda online de flores deve ter alta de até 8% no Dia dos Namorados</h5></a>
                                     <p>Venda online de flores deve ter alta de até 8% no Dia dos Namorados Leia mais em: https://veja.abril.com.br/blog/radar/venda-online-de-flores-deve-ter-alta-de-ate-8-no-dia-dos-namorados/</p>
                                     <div class="blog-item-text-btn">
-                                        <a href="http://html.iddrak.com/consolin/single-blog.html">Saiba Mais<i class="flaticon-right-arrow"></i></a>
+                                        <a href="https://html.iddrak.com/consolin/single-blog.html">Saiba Mais<i class="flaticon-right-arrow"></i></a>
                                     </div>
                                 </div>
                             </div>
@@ -812,15 +812,15 @@
                         <div class="col-xl-4 col-sm-6 col-md-6 col-lg-4">
                             <div class="blog-item">
                                 <div class="blog-item-img">
-                                    <img src="./images/hero/02(1).jpg" alt="">
+                                    <img src="https://casfpic.org.br/images/hero/02(1).jpg" alt="">
                                 </div>
                                 <div class="blog-item-text">
                                     <div class="blog-info mb-20">
-                                        <a href="http://html.iddrak.com/consolin/#"><span><i class="flaticon-call-center-agent"></i>Robert Hook</span></a>
+                                        <a href="https://html.iddrak.com/consolin/#"><span><i class="flaticon-call-center-agent"></i>Robert Hook</span></a>
                                         <span><i class="flaticon-calendar-1"></i>Mar 03, 2021</span>
-                                        <a href="http://html.iddrak.com/consolin/#"><span><i class="flaticon-speech-bubble"></i>23</span></a>
+                                        <a href="https://html.iddrak.com/consolin/#"><span><i class="flaticon-speech-bubble"></i>23</span></a>
                                     </div>
-                                    <a href="http://html.iddrak.com/consolin/single-blog.html"><h5>PIB do 1º tri mostra expansão quase generalizada da economia</h5></a>
+                                    <a href="https://html.iddrak.com/consolin/single-blog.html"><h5>PIB do 1º tri mostra expansão quase generalizada da economia</h5></a>
                                     <p>Desempenho da atividade econômica surpreendeu para melhor quando comparado às estimativas iniciais; apenas consumo das famílias e do governo recuaram</p>
                                     <div class="blog-item-text-btn">
                                     <a href="#l">Saiba Mais<i class="flaticon-right-arrow"></i></a>
@@ -831,13 +831,13 @@
                         <div class="col-xl-4 col-sm-6 col-md-6 col-lg-4">
                             <div class="blog-item blog-item-03">
                                 <div class="blog-item-img">
-                                    <img src="./images/hero/03(1).jpg" alt="">
+                                    <img src="https://casfpic.org.br/images/hero/03(1).jpg" alt="">
                                 </div>
                                 <div class="blog-item-text">
                                     <div class="blog-info mb-20">
-                                        <a href="http://html.iddrak.com/consolin/#"><span><i class="flaticon-call-center-agent"></i>Robert Hook</span></a>
+                                        <a href="https://html.iddrak.com/consolin/#"><span><i class="flaticon-call-center-agent"></i>Robert Hook</span></a>
                                         <span><i class="flaticon-calendar-1"></i>Mar 03, 2021</span>
-                                        <a href="http://html.iddrak.com/consolin/#"><span><i class="flaticon-speech-bubble"></i>23</span></a>
+                                        <a href="https://html.iddrak.com/consolin/#"><span><i class="flaticon-speech-bubble"></i>23</span></a>
                                     </div>
                                     <a href="#"><h5>Parcelas de endividados e de inadimplentes sobem em maio, aponta CNC</h5></a>
                                     <p>Desde agosto de 2020, conforme a entidade, é a primeira vez que o percentual de famílias com dívidas ou contas em atraso aumenta na passagem de um mês para outro </p>
