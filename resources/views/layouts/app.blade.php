@@ -204,9 +204,11 @@
                 <a href="#" class="scrollToTop" style="display: inline;"><i class="flaticon-up-arrow"></i></a>
             </div>
             <!-- scrollToTop end -->
-            @if($cookie == 1)
-            <cp-cookie></cp-cookie>
-            @endif            
+            @isset($cookie)
+                @if($cookie == 1)
+                <cp-cookie></cp-cookie>
+                @endif     
+            @endisset       
 		</div>    
 
         
