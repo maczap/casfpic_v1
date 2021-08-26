@@ -247,7 +247,7 @@ class ControllerCadastro extends Controller
                             $preference->payment_methods = array(
                                 "installments" => 12
                             );                         
-                            $preference->statement_descriptor = "ASSOCIACAO CASFPIC"; 
+                            $preference->statement_descriptor = "Caixa Assistencial - CASFPIC"; 
                             
                             $preference->expires = true;  
                             $preference->expiration_date_from = $date_from;  
