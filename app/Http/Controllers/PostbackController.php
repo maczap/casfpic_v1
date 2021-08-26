@@ -32,81 +32,6 @@ class PostbackController extends Controller
         $this->notification($request);
     }
 
-    public function postbackSubscription(Request $request)
-    {
-        DB::table('postbacks')->insert([
-            'postback' => json_encode($request->all())
-        ]);
-
-        $subscription_code = $request->all()['subscription']['id'];
-        
-        if(isset($request->all()['subscription']['charges'])){
-            $subscription_charge = $request->all()['subscription']['charges'];
-        } else {
-            $subscription_charge = null;
-        }
-
-        $subscription = Subscription::where('subscription_code', $subscription_code)->first();
-
-        if (!is_null($subscription)) {
-            $subscription->status = $request->all()['subscription']['status'];
-            $subscription->charge = $request->all()['subscription']['charges'];
-            $subscription->save();
-
-            $current_transaction = $request->all()['subscription']['current_transaction'];
-
-            $neWtransaction = Transaction::where('transaction_code', $current_transaction['id'])->first();
-            $subscription_charge = $request->all()['subscription']['charges'];
-
-            // if (is_null($neWtransaction)) {
-            //     $subscription->user->transactions()->create($this->managerTransactionData($current_transaction, $subscription_charge));
-
-            //     $charge = intval($subscription_charge - 1);
-            //     Transaction::where('subscription_code', $subscription_code )
-            //                ->where('charge',$charge)
-            //                ->update([
-            //                    'status' => $request->all()['subscription']['status']
-                               
-            //                ]);                
-            // } 
-          
-
-            
-            
-        }
-
-        return;
-    }
-
-    private function managerTransactionData($transaction, $charge=null)
-    {
-        return [
-            // 'transaction_code' => $transaction['id'],
-            'status' => $this->tabela_status($transaction['status']),
-            'code' => $transaction['code'],
-            'amount' => $transaction['grossAmount'],
-            'netAmount' => $transaction['netAmount'],
-            'installmentCount' => $transaction['installmentCount'],
-            'reference' => $transaction['reference'],
-            'date' => date('Y-m-d H:i:s', strtotime($transaction['date'])),
-
-            // 'paid_amount' => $transaction['paid_amount'],
-            // 'refunded_amount' => $transaction['refunded_amount'],
-            // 'installments' => $transaction['installmentCount'],
-            // 'cost' => $transaction['cost'],
-            // 'subscription_code' => $transaction['subscription_id'],
-            // 'postback_url' => $transaction['postback_url'],
-            // 'card_holder_name' => $transaction['card_holder_name'],
-            // 'card_last_digits' => $transaction['card_last_digits'],
-            // 'card_first_digits' => $transaction['card_first_digits'],
-            // 'card_brand' => $transaction['card_brand'],
-            // 'payment_method' => $transaction['payment_method'],
-            // 'boleto_url' => $transaction['boleto_url'],
-            // 'boleto_barcode' => $transaction['boleto_barcode'],
-            // 'charge' => $charge,
-            // 'boleto_expiration_date' => date('Y-m-d H:i:s', strtotime($transaction['boleto_expiration_date']))
-        ];
-    }
     public function notification(Request $request){
         $mp = new MP ("ENV_ACCESS_TOKEN");
 
@@ -562,4 +487,40 @@ class PostbackController extends Controller
 
         return [];
     }
+
+
+    public function pending(Request $request){
+        if($request["external_reference"]){
+            $external_reference = $request["external_reference"];
+            $payment_type       = $request["payment_type"];
+            $preference_id      = $request["preference_id"];
+            $payment_id         = $request["payment_id"];
+            $status             = $request["status"];
+            
+            $subscription = Subscription::where('id', $external_reference)->first(); 
+            if(isset($subscription)) {
+                $user_id = $subscription["user_id"];
+                $plan_id = $subscription["plan_id"];
+
+                $plan = Plan::where('id', $plan_id)->first(); 
+                $plan_name      = $plan["descricao"];
+                $plan_nick      = $plan["nick"];
+                $plan_periodo   = $plan["periodo"];
+                
+                $user = User::where('id', $user_id)->first(); 
+                
+                $nome = $user["name"];
+                $nome = \explode(" ", $nome);
+                if(isset($nome[0]))
+                {
+                    $nome = \strtolower($nome[0]);
+                    $nome = \ucfirst($nome);
+                }
+                return view('layouts.pending', ['nome' => $nome, 'plano' => $plan_name ]);;
+            }          
+            
+        }
+
+        return [];
+    }    
 }

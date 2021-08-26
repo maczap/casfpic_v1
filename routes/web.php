@@ -52,7 +52,6 @@ Route::get('consultar_pagamento/{id}', [PostbackController::class,'consultar_pag
 Route::get('success_boleto', [ControllerCadastro::class,'success'])->name('success');
 Route::get('api/postback', [ControllerCadastro::class,'preaproval'])->name('preaproval');
 
-
 Route::get('get-promotor/{code}', [ControllerPromotores::class,'getPromotor'])->name('getPromotor');
 
 Route::get('teste_plan_create', [ControllerPlans::class,'CreatePlan'])->name('createPlan');
