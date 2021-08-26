@@ -126,7 +126,7 @@
 					<div class="row">
                         <div class="col-xl-4 col-sm-6 col-md-6 col-lg-4">
                             <div class="footer-about">
-                                <a href="#"><img src="{{ asset('images/hero/logo.png') }}" alt="footer logo"></a>
+                                <a href="#"><img src="http://casfpic.org.br/images/hero/logo.png" alt="footer logo"></a>
                                 
                             </div>
                         </div>
@@ -166,16 +166,16 @@
 
                         <div class="col-xl-12">
                             <div class="footer-shape-one">
-                                 <img src="{{ asset('images/hero/hero-shape-3.png') }}" alt="">
+                                 <img src="http://casfpic.org.br/images/hero/hero-shape-3.png" lt="">
                              </div>
                              <div class="footer-shape-two">
-                                 <img src="{{ asset('images/hero/shape-small-01.png') }}" alt="">
+                                 <img src="http://casfpic.org.br/images/hero/shape-small-01.png" alt="">
                              </div>
                              <div class="footer-shape-three">
-                                 <img src="{{ asset('images/hero/shape-small-02.png') }}" alt="">
+                                 <img src="http://casfpic.org.br/images/hero/shape-small-02.png" alt="">
                              </div>
                              <div class="footer-shape-four">
-                                 <img src="{{ asset('images/hero/shape-small-03.png') }}" alt="">
+                                 <img src="http://casfpic.org.br/images/hero/shape-small-03.png" alt="">
                              </div>
                         </div>
 					</div>
