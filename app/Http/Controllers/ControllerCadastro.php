@@ -294,8 +294,8 @@ class ControllerCadastro extends Controller
                                   "frequency_type": "months"
                                 },
                                 "back_url": "https://casfpic.org.br/api/postback",
-                                "collector_id": 812506480,
-                                "external_reference": "test_user_91922613@testuser.com",
+                                "collector_id": 655553401,
+                                "external_reference": "'.$external_reference.'",
                                 "payer_email": "'.$email.'",
                                 "reason": "'.$plano_name.'"
                                 
