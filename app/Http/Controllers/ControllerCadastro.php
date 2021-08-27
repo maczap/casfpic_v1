@@ -298,7 +298,8 @@ class ControllerCadastro extends Controller
                                 "collector_id": 655553401,
                                 "external_reference": "'.$external_reference.'",
                                 "payer_email": "'.$email.'",
-                                "reason": "'.$plano_name.'"
+                                "reason": "'.$plano_name.'",
+                                "purpose": "wallet_purchase"
                                 
                               }'
                             );   
