@@ -171,6 +171,9 @@ class PostbackController extends Controller
           
           $response = curl_exec($curl);
           curl_close($curl);
+
+        //   print_r($response);
+          
           
           $response = json_decode($response, true);
           
@@ -196,14 +199,12 @@ class PostbackController extends Controller
                 $payment_id      =  $response["payment_id"];
             }
             
-
-            
                 $mensagem = null;
             if(isset($status) && isset($status_detail)) {
                 $mensagem = $this->tabela_status($status, $status_detail);
             }
 
-          
+            
             $subscription = Subscription::where('id', $external_reference)->first();
             if(!empty($subscription)){            
                     $subscription->payment_id       = $external_reference;
@@ -211,6 +212,7 @@ class PostbackController extends Controller
                     $subscription->status_detail    = $status_detail;
                     $subscription->status_msg       = $mensagem;
                     $subscription->payment_method   = $payment_type_id;
+                    $subscription->payment_id       = $code;
                     $subscription->save();
             }               
             
