@@ -44,11 +44,11 @@ class ControllerCadastro extends Controller
         $payment_methods = $request["payment_method"];
         $method = 'cartao';
 
-        if(isset($request["method"])){
+        if(!empty($request["method"])){
             $method = $request["method"];
+            echo "tem";
+            return [];
         }
-
-        
 
         $promotor_id = null;
         $cookie = \Request::cookie('prmntcfpc');
@@ -142,7 +142,7 @@ class ControllerCadastro extends Controller
             $celular    = $this->clear(substr($request['celular'], 4, 11));    
 
             $dados_plano = $this->get_plan($plano, $periodo, $method);
-
+            return $dados_plano;
             $plano_codigo   = $dados_plano->codigo;
             $plano_id       = $dados_plano->id;
             $plano_name     = $dados_plano->descricao;
