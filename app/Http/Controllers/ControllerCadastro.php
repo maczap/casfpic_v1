@@ -252,6 +252,7 @@ class ControllerCadastro extends Controller
                             $preference->expires = true;  
                             $preference->expiration_date_from = $date_from;  
                             $preference->expiration_date_to = $date_to;  
+                            $preference->purpose = "wallet_purchase";
 
                             $preference->save();  
        
