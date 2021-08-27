@@ -258,7 +258,7 @@
                         <label for="termos">Aceito o Termos</label>                        
 
                         <div class="d-grid gap-2">
-                            <button type="button" class="btn btn-primary" id="finalizar_boleto" @click="steps(5,'termos')">Ir para Pagamento</button>
+                            <button type="button" class="btn btn-primary" id="finalizar_pagto" @click="steps(5,'termos')">Ir para Pagamento</button>
                         </div>
                     </div>    
 
@@ -757,8 +757,9 @@ export default {
             },
             cadastro: function(){
                 
-                // $('#finalizar').text('Enviando...');
-                // $('#finalizar').prop('disabled', true);
+                $('#finalizar_pagto').text('Aguarde...');
+                $('#finalizar_pagto').prop('disabled', true);
+                finalizar_pagto
                  
                 let set = this;
                 let plano     = this.plano;
@@ -829,6 +830,8 @@ export default {
                                         button: "OK",
                                 });                                              
                             });   
+                            $('#finalizar_pagto').text('Ir para Pagamentos');
+                            $('#finalizar_pagto').prop('disabled', false);                               
                             return false;    
                     }         
                   
@@ -843,6 +846,8 @@ export default {
                             });  
                             
                         });      
+                            $('#finalizar_pagto').text('Ir para Pagamentos');
+                            $('#finalizar_pagto').prop('disabled', false);                        
                         return false;
                         
                     }    
@@ -861,8 +866,8 @@ export default {
                             button: "OK",
                         });      
                     }                
-                    $('#finalizar').text('Finalizar Cadastro');
-                    $('#finalizar').prop('disabled', false);                    
+                            $('#finalizar_pagto').text('Ir para Pagamentos');
+                            $('#finalizar_pagto').prop('disabled', false);                
                 });
 
                 

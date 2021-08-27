@@ -48,6 +48,8 @@ class ControllerCadastro extends Controller
             $method = $request["method"];
         }
 
+        
+
         $promotor_id = null;
         $cookie = \Request::cookie('prmntcfpc');
         if(isset($cookie)){
@@ -199,9 +201,16 @@ class ControllerCadastro extends Controller
 
                         $external_reference = $dados_sb["id"]; 
 
+                        $assinatura = false;
 
+                        if($periodo == "anual"){  
+                            $assinatura = true;
+                        }
+                        if($method == "boleto" && $periodo == "mensal"){
+                            $assinatura = false;
+                        } 
 
-                        if($periodo == "anual" || $method == "boleto" && $periodo == "mensal" ){                        
+                        if(!$assinatura){                        
 
                             MercadoPago\SDK::setAccessToken(config('services.mercadopago.access_token')); 
                             
