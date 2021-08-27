@@ -191,7 +191,8 @@ class PostbackController extends Controller
             if(isset($response["payment_type_id"])){
                 $payment_type_id      =  $response["payment_type_id"];
             } 
-            if(isset($response["payment_type_id"])){
+
+            if(isset($response["payment_id"])){
                 $payment_id      =  $response["payment_id"];
             }
             
@@ -237,7 +238,7 @@ class PostbackController extends Controller
         // "payer_email": "test_user_91922613@testuser.com",
         $response = curl_exec($curl);
         curl_close($curl);
-        
+        print_r($response);
         $response = json_decode($response, true);
           if(isset($response["results"])){
               if(isset($response["results"][0])){
