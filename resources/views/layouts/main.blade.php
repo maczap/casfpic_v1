@@ -355,8 +355,12 @@
                                             </ul>
                                             <h2 style="text-align:center"> <span class='cifrao'>R$ </span> 40 <span class='month'>/mês</span></h2>
                                             <a href="/?plano=bronze&periodo=mensal#cadastro">
-                                            <button type="button" class="text-center btn btn-primary btn-block" style="width:100%;">Assinar</button>
+                                            <button type="button" class="text-center btn btn-primary btn-block  mb-20" style="width:100%;">Assinar - Cartão</button>
                                             </a>
+
+                                            <a href="/?plano=bronze&periodo=mensal&method=boleto#cadastro">
+                                            <button type="button" class="text-center btn btn-success btn-block" style="width:100%;">Assinar - Boleto</button>
+                                            </a>                                            
 
                                             <p class="card-text">Garantida a Cobertura do Plano
                                                 Odontológico Rol Mínimo de coberturas estipulado
@@ -378,8 +382,12 @@
                                             </ul>                                  
                                             <h2 style="text-align:center"> <span class='cifrao'>R$ </span> 55 <span class='month'>/mês</span></h2>
                                             <a href="/?plano=prata&periodo=mensal#cadastro">
-                                            <button type="button" class="text-center btn btn-primary btn-block" style="width:100%;">Assinar</button>                                  
+                                            <button type="button" class="text-center btn btn-primary btn-block mb-20" style="width:100%;">Assinar</button>                                  
                                             </a>
+
+                                            <a href="/?plano=prata&periodo=mensal&method=boleto#cadastro">
+                                            <button type="button" class="text-center btn btn-success btn-block " style="width:100%;">Assinar - Boleto</button>
+                                            </a>                                                  
                                             <p class="card-text">Garantida a Cobertura do Plano
                                                 Odontológico Rol Mínimo de coberturas estipulado
                                                 junto a ANS- Agencia Nacional de Saúde
@@ -400,8 +408,12 @@
                                             </ul>
                                             <h2 style="text-align:center"> <span class='cifrao'>R$ </span> 100 <span class='month'>/mês</span></h2>
                                             <a href="/?plano=ouro&periodo=mensal#cadastro">
-                                            <button type="button" class="text-center btn btn-primary btn-block" style="width:100%;">Assinar</button>
+                                            <button type="button" class="text-center btn btn-primary btn-block mb-20" style="width:100%;">Assinar</button>
                                             </a>
+
+                                            <a href="/?plano=ouro&periodo=mensal&method=boleto#cadastro">
+                                            <button type="button" class="text-center btn btn-success btn-block " style="width:100%;">Assinar - Boleto</button>
+                                            </a>                                                  
 
                                             <p class="card-text">Garantida a Cobertura do Plano
                                                 Odontológico além Rol Mínimo de coberturas
@@ -423,8 +435,12 @@
                                             </ul>                                  
                                             <h2 style="text-align:center"> <span class='cifrao'>R$ </span> 130 <span class='month'>/mês</span></h2>
                                             <a href="/?plano=diamante&periodo=mensal#cadastro">
-                                            <button type="button" class="text-center btn btn-primary btn-block" style="width:100%;">Assinar</button>                                  
+                                            <button type="button" class="text-center btn btn-primary btn-block mb-20" style="width:100%;">Assinar</button>                                  
                                             </a>
+
+                                            <a href="/?plano=diamante&periodo=mensal&method=boleto#cadastro">
+                                            <button type="button" class="text-center btn btn-success btn-block " style="width:100%;">Assinar - Boleto</button>
+                                            </a>                                                  
                                             <p class="card-text">Garantida a Cobertura do Plano
                                                 Odontológico além Rol Mínimo de coberturas
                                                 estipulado junto a ANS- Agencia Nacional de Saúde

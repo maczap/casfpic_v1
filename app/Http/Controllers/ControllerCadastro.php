@@ -42,6 +42,11 @@ class ControllerCadastro extends Controller
     public function cadastro(Request $request)
     {
         $payment_methods = $request["payment_method"];
+        $method = 'cartao';
+
+        if(isset($request["method"])){
+            $method = $request["method"];
+        }
 
         $promotor_id = null;
         $cookie = \Request::cookie('prmntcfpc');
@@ -134,7 +139,7 @@ class ControllerCadastro extends Controller
             $ddd        = $this->clear(substr($request['celular'], 1, 2));
             $celular    = $this->clear(substr($request['celular'], 4, 11));    
 
-            $dados_plano = $this->get_plan($plano, $periodo);
+            $dados_plano = $this->get_plan($plano, $periodo, $method);
 
             $plano_codigo   = $dados_plano->codigo;
             $plano_id       = $dados_plano->id;
@@ -193,7 +198,10 @@ class ControllerCadastro extends Controller
                         $date_to = date("Y-m-d\TH:i:s", strtotime($date_from.'+ 27 days'));   
 
                         $external_reference = $dados_sb["id"]; 
-                        if($periodo == "anual"){                        
+
+
+
+                        if($periodo == "anual" || $method == "boleto" && $periodo == "mensal" ){                        
 
                             MercadoPago\SDK::setAccessToken(config('services.mercadopago.access_token')); 
                             
@@ -350,10 +358,11 @@ class ControllerCadastro extends Controller
     }
 
 
-    public function get_plan($plano, $periodo)
+    public function get_plan($plano, $periodo, $method='cartao')
     {
         $dados = Plan::where('nick',$plano)
                      ->where('periodo',$periodo)
+                     ->where('method',$method)
                      ->get();
 
         if(isset($dados[0])){

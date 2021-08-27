@@ -1,6 +1,6 @@
 <template lang="">
     <div>
-        <section id="cadastro1">
+        <section>
             <div class="header">
       
 
@@ -88,7 +88,7 @@
                         <div class='voltar'><i class="fas fa-angle-left"></i> Voltar</div>
                         <h5 class="card-title">Dados Cadastrais</h5>
 
-                       
+                     
                 
                         <div class="input-group mb-3">
                             <input type="phone" id="rg" v-model="rg" class="form-control col-xl-6" placeholder="RG" aria-label="rg" aria-describedby="addon-wrapping">
@@ -313,6 +313,7 @@ export default {
                 cartao_celular:"",
                 bandeira:null,
                 cardToken:null,
+                method:null,
                 url:'http://127.0.0.1:8000/',
                 // url:'https://casfpic.org.br/',
                 
@@ -783,15 +784,8 @@ export default {
                 let bairro    = this.bairro;
                 let cidade    = this.cidade;
                 let uf        = this.uf;
+                let method    = this.method;
 
-
-
-                if(this.periodo == "anual"){
-
-                 
-                  
-                  
-                }     
 
                 this.$http.post('payment/credit', {
                     plano:          plano,
@@ -818,6 +812,7 @@ export default {
                     complemento:    complemento,
                     cidade:         cidade,
                     uf:             uf,
+                    method:             method,
 
                     _token:         csrfToken
                 }).then(response => {
@@ -1110,6 +1105,10 @@ export default {
 
             this.plano   = this.$route.query.plano
             this.periodo = this.$route.query.periodo
+            if(this.$route.query.method){
+                this.method = this.$route.query.method
+            }
+            
 
             let dados = {
                 'plano': this.plano,
