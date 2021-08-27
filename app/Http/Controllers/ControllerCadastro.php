@@ -142,7 +142,7 @@ class ControllerCadastro extends Controller
             $celular    = $this->clear(substr($request['celular'], 4, 11));    
 
             $dados_plano = $this->get_plan($plano, $periodo, $method);
-            return $dados_plano;
+            
             $plano_codigo   = $dados_plano->codigo;
             $plano_id       = $dados_plano->id;
             $plano_name     = $dados_plano->descricao;
@@ -201,10 +201,10 @@ class ControllerCadastro extends Controller
 
                         $external_reference = $dados_sb["id"]; 
 
-                        $assinatura = false;
+                        $assinatura = true;
 
                         if($periodo == "anual"){  
-                            $assinatura = true;
+                            $assinatura = false;
                         }
                         if($method == "boleto" && $periodo == "mensal"){
                             $assinatura = false;
