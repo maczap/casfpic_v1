@@ -382,7 +382,7 @@
                                             </ul>                                  
                                             <h2 style="text-align:center"> <span class='cifrao'>R$ </span> 55 <span class='month'>/mês</span></h2>
                                             <a href="/?plano=prata&periodo=mensal#cadastro">
-                                            <button type="button" class="text-center btn btn-primary btn-block mb-20" style="width:100%;">Assinar</button>                                  
+                                            <button type="button" class="text-center btn btn-primary btn-block mb-20" style="width:100%;">Assinar Cartão</button>                                  
                                             </a>
 
                                             <a href="/?plano=prata&periodo=mensal&method=boleto#cadastro">
@@ -408,7 +408,7 @@
                                             </ul>
                                             <h2 style="text-align:center"> <span class='cifrao'>R$ </span> 100 <span class='month'>/mês</span></h2>
                                             <a href="/?plano=ouro&periodo=mensal#cadastro">
-                                            <button type="button" class="text-center btn btn-primary btn-block mb-20" style="width:100%;">Assinar</button>
+                                            <button type="button" class="text-center btn btn-primary btn-block mb-20" style="width:100%;">Assinar Cartão</button>
                                             </a>
 
                                             <a href="/?plano=ouro&periodo=mensal&method=boleto#cadastro">
@@ -435,7 +435,7 @@
                                             </ul>                                  
                                             <h2 style="text-align:center"> <span class='cifrao'>R$ </span> 130 <span class='month'>/mês</span></h2>
                                             <a href="/?plano=diamante&periodo=mensal#cadastro">
-                                            <button type="button" class="text-center btn btn-primary btn-block mb-20" style="width:100%;">Assinar</button>                                  
+                                            <button type="button" class="text-center btn btn-primary btn-block mb-20" style="width:100%;">Assinar Cartão</button>                                  
                                             </a>
 
                                             <a href="/?plano=diamante&periodo=mensal&method=boleto#cadastro">
@@ -469,7 +469,7 @@
                                             </ul>
                                             <h2 style="text-align:center"> <span class='cifrao'>R$ </span> 358,80 <span class='month'>/mês</span></h2>
                                             <a href="/?plano=bronze&periodo=anual#cadastro">
-                                            <button type="button" class="text-center btn btn-primary btn-block" style="width:100%;">Assinar</button>
+                                            <button type="button" class="text-center btn btn-primary btn-block" style="width:100%;">Assinar  Cartão</button>
                                             </a>
                                             <p class="card-text">Garantida a Cobertura do Plano
                                                 Odontológico Rol Mínimo de coberturas estipulado
@@ -491,7 +491,7 @@
                                             </ul>                                  
                                             <h2 style="text-align:center"> <span class='cifrao'>R$ </span> 492,00 <span class='month'>/mês</span></h2>
                                             <a href="/?plano=prata&periodo=anual#cadastro">
-                                            <button type="button" class="text-center btn btn-primary btn-block" style="width:100%;">Assinar</button>                                  
+                                            <button type="button" class="text-center btn btn-primary btn-block" style="width:100%;">Assinar  Cartão</button>                                  
                                             </a>
                                             <p class="card-text">Garantida a Cobertura do Plano
                                                 Odontológico Rol Mínimo de coberturas estipulado
@@ -513,7 +513,7 @@
                                             </ul>
                                             <h2 style="text-align:center"> <span class='cifrao'>R$ </span> 960,00 <span class='month'>/mês</span></h2>
                                             <a href="/?plano=ouro&periodo=anual#cadastro">
-                                            <button type="button" class="text-center btn btn-primary btn-block" style="width:100%;">Assinar</button>
+                                            <button type="button" class="text-center btn btn-primary btn-block" style="width:100%;">Assinar  Cartão</button>
                                             </a>
 
                                             <p class="card-text">Garantida a Cobertura do Plano
@@ -535,7 +535,7 @@
                                             </ul>                                  
                                             <h2 style="text-align:center"> <span class='cifrao'>R$ </span> 1.200,00 <span class='month'>/mês</span></h2>
                                             <a href="/?plano=diamante&periodo=anual#cadastrol">
-                                            <button type="button" class="text-center btn btn-primary btn-block" style="width:100%;">Assinar</button>                                  
+                                            <button type="button" class="text-center btn btn-primary btn-block" style="width:100%;">Assinar  Cartão</button>                                  
                                             </a>
                                             <p class="card-text">Garantida a Cobertura do Plano
                                                 Odontológico além Rol Mínimo de coberturas
