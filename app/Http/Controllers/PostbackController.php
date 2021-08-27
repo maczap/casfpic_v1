@@ -187,12 +187,16 @@ class PostbackController extends Controller
             }      
 
             $payment_type_id = null;
+            $payment_id = null;
             if(isset($response["payment_type_id"])){
                 $payment_type_id      =  $response["payment_type_id"];
-                $payment_id      =  $response["payment_id"];
-
-                dd($payment_id);
             } 
+            if(isset($response["payment_type_id"])){
+                $payment_id      =  $response["payment_id"];
+            }
+            
+
+            
                 $mensagem = null;
             if(isset($status) && isset($status_detail)) {
                 $mensagem = $this->tabela_status($status, $status_detail);
@@ -532,7 +536,7 @@ class PostbackController extends Controller
             $external_reference = $request["external_reference"];
             $payment_type       = $request["payment_type"];
             $preference_id      = $request["preference_id"];
-            $payment_id         = $request["payment_id"];
+            
             $status             = $request["status"];
             
             $subscription = Subscription::where('id', $external_reference)->first(); 
