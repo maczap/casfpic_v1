@@ -10,11 +10,19 @@ use App\Plan;
 use App\Services\MercadoPago as Mp;
 use App\Mail\Obrigado;
 use App\Subscription;
+use App\Mail\Pagamento;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\DB;
 Use \Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
+use App\Services\PagarmeRequestService;
+use Illuminate\Contracts\Encryption\DecryptException;
+use Illuminate\Support\Facades\Crypt;
+use Illuminate\Http\RedirectResponse;
 use MercadoPago;
 use Exception;
+use QrCode;
+use Illuminate\Support\Facades\Storage;
 
 class ControllerCadastro extends Controller
 {
@@ -41,27 +49,22 @@ class ControllerCadastro extends Controller
 
     public function cadastro(Request $request)
     {
-        $payment_methods = $request["payment_method"];
-        $method = 'cartao';
-
-        if(!empty($request["method"])){
-            $method = $request["method"];
-            echo "tem";
-            return [];
-        }
+        $payment_methods = $request["paymentMethod"];
+        
 
         $promotor_id = null;
-        $cookie = \Request::cookie('prmntcfpc');
-        if(isset($cookie)){
+        // $cookie = \Request::cookie('prmntcfpc');
+        // if(isset($cookie)){
             
-            $promotor = $this->promotores->getPromotor($cookie);
-            // if(isset($promotor->promotor_id)){
-            //     $promotor_id = $promotor->promotor_id;
-            // } 
-        }  else {
-            $promotor = $this->promotores->getPromotor(78979);
-        }      
+        //     $promotor = $this->promotores->getPromotor($cookie);
+        //     // if(isset($promotor->promotor_id)){
+        //     //     $promotor_id = $promotor->promotor_id;
+        //     // } 
+        // }  else {
+        //     $promotor = $this->promotores->getPromotor(78979);
+        // }      
        
+        if($payment_methods == "cartao"){
  
             $rules = [
                 'cpf'           => 'required',
@@ -82,8 +85,11 @@ class ControllerCadastro extends Controller
                 'plano'         => 'required', 
                 'periodo'       => 'required', 
 
-                // 'cartao_validade' => 'required', 
-                // 'cartao_cvv'      => 'required', 
+                'card_number'    => 'required', 
+                'card_nome'      => 'required', 
+                'card_vencimento'=> 'required', 
+                'card_cvv'       => 'required'
+ 
             ];
             $messages = [
                 'cpf.required'              => 'CPF Inválido',
@@ -107,9 +113,66 @@ class ControllerCadastro extends Controller
                 'profissao.required'        => 'É obrigatório informar a profissão',
     
                 'plano.required'            => 'Informe o Plano',
-                'periodo.required'          => 'Informe o Período'
+                'periodo.required'          => 'Informe o Período',
+
+                'card_number.required'     => 'Informe o Número do Cartão',
+                'card_nome.required'       => 'Informe o Nome no Cartão',
+                'card_vencimento.required' => 'Informe o Vencimento do Cartão',
+                'card_cvv.required'        => 'Informe o CVV do Cartão'
                 
-            ];              
+            ];        
+
+            $vc = \explode("/",$request['card_vencimento']);
+            $card_mes = $vc[0];
+            $card_ano = $vc[1];
+            
+        } else {
+            $rules = [
+                'cpf'           => 'required',
+                'name'          => 'required',
+                'senha'         => 'required',  
+                'rg'            => 'required',  
+                'sexo'          => 'required',  
+                'cep'           => 'required',  
+                'endereco'      => 'required',  
+                'numero'        => 'required',              
+                'cidade'        => 'required',    
+                'email'         => 'required|string|email|max:40|unique:users',
+                'ecivil'        => 'required', 
+                'celular'       => 'required', 
+                'nascimento'    => 'required', 
+                'profissao'     => 'required', 
+    
+                'plano'         => 'required', 
+                'periodo'       => 'required', 
+ 
+            ];
+            $messages = [
+                'cpf.required'              => 'CPF Inválido',
+                'name.required'             => 'Nome é obrigatório',
+                'senha.required'            => 'Informe a Senha',
+                'rg.required'               => 'RG Inválido',
+                'sexo.required'             => 'É obrigatório informar o sexo',
+                'cep.required'              => 'É obrigatório informar o CEP',
+                'endereco.required'         => 'É obrigatório informar o Endereço',
+                'numero.required'           => 'É obrigatório informar o Número',
+                'cidade.required'           => 'É obrigatório informar a Cidade',
+
+                'email.required'    => 'O E-mail é obrigatório',
+                'email.string'      => 'O E-mail deve ser uma string',
+                'email.max'         => 'O E-mail deve ter no máximo 40 caracteres',
+                'email.unique'      => 'Este email ja está cadastrado',
+
+                'ecivil.required'           => 'É obrigatório informar o estado civil',
+                'celular.required'          => 'É obrigatório informar o Celular',
+                'nascimento.required'       => 'É obrigatório informar a data de nascimento',
+                'profissao.required'        => 'É obrigatório informar a profissão',
+    
+                'plano.required'            => 'Informe o Plano',
+                'periodo.required'          => 'Informe o Período',
+                
+            ];                
+        }     
         
 
         $validator = Validator::make($request->all(),$rules, $messages);
@@ -119,7 +182,7 @@ class ControllerCadastro extends Controller
         else {
 
             
-            $vencimento = $this->vencimento($request['periodo']);
+            // $vencimento = $this->vencimento($request['periodo']);
 
             
                 
@@ -132,229 +195,368 @@ class ControllerCadastro extends Controller
 
             $cpf = $this->clear($request['cpf']);
             $zipcode = $this->clear($request['cep']);
-            
+           
             $senha = trim($request->password);
 
             $plano      = $request['plano'];
             $periodo    = $request['periodo'];
 
-            $ddd        = $this->clear(substr($request['celular'], 1, 2));
-            $celular    = $this->clear(substr($request['celular'], 4, 11));    
-
-            $dados_plano = $this->get_plan($plano, $periodo, $method);
+            $dados_plano = $this->get_plan($plano, $periodo);
             
             $plano_codigo   = $dados_plano->codigo;
+            $plano_codigo_integracao   = $dados_plano->codigo_integracao;
             $plano_id       = $dados_plano->id;
             $plano_name     = $dados_plano->descricao;
             $plano_nick     = $dados_plano->nick; 
             $plano_amount   = $dados_plano->amount;   
         
             $ddd        = $this->clear(substr($request['celular'], 1, 2));
-            $celular    = $this->clear(substr($request['celular'], 4, 11));   
-            DB::beginTransaction();
-            try{
-                
+            $celular    = $this->clear(substr($request['celular'], 4, 11));  
 
-                    $dados = User::create([
-                        'name'      => \strtoupper($request['name']),
-                        'email'     => $request['email'],
-                        'cpf'       => $request['cpf'],
-                        'rg'        => $request['rg'],
-                        'sexo'      => $request['sexo'],
-                        'cep'       => $request['cep'],
-                        'endereco'  => \strtoupper($request['endereco']),
-                        'numero'    => $request['numero'],
-                        'complemento'   => \strtoupper($request['complemento']),
-                        'bairro'    => \strtoupper($request['bairro']),
-                        'cidade'    => \strtoupper($request['cidade']),
-                        'uf'        => \strtoupper($request['uf']),
-                        'celular'   => $request['celular'],
-                        'nascimento'=> $nascimento,
-                        'ecivil'    => $request['ecivil'],
-                        'profissao' => \strtoupper($request['profissao']),
-                        'area_atuacao' => $request['area'],
-                        'password' => Hash::make($senha)
-                    ]);
+            $cell = $ddd;
+            $cell .= $celular;
+
+            $userAuth = Auth::user();
+
+            $pagarme = new PagarmeRequestService();
+
+            
+            try{
+                DB::beginTransaction();
+
+                    if (Auth::check() && !is_null($userAuth->pagarme_id)) {
+
+                    $customer = $pagarme->getCustomer($userAuth->pagarme_id);
+                    
+                    } else {
+
+                        $dados = User::create([
+                            'name'      => \strtoupper($request['name']),
+                            'email'     => $request['email'],
+                            'cpf'       => $request['cpf'],
+                            'rg'        => $request['rg'],
+                            'sexo'      => $request['sexo'],
+                            'cep'       => $request['cep'],
+                            'endereco'  => \strtoupper($request['endereco']),
+                            'numero'    => $request['numero'],
+                            'complemento'   => \strtoupper($request['complemento']),
+                            'bairro'    => \strtoupper($request['bairro']),
+                            'cidade'    => \strtoupper($request['cidade']),
+                            'uf'        => \strtoupper($request['uf']),
+                            'celular'   => $request['celular'],
+                            'nascimento'=> $nascimento,
+                            'ecivil'    => $request['ecivil'],
+                            'profissao' => \strtoupper($request['profissao']),
+                            'area_atuacao' => $request['area'],
+                            'password' => Hash::make($senha)
+                        ]);      
+                        
+
+
+                        $phone_numbers = [sprintf('%s%s', '+55', $cell)];
+                        $phone = [
+                            'ddd'       => $ddd,
+                            'number'    => $this->clear($celular)
+                        ];
+
+                        $documents = [
+                            [
+                                'type' => 'cpf',
+                                'number' => $this->clear($request['cpf'])
+                            ]
+                        ];
+
+                        $address = [
+                            'street'        => \strtoupper($request['endereco']),
+                            'street_number' => $request['numero'],
+                            'zipcode'       => $this->clear($request['cep']),
+                            'country'       => 'br',
+                            'state'         => $request['uf'],
+                            'city'          => \strtoupper($request['cidade']),
+                            'complementary' => \strtoupper($request['complemento']),
+                            'neighborhood'  => \strtoupper($request['bairro'])
+                            
+                        ];                    
+                        $cpf = $this->clear($request['cpf']);
+                        $customer = $pagarme->createCustomer($request['name'], $request['email'],$dados["id"], $phone_numbers, $documents);         
+
+                        if (isset($customer['errors'])) {
+                            
+                            return response()->json(["errors" => ["Dados" => ["Dados incompletos"]]]);
+                        }
+                        if(isset($customer["id"])){
+                            $usuario = User::where('id', $dados["id"])->first();
+                            $usuario->pagarme_id = $customer["id"];
+                            $usuario->save();
+                        }
+        
+                    }
+
+
+
+                    $card_id = null;
+                    $boleto_url = null;
+                    $boleto_barcode = null;
                     
 
-                    if(isset($dados["id"])){
 
-                        $user = new User;
-                        $user = $user::find($dados["id"]);  
+                        if($payment_methods == "cartao"){
                         
-                        $dados_sb = $user->subscriptions()->create([
-                            'transaction_code'  => null,
-                            'plan_id'           => $plano_id ,
-                            'user_id'           => $user->id,
-                            'status'            => "Analisando",
-                            'vencimento'        => $vencimento,
-                            'periodo'           => $periodo,
-                            'manage_url'        => null,
-                            'payment_method'    => "credit_card"
-                        ]);   
-                    }        
-//1240004735
-                    if($dados_sb["id"]){
+                            if (!empty($usuario->usercards()->card_id)) {
+                                $card_id = $usuario->usercards()->card_id;
+                                
+                            }else{
 
-                        $date_from =  (new \DateTime())->format('Y-m-d\TH:i:s');
-                        $date_to = date("Y-m-d\TH:i:s", strtotime($date_from.'+ 27 days'));   
+                                $card_expiration_date = sprintf('%s%s', $card_mes, $card_ano);
+                                $card = $pagarme->createCreditCard($customer['id'], $this->clearCard($request["card_number"]), $card_expiration_date, $request['card_nome'], $request['card_cvv']);
+                                
+                                if (isset($card['errors'])) {
+                                    return response()->json(["errors" => ["Cartão" => ["Erro nas informações do cartão"]]]);
+                                }
+                                
+                                $usuario->usercards()->create([
+                                    'card_id' => $card['id'],
+                                    'brand' => $card['brand'],
+                                    'last_digits' => $card['last_digits'],
+                                    'holder_name' => $card['holder_name']
+                                ]);
+                                $card_id = $card['id'];
+                                
+                            }
 
-                        $external_reference = $dados_sb["id"]; 
+                            if($periodo == "mensal"){
+                                $subscription = $pagarme->createSubscription($customer, $plano_codigo_integracao, 'credit_card', $card_id, $address, $phone);
+                            }
 
-                        $assinatura = true;
-
-                        if($periodo == "anual"){  
-                            $assinatura = false;
-                        }
-                        if($method == "boleto" && $periodo == "mensal"){
-                            $assinatura = false;
                         } 
 
-                        if(!$assinatura){                        
+                        if($periodo == "mensal" && $payment_methods == "boleto"){
+                            if($payment_methods == "boleto"){ 
 
-                            MercadoPago\SDK::setAccessToken(config('services.mercadopago.access_token')); 
-                            
-                            $nm = \explode(" ", $request['name']);
-                            $nome = $nm[0];
-                            $surname = $nm[1];
-                            $cep = \str_replace("-","", $request['cep']);
-
-                            $preference = new MercadoPago\Preference();  
-                            
-                                $payer = new MercadoPago\Payer();
-                                $payer->name = $nome;
-                                $payer->surname = $surname;
-                                $payer->email = $request['email'];
-                                $payer->phone = array(
-                                "area_code" => $ddd,
-                                "number" => $celular
-                                );
+                                $subscription = $pagarme->createSubscription($customer, $plano_codigo_integracao, 'boleto', $card_id, $address, $phone);
                                 
-                                $payer->identification = array(
-                                "type"   => "CPF",
-                                "number" => $cpf
-                                );
-                                
-                                $payer->address = array(
-                                "street_name" => $request['endereco'],
-                                "street_number" => $request['numero'],
-                                "zip_code" => $cep
-                                );                            
+                                $boleto_url     = $subscription["current_transaction"]['boleto_url'];
+                                $boleto_barcode = $subscription["current_transaction"]['boleto_barcode'];
 
-                                $item = new MercadoPago\Item();  
-                                $item->id          = $plano_codigo;
-                                $item->title       = $plano_name;  
-                                $item->description = $plano_name;  
-                                $item->category_id = $plano_codigo;
-                                $item->quantity = 1;  
-                                $item->currency_id = "BRL";
-                                $item->unit_price = (double) $plano_amount; 
-
-                            $preference->items = array($item);  
-                            $preference->payer = $payer;
-        
-                            $preference->back_urls = array(  
-                                "success" => "https://casfpic.org.br/api/checkout/success",  
-                                "failure" => "https://casfpic.org.br/api/checkout/failure",  
-                                "pending" => "https://casfpic.org.br/api/checkout/pending"  
-                            );  
-                            $preference->external_reference= $dados_sb["id"];  
-                            $preference->notification_url = "https://casfpic.org.br/api/postback";
-                            $preference->auto_return = "approved";
-                            $preference->payment_methods = array(
-                                "installments" => 12
-                            );                         
-                            $preference->statement_descriptor = "Caixa Assistencial - CASFPIC"; 
-                            
-                            $preference->expires = true;  
-                            $preference->expiration_date_from = $date_from;  
-                            $preference->expiration_date_to = $date_to;  
-                            $preference->purpose = "wallet_purchase";
-
-                            $preference->save();  
-       
-                            if(isset($preference->init_point))
-                            {
-                                $url = $preference->init_point;
-                                
-                                $subscription = Subscription::where('id', $dados_sb["id"])->first();
-                                if(!empty($subscription)){            
-                                        $subscription->transaction_code = $preference->id;
-                                        $subscription->status           = "Aguardando";
-                                        $subscription->amount           = $plano_amount;
-                                        $subscription->manage_url       = $preference->init_point;
-                                        $subscription->save();
-                                    
-                                }                             
                             }
-                        }  else {
-        
-                            $email = $request['email'];
-
-                            $curl = curl_init();
-                            $token = config('services.mercadopago.access_token');
-                            // $token = "TEST-ac6115de-e7b8-4b7e-8171-64183a0fd87e";
-
-                            $url = "https://api.mercadopago.com/preapproval";
-                    
-                            curl_setopt($curl, CURLOPT_URL,$url);
-                            curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1 );
-                            curl_setopt($curl, CURLOPT_POST,           1 );
-                            curl_setopt($curl, CURLOPT_HTTPHEADER, array(
-                                'Authorization: Bearer ' . $token,
-                                'Content-type: application/json',
-                              ));        
-                            curl_setopt($curl, CURLOPT_POSTFIELDS,     '{
-                                "auto_recurring": {
-                                  "currency_id": "BRL",
-                                  "transaction_amount": "'.(double) $plano_amount.'",
-                                  "frequency": 1,
-                                  "frequency_type": "months"
-                                },
-                                "back_url": "https://casfpic.org.br/api/postback",
-                                "collector_id": 655553401,
-                                "external_reference": "'.$external_reference.'",
-                                "payer_email": "'.$email.'",
-                                "reason": "'.$plano_name.'",
-                                "purpose" : "wallet_purchase"
-                                
-                              }'
-                            );   
-                            //"collector_id": 655553401, producao
-                            //"collector_id": 812506480, teste
-                            // "payer_email": "test_user_91922613@testuser.com",
-                            $response = curl_exec($curl);
-                            curl_close($curl);
-                            $response = json_decode($response, true);
-                           
-                            
-                            if(isset($response["init_point"]))
-                            {
-                                $url = $response["init_point"];
-                                $subscription = Subscription::where('id', $dados_sb["id"])->first();
-                                if(!empty($subscription)){            
-                                        $subscription->transaction_code = $response['id'];
-                                        $subscription->status           = $response['status'];
-                                        $subscription->amount           = $plano_amount;
-                                        $subscription->manage_url       = $response['init_point'];
-                                        $subscription->save();
-                                    
-                                }                             
-                            }                            
 
                             
                         }
                         
-                    }
-                    DB::commit();            
-                    
-                    if(isset($url)){
+                        if($periodo == "mensal"){
+                            if (isset($subscription['errors'])) {
+                                return response()->json(["errors" => ["Inscrição" => ["Erro no pagamento"]]]);
+                            }    
+                        }
+
+                        if($periodo == "anual"){
+                            $amount = $this->clear($plano_amount);
+                            $items = [
+                                'id'            => "$plano_id",
+                                'title'         => $plano_name,
+                                'unit_price'    => $amount,
+                                "quantity"      => 1,
+                                "tangible"      => false                            
+                            ];    
+                            
+
+                            
+                            $transaction = $pagarme->createTransaction($customer, $documents, $payment_methods, $card_id, $address, $phone, $amount, $items, $plano_name);
+                            
+                            if (isset($transaction['errors'])) {
+                            
+                                return response()->json(["errors" => ["Transação" => ["Erro na transação.. Entre em contato conosco"]]]);
+                            }
+
+                            
+                            $amount = null;
+                            $manage_url = null;
+                            $boleto_url = null;
+                            $boleto_barcode = null;  
+                            $pix_qr_code = null;
+                            $pix_expiration_date	= null;
+                            $boleto_expiration_date = null;
+
+                            
+                            if(isset($transaction["boleto_url"])){
+                                $boleto_url = $transaction["boleto_url"];
+                                $boleto_barcode = $transaction["boleto_barcode"];
+                                $boleto_expiration_date = $transaction["boleto_expiration_date"];
+                                $boleto_expiration_date = date("Y-m-d", strtotime($boleto_expiration_date));  
+                            }
+
+                            if(isset($transaction["pix_qr_code"])){
+                                $pix_qr_code = $transaction["pix_qr_code"];
+                                $pix_expiration_date = $transaction["pix_expiration_date"];
+                                $pix_expiration_date = date("Y-m-d", strtotime($pix_expiration_date));  
+                            }                            
+        
+                            if(isset($transaction["amount"])){
+                                $amount = $transaction["amount"]/100;
+                                $amount = number_format($amount, 2);
+                            }    
+
+                            $status_details = $this->post->transactionStatus($transaction["status"]);
+                            $usuario->subscriptions()->create([
+                                'subscription_code' => $transaction['id'],
+                                'plan_id'          => $plano_id,
+                                'status'           => $transaction["status"],
+                                'periodo'          => $request["periodo"],
+                                'amount'           => $amount,
+                                'plano'            => $plano_name,
+                                'payment_method'   => $payment_methods,
+                                'boleto_url'       => $boleto_url,
+                                'boleto_barcode'   => $boleto_barcode,
+                                'status_detail'    => $status_details,
+                                'pix_qr_code'      => $pix_qr_code,
+                                'pix_expiration_date' => $pix_expiration_date,
+                                'boleto_expiration_date' => $boleto_expiration_date
+                                
+                            ]);   
+
+                        }  else if($periodo == "mensal") {
+                            $amount = $this->clear($plano_amount);
+
+                            $subscription = $pagarme->createSubscription($customer,$plano_codigo_integracao, $payment_methods, $card_id, $address, $phone, $amount, $plano_name);
+                            
+                            if (isset($transaction['errors'])) {
+                            
+                                return response()->json(["errors" => ["Transação" => ["Erro na transação.. Entre em contato conosco"]]]);
+                            }
+
+                            // $this->postobrigado($email, $nome, $plano_plano, $boleto_url= null, $boleto_barcode = null, $periodo, $status);
+                            
+                            $amount = null;
+                            $manage_url = null;
+                            $manage_token = null;
+                            $boleto_url = null;
+                            $boleto_barcode = null;  
+                            $pix_qr_code = null;
+                            $pix_expiration_date	= null;
+                            $boleto_expiration_date = null;
+                            
+                            if(isset($subscription["manage_url"])){
+                                $manage_url     = $subscription["manage_url"];
+                                $manage_token   = $subscription["manage_token"];
+                            }
+
+                            if(isset($subscription["current_transaction"]["boleto_url"])){
+                                $boleto_url             = $subscription["current_transaction"]['boleto_url'];
+                                $boleto_barcode         = $subscription["current_transaction"]['boleto_barcode'];
+                                $boleto_expiration_date = $subscription["current_transaction"]['boleto_expiration_date'];
+                                $boleto_expiration_date = date("Y-m-d", strtotime($boleto_expiration_date));  
+                            }
+        
+                            if(isset($subscription["amount"])){
+                                $amount = $subscription["amount"]/100;
+                                $amount = number_format($amount, 2);
+                            }    
+                            $status_details = $this->post->transactionStatus($subscription["status"]);
+                            $usuario->subscriptions()->create([
+                                'subscription_code' => $subscription['id'],
+                                'plan_id'          => $plano_id,
+                                'status'           => $subscription["status"],
+                                'periodo'          => $request["periodo"],
+                                'amount'           => $amount,
+                                'plano'            => $plano_name,
+                                'payment_method'   => $payment_methods,
+                                'boleto_url'       => $boleto_url,
+                                'boleto_barcode'   => $boleto_barcode,
+                                'status_detail'    => $status_details,
+                                'pix_qr_code'      => $pix_qr_code,
+                                'pix_expiration_date' => $pix_expiration_date,
+                                'boleto_expiration_date' => $boleto_expiration_date,
+                                'manage_url'       => $manage_url,
+                                'manage_token'     => $manage_token
+
+                                
+                            ]);   
+                        }
+                
+                DB::commit();        
+
+                $nome = \strtoupper($request['name']);
+                $email = $request['email'];
+                $manage_url = null;
+                $manage_token = null;
+                $boleto_url = null;
+                $boleto_barcode = null;  
+                $pix_qr_code = null;
+                $pix_expiration_date	= null;
+                $boleto_expiration_date = null;
+
+                if(isset($subscription["current_transaction"]["boleto_url"])){
+                    $boleto_url             = $subscription["current_transaction"]['boleto_url'];
+                    $boleto_barcode         = $subscription["current_transaction"]['boleto_barcode'];
+                    $boleto_expiration_date = $subscription["current_transaction"]['boleto_expiration_date'];
+                    $boleto_expiration_date = date("Y-m-d", strtotime($boleto_expiration_date));  
+                }
+
+                if($periodo == "mensal"){
+
+                    $this->obrigado($payment_methods, $email, $nome, $plano_name, 
+                    $boleto_url, $boleto_barcode, 
+                    $periodo, $subscription["status"]);
+
+                    if($payment_methods == "boleto" && isset($boleto_url)){
+
+                        $id = Crypt::encryptString($dados["id"]);
+
+                        $url = "http://127.0.0.1:8000/api/checkout/billet?collection_id=".$id;
                         return $url;
                     }
-                    return [];
+
+                    if($payment_methods == "cartao" && $subscription['status'] == "paid"){
+                        $id = Crypt::encryptString($dados["id"]);
+                        $url = "http://127.0.0.1:8000/api/checkout/success?collection_id=".$id;
+                        $this->post->sendEmail($email, $nome, $plano_name, $url, $subscription['status']);
+                        return $url;
+                    }     
+                }elseif($periodo == "anual"){   
+                    
+                    if(isset($transaction["boleto_url"])){
+                        $boleto_url             = $transaction['boleto_url'];
+                        $boleto_barcode         = $transaction['boleto_barcode'];
+                        $boleto_expiration_date = $transaction['boleto_expiration_date'];
+                        $boleto_expiration_date = date("Y-m-d", strtotime($boleto_expiration_date));  
+                    }                    
+                    
+                    $this->obrigado($payment_methods, $email, $nome, $plano_name, 
+                    $boleto_url, $boleto_barcode, 
+                    $periodo, $transaction["status"]);
+
+
+                    if($payment_methods == "boleto" && isset($boleto_url)){
+                        $id = Crypt::encryptString($dados["id"]);
+                        $url = "http://127.0.0.1:8000/api/checkout/billet?collection_id=".$id;
+                        return $url;
+                    }
+
+                    if($payment_methods == "cartao" && $transaction['status'] == "paid"){
+                       
+                        $id = Crypt::encryptString($dados["id"]);
+                        $url = "http://127.0.0.1:8000/api/checkout/success?collection_id=".$id;
+                        
+                        return $url;
+                    }  
+
+                    if($payment_methods == "pix" && $transaction['status'] == "waiting_payment"){
+
+
+
+                        $id = Crypt::encryptString($dados["id"]);
+                        $url = "http://127.0.0.1:8000/api/checkout/pix?collection_id=".$id;
+                        $this->post->sendEmail($email, $nome, $plano_name, $url, $transaction['status']);
+                        return $url;
+                    }                     
+                }
+
+                    
+
+                return [];
                 
             } catch (Exception $e){
-                \DB::rollback();
+                DB::rollback();
                 return $e;
             }  
 
@@ -367,11 +569,10 @@ class ControllerCadastro extends Controller
     }
 
 
-    public function get_plan($plano, $periodo, $method='cartao')
+    public function get_plan($plano, $periodo)
     {
         $dados = Plan::where('nick',$plano)
                      ->where('periodo',$periodo)
-                     ->where('method',$method)
                      ->get();
 
         if(isset($dados[0])){
@@ -393,6 +594,11 @@ class ControllerCadastro extends Controller
         $string = trim($string);
         return $string;
     }    
+    public function clearCard($string){
+        $string = \str_replace(" ","",$string);
+        $string = trim($string);
+        return $string;
+    }       
     public function remover_acentos($str){
 
 
@@ -462,4 +668,45 @@ class ControllerCadastro extends Controller
         //Retorna a senha
         return $password;
     }          
+
+    public function obrigado($payment_method, $email, $nome, $plano_plano, $boleto_url= null, $boleto_barcode = null, $periodo, $status
+    ){
+
+        $dados = [
+            'email'          => $email,
+            'nome'           => $nome,
+            'plano'          => $plano_plano,
+            'boleto_url'     => $boleto_url,
+            'boleto_barcode' => $boleto_barcode,
+            'payment_method' => $payment_method,
+            'status'         => $status,
+            'periodo'         => $periodo
+        ];
+        Mail::to($email)->send(new Obrigado($dados));        
+    }
+
+    private function managerTransactionData($transaction)
+    {
+        return [
+            'transaction_code' => $transaction['id'],
+            'status' => $transaction['status'],
+            'authorization_code' => $transaction['authorization_code'],
+            'amount' => $transaction['amount'],
+            'authorized_amount' => $transaction['authorized_amount'],
+            'paid_amount' => $transaction['paid_amount'],
+            'refunded_amount' => $transaction['refunded_amount'],
+            'installments' => $transaction['installments'],
+            'cost' => $transaction['cost'],
+            'subscription_code' => $transaction['subscription_id'],
+            'postback_url' => $transaction['postback_url'],
+            'card_holder_name' => $transaction['card_holder_name'],
+            'card_last_digits' => $transaction['card_last_digits'],
+            'card_first_digits' => $transaction['card_first_digits'],
+            'card_brand' => $transaction['card_brand'],
+            'payment_method' => $transaction['payment_method'],
+            'boleto_url' => $transaction['boleto_url'],
+            'boleto_barcode' => $transaction['boleto_barcode'],
+            'boleto_expiration_date' => date('Y-m-d H:i:s', strtotime($transaction['boleto_expiration_date']))
+        ];
+    }    
 }

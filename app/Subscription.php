@@ -8,12 +8,30 @@ class Subscription extends Model
 {
 
     protected $fillable = [
-        'amount','plan_id','status_detail','status_msg', 'vencimento','payment_id', 'user_id','status','manage_url','payment_method','periodo','transaction_code'
-    ];    
+        'subscription_code',
+        'plan_id',
+        'user_id',
+        'status',
+        'status_detail',
+        'periodo',
+        'amount',
+        'boleto_url',
+        'boleto_barcode',
+        'plano',
+        'pix_qr_code',
+        'pix_expiration_date',
+        'boleto_expiration_date',
+        'manage_url',
+        'manage_token'
+    ];
 
     public function user()
     {
         return $this->belongsTo(User::class);
     }
-  
+
+    public function plan()
+    {
+        return $this->belongsTo(Plan::class);
+    }
 }

@@ -31,6 +31,11 @@ return [
     ],
     'mercadopago' => [  
         'access_token' => env('MERCADOPAGO_ACCESS_TOKEN')  
-    ],      
+    ],     
+    'pagarme' => [  
+        'url_base' => env('PAGARME_URI_BASE'),
+        'api_key' => env('PAGARME_API_KEY')
+
+    ],           
 
 ];

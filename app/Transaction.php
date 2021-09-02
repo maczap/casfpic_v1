@@ -7,29 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 class Transaction extends Model
 {
     protected $fillable = [
+        'transaction_code',
         'user_id',
-        'date',
-        'code',
-        'reference',
-        'type',
         'status',
-        'lastEventDate',
-        'paymentMethodType',
-        'grossAmount',
-        'lastEventDate',
-        'discountAmount',
-        'lastEventDate',
-        'creditorFeesInstallmentFeeAmount',
-        'creditorFeesIntermediationRateAmount',
-        'creditorFeesIntermediationFeeAmount',
-        'netAmount',
-        'extraAmount',
-        'installmentCount',
-        'itemCount',
-        'itemId',
-        'itemDescription',
-        'itemQuantity',
-        'itemAmount',
+        'authorization_code',
+        'amount',
+        'authorized_amount',
         'paid_amount',
         'refunded_amount',
         'installments',
@@ -39,12 +22,12 @@ class Transaction extends Model
         'card_holder_name',
         'card_last_digits',
         'card_first_digits',
-        'card_last_digits',
         'card_brand',
         'payment_method',
         'boleto_url',
         'boleto_barcode',
-        'boleto_expiration_date'
+        'boleto_expiration_date',
+        'manage_url'
 
     ];
 
@@ -61,7 +44,6 @@ class Transaction extends Model
     public function getAmountFormatedAttribute()
     {
         return number_format($this->amount, 2, ',', '.');
-    }    
-
+    }
     
 }

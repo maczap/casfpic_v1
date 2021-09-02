@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Plan;
+use App\Services\PagarmeRequestService;
+use Illuminate\Support\Facades\DB;
 
 class ControllerPlans extends Controller
 {
@@ -25,13 +27,56 @@ class ControllerPlans extends Controller
         return $plan;
     }    
 
+    public function store($amount, $name, $codigo)
+    {
+       
+
+        $amount = preg_replace('/[^0-9]/', '', $amount);
+        $days=30;
+        $payment_methods = 3;
+        $trial_days = 0;
+
+       
+
+        try {
+            DB::beginTransaction();
+
+            $pagarme = new PagarmeRequestService();
+            $createPagarmePlan = $pagarme->createPlan($amount, $days, $name, $payment_methods, $trial_days);
+            return $createPagarmePlan;
+            if (isset($createPagarmePlan['errors'])) {
+
+                DB::rollBack();
+                return ["erro"];
+            }
+
+            if(isset($createPagarmePlan['id'])){
+                $plan = new Plan;
+                $plan = $plan::where('codigo', $codigo)->first(); 
+
+                if(!empty($plan)){            
+                    $plan->codigo_integracao = $createPagarmePlan['id'];
+                    $plan->save();
+                    echo $name . " - ".$amount." - ".$codigo." - ".$days." - ".$payment_methods." - .".$trial_days."</br>";
+                }               
+            }            
+
+            DB::commit();
+
+
+        } catch (Exception $e) {
+            DB::rollback();
+            return ["erro"];
+        }
+    }
+
     public function CreatePlan(){
 
 
 
         $planos = new Plan();
         $dados = $planos->get_plan();
-        try {
+        
 
         foreach($dados as $plano){
 
@@ -39,56 +84,12 @@ class ControllerPlans extends Controller
             $amount = $plano->amount;
             $name   = $plano->descricao;
 
-            // $amount = \number_format( $amount, 2, ".","");
-            
-            $curl = curl_init();
-            $token = config('services.mercadopago.access_token');
-            $url = "https://api.mercadopago.com/preapproval_plan";
-    
-            curl_setopt($curl, CURLOPT_URL,$url);
-            curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1 );
-            curl_setopt($curl, CURLOPT_POST,           1 );
-            curl_setopt($curl, CURLOPT_HTTPHEADER, array(
-                'Authorization: Bearer ' . $token,
-                'Content-type: application/json',
-              ));        
-            curl_setopt($curl, CURLOPT_POSTFIELDS,     
-                '{
-                    "back_url":"https://casfpic.org.br/api/assinatura",
-                    "reason":"'.$name.'",
-                    "auto_recurring":{
-                        "frequency":"1",
-                        "frequency_type":"months",
-                        "transaction_amount":"'.$amount.'",
-                        "currency_id":"BRL",
-                        "repetitions":""
-                    }
-                }'
-            ); 
                   
-                      
-              $response = curl_exec($curl);
-              echo $response;
-              curl_close($curl);
-              $response = json_decode($response, true);
-              
-            if(isset($response["id"])){
-                $plan = new Plan;
-                $plan = $plan::where('codigo', $codigo)->first(); 
 
-                if(!empty($plan)){            
-                    $plan->codigo_integracao = $response["id"];
-                    $plan->save();
-                }               
-            }
-            
+            $this->store($amount, $name, $codigo);
         }
                 
-            //code...
-        } catch (\Throwable $th) {
-           return $th;
-        }
-        
+
         
           
     }

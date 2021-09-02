@@ -16,5 +16,7 @@ mix.js('resources/js/app.js', 'public/js')
 
     mix.scripts([
         'node_modules/jquery/dist/jquery.min.js',
-        'public/js/hero/ace-responsive-menu.js'
+        'public/js/hero/ace-responsive-menu.js',
+        'resources/js/mask.js',
+        'resources/js/scripts.js',
         ],'public/js/all.js');         

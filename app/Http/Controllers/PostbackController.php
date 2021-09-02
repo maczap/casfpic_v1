@@ -13,6 +13,11 @@ use App\Services\Pagseguro;
 use Illuminate\Support\Facades\Mail;
 use MercadoPago;
 use App\Services\MercadoPago as Mp;
+use Zend\Filter\File\UpperCase;
+use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\Redirect;
+use QrCode;
+use Illuminate\Support\Facades\Storage;
 
 class PostbackController extends Controller
 {
@@ -264,7 +269,7 @@ class PostbackController extends Controller
             'url'   => $url,
             'status'=> $status
         ];
-        Mail::to($email)->send(new SendMailSignature($dados));
+        Mail::to($email)->send(new Pagamento($dados));
         
     }        
 
@@ -464,109 +469,154 @@ class PostbackController extends Controller
     }
 
     public function success(Request $request){
-        if($request["external_reference"]){
-            $external_reference = $request["external_reference"];
-            $payment_type       = $request["payment_type"];
-            $preference_id      = $request["preference_id"];
-            $payment_id         = $request["payment_id"];
-            $status             = $request["status"];
-            
-            $subscription = Subscription::where('id', $external_reference)->first(); 
-            if(isset($subscription)) {
-                $user_id = $subscription["user_id"];
-                $plan_id = $subscription["plan_id"];
 
-                $plan = Plan::where('id', $plan_id)->first(); 
-                $plan_name      = $plan["descricao"];
-                $plan_nick      = $plan["nick"];
-                $plan_periodo   = $plan["periodo"];
-                
-                $user = User::where('id', $user_id)->first(); 
-                
-                $nome = $user["name"];
-                $nome = \explode(" ", $nome);
-                if(isset($nome[0]))
-                {
-                    $nome = \strtolower($nome[0]);
-                    $nome = \ucfirst($nome);
-                }
-                return view('layouts.success', ['nome' => $nome, 'plano' => $plan_name ]);;
-            }          
+        $id = $request["collection_id"];
+        $id = Crypt::decryptString($id);
+        
+        $user = new user();
+        $dados = $user->user_view($id);
+        foreach ($dados as $item) {
+            $nome           = $item->name;
+            $boleto_url     = $item->boleto_url;
+            $boleto_barcode = $item->boleto_barcode;
+            $plano          = $item->plano;
+            $periodo        = $item->periodo;
+            $status        = $item->status;
+            $status_detail        = $item->status_detail;
+            print_r($status);
+            $n = \explode(" ", $nome);
+            $nome = $n[0];
+            $nome = \strtolower($nome);
+            $nome = ucfirst($nome);
+
+            
+            return view('layouts.success', ['nome' => $nome, 'plano' => $plano, 
+            'periodo' => $periodo, 'boleto_url' => $boleto_url, 'boleto_barcode', $boleto_barcode, 
+            'status' => $status, 'status_detail' => $status_detail ]);            
             
         }
+      
+    }
+    public function billet(Request $request){
+        $id = $request["collection_id"];
+        $id = Crypt::decryptString($id);
+        
+        $user = new user();
+        $dados = $user->user_view($id);
+        foreach ($dados as $item) {
+            $nome           = $item->name;
+            $boleto_url     = $item->boleto_url;
+            $boleto_barcode = $item->boleto_barcode;
+            $plano          = $item->plano;
+            $periodo        = $item->periodo;
+            $boleto_url     = $item->boleto_url;
+            $boleto_barcode = $item->boleto_barcode;
+            
+            $n = \explode(" ", $nome);
+            $nome = $n[0];
+            $nome = \strtolower($nome);
+            $nome = ucfirst($nome);
 
-        return [];
+            
+            return view('layouts.billet', [
+                                            'nome'          => $nome, 
+                                            'plano'         => $plano, 
+                                            'periodo'       => $periodo,
+                                            'boleto_url'    => $boleto_url,
+                                            'boleto_barcode'=> $boleto_barcode
+                                        ]);
+        }
+    }
+    public function generateQrcode($url, $id){
+
+        // \QrCode::size(300)
+        
+        // ->generate("$url", public_path("images/qrcode/$id.png"));        
+        // return view('qrCode');
+        $img =  base64_encode(QrCode::format('png')->size(200)->generate('https://www.servclube.com.br/convenio/odontoprev_promo/p/akdz857l8ckzmcnykn996wxx6bvqqxpwsraq3zigqijz8ak6vte8irgd7ehwmy02'));
+        return '<img src="data:image/png;base64,'. $img .'">';
+    }
+    
+    public function pix(Request $request){
+
+
+               
+        $id = $request["collection_id"];
+        $id = Crypt::decryptString($id);
+        
+        $user = new user();
+        $dados = $user->user_view($id);
+        foreach ($dados as $item) {
+            
+            $subscription_id= $item->subscription_id;
+            $nome           = $item->name;
+            $boleto_url     = $item->boleto_url;
+            $boleto_barcode = $item->boleto_barcode;
+            $plano          = $item->plano;
+            $periodo        = $item->periodo;
+            $pix_qr_code     = $item->pix_qr_code;
+            $pix_expiration_date = $item->pix_expiration_date;
+
+            $n = \explode(" ", $nome);
+            $nome = $n[0];
+            $nome = \strtolower($nome);
+            $nome = ucfirst($nome);
+
+            $img = $this->generateQrcode($pix_qr_code, $subscription_id);
+            
+            
+            return view('layouts.pix', [
+                                            'nome'          => $nome, 
+                                            'plano'         => $plano, 
+                                            'periodo'       => $periodo,
+                                            'pix_qr_code'    => $pix_qr_code,
+                                            'pix_expiration_date'=> $pix_expiration_date,
+                                            'image'          => $img,
+                                            'url'            => $pix_qr_code
+                                        ]);
+        }
+    }
+    public function transactionStatus($status){
+        $mensagem = null;
+        if($status == "processing"){
+            $mensagem = "Transação está em processo de autorização.";
+        }
+        else if($status == "authorized"){
+            $mensagem = "Transação foi autorizada.";
+        }      
+        else if($status == "paid"){
+            $mensagem = "Transação paga.";
+        }         
+        else if($status == "refunded"){
+            $mensagem = "Transação estornada completamente.";
+        }       
+        else if($status == "waiting_payment"){
+            $mensagem = "Transação aguardando pagamento (status válido para Boleto bancário).";
+        }          
+        else if($status == "pending_refund"){
+            $mensagem = "Transação do tipo Boleto e que está aguardando confirmação do estorno solicitado.";
+        }     
+        else if($status == "pending_refund"){
+            $mensagem = "Transação do tipo Boleto e que está aguardando confirmação do estorno solicitado.";
+        }            
+        else if($status == "refused"){
+            $mensagem = "Transação recusada, não autorizada.";
+        }      
+        else if($status == "chargedback"){
+            $mensagem = "Transação sofreu chargeback. Veja mais sobre isso em nossa ";
+        }       
+        else if($status == "analyzing"){
+            $mensagem = "Transação encaminhada para a análise manual feita por um especialista em prevenção a fraude.";
+        }       
+        else if($status == "pending_review"){
+            $mensagem = "Transação pendente de revisão manual por parte do lojista. Uma transação ficará com esse status por até 48 horas corridas.";
+        }        
+        else if($status == "waiting_payment"){
+            $mensagem = "Aguardando pagamento";
+        }               
+        
+        return $mensagem;
+
     }
 
-
-    public function pending(Request $request){
-        if($request["external_reference"]){
-            $external_reference = $request["external_reference"];
-            $payment_type       = $request["payment_type"];
-            $preference_id      = $request["preference_id"];
-            $payment_id         = $request["payment_id"];
-            $status             = $request["status"];
-            
-            $subscription = Subscription::where('id', $external_reference)->first(); 
-            if(isset($subscription)) {
-                $user_id = $subscription["user_id"];
-                $plan_id = $subscription["plan_id"];
-
-                $plan = Plan::where('id', $plan_id)->first(); 
-                $plan_name      = $plan["descricao"];
-                $plan_nick      = $plan["nick"];
-                $plan_periodo   = $plan["periodo"];
-                
-                $user = User::where('id', $user_id)->first(); 
-                
-                $nome = $user["name"];
-                $nome = \explode(" ", $nome);
-                if(isset($nome[0]))
-                {
-                    $nome = \strtolower($nome[0]);
-                    $nome = \ucfirst($nome);
-                }
-                return view('layouts.pending', ['nome' => $nome, 'plano' => $plan_name ]);;
-            }          
-            
-        }
-
-        return [];
-    }    
-
-    public function failure(Request $request){
-        if($request["external_reference"]){
-            $external_reference = $request["external_reference"];
-            $payment_type       = $request["payment_type"];
-            $preference_id      = $request["preference_id"];
-            
-            $status             = $request["status"];
-            
-            $subscription = Subscription::where('id', $external_reference)->first(); 
-            if(isset($subscription)) {
-                $user_id = $subscription["user_id"];
-                $plan_id = $subscription["plan_id"];
-
-                $plan = Plan::where('id', $plan_id)->first(); 
-                $plan_name      = $plan["descricao"];
-                $plan_nick      = $plan["nick"];
-                $plan_periodo   = $plan["periodo"];
-                
-                $user = User::where('id', $user_id)->first(); 
-                
-                $nome = $user["name"];
-                $nome = \explode(" ", $nome);
-                if(isset($nome[0]))
-                {
-                    $nome = \strtolower($nome[0]);
-                    $nome = \ucfirst($nome);
-                }
-                return view('layouts.pending', ['nome' => $nome, 'plano' => $plan_name ]);;
-            }          
-            
-        }
-
-        return [];
-    }    
-    
 }

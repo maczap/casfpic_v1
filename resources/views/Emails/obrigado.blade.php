@@ -28,16 +28,20 @@
 <p>&nbsp;</p>
 <p style="text-align: center;"><strong>Seu Cadastro foi realizado com sucesso</strong></p>
 <p>&nbsp;</p>
-
 @if ($method == "boleto")
-<p><strong>*IMPORTANTE:</strong> A compra &eacute; processada pelo PAGSEGURO, e assim que o boleto for compensado, voc&ecirc; receber&aacute; outro e-mail avisando sobre a libera&ccedil;&atilde;o do seu plano.&nbsp;</p>
+<p><strong>*IMPORTANTE:</strong> Após a compensação do boleto, voc&ecirc; receber&aacute; outro e-mail avisando sobre a libera&ccedil;&atilde;o do seu plano.&nbsp;</p>
 <p>Clique no link abaixo para imprimir seu boleto.</p>
-<p style="text-align: center; padding: 10px;"><span style="color: #000000;"><strong><a class="waves-effect waves-light btn" style="color: #000000;" href="{{$url}}" target="blank">Imprimir Boleto</a></strong></span></p>
-@else
+<p style="text-align: center; padding: 10px;">
+<span style="color: #000000;"><strong><a class="waves-effect waves-light btn" style="color:rgb(67,122,212);padding:0px;line-height:1.6" href="{{$boleto_url}}" target="blank">Imprimir Boleto</a></strong></span></p>
 
-<p><strong>*IMPORTANTE:</strong> A compra &eacute; processada pelo PAGSEGURO, e assim que o pagamento for aprovado voc&ecirc; receber&aacute; (ou j&aacute; recebeu) outro e-mail avisando sobre a libera&ccedil;&atilde;o do seu plano.&nbsp;</p>
+<p style="text-align: center; padding: 10px;"><span style="color: #000000;"><strong>C&oacute;digo de Barra</strong></span>
+<br> <span style="text-align: center; padding: 10px;">{{$boleto_barcode}}</span>
+</p>
+
+@else
+<p><strong>*IMPORTANTE:</strong> Ap&oacute;s a confirma&ccedil;&atilde;o de pagamento, voc&ecirc; receber&aacute; (ou j&aacute; recebeu) outro e-mail avisando sobre a libera&ccedil;&atilde;o do seu plano.&nbsp;</p>
 @endif
-<p>Se voc&ecirc; tiver alguma d&uacute;vida sobre o plano escolhido, fale conosco!<br /><br />Whatsapp: (11) 99999-9999<br />Email: contato@casfpic.org.br</p>
+<p>Se voc&ecirc; tiver alguma d&uacute;vida sobre o plano escolhido, fale conosco!<br /><br />Whatsapp: (11) 94019-4371<br />Email: contato@casfpic.org.br</p>
 <p>&nbsp;</p>
 </td>
 </tr>
@@ -59,7 +63,7 @@
 <td style="height: 18px;">&nbsp;</td>
 </tr>
 <tr style="height: 18px;">
-<td style="height: 18px; text-align: center;"><span style="color: #808080;">Rua Fulano de tal 2656</span><br /><span style="color: #808080;">Vila da silva</span><br /><span style="color: #808080;">CEP: 00000-000</span><br /><span style="color: #808080;">Salto - SP</span></td>
+<td style="height: 18px; text-align: center;"><span style="color: #808080;">Rua Sete de Setembro 270</span><br /><span style="color: #808080;">Centro</span><br /><span style="color: #808080;">CEP: 1876O-037</span><br /><span style="color: #808080;">Cerqueira Cesar - SP</span></td>
 </tr>
 </tbody>
 </table>

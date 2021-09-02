@@ -260,7 +260,55 @@
                         <div class="d-grid gap-2">
                             <button type="button" class="btn btn-primary" id="finalizar_pagto" @click="steps(5,'termos')">Ir para Pagamento</button>
                         </div>
-                    </div>    
+                    </div>   
+                    <div class="card-body" id="etapa5">
+
+                        <ul class="nav nav-tabs" id="myTab" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" id="cartao-tab" data-toggle="tab" href="#cartao" role="tab" aria-controls="cartao" arielected="true">Cartão</a>
+                            </li>
+                            <li class="nav-item" v-if="this.periodo == 'anual'">
+                                <a class="nav-link" id="pix-tab" data-toggle="tab" href="#pix" role="tab" aria-controls="pix" aria-selected="false">PIX</a>
+                            </li>                            
+                            <li class="nav-item">
+                                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#boleto" role="tab" aria-controls="profile" aria-selected="false">Boleto</a>
+                            </li>
+                        </ul>    
+
+                        <div class="tab-content" style="margin-top:20px;min-height:300px">
+                            <div class="tab-pane active" id="cartao" role="tabpanel" aria-labelledby="cartao-tab">
+                                <div class="">
+                                    <input type="phone" class="form-control" v-model="card_number" maxlength="19" id="card_number"  placeholder="Número do Cartão">
+                                </div> 
+                                <div class="mt-20">
+                                    <input type="text" class="form-control" v-model="card_nome"  id="card_name"  placeholder="Nome do Titular do Cartão">
+                                </div>    
+
+                                <div class="input-group mt-20">
+                                    <input type="phone"  id="cartao_vencimento" v-model="card_vencimento" class="form-control col-xl-6" placeholder="Vencimento" >
+                                    <input type="phone" id="cartao_cvv"  v-model="card_cvv" class="form-control col-xl-6" placeholder="CVV" >
+
+                                </div>        
+
+                                <div class="d-grid gap-2 mt-20">
+                                    <button type="button" class="btn btn-primary efetuar_pagto" id="efetuar_pagto" @click="steps(6)" >Efetuar Pagamento</button>                                                        
+                                </div>
+                            </div>
+
+                            <div class="tab-pane" id="pix" role="tabpanel" aria-labelledby="pix-tab">
+                                <div class="d-grid gap-2 mt-20">
+                                    <button type="button" class="btn btn-primary efetuar_pagto" id="efetuar_pagto_pix" @click="steps(8)" >Gerar PIX</button>                                                        
+                                </div>                                
+                            </div>                               
+
+                            <div class="tab-pane" id="boleto" role="tabpanel" aria-labelledby="boleto-tab">
+                                <div class="d-grid gap-2 mt-20">
+                                    <button type="button" class="btn btn-primary efetuar_pagto" id="efetuar_pagto_boleto" @click="steps(7)" >Gerar Boleto</button>                                                        
+                                </div>                                
+                            </div>                            
+                        </div>
+
+                    </div> 
 
 
                 </div> 
@@ -271,7 +319,8 @@
 </template>
 
 <script>
-import ViaCep from 'vue-viacep'
+// import $ from 'jquery';
+import ViaCep from 'vue-viacep';
 import swal from 'sweetalert';
 
 export default {
@@ -303,14 +352,11 @@ export default {
                 bairro:"",
                 cidade:"",
                 uf:"",
-                cartao_numero:"",
-                cartao_nome:"",
-                cartao_cpf:"",
-                cartao_nasc:"",
-                cartao_cvv:"",
-                cartao_validade_mes:"",
-                cartao_validade_ano:"",
-                cartao_celular:"",
+                card_number:"",
+                card_nome:"",
+                card_vencimento:"",
+                card_cvv:"",
+                
                 bandeira:null,
                 cardToken:null,
                 method:null,
@@ -501,16 +547,26 @@ export default {
                     $("#etapa4").css('display','none');
                     $("#etapa4").css('display','none');
                     
-                        $("#etapa"+item).css('display','block');
+                    $("#etapa"+item).css('display','block');
 
                     if(item == 5){
-                        $("#etapa4").css('display','block');
-                        this.cadastro();
+                        $("#etapa4").css('display','none');
+                        $("#etapa5").css('display','block');
+                        
                     }
                     if(item == 6){
-                        // $("#etapa4").css('display','block');
-                        // this.carregarBoleto();
+                        let validacaoCard = this.validacaoCard();
+                        if(validacaoCard){
+                            this.cadastro("cartao");
+                        }
                     }                    
+
+                    if(item == 7){
+                        this.cadastro("boleto");
+                    }   
+                    if(item == 8){
+                        this.cadastro("pix");
+                    }                                       
                 }
             },
             formatPrice: function(value) {
@@ -521,6 +577,56 @@ export default {
                 let val = (value).toFixed(2);
                 return val;
             },  
+            validacaoCard(){
+                if(this.card_number == '' || this.card_number == null){
+                        swal({
+                            title: "Informe o Número do Cartão",
+                            text: "Preencha todas as informações para continuar",
+                            icon: "error",
+                            button: "OK",
+                        });                        
+                        return false;
+                }
+                if(this.card_number.length <19){
+                        swal({
+                            title: "Número do Cartão Incompleto",
+                            text: "Preencha todas as informações para continuar",
+                            icon: "error",
+                            button: "OK",
+                        });                        
+                        return false;
+                }
+
+                if(this.card_nome == '' || this.card_nome == null){
+                        swal({
+                            title: "Informe o Nome no Cartão",
+                            text: "Preencha todas as informações para continuar",
+                            icon: "error",
+                            button: "OK",
+                        });                        
+                        return false;
+                }       
+                if(this.card_vencimento == '' || this.card_vencimento == null){
+                        swal({
+                            title: "Informe o Vencimento",
+                            text: "Preencha todas as informações para continuar",
+                            icon: "error",
+                            button: "OK",
+                        });                        
+                        return false;
+                }                  
+                if(this.card_cvv == '' || this.card_cvv == null){
+                        swal({
+                            title: "Informe o CVV",
+                            text: "Preencha todas as informações para continuar",
+                            icon: "error",
+                            button: "OK",
+                        });                        
+                        return false;
+                }         
+                
+                return true;
+            },
             validacaoForm(item, tipo){
 
                 $("#alert1").css('display','none');
@@ -755,10 +861,17 @@ export default {
 
                 } 
             },
-            cadastro: function(){
+            cadastro: function(paymentMethod){
                 
-                $('#finalizar_pagto').text('Aguarde...');
-                $('#finalizar_pagto').prop('disabled', true);
+                $('#efetuar_pagto').text('Aguarde...');
+                $('#efetuar_pagto').prop('disabled', true);
+
+                $('#efetuar_pagto_boleto').text('Aguarde...');
+                $('#efetuar_pagto_boleto').prop('disabled', true);    
+
+                $('#efetuar_pagto_pix').text('Aguarde...');
+                $('#efetuar_pagto_pix').prop('disabled', true);                   
+
                 finalizar_pagto
                  
                 let set = this;
@@ -787,36 +900,72 @@ export default {
                 let uf        = this.uf;
                 let method    = this.method;
 
+                let card_nome   = this.card_nome;
+                let card_number = this.card_number;
+                let card_vencimento = this.card_vencimento;
+                let card_cvv = this.card_cvv;
+                
+                let dados = null;
+                if(paymentMethod == "cartao"){
+                    dados = {
+                        plano:          plano,
+                        periodo:        periodo,
+                        cpf:            cpf,
+                        name:           nome,
+                        email:          email,
+                        celular:        celular,
+                        senha:          senha,
+                        rg:             rg,
+                        nascimento:     nascimento,
+                        sexo:           sexo,
+                        ecivil:         ecivil,
+                        profissao:      profissao,
+                        area:           area,
+                        cep:            cep,
+                        endereco:       endereco,
+                        bairro:         bairro,
+                        numero:         numero,
+                        complemento:    complemento,
+                        cidade:         cidade,
+                        uf:             uf,
 
-                this.$http.post('payment/credit', {
-                    plano:          plano,
-                    periodo:        periodo,
+                        card_nome:      card_nome,
+                        card_number:    card_number,
+                        card_vencimento:card_vencimento,
+                        card_cvv:       card_cvv,
 
+                        paymentMethod:  paymentMethod,
+                        _token:         csrfToken                    
+                    };
+                } 
+                if(paymentMethod == "boleto" || paymentMethod == "pix" ){
+                    dados = {
+                        plano:          plano,
+                        periodo:        periodo,
+                        cpf:            cpf,
+                        name:           nome,
+                        email:          email,
+                        celular:        celular,
+                        senha:          senha,
+                        rg:             rg,
+                        nascimento:     nascimento,
+                        sexo:           sexo,
+                        ecivil:         ecivil,
+                        profissao:      profissao,
+                        area:           area,
+                        cep:            cep,
+                        endereco:       endereco,
+                        bairro:         bairro,
+                        numero:         numero,
+                        complemento:    complemento,
+                        cidade:         cidade,
+                        uf:             uf,
+                        paymentMethod:  paymentMethod,
+                        _token:         csrfToken                    
+                    };
+                }                 
 
-                    cpf:            cpf,
-                    name:           nome,
-                    email:          email,
-                    celular:        celular,
-                    senha:          senha,
-
-                    rg:             rg,
-                    nascimento:     nascimento,
-                    sexo:           sexo,
-                    ecivil:         ecivil,
-                    profissao:      profissao,
-                    area:           area,
-
-                    cep:            cep,
-                    endereco:       endereco,
-                    bairro:         bairro,
-                    numero:         numero,
-                    complemento:    complemento,
-                    cidade:         cidade,
-                    uf:             uf,
-                    method:             method,
-
-                    _token:         csrfToken
-                }).then(response => {
+                this.$http.post('payment/credit', dados).then(response => {
 
                     
                     
@@ -830,8 +979,14 @@ export default {
                                         button: "OK",
                                 });                                              
                             });   
-                            $('#finalizar_pagto').text('Ir para Pagamentos');
-                            $('#finalizar_pagto').prop('disabled', false);                               
+                            $('#efetuar_pagto').text('Ir para Pagamentos');
+                            $('#efetuar_pagto').prop('disabled', false);    
+                            
+                            $('#efetuar_pagto_boleto').text('Gerar Boleto');
+                            $('#efetuar_pagto_boleto').prop('disabled', false);   
+                            
+                            $('#efetuar_pagto_pix').text('Gerar PIX');
+                            $('#efetuar_pagto_pix').prop('disabled', false);                              
                             return false;    
                     }         
                   
@@ -846,8 +1001,13 @@ export default {
                             });  
                             
                         });      
-                            $('#finalizar_pagto').text('Ir para Pagamentos');
-                            $('#finalizar_pagto').prop('disabled', false);                        
+                            $('#efetuar_pagto').text('Ir para Pagamentos');
+                            $('#efetuar_pagto').prop('disabled', false);   
+                            $('#efetuar_pagto_boleto').text('Gerar Boleto');
+                            $('#efetuar_pagto_boleto').prop('disabled', false);  
+                            
+                            $('#efetuar_pagto_pix').text('Gerar PIX');
+                            $('#efetuar_pagto_pix').prop('disabled', false);                             
                         return false;
                         
                     }    
@@ -855,8 +1015,12 @@ export default {
                         
                          window.location.href = response.body;
                     }     
-                    $('#finalizar').text('Finalizar Cadastro');
-                    $('#finalizar').prop('disabled', false);                    
+                    $('#efetuar_pagto').text('Finalizar Cadastro');
+                    $('#efetuar_pagto').prop('disabled', false);   
+                    $('#efetuar_pagto_boleto').text('Gerar Boleto');
+                    $('#efetuar_pagto_boleto').prop('disabled', false);   
+                    $('#efetuar_pagto_pix').text('Gerar PIX');
+                    $('#efetuar_pagto_pix').prop('disabled', false);                                                        
                 }).catch(error => {
                     if(error.body){
                         swal({
@@ -866,8 +1030,12 @@ export default {
                             button: "OK",
                         });      
                     }                
-                            $('#finalizar_pagto').text('Ir para Pagamentos');
-                            $('#finalizar_pagto').prop('disabled', false);                
+                            $('#efetuar_pagto').text('Ir para Pagamentos');
+                            $('#efetuar_pagto').prop('disabled', false);      
+                            $('#efetuar_pagto_boleto').text('Gerar Boleto');
+                            $('#efetuar_pagto_boleto').prop('disabled', false);   
+                            $('#efetuar_pagto_pix').text('Gerar PIX');
+                            $('#efetuar_pagto_pix').prop('disabled', false);                                                                 
                 });
 
                 
@@ -895,113 +1063,7 @@ export default {
                     
                 }
             },
-            boleto: function(){
-                let set = this;
-                  
-
-                // $('#finalizar_boleto').text('Aguarde...');
-                // $('#finalizar_boleto').prop('disabled', true);
-                 
-                
-                let plano     = this.plano;
-                let periodo   = this.periodo;
-                let cpf       = this.cpf;
-                let nome      = this.nome;
-                let email     = this.email;
-                let celular   = this.celular;
-                let senha     = this.password;
-
-                let rg        = this.rg;
-                let nascimento= this.nascimento;
-                let sexo      = this.sexo;
-                let ecivil    = this.ecivil;
-                let profissao = this.profissao;
-                let area      = this.area;
-
-                let cep       = this.cep;
-                
-                let endereco  = this.end
-                let numero    = this.numero;
-                let complemento   = this.complemento;
-                let bairro    = this.bairro;
-                let cidade    = this.cidade;
-                let uf        = this.uf;
-
-
-                this.$http.post('payment/boleto', {
-                    plano:          plano,
-                    periodo:        periodo,
-
-                    payment_method: 'boleto',
-
-                    cpf:            cpf,
-                    name:           nome,
-                    email:          email,
-                    celular:        celular,
-                    senha:          senha,
-
-                    rg:             rg,
-                    nascimento:     nascimento,
-                    sexo:           sexo,
-                    ecivil:         ecivil,
-                    profissao:      profissao,
-                    profissao:      profissao,
-
-                    cep:            cep,
-                    endereco:       endereco,
-                    bairro:         bairro,
-                    numero:         numero,
-                    complemento:    complemento,
-                    cidade:         cidade,
-                    uf:             uf,
-                    hashseller:     set.hash,
-                    
-                    _token:         csrfToken
-                }).then(response => {
-                    
-
-                    
-                    if(response.body.errors){
-                           Object.entries(response.body.errors).forEach(([key, value]) => {
-   
-                                swal({
-                                        title: key,
-                                        text: value[0],
-                                        icon: "error",
-                                        button: "OK",
-                                });                                              
-                            });   
-                            return false;    
-                    }         
-                  
-                    else if(response.body.error){
-                        
-                        Object.entries(response.body.error).forEach(([key, value]) => {
-                            swal({
-                                title: "Erro",
-                                text: value,
-                                icon: "error",
-                                button: "OK",
-                            });  
-                            
-                        });      
-                        return false;
-                        
-                    }    
-                    else {
-                        
-                        // window.location.href = 'http://127.0.0.1:8000/success';
-                    }     
-                    $('#finalizar_boleto').text('Gerar Boleto');
-                    $('#finalizar_boleto').prop('disabled', false);                    
-                }).catch(error => {
-                    
-                    $('#finalizar_boleto').text('Gerar Boleto');
-                    $('#finalizar_boleto').prop('disabled', false);                    
-                });
-
-                
-            },     
+              
 
             validaCPF: function(){
                 let cpf = $("#cpf").val();
@@ -1114,21 +1176,27 @@ export default {
                 this.method = this.$route.query.method
             }
             
+            if(!this.plano == '' || !this.plano == null){
 
-            let dados = {
-                'plano': this.plano,
-                'periodo': this.periodo
+                let dados = {
+                    'plano': this.plano,
+                    'periodo': this.periodo
+                }
+                
+                this.$store.dispatch('get_plan', dados);
+
             }
 
-            this.$store.dispatch('get_plan', dados);
 
-            $(document).ready(function($){
 
+            $(document).ready(function(){
+                  
 
                 $("#etapa1").css('display','block');
                 $("#etapa2").css('display','none');
                 $("#etapa3").css('display','none');
                 $("#etapa4").css('display','none');
+                $("#etapa5").css('display','none');
                 
 
                 $("#alert4_boleto").css('display','none');
@@ -1139,8 +1207,15 @@ export default {
                 $("#alert4").css('display','none');
                 $("#alert5").css('display','none');
 
+                $("#card_number").mask('0000 0000 0000 0000');  
+                $("#cartao_vencimento").mask('00/00');  
+                $("#cartao_cvv").mask('000');  
                 
+                
+
             });
+
+
         }
 }
 </script>

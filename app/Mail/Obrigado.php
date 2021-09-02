@@ -19,12 +19,26 @@ class Obrigado extends Mailable
     public $nome;
     public $method;
     public $url;
+    public $email;
+    public $plano;
+    public $boleto_url;
+    public $boleto_barcode;
+    public $periodo;
+    public $status;
+    
 
     public function __construct($dados)
     {
-        $this->nome    = ucfirst($dados["nome"]);
-        $this->method  = $dados["method"];
-        $this->url     = $dados["url"];
+        $this->nome         = ucfirst($dados["nome"]);
+        $n = \explode(" ", $this->nome);
+        $this->nome = $n[0];
+        $this->method       = $dados["payment_method"];
+        $this->email        = $dados["email"];
+        $this->boleto_url   = $dados["boleto_url"];
+        $this->boleto_barcode = $dados["boleto_barcode"];
+        $this->status       = $dados["status"];
+        $this->plano        = $dados["plano"];
+        $this->periodo      = $dados["periodo"];
      
     }
 
@@ -36,12 +50,14 @@ class Obrigado extends Mailable
     public function build()
     {
         return $this->from('no-reply@servclube.com.br','CASFPIC')
-        ->subject('Seja muito bem-vindo(a) MARCOS!        ')
+        ->subject("Seja muito bem-vindo(a) $this->nome!")
         ->view('Emails.obrigado')
         ->with([
-            'nome'   => $this->nome,          
-            'method' => $this->method,
-            'url'    => $this->url
+            'nome'           => $this->nome,          
+            'method'         => $this->method,
+            'periodo'        => $this->periodo,
+            'boleto_url'     => $this->boleto_url,
+            'boleto_barcode' => $this->boleto_barcode
         ]);          
     }
 }
