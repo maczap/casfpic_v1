@@ -337,7 +337,7 @@ class ControllerCadastro extends Controller
                                 $boleto_barcode = null;
 
                                 $subscription = $pagarme->createSubscription($customer, $plano_codigo_integracao, 'boleto', $card_id, $address, $phone);
-                                return $subscription;
+                                
                                 if(isset($subscription["current_transaction"]['boleto_url'])){
                                     $boleto_url     = $subscription["current_transaction"]['boleto_url'];
                                     $boleto_barcode = $subscription["current_transaction"]['boleto_barcode'];
