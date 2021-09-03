@@ -587,7 +587,7 @@ export default {
                         });                        
                         return false;
                 }
-                if(this.card_number.length <19){
+                if(this.card_number.length <10){
                         swal({
                             title: "Número do Cartão Incompleto",
                             text: "Preencha todas as informações para continuar",
