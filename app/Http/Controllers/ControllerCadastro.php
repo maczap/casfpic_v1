@@ -505,13 +505,13 @@ class ControllerCadastro extends Controller
 
                         $id = Crypt::encryptString($dados["id"]);
 
-                        $url = "http://127.0.0.1:8000/api/checkout/billet?collection_id=".$id;
+                        $url = "https://casfpic.org.br/api/checkout/billet?collection_id=".$id;
                         return $url;
                     }
 
                     if($payment_methods == "cartao" && $subscription['status'] == "paid"){
                         $id = Crypt::encryptString($dados["id"]);
-                        $url = "http://127.0.0.1:8000/api/checkout/success?collection_id=".$id;
+                        $url = "https://casfpic.org.br/api/checkout/success?collection_id=".$id;
                         $this->post->sendEmail($email, $nome, $plano_name, $url, $subscription['status']);
                         return $url;
                     }     
@@ -531,14 +531,14 @@ class ControllerCadastro extends Controller
 
                     if($payment_methods == "boleto" && isset($boleto_url)){
                         $id = Crypt::encryptString($dados["id"]);
-                        $url = "http://127.0.0.1:8000/api/checkout/billet?collection_id=".$id;
+                        $url = "https://casfpic.org.br/api/checkout/billet?collection_id=".$id;
                         return $url;
                     }
 
                     if($payment_methods == "cartao" && $transaction['status'] == "paid"){
                        
                         $id = Crypt::encryptString($dados["id"]);
-                        $url = "http://127.0.0.1:8000/api/checkout/success?collection_id=".$id;
+                        $url = "https://casfpic.org.br/api/checkout/success?collection_id=".$id;
                         
                         return $url;
                     }  
@@ -548,7 +548,7 @@ class ControllerCadastro extends Controller
 
 
                         $id = Crypt::encryptString($dados["id"]);
-                        $url = "http://127.0.0.1:8000/api/checkout/pix?collection_id=".$id;
+                        $url = "https://casfpic.org.br/api/checkout/pix?collection_id=".$id;
                         $this->post->sendEmail($email, $nome, $plano_name, $url, $transaction['status']);
                         return $url;
                     }                     
