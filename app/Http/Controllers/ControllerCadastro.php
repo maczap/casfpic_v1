@@ -329,18 +329,20 @@ class ControllerCadastro extends Controller
                             }
 
                         } 
+                       
 
                         if($periodo == "mensal" && $payment_methods == "boleto"){
                             if($payment_methods == "boleto"){ 
+                                $boleto_url = null;
+                                $boleto_barcode = null;
 
                                 $subscription = $pagarme->createSubscription($customer, $plano_codigo_integracao, 'boleto', $card_id, $address, $phone);
-                                
-                                $boleto_url     = $subscription["current_transaction"]['boleto_url'];
-                                $boleto_barcode = $subscription["current_transaction"]['boleto_barcode'];
+                                if(isset($subscription["current_transaction"]['boleto_url'])){
+                                    $boleto_url     = $subscription["current_transaction"]['boleto_url'];
+                                    $boleto_barcode = $subscription["current_transaction"]['boleto_barcode'];
+                                }
 
                             }
-
-                            
                         }
                         
                         if($periodo == "mensal"){
