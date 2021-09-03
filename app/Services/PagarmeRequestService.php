@@ -224,6 +224,10 @@ class PagarmeRequestService extends BaseRequestService
 
     public function createSubscription(array $customer, $plan_id, $payment_method, $card_id = null, array $address, array $phone, $amount = null, $plano = null)
     {
+        if($payment_method == "cartao"){
+            $payment_method = "credit_card";
+        }
+                
         $customer_address = $customer;
         $customer_address["address"] = $address;
         $customer_address["phone"] = $phone;
