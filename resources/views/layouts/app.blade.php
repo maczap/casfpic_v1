@@ -124,7 +124,7 @@
             
 				<div class="container">
 					<div class="row">
-                        <div class="col-xl-4 col-sm-6 col-md-6 col-lg-4">
+                        <div class="col-xl-2 col-sm-6 col-md-4 col-lg-2">
                             <div class="footer-about">
                                 <a href="#"><img src="https://casfpic.org.br/images/hero/logo.png" alt="footer logo"></a>
                                 
@@ -141,16 +141,16 @@
                                 </ul>
                             </div>
                         </div>
-                        <div class="col-xl-2 col-sm-6 col-md-6 col-lg-2">
+                        <div class="col-xl-4 col-sm-6 col-md-6 col-lg-4">
                             <div class="footer-cmn footer-quick-link">
                                 <h5>Contato</h5>
                                 <ul>
-                                    
+                                    @if(isset($promotor_name))
+                                    <li>Promotor(a): {{$promotor_name}}</li>
+                                    @endif
                                     <li>contato@casfpic.org.br</li>
-                                    <li>Whatsapp: <br>(11) 94019-4371</li>
-                                    <li>Telefone: <br>(14) 3714-0525 </li>
-                                    
-                       
+                                    <li>Whatsapp: (11) 94019-4371</li>
+                                    <li>Telefone: (14) 3714-0525 </li>
                                 </ul>
                             </div>
                         </div>

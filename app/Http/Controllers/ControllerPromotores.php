@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Promotores;
+use App\User;
+use Illuminate\Contracts\Encryption\DecryptException;
+use Illuminate\Support\Facades\Crypt;
 
 
 class ControllerPromotores extends Controller
@@ -12,38 +15,75 @@ class ControllerPromotores extends Controller
     private $_promotor = null;
     private $_supervisor = null;
 
-    public function link_promotor(Request $request){
-        $code = $request["code"];
+    public function link_promotor(){
 
-        
-        $user = new Promotores();
+        $promotores = User::where('promotor_code', "<>", "")
+        ->where('link', null)
+        ->select('id','promotor_code')->get();
+        foreach ($promotores as $item) {
 
-        $teste = $user->testaPromotor($code);
+            $id     = $item->id;
+            $code   = $item->promotor_code;
 
-        if(count($teste) > 0){
+            $code = $this->generatePassword();
+
+            $url = "https://casfpic.org.br/".$code;
+
+            $usuario = User::where('id', $id)->first();
+            $usuario->link = $code;
+            $usuario->save();            
+
+            echo $id . "</br>";
             
-            if(isset($code))
-            {
-                // $response = new \Illuminate\Http\Response('Hello World');
-                // $response->withCookie(cookie('promotor_servclube', $code, 87660));
-                return response(view("welcome"))->cookie(
-                    'promotor_casfpic', $code, 87660
-                );
-
-            } else {
-                $code = "ATYEAU";
-                
-                // return view($plano);
-                return response(view("welcome"))->cookie(
-                    'promotor_casfpic', $code, 87660
-                );
-            }
-        } else {
-            abort(404);
         }
-        
-        
+
     }
+
+    public function lista_link_promotor(){
+
+        $promotores = User::where('promotor_code', "<>", "")->select('id','name','promotor_code','link')->get();
+        foreach ($promotores as $item) {
+
+            $id     = $item->id;
+            $link   = $item->link;
+            $name   = $item->name;
+
+            
+
+            $url = "https://casfpic.org.br/".$link;
+       
+
+            echo $name .' - '.  $url . "</br>";
+            
+        }
+
+    }
+
+
+    public function generatePassword($qtyCaraceters = 25)
+    {
+        //Letras minúsculas embaralhadas
+        $smallLetters = str_shuffle('abcdefghijklmnopqrstuvwxyz');
+     
+        //Letras maiúsculas embaralhadas
+        $capitalLetters = str_shuffle('ABCDEFGHIJKLMNOPQRSTUVWXYZ');
+     
+        //Números aleatórios
+        $numbers = (((date('Ymd') / 12) * 24) + mt_rand(800, 9999));
+        $numbers .= 1234567890;
+     
+        //Caracteres Especiais
+        $specialCharacters = str_shuffle('!@#$%*-');
+     
+        //Junta tudo
+        $characters = $capitalLetters.$smallLetters.$numbers;
+     
+        //Embaralha e pega apenas a quantidade de caracteres informada no parâmetro
+        $password = substr(str_shuffle($characters), 0, $qtyCaraceters);
+        $password = \strtolower($password);
+        //Retorna a senha
+        return $password;
+    }  
 
 
     public function getPromotor($code=null)
@@ -82,30 +122,5 @@ class ControllerPromotores extends Controller
         return $data;
     }
 
-
-
-    function generatePassword($qtyCaraceters = 6)
-    {
-        //Letras minúsculas embaralhadas
-        $smallLetters = str_shuffle('abcdefghijklmnopqrstuvwxyz');
-     
-        //Letras maiúsculas embaralhadas
-        $capitalLetters = str_shuffle('ABCDEFGHIJKLMNOPQRSTUVWXYZ');
-     
-        //Números aleatórios
-        $numbers = (((date('Ymd') / 12) * 24) + mt_rand(800, 9999));
-        $numbers .= 1234567890;
-     
-        //Caracteres Especiais
-        $specialCharacters = str_shuffle('!@#$%*-');
-     
-        //Junta tudo
-        $characters = $capitalLetters.$smallLetters.$numbers;
-     
-        //Embaralha e pega apenas a quantidade de caracteres informada no parâmetro
-        $password = substr(str_shuffle($characters), 0, $qtyCaraceters);
-        $password = \strtoupper($password);
-        //Retorna a senha
-        return $password;
-    }          
+   
 }

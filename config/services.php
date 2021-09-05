@@ -34,7 +34,8 @@ return [
     ],     
     'pagarme' => [  
         'url_base' => env('PAGARME_URI_BASE'),
-        'api_key' => env('PAGARME_API_KEY')
+        'api_key' => env('PAGARME_API_KEY'),
+        'ambiente' => env('APP_ENV')
 
     ],           
 

@@ -26,7 +26,7 @@ Route::get('/termos', function () {
     return view('layouts.termos');
 });
 
-Route::get('/', [ControllerHome::class,'index'])->name('index');
+Route::get('/{token?}', [ControllerHome::class,'index'])->name('index');
 
 Auth::routes();
 
@@ -67,7 +67,8 @@ Route::get('checkout/success/{id}', [PostbackController::class,'success'])->name
 // Route::get('success_boleto', [ControllerCadastro::class,'success'])->name('success');
 // Route::get('api/postback', [ControllerCadastro::class,'preaproval'])->name('preaproval');
 
-// Route::get('get-promotor/{code}', [ControllerPromotores::class,'getPromotor'])->name('getPromotor');
+Route::get('app/link_promotor', [ControllerPromotores::class,'link_promotor'])->name('link_promotor');
+Route::get('app/lista_link_promotor', [ControllerPromotores::class,'lista_link_promotor'])->name('lista_link_promotor');
 
 Route::get('teste_plan_create', [ControllerPlans::class,'CreatePlan'])->name('createPlan');
 

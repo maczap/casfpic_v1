@@ -21,8 +21,16 @@ class ControllerPlans extends Controller
         $plano = $request["plano"];
         $periodo = $request["periodo"];
 
+        $ambiente = null;
+        if(config('services.pagarme.ambiente') == "local"){
+            $ambiente = "teste";
+        } else {
+            $ambiente = "producao";
+        }
+
         $plan = Plan::where('nick',$plano)
                      ->where('periodo',$periodo)
+                     ->where('tipo',$ambiente)
                      ->get();
         return $plan;
     }    

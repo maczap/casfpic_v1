@@ -49,10 +49,19 @@ class ControllerCadastro extends Controller
 
     public function cadastro(Request $request)
     {
+
+
+        $cookie_promotor = \Request::cookie('pmtcsfpc');
+        $promotor_id = "FD1809";   
+
+        if(isset($cookie_promotor)){
+            $promotor_id = $cookie_promotor;
+        }
+             
         $payment_methods = $request["paymentMethod"];
         
 
-        $promotor_id = null;
+        
         // $cookie = \Request::cookie('prmntcfpc');
         // if(isset($cookie)){
             
@@ -248,7 +257,8 @@ class ControllerCadastro extends Controller
                             'ecivil'    => $request['ecivil'],
                             'profissao' => \strtoupper($request['profissao']),
                             'area_atuacao' => $request['area'],
-                            'password' => Hash::make($senha)
+                            'password' => Hash::make($senha),
+                            'vinculo' => $promotor_id
                         ]);      
                         
 
@@ -324,33 +334,9 @@ class ControllerCadastro extends Controller
                                 
                             }
 
-                            if($periodo == "mensal"){
-                                $subscription = $pagarme->createSubscription($customer, $plano_codigo_integracao, 'credit_card', $card_id, $address, $phone);
-                            }
-
                         } 
                        
 
-                        // if($periodo == "mensal" && $payment_methods == "boleto"){
-                        //     if($payment_methods == "boleto"){ 
-                        //         $boleto_url = null;
-                        //         $boleto_barcode = null;
-
-                        //         $subscription = $pagarme->createSubscription($customer, $plano_codigo_integracao, 'boleto', $card_id, $address, $phone);
-                                
-                        //         if(isset($subscription["current_transaction"]['boleto_url'])){
-                        //             $boleto_url     = $subscription["current_transaction"]['boleto_url'];
-                        //             $boleto_barcode = $subscription["current_transaction"]['boleto_barcode'];
-                        //         }
-
-                        //     }
-                        // }
-                        
-                        // if($periodo == "mensal"){
-                        //     if (isset($subscription['errors'])) {
-                        //         return response()->json(["errors" => ["Inscrição" => ["Erro no pagamento"]]]);
-                        //     }    
-                        // }
 
                         if($periodo == "anual"){
                             $amount = $this->clear($plano_amount);
@@ -417,7 +403,8 @@ class ControllerCadastro extends Controller
                                 
                             ]);   
 
-                        }  else if($periodo == "mensal") {
+                        }  
+                        else if($periodo == "mensal") {
                             $amount = $this->clear($plano_amount);
 
                             $subscription = $pagarme->createSubscription($customer,$plano_codigo_integracao, $payment_methods, $card_id, $address, $phone, $amount, $plano_name);
@@ -471,7 +458,6 @@ class ControllerCadastro extends Controller
                                 'boleto_expiration_date' => $boleto_expiration_date,
                                 'manage_url'       => $manage_url,
                                 'manage_token'     => $manage_token
-
                                 
                             ]);   
                         }
@@ -574,9 +560,18 @@ class ControllerCadastro extends Controller
 
     public function get_plan($plano, $periodo)
     {
+        $ambiente = null;
+        if(config('services.pagarme.ambiente') == "local"){
+            $ambiente = "teste";
+        } else {
+            $ambiente = "producao";
+        }
+
         $dados = Plan::where('nick',$plano)
                      ->where('periodo',$periodo)
+                     ->where('tipo',$ambiente)
                      ->get();
+        
 
         if(isset($dados[0])){
             return $dados[0];

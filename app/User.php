@@ -39,7 +39,9 @@ class User extends Authenticatable
         'ecivil',
         'area_atuacao',
         'profissao',
-        'celular'        
+        'celular',
+        'vinculo',
+        'link'
     ];
 
     /**
