@@ -22,29 +22,38 @@ class ControllerHome extends Controller
     }
 
     public function index(Request $request){
-
             
+        $time = 43800;
 
-            $cookie_promotor = \Request::cookie('pmtcsfpc');
+            $promotor_code = \Request::cookie('pmtcsfpc');
+            if(!isset($promotor_code)){
 
-            if(isset($request["token"])){
-                $id = Crypt::decryptString($request["token"]);
+                if(isset($request["token"])){
+                    
+                    $token = $request["token"];
+
+                    $promotor = User::where('link', $token)->select('name','promotor_code')->first();
                 
-                $cookie_promotor = $id;
-            }            
-
-            $promotor_code = "FD1809";
-            $promotor_name = "Marcos Granziera";
-            $time = 87660;
-
-            $promotor = User::where('promotor_code', $cookie_promotor)->select('name','promotor_code')->first();
-            
-            if(isset($promotor->promotor_code)){
-                $promotor_code = $promotor->promotor_code;
-                $promotor_name = $promotor->name;
+                    if(isset($promotor->promotor_code)){
+                        $promotor_code = $promotor->promotor_code;
+                        $promotor_name = $promotor->name;
+                    } else {
+                        $promotor_code = "FD1809";
+                        $promotor_name = "Marcos Granziera";
+                    }                    
+                }            
             } else {
-                $promotor_code = "FD1809";
-                $promotor_name = "Marcos Granziera";
+
+                $promotor = User::where('promotor_code', $promotor_code)->select('name','promotor_code')->first();
+            
+                if(isset($promotor->promotor_code)){
+                    $promotor_code = $promotor->promotor_code;
+                    $promotor_name = $promotor->name;
+                } else {
+                    $promotor_code = "FD1809";
+                    $promotor_name = "Marcos Granziera";
+                }                    
+                            
             }
 
             $cookie = $request->cookie('lgpd');

@@ -18,7 +18,6 @@ class ControllerPromotores extends Controller
     public function link_promotor(){
 
         $promotores = User::where('promotor_code', "<>", "")
-        ->where('link', null)
         ->select('id','promotor_code')->get();
         foreach ($promotores as $item) {
 
@@ -27,7 +26,7 @@ class ControllerPromotores extends Controller
 
             $code = $this->generatePassword();
 
-            $url = "https://casfpic.org.br/".$code;
+            $url = "https://casfpic.org.br/p/".$code;
 
             $usuario = User::where('id', $id)->first();
             $usuario->link = $code;
@@ -50,7 +49,7 @@ class ControllerPromotores extends Controller
 
             
 
-            $url = "https://casfpic.org.br/".$link;
+            $url = "https://casfpic.org.br/p/".$link;
        
 
             echo $name .' - '.  $url . "</br>";
