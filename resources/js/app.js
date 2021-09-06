@@ -6,7 +6,7 @@
 
 require('./bootstrap');
 
-window.Vue = require('vue');
+window.Vue = require('vue').default;
 
 import VueResource from 'vue-resource'
 Vue.use(VueResource)
