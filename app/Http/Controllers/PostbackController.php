@@ -67,14 +67,14 @@ class PostbackController extends Controller
             }
         }
 
-        if(isset($request->all()['subscription']['id'])){
+        if(isset($request->all()['subscription']['current_transaction']['id'])){
 
-            $subscription_code = $request->all()['subscription']['id'];
+            $subscription_code = $request->all()['subscription']['current_transaction']['id'];
 
             $subscription = Subscription::where('subscription_code', $subscription_code)->first();
     
             if (!is_null($subscription)) {
-                $subscription->status = $request->all()['subscription']['status'];
+                $subscription->status = $request->all()['subscription']['current_transaction']['status'];
                 $subscription->save();
     
                 $current_transaction = $request->all()['subscription']['current_transaction'];
