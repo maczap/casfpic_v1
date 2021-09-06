@@ -46,7 +46,7 @@ class PostbackController extends Controller
             }
         }
 
-        if(isset($request->all()['transaction']['id'])){
+        if(isset($request->all()['subscription']['id'])){
 
             $subscription_code = $request->all()['subscription']['id'];
 
