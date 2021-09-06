@@ -405,7 +405,6 @@ class PostbackController extends Controller
         else if($status == "unpaid"){
             $mensagem = "Não Pago";
         }                                                    
-                
         
         return $mensagem;
 
