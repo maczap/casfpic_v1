@@ -91,6 +91,34 @@ class PostbackController extends Controller
     {
         return [
             'transaction_code' => $transaction['id'],
+            'status' => $transaction["transaction"]['status'],
+            'authorization_code' => $transaction["transaction"]['authorization_code'],
+            'amount' => $transaction["transaction"]['amount'],
+            'authorized_amount' => $transaction["transaction"]['authorized_amount'],
+            'paid_amount' => $transaction["transaction"]['paid_amount'],
+            'refunded_amount' => $transaction["transaction"]['refunded_amount'],
+            'installments' => $transaction["transaction"]['installments'],
+            'cost' => $transaction["transaction"]['cost'],
+            'subscription_code' => $transaction["transaction"]['subscription_id'],
+            'postback_url' => $transaction["transaction"]['postback_url'],
+            'card_holder_name' => $transaction["transaction"]['card_holder_name'],
+            'card_last_digits' => $transaction["transaction"]['card_last_digits'],
+            'card_first_digits' => $transaction["transaction"]['card_first_digits'],
+            'card_brand' => $transaction["transaction"]['card_brand'],
+            'payment_method' => $transaction["transaction"]['payment_method'],
+            'boleto_url' => $transaction["transaction"]['boleto_url'],
+            'boleto_barcode' => $transaction["transaction"]['boleto_barcode'],
+            'boleto_expiration_date' => date('Y-m-d H:i:s', strtotime($transaction["transaction"]['boleto_expiration_date'])),
+            'pix_qr_code' => $transaction["transaction"]['pix_qr_code'],
+            'pix_expiration_date' => date('Y-m-d H:i:s', strtotime($transaction["transaction"]['pix_expiration_date'])),
+            'type' => "transaction"
+        ];
+    }
+
+    private function managerSubscriptionData($transaction)
+    {
+        return [
+            'transaction_code' => $transaction['id'],
             'status' => $transaction['status'],
             'authorization_code' => $transaction['authorization_code'],
             'amount' => $transaction['amount'],
@@ -110,7 +138,7 @@ class PostbackController extends Controller
             'boleto_barcode' => $transaction['boleto_barcode'],
             'boleto_expiration_date' => date('Y-m-d H:i:s', strtotime($transaction['boleto_expiration_date']))
         ];
-    }
+    }    
 
     public function sendEmail($email, $nome, $plano_plano, $url, $status){
         // Mail::to($email)->send(new SendMailSignature($email, $nome, $plano_plano));
@@ -336,6 +364,86 @@ class PostbackController extends Controller
         
         return $mensagem;
 
+    }
+
+    public function dadosTransaction(){
+        $dados = 
+        [
+            "id" => "13920073",
+            "fingerprint" => "ee512d49af5f96adcc97ee9121c46ad6e1f84cc7",
+            "event" => "transaction_status_changed",
+            "old_status" => "waiting_payment",
+            "desired_status" => "paid",
+            "current_status" => "paid",
+            "object" => "transaction",
+            "transaction" => [
+               "object" => "transaction",
+               "status" => "paid",
+               "refuse_reason" => null,
+               "status_reason" => "acquirer",
+               "acquirer_response_code" => null,
+               "acquirer_name" => "pagarme",
+               "acquirer_id" => "612cefd8e6d8cb0011a2eb6b",
+               "authorization_code" => null,
+               "soft_descriptor" => null,
+               "tid" => "13920073",
+               "nsu" => "13920073",
+               "date_created" => "2021-09-02T21:04:00.779Z",
+               "date_updated" => "2021-09-06T13:23:33.358Z",
+               "amount" => "35880",
+               "authorized_amount" => "35880",
+               "paid_amount" => "0",
+               "refunded_amount" => "0",
+               "installments" => "1",
+               "id" => "13920073",
+               "cost" => "0",
+               "card_holder_name" => null,
+               "card_last_digits" => null,
+               "card_first_digits" => null,
+               "card_brand" => null,
+               "card_pin_mode" => null,
+               "card_magstripe_fallback" => "false",
+               "cvm_pin" => "false",
+               "postback_url" => "https:\/\/casfpic.org.br\/api\/postback",
+               "payment_method" => "pix",
+               "capture_method" => "ecommerce",
+               "antifraud_score" => null,
+               "boleto_url" => null,
+               "boleto_barcode" => null,
+               "boleto_expiration_date" => null,
+               "referer" => "api_key",
+               "ip" => "187.183.38.72",
+               "subscription_id" => null,
+               "phone" => null,
+               "address" => null,
+               "customer" => null,
+               "billing" => null,
+               "shipping" => null,
+               "card" => null,
+               "split_rules" => null,
+               "reference_key" => null,
+               "device" => null,
+               "local_transaction_id" => null,
+               "local_time" => null,
+               "fraud_covered" => "false",
+               "fraud_reimbursed" => null,
+               "order_id" => null,
+               "risk_level" => "unknown",
+               "receipt_url" => null,
+               "payment" => null,
+               "addition" => null,
+               "discount" => null,
+               "private_label" => null,
+               "pix_qr_code" => "00020101021226840014br.gov.bcb.pix2562pix-h.stone.com.br\/pix\/v2\/9df9c545-f386-4921-81bd-3d2c80d70ceb5204000053039865406358.805802BR5924Pagar.me Pagamentos S.A.6014RIO DE JANEIRO62290525b62b1f5671734d9a8fd89cf136304313C",
+               "pix_expiration_date" => "2021-10-03T02:59:59.000Z"
+            ]
+        ];
+
+        $retorno = $this->managerTransactionData($dados);
+        return $retorno;
+        $transaction = Subscription::where('subscription_code', $dados["id"])->first();
+        $transaction->user->transactions()->create($transaction);
+        
     }
 
 }

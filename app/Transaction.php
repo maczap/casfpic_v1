@@ -27,7 +27,10 @@ class Transaction extends Model
         'boleto_url',
         'boleto_barcode',
         'boleto_expiration_date',
-        'manage_url'
+        'manage_url',
+        'pix_qr_code',
+        'pix_expiration_date',
+        'type'
 
     ];
 

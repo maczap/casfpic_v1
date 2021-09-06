@@ -22,6 +22,8 @@ use App\Http\Controllers\PostbackController;
 
 Route::post('postback', [PostbackController::class,'transaction'])->name('transaction');
 
+Route::get('postback/transaction', [PostbackController::class,'dadosTransaction'])->name('dadosTransaction');
+
 Route::get('checkout/success', [PostbackController::class,'success'])->name('success');
 Route::get('checkout/billet', [PostbackController::class,'billet'])->name('billet');
 Route::get('checkout/pix', [PostbackController::class,'pix'])->name('pix');
