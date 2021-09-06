@@ -347,6 +347,9 @@ class PostbackController extends Controller
         else if($status == "authorized"){
             $mensagem = "Transação foi autorizada.";
         }      
+        else if($status == "pending"){
+            $mensagem = "Pendente";
+        }                 
         else if($status == "paid"){
             $mensagem = "Transação paga.";
         }         
@@ -376,7 +379,33 @@ class PostbackController extends Controller
         }        
         else if($status == "waiting_payment"){
             $mensagem = "Aguardando pagamento";
-        }               
+        }   
+        
+        else if($status == "generated"){
+            $mensagem = "Gerado";
+        }     
+        else if($status == "viewed"){
+            $mensagem = "Visualizado";
+        }        
+        else if($status == "underpaid"){
+            $mensagem = "Pago a menor";
+        }    
+        else if($status == "overpaid"){
+            $mensagem = "Pago a maior";
+        }       
+        else if($status == "voided"){
+            $mensagem = "Cancelado";
+        }          
+        else if($status == "with_error"){
+            $mensagem = "Com erro";
+        }   
+        else if($status == "failed"){
+            $mensagem = "Falha";
+        }              
+        else if($status == "unpaid"){
+            $mensagem = "Não Pago";
+        }                                                    
+                
         
         return $mensagem;
 
