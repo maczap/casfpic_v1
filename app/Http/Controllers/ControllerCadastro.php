@@ -52,6 +52,7 @@ class ControllerCadastro extends Controller
 
 
         $cookie_promotor = \Request::cookie('pmtcsfpc');
+        
         $promotor_id = "FD1809";   
 
         if(isset($cookie_promotor)){
@@ -59,8 +60,6 @@ class ControllerCadastro extends Controller
         }
              
         $payment_methods = $request["paymentMethod"];
-        
-
         
         // $cookie = \Request::cookie('prmntcfpc');
         // if(isset($cookie)){
@@ -347,8 +346,6 @@ class ControllerCadastro extends Controller
                                 "quantity"      => 1,
                                 "tangible"      => false                            
                             ];    
-                            
-
                             
                             $transaction = $pagarme->createTransaction($customer, $documents, $payment_methods, $card_id, $address, $phone, $amount, $items, $plano_name);
                             

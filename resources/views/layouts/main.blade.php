@@ -523,7 +523,7 @@
                                             <li>Além do Rol Mínimo de coberturas - 2 Operadoras de Planos Odontológico</li>
                                             </ul>                                  
                                             <h2 style="text-align:center"> <span class='cifrao'>R$ </span> 1.200,00 <span class='month'></span></h2>
-                                            <a href="/?plano=diamante&periodo=anual#cadastrol">
+                                            <a href="/?plano=diamante&periodo=anual#cadastro">
                                             <button type="button" class="text-center btn btn-primary btn-block" style="width:100%;">Contratar</button>                                  
                                             </a>
                                             <p class="card-text">Garantida a Cobertura do Plano

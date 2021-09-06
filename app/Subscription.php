@@ -17,6 +17,7 @@ class Subscription extends Model
         'amount',
         'boleto_url',
         'boleto_barcode',
+        'payment_method',
         'plano',
         'pix_qr_code',
         'pix_expiration_date',

@@ -23,7 +23,7 @@ class ControllerHome extends Controller
 
     public function index(Request $request){
             
-        $time = 43800;
+            $time = 43800;
 
             $promotor_code = \Request::cookie('pmtcsfpc');
             if(!isset($promotor_code)){

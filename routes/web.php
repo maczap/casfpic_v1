@@ -48,6 +48,7 @@ Route::get('pagarme', function(){
 Route::get('/getplan/{plano}/{periodo}', [ControllerPlans::class,'get_plan'])->name('getplan');
 
 Route::post('/payment/credit', [ControllerCadastro::class,'cadastro'])->name('payment_credit');
+// Route::get('/payment/credit', [ControllerCadastro::class,'cadastro'])->name('payment_credit');
 
 Route::get('checkout/success/{id}', [PostbackController::class,'success'])->name('success');
 
