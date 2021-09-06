@@ -42,14 +42,18 @@ class PostbackController extends Controller
     
             if (!is_null($subscription)) {
 
-                $subscription->status = $request->all()['transaction']['status'];
+                $status = $request->all()['transaction']['status'];
+                $details = $this->transactionStatus($status);
+
+                $subscription->status        = $status;
+                $subscription->status_detail = $details;
                 $subscription->save();
     
                 $current_transaction = $request->all()['transaction'];
     
                 $neWtransaction = Transaction::where('transaction_code', $current_transaction['id'])->first();
     
-                if (!is_null($neWtransaction)) {
+                if (is_null($neWtransaction)) {
                     $subscription->user->transactions()->create($this->managerTransactionData($current_transaction));
                 }
             }    
