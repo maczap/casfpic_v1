@@ -26,7 +26,7 @@ Route::get('/termos', function () {
     return view('layouts.termos');
 });
 
-Route::get('/{token?}', [ControllerHome::class,'index'])->name('index');
+Route::get('/p/{token?}', [ControllerHome::class,'index'])->name('index');
 
 Auth::routes();
 
@@ -83,11 +83,11 @@ Route::get('teste_plan_create', [ControllerPlans::class,'CreatePlan'])->name('cr
 
 // });
 
-// Route::middleware(['admin'])->group(function () {
-//     Route::get('admin',function() {
-//         dd("voce é admin");
-//     });
-// });
+Route::middleware(['admin'])->group(function () {
+    Route::get('admin',function() {
+        return view("admin.index");
+    });
+});
 
 // Route::middleware(['client'])->group(function (){
 //     Route::get('client',function() {

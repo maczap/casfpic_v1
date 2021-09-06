@@ -6,13 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Subscription;
 use App\User;
 use App\Plan;
+use App\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Mail\Pagamento;
-use App\Services\Pagseguro;
 use Illuminate\Support\Facades\Mail;
-use MercadoPago;
-use App\Services\MercadoPago as Mp;
 use Zend\Filter\File\UpperCase;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Redirect;
@@ -32,230 +30,94 @@ class PostbackController extends Controller
 
     }
 
-    public function postback(Request $request)
+    public function transaction(Request $request)
     {
-        $this->notification($request);
-    }
-
-    public function notification(Request $request){
-        $mp = new MP ("ENV_ACCESS_TOKEN");
-
-        $payment = $mp->get(
-            "/v1/payments/". $paymentId
-        );
-    }
-
-
-    public function transaction(Request $request){
-    
-        
         DB::table('postbacks')->insert([
             'postback' => json_encode($request->all())
         ]);
-        
-        if(isset($request["data"])){
-            
-            DB::table('postbacks')->insert([
-                'postback' => $request["data"]["id"]
-            ]);
-            $id = $request["data"]["id"];
-            $this->consultar_notificacao($id);
+        if(isset($request->all()['transaction']['id'])){
+            $transaction_code = $request->all()['transaction']['id'];
+
+            $transaction = Transaction::where('transaction_code', $transaction_code)->first();
+
+            if (!is_null($transaction)) {
+                $transaction->status = $request->all()['transaction']['status'];
+                $transaction->save();
+            }
         }
+        
+        if(isset($request->all()['transaction']['id'])){
+
+            $subscription_code = $request->all()['subscription']['id'];
+
+            $subscription = Subscription::where('subscription_code', $subscription_code)->first();
+    
+            if (!is_null($subscription)) {
+                $subscription->status = $request->all()['subscription']['status'];
+                $subscription->save();
+    
+                $current_transaction = $request->all()['subscription']['current_transaction'];
+    
+                $neWtransaction = Transaction::where('transaction_code', $current_transaction['id'])->first();
+    
+                if (is_null($neWtransaction)) {
+                    $subscription->user->transactions()->create($this->managerTransactionData($current_transaction));
+                }
+            }            
+            
+        }
+        return;
     }
 
-    public function transaction_code($code)
+    public function postbackSubscription(Request $request)
     {
-
-        $data['token'] = $this->pagseguro->_token;
-        $data['email'] = $this->pagseguro->_email;
-        $url_padrao = $this->pagseguro->_url;
-
-        $data = \http_build_query($data);
-                
-        $url = $url_padrao.'transactions/'.$code.'?'.$data;
-
-        $curl = curl_init();
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($curl, CURLOPT_URL, $url);
-
-        $xml = curl_exec($curl);
-        curl_close($curl);
-
-        $xml = simplexml_load_string($xml);
-
-        $json =json_decode(json_encode($xml), true);
-                
-        $retorno = $this->managerTransactionData($json);
-        
-
-        DB::table('transactions')->insert([
-            'transaction_code' => $retorno['code'],
-            'status' => $retorno['status'],
-            
-            'reference' => $retorno['reference'],
-            'amount' => $retorno['amount'],
-            'netAmount' => $retorno['netAmount'],
-            'installments' => $retorno['installmentCount'],
-            'updated_at' => $retorno['date'],
-
+        DB::table('postbacks')->insert([
+            'postback' => json_encode($request->all())
         ]);
 
-        $subscription = Subscription::where('id', $retorno['reference'])->first();
-                
-        if(!empty($subscription)){            
-            // $plan_id = $subscription->plan_id;
-            
-                $subscription->status           =  $retorno['status'];
-                $subscription->transaction_code = $retorno['code'];
-                $subscription->amount           = $retorno['amount'];
-                $subscription->updated_at       = $retorno['date'];
-                $subscription->save();
-            
-        }                
+        $subscription_code = $request->all()['subscription']['id'];
 
-        
+        $subscription = Subscription::where('subscription_code', $subscription_code)->first();
 
-        // $code       = $xml->code;
-        // $reference  = $xml->reference;
-        // $status     = $xml->status;
-        // $amount     = $xml->grossAmount;        
-        // $subscription = Subscription::where('id', $reference)->first();
-            
-        
-        // if(!empty($subscription)){
-        //     $plan_id = $subscription->plan_id;
-        //     $status = $this->tabela_status($status);
+        if (!is_null($subscription)) {
+            $subscription->status = $request->all()['subscription']['status'];
+            $subscription->save();
 
-        //     if (!is_null($subscription)) {
-        //         $subscription->status = $status;
-        //         $subscription->save();
-        //     }
+            $current_transaction = $request->all()['subscription']['current_transaction'];
 
-            // $status = "Paga";
+            $neWtransaction = Transaction::where('transaction_code', $current_transaction['id'])->first();
 
-            // if($status == "Paga"){
+            if (is_null($neWtransaction)) {
+                $subscription->user->transactions()->create($this->managerTransactionData($current_transaction));
+            }
+        }
 
-            //     $plan = new Plan;
-            //     $plan = $plan::find($plan_id); 
-            //     $plano_nick = $plan->nick;
-
-            //     $user = new User;
-            //     $user = $user::find($subscription->user_id);  
-                
-            //     $nome  = $user->name;
-            //     $email = $user->email;
-
-            //     $this->sendEmail($email, $nome, $plano_nick, $url=null, $status ='Pago');
-            // }
-        // }        
-        
-        
+        return;
     }
 
-    public function PesquisarPreferencia()
+    private function managerTransactionData($transaction)
     {
- 
-    }
-
-    public function consultar_notificacao($code){
-        
-        $curl = curl_init();
-        $token = config('services.mercadopago.access_token');
-        $url = "https://api.mercadopago.com/v1/payments/$code?access_token=$token";
-        
-        curl_setopt_array($curl, array(
-            CURLOPT_URL => $url,
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => '',
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 0,
-            CURLOPT_FOLLOWLOCATION => true,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => 'GET',
-          ));
-          
-          $response = curl_exec($curl);
-          curl_close($curl);
-
-        //   print_r($response);
-          
-          
-          $response = json_decode($response, true);
-          
-          if(isset($response["status"]))
-          {
-            $status             =  $response["status"];
-            $status_detail = null;
-            if(isset($response["status_detail"])){
-                $status_detail      =  $response["status_detail"];
-            }
-            $external_reference = null;
-            if(isset($response["external_reference"])){
-                $external_reference      =  $response["external_reference"];
-            }      
-
-            $payment_type_id = null;
-            $payment_id = null;
-            if(isset($response["payment_type_id"])){
-                $payment_type_id      =  $response["payment_type_id"];
-            } 
-
-            if(isset($response["payment_id"])){
-                $payment_id      =  $response["payment_id"];
-            }
-            
-                $mensagem = null;
-            if(isset($status) && isset($status_detail)) {
-                $mensagem = $this->tabela_status($status, $status_detail);
-            }
-
-            
-            $subscription = Subscription::where('id', $external_reference)->first();
-            if(!empty($subscription)){            
-                    $subscription->payment_id       = $external_reference;
-                    $subscription->status           = $status;
-                    $subscription->status_detail    = $status_detail;
-                    $subscription->status_msg       = $mensagem;
-                    $subscription->payment_method   = $payment_type_id;
-                    $subscription->payment_id       = $code;
-                    $subscription->save();
-            }               
-            
-          }
-
-    }
-
-    public function consultar_pagamento(Request $request){
-
-        $id = $request["id"];
-
-        $curl = curl_init();
-        $token = config('services.mercadopago.access_token');
-        // $token = "TEST-ac6115de-e7b8-4b7e-8171-64183a0fd87e";
-
-        $url = "https://api.mercadopago.com/v1/payments/search?sort=date_created&criteria=desc&external_reference=$id";
-
-        curl_setopt($curl, CURLOPT_URL,$url);
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1 );
-        curl_setopt($curl, CURLOPT_HTTPHEADER, array(
-            'Authorization: Bearer ' . $token,
-            'Content-type: application/json',
-          ));        
-        
-        // "payer_email": "test_user_91922613@testuser.com",
-        $response = curl_exec($curl);
-        curl_close($curl);
-        print_r($response);
-        $response = json_decode($response, true);
-          if(isset($response["results"])){
-              if(isset($response["results"][0])){
-                 
-                $id = $response["results"][0]["id"];
-                
-                $this->consultar_notificacao($id);
-              }
-          }
-        
+        return [
+            'transaction_code' => $transaction['id'],
+            'status' => $transaction['status'],
+            'authorization_code' => $transaction['authorization_code'],
+            'amount' => $transaction['amount'],
+            'authorized_amount' => $transaction['authorized_amount'],
+            'paid_amount' => $transaction['paid_amount'],
+            'refunded_amount' => $transaction['refunded_amount'],
+            'installments' => $transaction['installments'],
+            'cost' => $transaction['cost'],
+            'subscription_code' => $transaction['subscription_id'],
+            'postback_url' => $transaction['postback_url'],
+            'card_holder_name' => $transaction['card_holder_name'],
+            'card_last_digits' => $transaction['card_last_digits'],
+            'card_first_digits' => $transaction['card_first_digits'],
+            'card_brand' => $transaction['card_brand'],
+            'payment_method' => $transaction['payment_method'],
+            'boleto_url' => $transaction['boleto_url'],
+            'boleto_barcode' => $transaction['boleto_barcode'],
+            'boleto_expiration_date' => date('Y-m-d H:i:s', strtotime($transaction['boleto_expiration_date']))
+        ];
     }
 
     public function sendEmail($email, $nome, $plano_plano, $url, $status){
