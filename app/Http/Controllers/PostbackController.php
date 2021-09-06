@@ -95,26 +95,26 @@ class PostbackController extends Controller
     {
         return [
             'transaction_code' => $transaction['id'],
-            'status' => $transaction["transaction"]['status'],
-            'authorization_code' => $transaction["transaction"]['authorization_code'],
-            'amount' => $transaction["transaction"]['amount'],
-            'authorized_amount' => $transaction["transaction"]['authorized_amount'],
-            'paid_amount' => $transaction["transaction"]['paid_amount'],
-            'refunded_amount' => $transaction["transaction"]['refunded_amount'],
-            'installments' => $transaction["transaction"]['installments'],
-            'cost' => $transaction["transaction"]['cost'],
-            'subscription_code' => $transaction["transaction"]['subscription_id'],
-            'postback_url' => $transaction["transaction"]['postback_url'],
-            'card_holder_name' => $transaction["transaction"]['card_holder_name'],
-            'card_last_digits' => $transaction["transaction"]['card_last_digits'],
-            'card_first_digits' => $transaction["transaction"]['card_first_digits'],
-            'card_brand' => $transaction["transaction"]['card_brand'],
-            'payment_method' => $transaction["transaction"]['payment_method'],
-            'boleto_url' => $transaction["transaction"]['boleto_url'],
-            'boleto_barcode' => $transaction["transaction"]['boleto_barcode'],
-            'boleto_expiration_date' => date('Y-m-d H:i:s', strtotime($transaction["transaction"]['boleto_expiration_date'])),
-            'pix_qr_code' => $transaction["transaction"]['pix_qr_code'],
-            'pix_expiration_date' => date('Y-m-d H:i:s', strtotime($transaction["transaction"]['pix_expiration_date'])),
+            'status' => $transaction['status'],
+            'authorization_code' => $transaction['authorization_code'],
+            'amount' => $transaction['amount'],
+            'authorized_amount' => $transaction['authorized_amount'],
+            'paid_amount' => $transaction['paid_amount'],
+            'refunded_amount' => $transaction['refunded_amount'],
+            'installments' => $transaction['installments'],
+            'cost' => $transaction['cost'],
+            'subscription_code' => $transaction['subscription_id'],
+            'postback_url' => $transaction['postback_url'],
+            'card_holder_name' => $transaction['card_holder_name'],
+            'card_last_digits' => $transaction['card_last_digits'],
+            'card_first_digits' => $transaction['card_first_digits'],
+            'card_brand' => $transaction['card_brand'],
+            'payment_method' => $transaction['payment_method'],
+            'boleto_url' => $transaction['boleto_url'],
+            'boleto_barcode' => $transaction['boleto_barcode'],
+            'boleto_expiration_date' => date('Y-m-d H:i:s', strtotime($transaction['boleto_expiration_date'])),
+            'pix_qr_code' => $transaction['pix_qr_code'],
+            'pix_expiration_date' => date('Y-m-d H:i:s', strtotime($transaction['pix_expiration_date'])),
             'type' => "transaction"
         ];
     }
@@ -140,7 +140,8 @@ class PostbackController extends Controller
             'payment_method' => $transaction['payment_method'],
             'boleto_url' => $transaction['boleto_url'],
             'boleto_barcode' => $transaction['boleto_barcode'],
-            'boleto_expiration_date' => date('Y-m-d H:i:s', strtotime($transaction['boleto_expiration_date']))
+            'boleto_expiration_date' => date('Y-m-d H:i:s', strtotime($transaction['boleto_expiration_date'])),
+            'type' => "subscription"
         ];
     }    
 
