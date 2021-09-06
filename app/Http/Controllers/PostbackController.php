@@ -93,6 +93,17 @@ class PostbackController extends Controller
 
     private function managerTransactionData($transaction)
     {
+        $pix_expiration_date= null;
+        $boleto_expiration_date = null;
+
+        if(isset($transaction['pix_expiration_date'])){
+            $pix_expiration_date = strtotime($transaction['pix_expiration_date']);
+        }
+
+        if(isset($transaction['boleto_expiration_date'])){
+            $boleto_expiration_date = strtotime($transaction['boleto_expiration_date']);
+        }
+
         return [
             'transaction_code' => $transaction['id'],
             'status' => $transaction['status'],
@@ -112,9 +123,9 @@ class PostbackController extends Controller
             'payment_method' => $transaction['payment_method'],
             'boleto_url' => $transaction['boleto_url'],
             'boleto_barcode' => $transaction['boleto_barcode'],
-            'boleto_expiration_date' => date('Y-m-d H:i:s', strtotime($transaction['boleto_expiration_date'])),
+            'boleto_expiration_date' => date('Y-m-d H:i:s', $boleto_expiration_date),
             'pix_qr_code' => $transaction['pix_qr_code'],
-            'pix_expiration_date' => date('Y-m-d H:i:s', strtotime($transaction['pix_expiration_date'])),
+            'pix_expiration_date' => date('Y-m-d H:i:s', $pix_expiration_date),
             'type' => "transaction"
         ];
     }
