@@ -334,8 +334,6 @@ class ControllerCadastro extends Controller
                             }
 
                         } 
-                       
-
 
                         if($periodo == "anual"){
                             $amount = $this->clear($plano_amount);
