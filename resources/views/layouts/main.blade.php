@@ -550,7 +550,7 @@
                 </div>
             </section>            
 
-            <section id="cadastro">
+            <section >
 		        <div class="container header">
                      <div class="row justify-content-md-center ">
                          <div class="col-xl-5 col-sm-12 col-md-12 col-lg-7">
@@ -558,7 +558,7 @@
                             <p>A Caixa Assistencial, nasceu com o objetivo de propiciar as melhores condições de bem-estar e benefícios em Planos Odontológicos aos funcionários públicos, da Indústria e Comércio no Estado de São Paulo.</p>
                          </div>
                          <div class="col-xl-1"></div>
-                         <div class="col-xl-5 col-sm-12 col-md-12 col-lg-7">
+                         <div class="col-xl-5 col-sm-12 col-md-12 col-lg-7" id="cadastro">
 
                           <!-- form -->
                           <cp-cadastro></cp-cadastro>   
