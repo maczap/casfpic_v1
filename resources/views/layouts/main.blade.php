@@ -553,15 +553,13 @@
             <section >
 		        <div class="header cadastro1">
                      <div class="row justify-content-md-center ">
-                         <div class="col-xl-5 col-sm-12 col-md-12 col-lg-7 mt-40">
+                         <div class="col-xl-5 col-sm-12 col-md-12 col-lg-7 mt-40" style="padding:20px;">
                             <h1>Faça parte de uma associação forte. </h1>
-                            <p>A Caixa Assistencial, nasceu com o objetivo de propiciar as melhores condições de bem-estar e benefícios em Planos Odontológicos aos funcionários públicos, da Indústria e Comércio no Estado de São Paulo.</p>
+                            <p >A Caixa Assistencial, nasceu com o objetivo de propiciar as melhores condições de bem-estar e benefícios em Planos Odontológicos aos funcionários públicos, da Indústria e Comércio no Estado de São Paulo.</p>
                          </div>
                          <div class="col-xl-1"></div>
                          <div class="col-xl-5 col-sm-12 col-md-12 col-lg-7" id="cadastro">
-
-                          <!-- form -->
-                          <cp-cadastro></cp-cadastro>   
+                            <cp-cadastro></cp-cadastro>   
                          </div>  
                                              
                      </div>     
