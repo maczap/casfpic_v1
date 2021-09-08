@@ -551,9 +551,9 @@
             </section>            
 
             <section >
-		        <div class="container header">
+		        <div class="header cadastro1">
                      <div class="row justify-content-md-center ">
-                         <div class="col-xl-5 col-sm-12 col-md-12 col-lg-7">
+                         <div class="col-xl-5 col-sm-12 col-md-12 col-lg-7 mt-40">
                             <h1>Faça parte de uma associação forte. </h1>
                             <p>A Caixa Assistencial, nasceu com o objetivo de propiciar as melhores condições de bem-estar e benefícios em Planos Odontológicos aos funcionários públicos, da Indústria e Comércio no Estado de São Paulo.</p>
                          </div>
