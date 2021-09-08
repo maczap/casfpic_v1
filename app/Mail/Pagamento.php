@@ -31,7 +31,7 @@ class Pagamento extends Mailable
      */
     public function build()
     {
-        return $this->from('no-reply@servclube.com.br','CASFPIC')
+        return $this->from('no-reply@casfpic.org.br','CASFPIC')
         ->subject('Confirmação de pagamento')
         ->view('Emails.pagamento')
         ->with([

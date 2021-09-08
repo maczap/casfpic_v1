@@ -487,6 +487,8 @@ class ControllerCadastro extends Controller
                         $id = Crypt::encryptString($dados["id"]);
 
                         $url = "https://casfpic.org.br/api/checkout/billet?collection_id=".$id;
+
+                        // $this->post->sendEmail($email, $nome, $plano_name, $url, $subscription['status']);                        
                         return $url;
                     }
 

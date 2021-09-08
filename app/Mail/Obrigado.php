@@ -49,7 +49,7 @@ class Obrigado extends Mailable
      */
     public function build()
     {
-        return $this->from('no-reply@servclube.com.br','CASFPIC')
+        return $this->from('no-reply@casfpic.org.br','CASFPIC')
         ->subject("Seja muito bem-vindo(a) $this->nome!")
         ->view('Emails.obrigado')
         ->with([
