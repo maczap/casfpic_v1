@@ -6,8 +6,11 @@
 
  require('./bootstrap');
 
- window.Vue = require('vue');
+ window.Vue = require('vue').default;
  
+ import Vuex from 'vuex'
+ Vue.use(Vuex)
+
  import VueResource from 'vue-resource'
  Vue.use(VueResource)
  
@@ -19,26 +22,35 @@
  
  import ViaCep from 'vue-viacep'
  Vue.use(ViaCep);
+
+ import axios from 'axios'
+  
  
  import store from './store'
 
- 
- window.csrfToken = document.querySelector('meta[name="csrf-token"]').content;
- 
+ import routes  from './admin/routes.js'
+ import MasterIndex from './admin/index.vue'
+
+ import  CpIndex  from './admin/index.vue'
  
  var router = new VueRouter({
      mode: 'history',
-     routes: []
-   });
+     routes
+  });
  
  const app = new Vue({
      router,
      el: '#admin',
      components:{
-
+      CpIndex
      },    
-     mounted: function () {
-     },
-     store,  
+     render: h => h(MasterIndex),
+     components:{
+       MasterIndex,
+       
+     },    
+     store,     
+
+     
  });
  

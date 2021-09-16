@@ -6,7 +6,10 @@ use App\Http\Controllers\ControllerCadastro;
 use App\Http\Controllers\ControllerPlans;
 use App\Http\Controllers\PostbackController;
 use App\Http\Controllers\ControllerPromotores;
+use App\Http\Controllers\ControllerDash;
 use App\Services\PagarmeRequestService;
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -84,10 +87,19 @@ Route::get('teste_plan_create', [ControllerPlans::class,'CreatePlan'])->name('cr
 
 // });
 
-Route::middleware(['admin'])->group(function () {
-    Route::get('admin',function() {
-        return view("admin.index");
+Route::middleware(['auth','admin'])->group(function () {
+
+    Route::prefix('admin')->group(function () {    
+        Route::get('/',function() {
+            return view("admin.index");
+
+            
+        });
+        Route::get('dash/cadastros', [ControllerDash::class,'dash_cadastros'])->name('dash_cadastros');    
     });
+
+
+    
 });
 
 // Route::middleware(['client'])->group(function (){

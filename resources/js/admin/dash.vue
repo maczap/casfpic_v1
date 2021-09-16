@@ -1,0 +1,101 @@
+
+<template>
+    <div>
+        <div class="col-span-12 lg:col-span-10 bg-gray-100  lg:p-4">
+            <div class="grid grid-cols-2 gap-2 p-2 md:p-0 mb-0 md:mb-4 md:grid-cols-4 lg:grid-cols-4 md:gap-2 lg:gap-4">
+                <div class="h-20 md:h-40 mb-4 md:mb-0 md:p-4 bg-white shadow rounded-md">
+                
+                </div>
+                <div class="h-20 md:h-40 mb-4 md:mb-0 md:p-4 bg-white shadow rounded-md">
+                        
+                </div>
+                <div class="h-20 md:h-40 mb-4 md:mb-0 md:p-4 bg-white shadow rounded-md">
+                        
+                </div>
+                <div class="h-20 md:h-40 mb-4 md:mb-0 md:p-4 bg-white shadow rounded-md">
+                        
+                </div>
+            </div>
+
+            <div class="grid sm:grid-cols-1 md:p-0  lg:grid-cols-2 gap-4" >
+                <div class="bg-white  md:p-0 overflow-hidden">
+                    <div class="header">
+                            <h2 class="bg-gray-500 p-2 text-white font-semibold w-full rounded-b-sm m-0">Cadastros</h2>    
+                    </div>
+                    <div class="overflow-x-auto h-60">
+                        
+                        <table class="table w-full table-zebra">
+         
+                            <thead>
+                            <tr>
+                                <td colspan  = '3'>
+                                
+                            </td></tr>                                
+                            <tr>
+                                <th>Nome</th> 
+                                <th>Plano</th> 
+                                <th>Status</th> 
+                                
+                            </tr>
+                            </thead> 
+                            <tbody>
+                            <tr>
+                                
+                                <td>Lesya Tinham</td> 
+                                <td>Safety Technician IV</td> 
+                                <td>gfds gsdgfdsgs</td>
+                                
+                            </tr>
+                            <tr>
+                                
+                                <td>Zaneta Tewkesbury</td> 
+                                <td>VP Marketing</td> 
+                                <td></td>
+                                
+                            </tr>
+                            <tr>
+                                
+                                <td>Andy Tipple</td> 
+                                <td>Librarian</td> 
+                                <td></td>
+                                
+                            </tr>
+                            <tr>
+                                
+                                <td>Sophi Biles</td> 
+                                <td>Recruiting Manager</td> 
+                                <td></td>
+                                
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+                <div class="bg-white h-60 md:p-4 ">
+                    <h2>Pendentes</h2>
+                </div>
+            </div>
+
+            <div class="flex-none md:flex container md:flex-wrap p-2 ">
+                <div class="md:flex-1 bg-white h-60 p-4 rounded-md mb-4">1</div>
+                <div class="md:flex-1 bg-white h-60 p-4 rounded-md mb-4">1</div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+import { mapActions } from 'vuex'
+
+export default {
+    
+    async mounted() {
+    //   await this.$store.dispatch('listaCadastros');
+    },    
+}
+</script>
+
+<style scoped>
+
+</style>
