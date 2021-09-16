@@ -240,6 +240,7 @@ class ControllerCadastro extends Controller
 
                         $dados = User::create([
                             'name'      => \strtoupper($request['name']),
+                            'nomemae'      => \strtoupper($request['nomemae']),
                             'email'     => $request['email'],
                             'cpf'       => $request['cpf'],
                             'rg'        => $request['rg'],

@@ -879,6 +879,7 @@ export default {
                 let periodo   = this.periodo;
                 let cpf       = this.cpf;
                 let nome      = this.nome;
+                let nomemae      = this.nomemae;
                 let email     = this.email;
                 let celular   = this.celular;
                 let senha     = this.password;
@@ -912,6 +913,7 @@ export default {
                         periodo:        periodo,
                         cpf:            cpf,
                         name:           nome,
+                        nomemae:        nomemae,
                         email:          email,
                         celular:        celular,
                         senha:          senha,
@@ -944,6 +946,7 @@ export default {
                         periodo:        periodo,
                         cpf:            cpf,
                         name:           nome,
+                        nomemae:        nomemae,
                         email:          email,
                         celular:        celular,
                         senha:          senha,

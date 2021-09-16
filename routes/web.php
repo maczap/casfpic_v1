@@ -87,6 +87,8 @@ Route::get('teste_plan_create', [ControllerPlans::class,'CreatePlan'])->name('cr
 
 // });
 
+Route::get('dash/cadastros2', [ControllerDash::class,'dash_cadastros2'])->name('dash_cadastros');    
+
 Route::middleware(['auth','admin'])->group(function () {
 
     Route::prefix('admin')->group(function () {    
@@ -96,6 +98,8 @@ Route::middleware(['auth','admin'])->group(function () {
             
         });
         Route::get('dash/cadastros', [ControllerDash::class,'dash_cadastros'])->name('dash_cadastros');    
+
+        
     });
 
 
