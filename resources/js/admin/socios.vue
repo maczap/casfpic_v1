@@ -220,7 +220,7 @@
 
     </div>
     <div class="modal-action">
-      <label for="my-modal-2" class="btn btn-primary">Salvar</label> 
+      <!-- <label for="my-modal-2" class="btn btn-primary">Salvar</label>  -->
       <label for="my-modal-2" class="btn">Fechar</label>
     </div>
   </div>
