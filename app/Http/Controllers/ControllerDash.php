@@ -9,22 +9,35 @@ class ControllerDash extends Controller
     public function dash_cadastros(){
 
         $dados =  User::join('subscriptions', 'users.id', '=', 'subscriptions.user_id')
-        ->select('users.name',  
-        'users.cpf', 
-        'subscriptions.plano', 
-        'subscriptions.status',
-        'subscriptions.manage_url',
-        'subscriptions.boleto_url',
-        'subscriptions.boleto_barcode',
-        'subscriptions.boleto_expiration_date',
-        'subscriptions.pix_qr_code',
-        'subscriptions.pix_expiration_date')
-        
+        ->select('users.*', 'subscriptions.plano', 'users.vinculo as pmt','subscriptions.status', 'subscriptions.status_detail', 'subscriptions.created_at')
+        ->addSelect(['promotor' => User::select('name')
+        ->whereColumn('promotor_code', 'pmt')
+        ->limit(1)  
+        ])           
+        ->where("cpf","<>", "26460284822")
+        ->Where("promotor",0)
         ->orderBy('subscriptions.id', 'desc')
-        ->limit(10)
-        ->get();   
+        ->get();
         return $dados;     
     }
+
+    public function get_cadastros(Request $request){
+        $id = $request["id"];
+
+        $dados =  User::join('subscriptions', 'users.id', '=', 'subscriptions.user_id')
+        ->select('users.*', 'users.vinculo as pmt','subscriptions.plano', 'subscriptions.status', 'subscriptions.status_detail', 'subscriptions.created_at')
+        ->where("users.id",$id)
+        ->addSelect(['promotor' => User::select('name')
+        ->whereColumn('promotor_code', 'pmt')
+        ->limit(1)  
+        ])   
+     
+        ->get();
+        if(!empty($dados)){
+            return $dados[0]; 
+        }
+        return [];     
+    }    
 
 
     public function dash_cadastros2(){

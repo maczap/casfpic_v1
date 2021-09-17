@@ -24,13 +24,7 @@
                         </router-link>
                     </ul>            
 
-                    <ul class="menu p-4 ">
-                        <li class="menu-title">
-                        <span class="font-bold"><i class="fas fa-list-alt"></i> Relatórios</span>
-                        </li> 
-                        <li><a>Promotores</a></li>
-                        <li><a>Associados</a></li>
-                    </ul>            
+        
                 
             </div>
 

@@ -8,6 +8,9 @@
 
  window.Vue = require('vue').default;
  
+ import axios from 'axios'
+ Vue.prototype.$http = axios
+
  import Vuex from 'vuex'
  Vue.use(Vuex)
 
@@ -22,8 +25,6 @@
  
  import ViaCep from 'vue-viacep'
  Vue.use(ViaCep);
-
- import axios from 'axios'
   
  
  import store from './store'

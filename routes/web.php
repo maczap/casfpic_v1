@@ -97,8 +97,9 @@ Route::middleware(['auth','admin'])->group(function () {
 
             
         });
-        Route::get('dash/cadastros', [ControllerDash::class,'dash_cadastros'])->name('dash_cadastros');    
-
+           
+        Route::get('dash/cadastros', [ControllerDash::class,'dash_cadastros'])->name('dash_cadastros'); 
+        Route::get('get/cadastros/{id}', [ControllerDash::class,'get_cadastros'])->name('get_cadastros'); 
         
     });
 

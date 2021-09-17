@@ -20,7 +20,7 @@
             <div class="grid sm:grid-cols-1 md:p-0  lg:grid-cols-2 gap-4" >
                 <div class="bg-white  md:p-0 overflow-hidden">
                     <div class="header">
-                            <h2 class="bg-gray-500 p-2 text-white font-semibold w-full rounded-b-sm m-0">Cadastros</h2>    
+                            <h2 class="bg-gray-500 p-2 text-white font-semibold w-full rounded-b-sm m-0" @click="acao">Cadastros</h2>    
                     </div>
                     <div class="overflow-x-auto h-60">
                         
@@ -86,9 +86,15 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+
 
 export default {
+
+    methods: {
+        acao(){
+            this.$store.dispatch('listaCadastros');
+        }
+    },
     
     async mounted() {
     //   await this.$store.dispatch('listaCadastros');

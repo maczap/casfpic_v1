@@ -89,7 +89,7 @@
 
 <script>
 
-import { VBreakpoint } from 'vue-breakpoint-component'
+// import { VBreakpoint } from 'vue-breakpoint-component'
 
 import Burger from './burger.vue'
 import Menu from './menu.vue'
@@ -99,7 +99,7 @@ export default {
       Burger,
       Sidebar,
       Menu,
-      VBreakpoint
+      // VBreakpoint
      },        
 }
 </script>

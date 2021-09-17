@@ -9,12 +9,6 @@ export default {
             context.commit(newLocal, response.data);
         });
     },
-
-    setBurger(context){
-
-        const newLocal = 'toggleNav';
-        context.commit(newLocal);
-        
-    },    
+  
     
 }
