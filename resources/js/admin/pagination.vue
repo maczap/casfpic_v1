@@ -3,7 +3,7 @@
     <div class="row" style='margin-top:-10px;'>
         <div class="col s12">
             <ul class="pagination right" >
-                <!-- <li  v-if="currentPage > 0" class = 'grey lighten-3 '>
+                <li  v-if="currentPage > 0" class = 'grey lighten-3 '>
                     <a href = '#' class = 'btn grey lighten-3' @click.prevent="navigate1()" > < </a>
                 </li>            
 
@@ -13,7 +13,7 @@
 
                 <li  v-if="currentPage < totalPages - 1 " >
                     <a href = '#' class = 'btn grey lighten-3'  @click.prevent="navigate2()" >	> </a>
-                </li> -->
+                </li>
             </ul>
         </div>
     </div>

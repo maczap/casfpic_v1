@@ -29,7 +29,7 @@
     	<link href="{{ asset('css/hero/default.css') }}" rel="stylesheet" type="text/css">
         <link href="{{ asset('css/hero/style.css') }}" rel="stylesheet" type="text/css">
         <link href="{{ asset('css/hero/responsive.css') }}" rel="stylesheet" type="text/css">
-        <link href="{{ asset('css/admin.css') }}" rel="stylesheet" type="text/css">
+        <link href="{{ asset('css/app.css') }}" rel="stylesheet" type="text/css">
 
 
    
@@ -211,11 +211,8 @@
             @endisset       
 		</div>    
 
-        
-        
 
-
-        <script src="{{ asset('js/admin.js') }}"></script>
+        <script src="{{ asset('js/app.js') }}"></script>
      
 
         <script src="https://www.mercadopago.com/v2/security.js" view="home" output="deviceId"></script>    

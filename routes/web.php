@@ -107,6 +107,8 @@ Route::middleware(['auth','admin'])->group(function () {
     
 });
 
+Route::get('get_postback', [PostbackController::class,'get_postback'])->name('get_postback');   
+
 // Route::middleware(['client'])->group(function (){
 //     Route::get('client',function() {
 //         dd("voce é admin");

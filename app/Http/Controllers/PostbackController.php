@@ -74,8 +74,13 @@ class PostbackController extends Controller
             $subscription = Subscription::where('subscription_code', $subscription_code)->first();
     
             if (!is_null($subscription)) {
-                $subscription->status = $request->all()['subscription']['current_transaction']['status'];
-                $subscription->save();
+
+                $subscription->status = $request->all()['subscription']['status'];
+
+                $status_detail               = $this->transactionStatus($request->all()['subscription']['status']);
+                $subscription->status        = $request->all()['subscription']['status'];
+                $subscription->status_detail = $status_detail;
+                $subscription->save();    
     
                 $current_transaction = $request->all()['subscription']['current_transaction'];
     
@@ -88,6 +93,33 @@ class PostbackController extends Controller
             
         }
         return;
+    }
+
+
+    public function get_postback(){
+
+        $dados = DB::table('postbacks')
+                    ->where('id', 8)
+                    ->get();
+                    
+                    
+        $dados = json_decode($dados[0]->postback, true);
+
+        $subscription_code = $dados['subscription']['id'];
+        $subscription = Subscription::where('subscription_code', $subscription_code)->first();
+    
+        if (!is_null($subscription)) {
+
+            $status_detail = $this->transactionStatus($dados['subscription']['status']);
+            $subscription->status        = $dados['subscription']['status'];
+            $subscription->status_detail = $status_detail;
+            $subscription->save();            
+            return $subscription_code;  
+
+        }   
+
+       
+        // return $dados;
     }
 
 
