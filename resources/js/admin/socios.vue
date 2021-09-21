@@ -97,21 +97,36 @@
                                     <label class="label">
                                     <span class="label-text">Sexo</span>
                                     </label> 
-                                    <input type="text" placeholder="username" class="input w-full">
+                                        <select class="select select-bordered w-full max-w-xs" v-model="socio.sexo" id="sexo" >
+                                            <option disabled="disabled" selected="selected">Sexo</option> 
+                                            <option value="1">Feminino</option>
+                                            <option value="2">Masculino</option>
+                                        </select>  
                                 </div>  
 
                                 <div class="flex-1 p-2">
                                     <label class="label">
                                     <span class="label-text">Estado Civil</span>
                                     </label> 
-                                    <input type="text" placeholder="username" class="input w-full">
+
+                                    <select class="select select-bordered w-full max-w-xs" v-model="socio.ecivil" id="ecivil" >
+                                        <option disabled="disabled" selected="selected">Estado Civil</option> 
+                                        <option value="0">Solteiro</option>
+                                        <option value="1">Casado</option>
+                                        <option value="2">Separado</option>
+                                        <option value="3">Divorciado</option>
+                                        <option value="4">Viúvo</option>
+                                        <option value="5">Amasiado</option>
+                                    </select>
+
+
                                 </div>   
 
                                 <div class="flex-1 p-2">
                                     <label class="label">
                                     <span class="label-text">Nascimento</span>
                                     </label> 
-                                    <input type="text" placeholder="username" class="input w-full">
+                                    <input type="text" placeholder="username"  :value="socio.nascimento | formatDate" class="input w-full">
                                 </div>   
 
                                 <div class="flex-1 p-2">

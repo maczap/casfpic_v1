@@ -25,6 +25,13 @@
  
  import ViaCep from 'vue-viacep'
  Vue.use(ViaCep);
+
+ import moment from 'moment'
+ Vue.filter('formatDate', function(value) {
+  if (value) {
+    return moment(String(value)).format('DD/MM/YYYY')
+  }
+});
   
  
  import store from './store'

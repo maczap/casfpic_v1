@@ -68,8 +68,8 @@
 
                 <div class="tabs">
                 <a class="tab tab-lifted tab-active">Cadastro</a> 
-                <a class="tab tab-lifted ">Pagamentos</a> 
-                <a class="tab tab-lifted">Transações</a>
+                <a class="tab tab-lifted ">Cadastrados</a> 
+                <!-- <a class="tab tab-lifted">Transações</a> -->
                 </div>
 
 
@@ -109,14 +109,26 @@
                                     <label class="label">
                                     <span class="label-text">Sexo</span>
                                     </label> 
-                                    <input type="text" placeholder="username" class="input w-full">
+                                    <select class="select select-bordered w-full max-w-xs" v-model="promotor.sexo" id="sexo" >
+                                        <option disabled="disabled" selected="selected">Sexo</option> 
+                                        <option value="1">Feminino</option>
+                                        <option value="2">Masculino</option>
+                                    </select>                                      
                                 </div>  
 
                                 <div class="flex-1 p-2">
                                     <label class="label">
                                     <span class="label-text">Estado Civil</span>
                                     </label> 
-                                    <input type="text" placeholder="username" class="input w-full">
+                                    <select class="select select-bordered w-full max-w-xs" v-model="promotor.ecivil" id="ecivil" >
+                                        <option disabled="disabled" selected="selected">Estado Civil</option> 
+                                        <option value="0">Solteiro</option>
+                                        <option value="1">Casado</option>
+                                        <option value="2">Separado</option>
+                                        <option value="3">Divorciado</option>
+                                        <option value="4">Viúvo</option>
+                                        <option value="5">Amasiado</option>
+                                    </select>                                    
                                 </div>   
 
                                 <div class="flex-1 p-2">
@@ -285,5 +297,7 @@ export default {
     top:10px;
     
 }
- 
+tr td label{
+    cursor: pointer;
+} 
 </style>
