@@ -16,7 +16,7 @@ class ControllerDash extends Controller
         ])           
         ->where("cpf","<>", "26460284822")
         ->Where("promotor",0)
-        ->orderBy('subscriptions.id', 'desc')
+        ->orderBy('updated_at', 'desc')
         ->get();
         return $dados;     
     }

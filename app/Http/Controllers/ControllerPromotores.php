@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Promotores;
 use App\User;
+use DB;
 use Illuminate\Contracts\Encryption\DecryptException;
 use Illuminate\Support\Facades\Crypt;
 
@@ -18,6 +19,7 @@ class ControllerPromotores extends Controller
     public function link_promotor(){
 
         $promotores = User::where('promotor_code', "<>", "")
+        
         ->select('id','promotor_code')->get();
         foreach ($promotores as $item) {
 
@@ -58,6 +60,33 @@ class ControllerPromotores extends Controller
 
     }
 
+    public function lista_promotores(){
+
+        $promotores = User::where('promotor',1)
+        ->where("cpf","<>", "26460284822")
+        ->select('users.*', 'users.promotor_code as pmt')
+        ->addSelect(['cadastros' => User::select(DB::raw('COUNT(vinculo)'))
+        ->whereColumn('vinculo', 'pmt')
+        ->limit(1)  
+        ])          
+        ->orderBy("name")
+        ->get();
+        return $promotores;
+    }
+
+    public function get_promotor(Request $request){
+        $id = $request["id"];
+        
+
+        $dados =  User::select('users.*')
+        ->where("users.id",$id)
+     
+        ->get();
+        if(!empty($dados)){
+            return $dados[0]; 
+        }
+        return [];     
+    }      
 
     public function generatePassword($qtyCaraceters = 25)
     {

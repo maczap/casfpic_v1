@@ -7,24 +7,19 @@
         </div>
         <div class='grid grid-cols-12 grid-flow-col  p-4 bg-white h-screen'>
 
-            <div class="col-span-2">
-                menu
-            
-            </div>    
 
-            <div class="col-span-10 overflow-auto">
+
+            <div class="col-span-12 overflow-auto">
                  <!-- <pagination totalPerPage="4" resource ="listaFiltered"></pagination>  -->
 
                 <table class="table w-full table-zebra">
                 <thead v-if="socios">
                 <tr>
                     <th>Nome</th>
-                    <th>CPF</th>
                     <th>PLANO</th>
                     <th>PROMOTOR(A)</th>
                     <th>STATUS</th>
 
-                    
                 </tr>
                 </thead>
 
@@ -35,7 +30,6 @@
                     <td class="modal-button" href="#modalCadastro" @click="show(item.id)">
                         <label for="my-modal-2" >{{item.name}}</label> </td>
       
-                    <td @click="show(item.id)"><label for="my-modal-2" >{{item.cpf}}</label></td>
                     <td @click="show(item.id)"><label for="my-modal-2" >{{item.plano}}</label></td>
                     <td @click="show(item.id)"><label for="my-modal-2" >{{item.promotor}}</label></td>
                     <td @click="show(item.id)"><label for="my-modal-2" >{{item.status_detail}}</label></td>
@@ -54,7 +48,7 @@
 
 <input type="checkbox" id="my-modal-2" class="modal-toggle"> 
 <div class="modal ">
-  <div class="modal-box" style="max-width:84rem">
+  <div class="modal-box" style="max-width:80%">
     <div class="flex flex-col">
         <div class="w-full" v-if="socio">
 

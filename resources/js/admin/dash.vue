@@ -23,52 +23,7 @@
                             <h2 class="bg-gray-500 p-2 text-white font-semibold w-full rounded-b-sm m-0" @click="acao">Cadastros</h2>    
                     </div>
                     <div class="overflow-x-auto h-60">
-                        
-                        <table class="table w-full table-zebra">
-         
-                            <thead>
-                            <tr>
-                                <td colspan  = '3'>
-                                
-                            </td></tr>                                
-                            <tr>
-                                <th>Nome</th> 
-                                <th>Plano</th> 
-                                <th>Status</th> 
-                                
-                            </tr>
-                            </thead> 
-                            <tbody>
-                            <tr>
-                                
-                                <td>Lesya Tinham</td> 
-                                <td>Safety Technician IV</td> 
-                                <td>gfds gsdgfdsgs</td>
-                                
-                            </tr>
-                            <tr>
-                                
-                                <td>Zaneta Tewkesbury</td> 
-                                <td>VP Marketing</td> 
-                                <td></td>
-                                
-                            </tr>
-                            <tr>
-                                
-                                <td>Andy Tipple</td> 
-                                <td>Librarian</td> 
-                                <td></td>
-                                
-                            </tr>
-                            <tr>
-                                
-                                <td>Sophi Biles</td> 
-                                <td>Recruiting Manager</td> 
-                                <td></td>
-                                
-                            </tr>
-                            </tbody>
-                        </table>
+                      
                     </div>
 
                 </div>

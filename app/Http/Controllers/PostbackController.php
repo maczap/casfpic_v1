@@ -98,25 +98,30 @@ class PostbackController extends Controller
 
     public function get_postback(){
 
+        for($i=1; $i<=9; $i++){
+
         $dados = DB::table('postbacks')
-                    ->where('id', 8)
+                    ->where('id', $i)
                     ->get();
                     
                     
-        $dados = json_decode($dados[0]->postback, true);
+            $dados = json_decode($dados[0]->postback, true);
+            if(isset($dados['subscription']['id'])){
+                $subscription_code = $dados['subscription']['id'];
+                $subscription = Subscription::where('subscription_code', $subscription_code)->first();
+            
+                if (!is_null($subscription)) {
 
-        $subscription_code = $dados['subscription']['id'];
-        $subscription = Subscription::where('subscription_code', $subscription_code)->first();
-    
-        if (!is_null($subscription)) {
+                    $status_detail = $this->transactionStatus($dados['subscription']['status']);
+                    $subscription->status        = $dados['subscription']['status'];
+                    $subscription->status_detail = $status_detail;
+                    $subscription->save();            
+                    echo $subscription_code ."</br>";  
 
-            $status_detail = $this->transactionStatus($dados['subscription']['status']);
-            $subscription->status        = $dados['subscription']['status'];
-            $subscription->status_detail = $status_detail;
-            $subscription->save();            
-            return $subscription_code;  
+                }   
 
-        }   
+            }
+        }
 
        
         // return $dados;
