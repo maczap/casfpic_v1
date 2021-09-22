@@ -68,7 +68,8 @@ class ControllerPromotores extends Controller
         ->addSelect(['cadastros' => User::select(DB::raw('COUNT(vinculo)'))
         ->whereColumn('vinculo', 'pmt')
         ->limit(1)  
-        ])          
+        ])       
+           
         ->orderBy("name")
         ->get();
         return $promotores;

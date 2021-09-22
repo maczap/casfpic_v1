@@ -30,6 +30,7 @@
                         <th>Nome</th>
                         <th>CPF</th>
                         <th>Cadastros</th>
+                        <th>Ativo</th>
                         
                     </tr>
                     </thead>
@@ -41,6 +42,15 @@
                             <label for="my-modal-2" >{{item.name}}</label> </td>
                         <td @click="show(item.id)"><label for="my-modal-2" >{{item.cpf}}</label></td>
                         <td @click="show(item.id)"><label for="my-modal-2" >{{item.cadastros}}</label></td>
+                        <td>
+                            <div class="bordered">
+                                <div class="form-control">
+                                    <label class="cursor-pointer label">
+                                        <input type="checkbox" checked="checked" class="toggle toggle-accent">
+                                    </label>
+                                </div>
+                            </div>                            
+                        </td>
                         
                     
                     </tr>
@@ -60,15 +70,16 @@
 
 <input type="checkbox" id="my-modal-2" class="modal-toggle"> 
 <div class="modal ">
-  <div class="modal-box" style="max-width:80%">
+  <div class="modal-box h-4/5" style="max-width:80%">
     <div class="flex flex-col">
         <div class="w-full" v-if="promotor">
 
                 <h1 class="p-2 font-semibold text-lg">{{promotor.name}}</h1>
 
                 <div class="tabs">
-                <a class="tab tab-lifted tab-active">Cadastro</a> 
-                <a class="tab tab-lifted ">Cadastrados</a> 
+                <a class="tab tab-lifted tab-active" id="nav_1" @click="tab(1)">Cadastro</a> 
+                <a class="tab tab-lifted " id="nav_2" @click="tab(2)">Cadastrados</a> 
+                <a class="tab tab-lifted " id="nav_3" @click="tab(3)">Links QrCode</a> 
                 <!-- <a class="tab tab-lifted">Transações</a> -->
                 </div>
 
@@ -76,7 +87,7 @@
                 <div class="grid grid-cols-12 bg-base-200">
                     <div class="col-span-12">
 
-                        <div class="p-2 card ">
+                        <div class="p-2 card " id="tab_1">
                             <div class="flex flex-wrap">
 
                                 <div class="flex-1 p-2 w-2">
@@ -219,6 +230,8 @@
                             </div>                                                                              
 
                         </div>
+                        <div class="p-2 card " id="tab_2">Cadastros </div>
+                        <div class="p-2 card " id="tab_3"> Links QrCode</div>                        
                         
                     </div>
 
@@ -278,10 +291,30 @@ export default {
                 console.log(response.data);
                 set.promotor = response.data;
             });
-        }          
+        },
+        tab: function (id){
+
+            $("#tab_1").css("display","none");
+            $("#tab_2").css("display","none");
+            $("#tab_3").css("display","none");
+
+
+            $( "#nav_1" ).removeClass( "tab-active" );
+            $( "#nav_2" ).removeClass( "tab-active" );
+            $( "#nav_3" ).removeClass( "tab-active" );
+
+
+            $( "#nav_"+id ).addClass( "tab-active" );
+
+            $("#tab_"+id).css("display","block");
+            
+        }                  
     },
     mounted: function(){
         this.getPromotores();
+            $("#tab_2").css("display","none");
+            $("#tab_3").css("display","none");
+                 
     }    
 
 }

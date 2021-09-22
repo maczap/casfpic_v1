@@ -48,26 +48,28 @@
 
 <input type="checkbox" id="my-modal-2" class="modal-toggle"> 
 <div class="modal ">
-  <div class="modal-box" style="max-width:80%">
+  <div class="modal-box h-4/5" style="max-width:80%">
     <div class="flex flex-col">
         <div class="w-full" v-if="socio">
 
                 <h1 class="p-2 font-semibold text-lg">{{socio.name}}</h1>
 
                 <div class="tabs">
-                <a class="tab tab-lifted tab-active">Cadastro</a> 
-                <a class="tab tab-lifted ">Pagamentos</a> 
-                <a class="tab tab-lifted">Transações</a>
+                <a id="nav_1" class="tab tab-lifted tab-active" @click="tab(1)">Cadastro</a> 
+                <a id="nav_4" class="tab tab-lifted " @click="tab(4)">Atendimento</a> 
+                <a id="nav_5" class="tab tab-lifted " @click="tab(5)">Carteirinhas</a> 
+                <a id="nav_2" class="tab tab-lifted " @click="tab(2)">Pagamentos</a> 
+                <a id="nav_3" class="tab tab-lifted" @click="tab(3)">Transações</a>
                 </div>
 
 
                 <div class="grid grid-cols-12 bg-base-200">
                     <div class="col-span-12">
 
-                        <div class="p-2 card ">
-                            <div class="flex flex-wrap">
+                        <div class="p-2 card " id="tab_1">
+                            <div class="flex flex-wrap min-h-96">
 
-                                <div class="flex-1 p-2 w-2">
+                                <div class="p-2 w-1/4">
                                     <label class="label">
                                     <span class="label-text">Nome</span>
                                     </label> 
@@ -86,13 +88,8 @@
                                     <span class="label-text">RG</span>
                                     </label> 
                                     <input type="text" placeholder="RG" v-model="socio.rg" class="input w-full">
-                                </div>       
+                                </div>      
 
-                            </div>
-
-                            <div class="flex flex-wrap">
-
-  
                                 <div class="flex-1 p-2">
                                     <label class="label">
                                     <span class="label-text">Sexo</span>
@@ -120,7 +117,11 @@
                                     </select>
 
 
-                                </div>   
+                                </div>                                    
+
+                            </div>
+
+                            <div class="flex flex-wrap">
 
                                 <div class="flex-1 p-2">
                                     <label class="label">
@@ -136,9 +137,22 @@
                                     <input type="text" placeholder="Profissão" v-model="socio.profissao" class="input w-full">
                                 </div>                                  
                                           
+                                <div class="flex-1 p-2 w-1">
+                                    <label class="label">
+                                    <span class="label-text">Nome da Mãe</span>
+                                    </label> 
+                                    <input type="text" placeholder="Nome da Mãe" v-model="socio.nomemae"  class="input w-full">
+                                </div>  
+  
+                                <div class="flex-1 p-2">
+                                    <label class="label">
+                                    <span class="label-text">Promotor</span>
+                                    </label> 
+                                    <input type="text" placeholder="username" v-model="socio.promotor"  class="input w-full">
+                                </div>                                  
 
                             </div>   
-
+           
 
                             <div class="flex flex-wrap">
 
@@ -168,12 +182,7 @@
 
                             <div class="flex flex-wrap">
 
-                                <div class="flex-1 p-2 w-1">
-                                    <label class="label">
-                                    <span class="label-text">Nome da Mãe</span>
-                                    </label> 
-                                    <input type="text" placeholder="Nome da Mãe" v-model="socio.nomemae"  class="input w-full">
-                                </div>  
+
   
                                 <div class="flex-1 p-2">
                                     <label class="label">
@@ -189,10 +198,6 @@
                                     <input type="text" placeholder="email" v-model="socio.email"  class="input w-full">
                                 </div>   
 
-                            </div>   
-
-                            <div class="flex flex-wrap">
-
                                 <div class="flex-1 p-2 w-1">
                                     <label class="label">
                                     <span class="label-text">Plano</span>
@@ -205,18 +210,17 @@
                                     <span class="label-text">Status</span>
                                     </label> 
                                     <input type="text" placeholder="Status" v-model="socio.status_detail"  class="input w-full">
-                                </div>                                  
-  
-                                <div class="flex-1 p-2">
-                                    <label class="label">
-                                    <span class="label-text">Promotor</span>
-                                    </label> 
-                                    <input type="text" placeholder="username" v-model="socio.promotor"  class="input w-full">
-                                </div>  
+                                </div>                                        
 
-                            </div>                                                                              
+                            </div>   
+                                                                          
 
                         </div>
+
+                        <div class="p-2 card " id="tab_2">Pagamentos </div>
+                        <div class="p-2 card " id="tab_3"> Transações</div>
+                        <div class="p-2 card " id="tab_4"> Atendimento</div>
+                        <div class="p-2 card " id="tab_5"> Carteirinhas</div>
                         
                     </div>
 
@@ -271,14 +275,32 @@ export default {
                 set.socios = response.data;
             });
         },
-
         show: function (id){
             let set = this;
             axios.get('get/cadastros/'+id).then(response => {
                 console.log(response.data);
                 set.socio = response.data;
             });
-        }        
+        },
+        tab: function (id){
+
+            $("#tab_1").css("display","none");
+            $("#tab_2").css("display","none");
+            $("#tab_3").css("display","none");
+            $("#tab_4").css("display","none");
+            $("#tab_5").css("display","none");
+
+            $( "#nav_1" ).removeClass( "tab-active" );
+            $( "#nav_2" ).removeClass( "tab-active" );
+            $( "#nav_3" ).removeClass( "tab-active" );
+            $( "#nav_4" ).removeClass( "tab-active" );
+            $( "#nav_5" ).removeClass( "tab-active" );
+
+            $( "#nav_"+id ).addClass( "tab-active" );
+
+            $("#tab_"+id).css("display","block");
+            
+        }
     },
     computed:{
 
@@ -310,6 +332,11 @@ export default {
     },
     mounted: function(){
         this.getSocios();
+        
+            $("#tab_2").css("display","none");
+            $("#tab_3").css("display","none");
+            $("#tab_4").css("display","none");
+            $("#tab_5").css("display","none");
     }
 }
 </script>
