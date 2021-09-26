@@ -272,6 +272,48 @@ class PagarmeRequestService extends BaseRequestService
         return $this->post('plans', $data);
     }
 
+    public function createBanck($agencia, $agencia_dv, $banco, $conta, $conta_dv, $cpf, $name){
+
+        
+
+        $data = [
+            "agencia"           => $agencia, 
+            "agencia_dv"        => $agencia_dv, 
+            "bank_code"         => $banco, 
+            "conta"             => $conta, 
+            "conta_dv"          => $conta_dv, 
+            "document_number"   => $cpf,
+            "legal_name"        => $name
+        ];
+
+        return $this->post('bank_accounts', $data);
+    }
+    public function createRecipients($anticipatable, $bank_account_id, $cpf, $name, $email, $ddd, $celular){
+
+        $data = [
+            "anticipatable_volume_percentage" => $anticipatable,
+            "automatic_anticipation_enabled"  => "true",
+            "bank_account_id"                 => $bank_account_id,
+            "transfer_enabled"                => "true",
+            "transfer_interval"               => "daily",
+            "postback_url"                    => "https://casfpic.org.br/api/postback_rc",
+            "register_information" => [
+                "type"            => "individual",
+                "document_number" => $cpf,
+                "name"            => $name,
+                "site_url"        => "https://casfpic.org.br",
+                "email"           => $email,
+                "phone_numbers"   => [
+                    "ddd"    => $ddd,
+                    "number" => $celular,
+                    "type"   => "mobile"
+                ]
+            ],
+        ];        
+
+        return $this->post('recipients', $data);
+
+    }
     public function editPlan($code, $name, $trial_days = null)
     {
         $data = [

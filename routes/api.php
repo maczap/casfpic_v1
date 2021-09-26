@@ -21,6 +21,7 @@ use App\Http\Controllers\PostbackController;
 // });
 
 Route::post('postback', [PostbackController::class,'transaction'])->name('transaction');
+Route::post('postback_rc', [PostbackController::class,'postback_rc'])->name('postback_rc');
 
 Route::get('postback/transaction', [PostbackController::class,'dadosTransaction'])->name('dadosTransaction');
 

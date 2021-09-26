@@ -30,6 +30,14 @@ class PostbackController extends Controller
 
     }
 
+    public function postback_rc(Request $request){
+        
+        DB::table('postbacks_rs')->insert([
+            'postback' => json_encode($request->all())
+        ]);
+
+    }
+
     public function transaction(Request $request)
     {
         DB::table('postbacks')->insert([

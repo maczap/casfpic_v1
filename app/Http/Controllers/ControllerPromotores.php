@@ -9,6 +9,7 @@ use App\User;
 use DB;
 use Illuminate\Contracts\Encryption\DecryptException;
 use Illuminate\Support\Facades\Crypt;
+use App\Services\PagarmeRequestService;
 
 
 class ControllerPromotores extends Controller
@@ -149,6 +150,58 @@ class ControllerPromotores extends Controller
             ];
         }
         return $data;
+    }
+
+
+    public function CreateRecipients(){
+
+        $pagarme = new PagarmeRequestService();
+
+        $promotores = User::where('promotor',1)
+        ->where("email", "kinho2000@gmail.com")
+        ->where("promotor",1)
+        ->get();
+
+        foreach($promotores as $item){
+
+            $id         = $item->id;
+            $name       = $item->name;
+            $email      = $item->email;
+            $cpf        = $item->cpf;
+            $celular    = $item->celular;
+            $banco      = $item->BANCO;
+            $agencia    = $item->AGENCIA;
+            $agencia_dig= $item->AGENCIA_DIG;
+            $conta      = $item->CONTA;
+            $conta_dig  = $item->CONTA_DIG;
+            $conta_tipo = $item->conta_tipo;
+            $bank_account_id = $item->bank_account_id;
+
+            // echo $name ."</br>";
+            // echo $email ."</br>";
+            // echo $cpf ."</br>";
+            // echo $celular ."</br>";
+            // echo $banco ."</br>";
+            // echo $agencia ."</br>";
+            // echo $agencia_dig ."</br>";
+            // echo $conta ."</br>";
+            // echo $conta_dig ."</br>";
+            // echo $conta_tipo ."</br>";
+            
+            $bank = $pagarme->createBanck($agencia, $agencia_dig, $banco, $conta, $conta_dig, $cpf, $name);
+
+            if(isset($bank["id"])){
+
+                $usuario = User::where('id', $id)->first();
+                $usuario->bank_account_id = $bank["id"];
+                $usuario->save();                
+            }
+        
+
+            
+
+
+        }
     }
 
    
