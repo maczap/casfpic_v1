@@ -236,6 +236,19 @@ class ControllerCadastro extends Controller
 
             $pagarme = new PagarmeRequestService();
 
+
+            $address = [
+                'street'        => \strtoupper($request['endereco']),
+                'street_number' => $request['numero'],
+                'zipcode'       => $this->clear($request['cep']),
+                'country'       => 'br',
+                'state'         => $request['uf'],
+                'city'          => \strtoupper($request['cidade']),
+                'complementary' => \strtoupper($request['complemento']),
+                'neighborhood'  => \strtoupper($request['bairro'])
+                
+            ];                
+
             
             try{
                 DB::beginTransaction();
@@ -295,6 +308,7 @@ class ControllerCadastro extends Controller
                             'neighborhood'  => \strtoupper($request['bairro'])
                             
                         ];                    
+
                         $cpf = $this->clear($request['cpf']);
                         $customer = $pagarme->createCustomer($request['name'], $request['email'],$dados["id"], $phone_numbers, $documents);         
 
@@ -354,7 +368,7 @@ class ControllerCadastro extends Controller
                                 "tangible"      => false                            
                             ];    
                             
-                            $transaction = $pagarme->createTransaction($customer, $documents, $payment_methods, $card_id, $address, $phone, $amount, $items, $plano_name,  $rec_id);
+                            $transaction = $pagarme->createTransaction($customer, $documents, $payment_methods, $card_id, $address, $phone, $amount, $items, $plano_name, $rec_id, $percent_promotor, $percent_titular);
                             
                             if (isset($transaction['errors'])) {
                             
@@ -412,6 +426,7 @@ class ControllerCadastro extends Controller
                             $amount = $this->clear($plano_amount);
 
                             $subscription = $pagarme->createSubscription($customer,$plano_codigo_integracao, $payment_methods, $card_id, $address, $phone, $amount, $plano_name, $rec_id, $percent_promotor, $percent_titular);
+                                                                                                                       
                             
                             if (isset($subscription['errors'])) {
                                 // return $subscription['errors'];
