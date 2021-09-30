@@ -162,9 +162,11 @@ class ControllerPromotores extends Controller
         $pagarme = new PagarmeRequestService();
 
         $promotores = User::where('promotor',1)
-        
-        ->where("promotor",1)
+        ->where("cpf", "<>" ,"26460284822")
+       
         ->get();
+
+        
         
         foreach($promotores as $item){
 
@@ -181,60 +183,59 @@ class ControllerPromotores extends Controller
             $conta_tipo = $item->conta_tipo;
             $bank_account_id = $item->bank_account_id;
             $pix = $item->rec_pix;
+            $rec_id = $item->rec_id;
 
             $celular = str_replace("(","", $celular);
             $celular = str_replace(")","", $celular);
             $celular = str_replace("-","", $celular);
 
+
             $c = explode(" ", $celular);
-            $ddd = $c[0];
-            $celular = $c[1];
 
-            // echo $name ."</br>";
-            // echo $email ."</br>";
-            // echo $cpf ."</br>";
-            echo $ddd ."</br>";
-            echo $celular ."</br>";
-            // echo $banco ."</br>";
-            // echo $agencia ."</br>";
-            // echo $agencia_dig ."</br>";
-            // echo $conta ."</br>";
-            // echo $conta_dig ."</br>";
-            // echo $conta_tipo ."</br>";
-
-
-            //odontouni
-            
-            
-            $bank = $pagarme->createBanck($agencia, $agencia_dig, $banco, $conta, $conta_dig, $cpf, $name, $pix);
-
-
-            if(isset($bank["id"])){
-
-                $usuario = User::where('id', $id)->first();
-                $usuario->bank_account_id = $bank["id"];
-                $usuario->save();       
+            if(isset($c[0])){
                 
-                $recipient = $pagarme->createRecipients(85, $bank_account_id, $cpf, $name, $email, $ddd, $celular, $id);
+                $ddd = $c[0];
+                $celular = $c[1];
 
-                if(isset( $recipient["id"])){
-                    $rec_id                  = $recipient["id"];
-                    $rec_transfer_enable = $recipient["transfer_enabled"];
-                    $rec_status          = $recipient["status"];
+                echo $name ;
 
-                    $user = User::where('id', $id)->first();
-                    $user->rec_id               = $rec_id;
-                    $user->rec_transfer_enable  = $rec_transfer_enable;
-                    $user->rec_status           = $rec_status;
-                    $user->save();
-                    
+                if(empty($bank_account_id)){
+                $bank = $pagarme->createBanck($agencia, $agencia_dig, $banco, $conta, $conta_dig, $cpf, $name, $pix);
+                } else {
+                    $bank["id"]=$bank_account_id;
                 }
 
-                return $recipient;
 
-                
+                if(isset($bank["id"])){
+
+                    
+                    $usuario = User::where('id', $id)->first();
+                    $usuario->bank_account_id = $bank["id"];
+                    $usuario->save();       
+                    
+                    $recipient = $pagarme->createRecipients(85, $bank_account_id, $cpf, $name, $email, $ddd, $celular, $id);
+
+                    if(isset( $recipient["id"])){
+                        $rec_id                  = $recipient["id"];
+                        $rec_transfer_enable = $recipient["transfer_enabled"];
+                        $rec_status          = $recipient["status"];
+
+                        $user = User::where('id', $id)->first();
+                        $user->rec_id               = $rec_id;
+                        $user->rec_transfer_enable  = $rec_transfer_enable;
+                        $user->rec_status           = $rec_status;
+                        $user->save();
+                        
+                    }
+
+                    return $recipient;
+
+                    
+                }else {
+                    
+                    return $bank;
+                }
             }
-
         }
     }
 
@@ -244,7 +245,7 @@ class ControllerPromotores extends Controller
         $pagarme = new PagarmeRequestService();
 
         $recipient = $pagarme->getRecipient($id);
-        dd($recipient);
+        return $recipient;
     }
 
     public function recipientSaldo($id){
