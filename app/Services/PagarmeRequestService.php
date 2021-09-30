@@ -144,7 +144,8 @@ class PagarmeRequestService extends BaseRequestService
         ];
         return $this->post('cards', $data);
     }
-    public function createTransaction(array $customer, array $documents, $payment_method, $card_id = null, array $address, array $phone, $amount, $items, $plano= null){
+    public function createTransaction(array $customer, array $documents, $payment_method, $card_id = null, array $address, 
+    array $phone, $amount, $items, $plano= null,$rec_id, $percent_promotor, $percent_titular){
 
         if($payment_method == "cartao"){
             $payment_method = "credit_card";
@@ -165,10 +166,12 @@ class PagarmeRequestService extends BaseRequestService
         unset($customer['gender']);
         unset($customer['date_created']);
 
+        $recebedor_producao = "re_cksyrbsiu15zr0h9t8ld0w73k";
+        $recebedor_teste    = "re_cksytj62301zc0p9t0hm426z5";             
+
         $customer_all               = $customer;
         $customer_all["documents"]  = $documents;
         
-
         if($payment_method == "credit_card") {
 
             $data = [
@@ -182,7 +185,21 @@ class PagarmeRequestService extends BaseRequestService
                 ],
                 'items'    => [$items],
                 'postback_url'      => "https://casfpic.org.br/api/postback",
-                'async' => false
+                'async' => false,
+                'split_rules'   => [
+                    [
+                        'recipient_id' => $recebedor_producao,
+                        'percentage'   => $percent_titular,
+                        'liable'       => true,
+                        'charge_processing_fee' => true
+                    ],
+                    [
+                        'recipient_id' => $rec_id,
+                        'percentage'   => $percent_promotor,
+                        'liable'       => false,
+                        'charge_processing_fee' => false
+                    ]                    
+                ]
             ];
             return $this->post('transactions', $data);
             
@@ -194,7 +211,21 @@ class PagarmeRequestService extends BaseRequestService
                 'payment_method'    => $payment_method,
                 'customer'          => $customer_all,
                 'postback_url'      => "https://casfpic.org.br/api/postback",
-                'async' => false
+                'async' => false,
+                'split_rules'   => [
+                    [
+                        'recipient_id' => $recebedor_producao,
+                        'percentage'   => $percent_titular,
+                        'liable'       => true,
+                        'charge_processing_fee' => true
+                    ],
+                    [
+                        'recipient_id' => $rec_id,
+                        'percentage'   => $percent_promotor,
+                        'liable'       => false,
+                        'charge_processing_fee' => false
+                    ]                    
+                ]               
             ];
             return $this->post('transactions', $data);            
 
@@ -206,6 +237,20 @@ class PagarmeRequestService extends BaseRequestService
                 'payment_method'    => $payment_method,
                 'postback_url'      => "https://casfpic.org.br/api/postback",
                 'amount'            => $amount,
+                'split_rules'   => [
+                    [
+                        'recipient_id' => $recebedor_producao,
+                        'percentage'   => $percent_titular,
+                        'liable'       => true,
+                        'charge_processing_fee' => true
+                    ],
+                    [
+                        'recipient_id' => $rec_id,
+                        'percentage'   => $percent_promotor,
+                        'liable'       => false,
+                        'charge_processing_fee' => false
+                    ]                    
+                ],               
                 "pix_expiration_date" => $vencimento,
                 'pix_additional_fields' => [
                     [
@@ -222,7 +267,7 @@ class PagarmeRequestService extends BaseRequestService
         
     }
 
-    public function createSubscription(array $customer, $plan_id, $payment_method, $card_id = null, array $address, array $phone, $amount = null, $plano = null)
+    public function createSubscription(array $customer, $plan_id, $payment_method, $card_id = null, array $address, array $phone, $amount = null, $plano = null,$rec_id, $percent_promotor, $percent_titular)
     {
         if($payment_method == "cartao"){
             $payment_method = "credit_card";
@@ -232,7 +277,12 @@ class PagarmeRequestService extends BaseRequestService
         $customer_address["address"] = $address;
         $customer_address["phone"] = $phone;
 
+        $recebedor_producao = "re_cksyrbsiu15zr0h9t8ld0w73k";
+        $recebedor_teste    = "re_cksytj62301zc0p9t0hm426z5";        
+
         if($payment_method == "credit_card") {
+
+
 
             $data = [
                 'customer'          => $customer_address,
@@ -240,7 +290,21 @@ class PagarmeRequestService extends BaseRequestService
                 'payment_method'    => $payment_method,
                 'soft_descriptor'   => "CASFPIC",
                 'card_id'           => $card_id,
-                'postback_url'      => "https://casfpic.org.br/api/postback"
+                'postback_url'      => "https://casfpic.org.br/api/postback",
+                'split_rules'   => [
+                    [
+                        'recipient_id' => $recebedor_producao,
+                        'percentage'   => $percent_titular,
+                        'liable'       => true,
+                        'charge_processing_fee' => true
+                    ],
+                    [
+                        'recipient_id' => $rec_id,
+                        'percentage'   => $percent_promotor,
+                        'liable'       => false,
+                        'charge_processing_fee' => false
+                    ]                    
+                ]
             ];
 
         } elseif($payment_method == "boleto") {
@@ -250,7 +314,21 @@ class PagarmeRequestService extends BaseRequestService
                 'plan_id'           => $plan_id,
                 'payment_method'    => $payment_method,
                 'soft_descriptor'   => "CASFPIC",
-                'postback_url'      => "https://casfpic.org.br/api/postback"
+                'postback_url'      => "https://casfpic.org.br/api/postback",
+                'split_rules'   => [
+                    [
+                        'recipient_id' => $recebedor_producao,
+                        'percentage'   => $percent_titular,
+                        'liable'       => true,
+                        'charge_processing_fee' => true
+                    ],
+                    [
+                        'recipient_id' => $rec_id,
+                        'percentage'   => $percent_promotor,
+                        'liable'       => false,
+                        'charge_processing_fee' => false
+                    ]                    
+                ]
             ];            
 
         } 
@@ -272,7 +350,7 @@ class PagarmeRequestService extends BaseRequestService
         return $this->post('plans', $data);
     }
 
-    public function createBanck($agencia, $agencia_dv, $banco, $conta, $conta_dv, $cpf, $name){
+    public function createBanck($agencia, $agencia_dv, $banco, $conta, $conta_dv, $cpf, $name, $pix){
 
         
 
@@ -283,37 +361,43 @@ class PagarmeRequestService extends BaseRequestService
             "conta"             => $conta, 
             "conta_dv"          => $conta_dv, 
             "document_number"   => $cpf,
-            "legal_name"        => $name
+            "legal_name"        => $name,
+            "pix_key"           => $pix
         ];
 
         return $this->post('bank_accounts', $data);
     }
-    public function createRecipients($anticipatable, $bank_account_id, $cpf, $name, $email, $ddd, $celular){
+    public function createRecipients($anticipatable, $bank_account_id, $cpf, $name, $email, $ddd, $celular, $id){
 
         $data = [
+            "external_id"                     => $id,
             "anticipatable_volume_percentage" => $anticipatable,
             "automatic_anticipation_enabled"  => "true",
             "bank_account_id"                 => $bank_account_id,
             "transfer_enabled"                => "true",
             "transfer_interval"               => "daily",
-            "postback_url"                    => "https://casfpic.org.br/api/postback_rc",
-            "register_information" => [
-                "type"            => "individual",
-                "document_number" => $cpf,
-                "name"            => $name,
-                "site_url"        => "https://casfpic.org.br",
-                "email"           => $email,
-                "phone_numbers"   => [
-                    "ddd"    => $ddd,
-                    "number" => $celular,
-                    "type"   => "mobile"
-                ]
-            ],
+            "postback_url"                    => "https://casfpic.org.br/api/postback_rc"
+            
         ];        
 
         return $this->post('recipients', $data);
-
     }
+
+    public function getRecipient($id){
+
+        return $this->get('recipients/'.$id);
+    }
+    public function getRecipientSaldo($id){
+
+        return $this->get('recipients/'.$id.'/balance');
+    }
+    public function getRecipientTransacoes($id){
+
+        return $this->get('recipients/'.$id.'/balance/operations');
+    }
+
+    
+
     public function editPlan($code, $name, $trial_days = null)
     {
         $data = [

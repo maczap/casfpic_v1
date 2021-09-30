@@ -16,10 +16,10 @@ class Promotores extends Model
     public function getPromotor($code)
     {
 
-            return User::select("id as promotor_id","code_pagseguro as promotor","super_id as supervidor_id","super_id as s_id")
+            return User::select("id as promotor_id","promotor_code as promotor","super_id as supervidor_id","super_id as s_id","rec_id")
             ->where("promotor_code", $code)
             ->Where("promotor", 1)
-            ->addSelect(['supervisor' => User::select('code_pagseguro')
+            ->addSelect(['supervisor' => User::select('supervidor_id')
                 ->whereColumn('id', 's_id')
                 ->limit(1)  
             ])

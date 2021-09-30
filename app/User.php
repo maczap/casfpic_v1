@@ -42,7 +42,10 @@ class User extends Authenticatable
         'profissao',
         'celular',
         'vinculo',
-        'link'
+        'link',
+        'rec_id',
+        'rec_status',
+        'rec_transfer_enable'
     ];
 
     /**

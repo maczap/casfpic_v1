@@ -285,7 +285,7 @@
                                 </div>    
 
                                 <div class="input-group mt-20">
-                                    <input type="phone"  id="cartao_vencimento" v-model="card_vencimento" class="form-control col-xl-6" placeholder="Vencimento" >
+                                    <input type="phone"  id="cartao_vencimento" v-model="card_vencimento" v-mask="'##/##'"  class="form-control col-xl-6" placeholder="Vencimento" >
                                     <input type="phone" id="cartao_cvv"  v-model="card_cvv" class="form-control col-xl-6" placeholder="CVV" >
 
                                 </div>        
@@ -1016,7 +1016,7 @@ export default {
                     }    
                     else {
                         
-                         window.location.href = response.body;
+                        //  window.location.href = response.body;
                     }     
                     $('#efetuar_pagto').text('Finalizar Cadastro');
                     $('#efetuar_pagto').prop('disabled', false);   

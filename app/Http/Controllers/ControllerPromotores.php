@@ -20,8 +20,8 @@ class ControllerPromotores extends Controller
     public function link_promotor(){
 
         $promotores = User::where('promotor_code', "<>", "")
-        
         ->select('id','promotor_code')->get();
+
         foreach ($promotores as $item) {
 
             $id     = $item->id;
@@ -125,6 +125,7 @@ class ControllerPromotores extends Controller
         {
             $promotor   = $this->_promotor;
             $supervisor = $this->_supervisor;               
+            $supervisor = $this->_supervisor;      
 
             $data = [
                 'promotor'   => $promotor,
@@ -139,14 +140,17 @@ class ControllerPromotores extends Controller
             if(isset($dados[0])){
                 $promotor   = $dados[0]->promotor;
                 $supervisor = $dados[0]->supervisor;
+                $rec_id     = $dados[0]->rec_id;
             } else {
                 $promotor   = $this->_promotor;
-                $supervisor = $this->_supervisor;          
+                $supervisor = $this->_supervisor;    
+                $rec_id     = $dados[0]->rec_id;      
             }
     
             $data = [
                 'promotor'   => $promotor,
-                'supervisor' => $supervisor
+                'supervisor' => $supervisor,
+                'rec_id'     => $rec_id
             ];
         }
         return $data;
@@ -161,7 +165,7 @@ class ControllerPromotores extends Controller
         ->where("email", "kinho2000@gmail.com")
         ->where("promotor",1)
         ->get();
-
+        
         foreach($promotores as $item){
 
             $id         = $item->id;
@@ -176,33 +180,87 @@ class ControllerPromotores extends Controller
             $conta_dig  = $item->CONTA_DIG;
             $conta_tipo = $item->conta_tipo;
             $bank_account_id = $item->bank_account_id;
+            $pix = $item->rec_pix;
+
+            $celular = str_replace("(","", $celular);
+            $celular = str_replace(")","", $celular);
+            $celular = str_replace("-","", $celular);
+
+            $c = explode(" ", $celular);
+            $ddd = $c[0];
+            $celular = $c[1];
 
             // echo $name ."</br>";
             // echo $email ."</br>";
             // echo $cpf ."</br>";
-            // echo $celular ."</br>";
+            echo $ddd ."</br>";
+            echo $celular ."</br>";
             // echo $banco ."</br>";
             // echo $agencia ."</br>";
             // echo $agencia_dig ."</br>";
             // echo $conta ."</br>";
             // echo $conta_dig ."</br>";
             // echo $conta_tipo ."</br>";
+
+
+            //odontouni
             
-            $bank = $pagarme->createBanck($agencia, $agencia_dig, $banco, $conta, $conta_dig, $cpf, $name);
+            
+            $bank = $pagarme->createBanck($agencia, $agencia_dig, $banco, $conta, $conta_dig, $cpf, $name, $pix);
+
 
             if(isset($bank["id"])){
 
                 $usuario = User::where('id', $id)->first();
                 $usuario->bank_account_id = $bank["id"];
-                $usuario->save();                
+                $usuario->save();       
+                
+                $recipient = $pagarme->createRecipients(85, $bank_account_id, $cpf, $name, $email, $ddd, $celular, $id);
+
+                if(isset( $recipient["id"])){
+                    $rec_id                  = $recipient["id"];
+                    $rec_transfer_enable = $recipient["transfer_enabled"];
+                    $rec_status          = $recipient["status"];
+
+                    $user = User::where('id', $id)->first();
+                    $user->rec_id               = $rec_id;
+                    $user->rec_transfer_enable  = $rec_transfer_enable;
+                    $user->rec_status           = $rec_status;
+                    $user->save();
+                    
+                }
+
+                return $recipient;
+
+                
             }
-        
-
-            
-
 
         }
     }
 
+
+    public function recipientGet($id){
+        
+        $pagarme = new PagarmeRequestService();
+
+        $recipient = $pagarme->getRecipient($id);
+        dd($recipient);
+    }
+
+    public function recipientSaldo($id){
+        
+        $pagarme = new PagarmeRequestService();
+
+        $recipient = $pagarme->getRecipientSaldo($id);
+        dd($recipient);
+    }
+
+    public function recipientTransacoes($id){
+        
+        $pagarme = new PagarmeRequestService();
+
+        $recipient = $pagarme->getRecipientTransacoes($id);
+        dd($recipient);
+    }
    
 }

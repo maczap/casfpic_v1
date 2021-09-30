@@ -62,15 +62,18 @@ class ControllerCadastro extends Controller
         $payment_methods = $request["paymentMethod"];
         
         // $cookie = \Request::cookie('prmntcfpc');
-        // if(isset($cookie)){
+        if(isset($cookie)){
             
-        //     $promotor = $this->promotores->getPromotor($cookie);
-        //     // if(isset($promotor->promotor_id)){
-        //     //     $promotor_id = $promotor->promotor_id;
-        //     // } 
-        // }  else {
-        //     $promotor = $this->promotores->getPromotor(78979);
-        // }      
+            $promotor = $this->promotores->getPromotor($cookie);
+            // if(isset($promotor->promotor_id)){
+            //     $promotor_id = $promotor->promotor_id;
+            // } 
+        }  else {
+            $promotor = $this->promotores->getPromotor('FD1809');
+        }      
+
+        $rec_id = $promotor["rec_id"];
+        
        
         if($payment_methods == "cartao"){
  
@@ -217,6 +220,11 @@ class ControllerCadastro extends Controller
             $plano_name     = $dados_plano->descricao;
             $plano_nick     = $dados_plano->nick; 
             $plano_amount   = $dados_plano->amount;   
+
+            $percent_promotor   = $dados_plano->percent_promotor;   
+            $percent_titular = 100-$percent_promotor;
+
+            
         
             $ddd        = $this->clear(substr($request['celular'], 1, 2));
             $celular    = $this->clear(substr($request['celular'], 4, 11));  
@@ -346,7 +354,7 @@ class ControllerCadastro extends Controller
                                 "tangible"      => false                            
                             ];    
                             
-                            $transaction = $pagarme->createTransaction($customer, $documents, $payment_methods, $card_id, $address, $phone, $amount, $items, $plano_name);
+                            $transaction = $pagarme->createTransaction($customer, $documents, $payment_methods, $card_id, $address, $phone, $amount, $items, $plano_name,  $rec_id);
                             
                             if (isset($transaction['errors'])) {
                             
@@ -403,10 +411,10 @@ class ControllerCadastro extends Controller
                         else if($periodo == "mensal") {
                             $amount = $this->clear($plano_amount);
 
-                            $subscription = $pagarme->createSubscription($customer,$plano_codigo_integracao, $payment_methods, $card_id, $address, $phone, $amount, $plano_name);
+                            $subscription = $pagarme->createSubscription($customer,$plano_codigo_integracao, $payment_methods, $card_id, $address, $phone, $amount, $plano_name, $rec_id, $percent_promotor, $percent_titular);
                             
                             if (isset($subscription['errors'])) {
-                            
+                                return $subscription['errors'];
                                 return response()->json(["errors" => ["Transação" => ["Erro na transação.. Entre em contato conosco"]]]);
                             }
 
