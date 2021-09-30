@@ -104,7 +104,9 @@ Route::middleware(['auth','admin'])->group(function () {
         Route::get('get/promotor/{id}', [ControllerPromotores::class,'get_promotor'])->name('lista_promotor'); 
 
         //recebedores
+        
         Route::get('create/recipients', [ControllerPromotores::class,'CreateRecipients'])->name('CreateRecipients'); 
+        Route::get('get/recipients', [ControllerPromotores::class,'recipientsGet'])->name('recipientsGet'); 
         Route::get('get/recipient/{id}', [ControllerPromotores::class,'recipientget'])->name('recipientget'); 
         Route::get('get/recipient/{id}/saldo', [ControllerPromotores::class,'recipientSaldo'])->name('recipientgetsaldo');
         Route::get('get/recipient/{id}/operations', [ControllerPromotores::class,'recipientTransacoes'])->name('recipientTransacoes');

@@ -383,6 +383,13 @@ class PagarmeRequestService extends BaseRequestService
         return $this->post('recipients', $data);
     }
 
+
+    
+    public function getRecipients(){
+
+        return $this->get('recipients');
+    }    
+
     public function getRecipient($id){
 
         return $this->get('recipients/'.$id);

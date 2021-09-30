@@ -243,6 +243,15 @@ class ControllerPromotores extends Controller
     }
 
 
+    public function recipientsGet(){
+        
+        $pagarme = new PagarmeRequestService();
+
+        $recipient = $pagarme->getRecipients();
+        return $recipient;
+    }
+
+
     public function recipientGet($id){
         
         $pagarme = new PagarmeRequestService();
