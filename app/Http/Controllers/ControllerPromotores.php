@@ -162,7 +162,7 @@ class ControllerPromotores extends Controller
         $pagarme = new PagarmeRequestService();
 
         $promotores = User::where('promotor',1)
-        ->where("cpf", "<>" ,"26460284822")
+        ->where("rec_id", "=" ,"")
        
         ->get();
 
@@ -209,8 +209,8 @@ class ControllerPromotores extends Controller
                 if(isset($bank["id"])){
 
 
-                    $recebedor = $this->recipientGet($rec_id);
-                    if(!isset($recebedor["id"])){
+                    // $recebedor = $this->recipientGet($rec_id);
+                    // if(!isset($recebedor["id"])){
                     
                         $usuario = User::where('id', $id)->first();
                         $usuario->bank_account_id = $bank["id"];
@@ -230,7 +230,7 @@ class ControllerPromotores extends Controller
                             $user->save();
                             
                         }
-                    }
+                    // }
                     // return $recipient;
 
                     
