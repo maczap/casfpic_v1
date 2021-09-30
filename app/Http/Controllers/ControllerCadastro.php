@@ -236,28 +236,15 @@ class ControllerCadastro extends Controller
 
             $pagarme = new PagarmeRequestService();
 
-
-            $address = [
-                'street'        => \strtoupper($request['endereco']),
-                'street_number' => $request['numero'],
-                'zipcode'       => $this->clear($request['cep']),
-                'country'       => 'br',
-                'state'         => $request['uf'],
-                'city'          => \strtoupper($request['cidade']),
-                'complementary' => \strtoupper($request['complemento']),
-                'neighborhood'  => \strtoupper($request['bairro'])
-                
-            ];                
-
             
             try{
                 DB::beginTransaction();
 
-                    if (Auth::check() && !is_null($userAuth->pagarme_id)) {
+                    // if (Auth::check() && !is_null($userAuth->pagarme_id)) {
 
-                    $customer = $pagarme->getCustomer($userAuth->pagarme_id);
+                    // $customer = $pagarme->getCustomer($userAuth->pagarme_id);
                     
-                    } else {
+                    // } else {
 
                         $dados = User::create([
                             'name'      => \strtoupper($request['name']),
@@ -321,8 +308,8 @@ class ControllerCadastro extends Controller
                             $usuario->pagarme_id = $customer["id"];
                             $usuario->save();
                         }
-        
-                    }
+        // 
+                    // }
 
 
 
