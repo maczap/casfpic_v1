@@ -1016,7 +1016,7 @@ export default {
                     }    
                     else {
                         
-                        //  window.location.href = response.body;
+                         window.location.href = response.body;
                     }     
                     $('#efetuar_pagto').text('Finalizar Cadastro');
                     $('#efetuar_pagto').prop('disabled', false);   

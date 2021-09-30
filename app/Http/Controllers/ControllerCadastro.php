@@ -414,7 +414,7 @@ class ControllerCadastro extends Controller
                             $subscription = $pagarme->createSubscription($customer,$plano_codigo_integracao, $payment_methods, $card_id, $address, $phone, $amount, $plano_name, $rec_id, $percent_promotor, $percent_titular);
                             
                             if (isset($subscription['errors'])) {
-                                return $subscription['errors'];
+                                // return $subscription['errors'];
                                 return response()->json(["errors" => ["Transação" => ["Erro na transação.. Entre em contato conosco"]]]);
                             }
 

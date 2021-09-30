@@ -162,7 +162,7 @@ class ControllerPromotores extends Controller
         $pagarme = new PagarmeRequestService();
 
         $promotores = User::where('promotor',1)
-        ->where("email", "kinho2000@gmail.com")
+        
         ->where("promotor",1)
         ->get();
         
