@@ -208,27 +208,30 @@ class ControllerPromotores extends Controller
 
                 if(isset($bank["id"])){
 
-                    
-                    $usuario = User::where('id', $id)->first();
-                    $usuario->bank_account_id = $bank["id"];
-                    $usuario->save();       
-                    
-                    $recipient = $pagarme->createRecipients(85, $bank_account_id, $cpf, $name, $email, $ddd, $celular, $id);
 
-                    if(isset( $recipient["id"])){
-                        $rec_id                  = $recipient["id"];
-                        $rec_transfer_enable = $recipient["transfer_enabled"];
-                        $rec_status          = $recipient["status"];
-
-                        $user = User::where('id', $id)->first();
-                        $user->rec_id               = $rec_id;
-                        $user->rec_transfer_enable  = $rec_transfer_enable;
-                        $user->rec_status           = $rec_status;
-                        $user->save();
+                    $recebedor = $this->recipientGet($rec_id);
+                    if(!isset($recebedor["id"])){
+                    
+                        $usuario = User::where('id', $id)->first();
+                        $usuario->bank_account_id = $bank["id"];
+                        $usuario->save();       
                         
-                    }
+                        $recipient = $pagarme->createRecipients(85, $bank_account_id, $cpf, $name, $email, $ddd, $celular, $id);
 
-                    return $recipient;
+                        if(isset( $recipient["id"])){
+                            $rec_id                  = $recipient["id"];
+                            $rec_transfer_enable = $recipient["transfer_enabled"];
+                            $rec_status          = $recipient["status"];
+
+                            $user = User::where('id', $id)->first();
+                            $user->rec_id               = $rec_id;
+                            $user->rec_transfer_enable  = $rec_transfer_enable;
+                            $user->rec_status           = $rec_status;
+                            $user->save();
+                            
+                        }
+                    }
+                    // return $recipient;
 
                     
                 }else {
