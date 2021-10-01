@@ -341,7 +341,7 @@ class PostbackController extends Controller
         
         // ->generate("$url", public_path("images/qrcode/$id.png"));        
         // return view('qrCode');
-        $img =  base64_encode(QrCode::format('png')->size(200)->generate('https://www.servclube.com.br/convenio/odontoprev_promo/p/akdz857l8ckzmcnykn996wxx6bvqqxpwsraq3zigqijz8ak6vte8irgd7ehwmy02'));
+        $img =  base64_encode(QrCode::format('png')->size(200)->generate($url));
         return '<img src="data:image/png;base64,'. $img .'">';
     }
     
@@ -364,6 +364,8 @@ class PostbackController extends Controller
             $periodo        = $item->periodo;
             $pix_qr_code     = $item->pix_qr_code;
             $pix_expiration_date = $item->pix_expiration_date;
+
+            $pix_qr_code = rawurlencode($pix_qr_code);
 
             $n = \explode(" ", $nome);
             $nome = $n[0];

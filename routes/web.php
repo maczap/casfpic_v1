@@ -125,11 +125,12 @@ Route::middleware(['auth','admin'])->group(function () {
 
 Route::get('get_postback', [PostbackController::class,'get_postback'])->name('get_postback');   
 
-// Route::middleware(['client'])->group(function (){
-//     Route::get('client',function() {
-//         dd("voce é admin");
-//     });
-// });
+
+    Route::get('encript',function() {
+        $id = Crypt::encryptString(103);
+        echo $id;
+    });
+
 
 // Route::get('/teste_data', function () {
 //     $data =  (new \DateTime())->format('Y-m-d\TH:i:s');
