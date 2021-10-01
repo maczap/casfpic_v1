@@ -52,6 +52,7 @@ class ControllerCadastro extends Controller
 
 
         $cookie_promotor = \Request::cookie('pmtcsfpc');
+        dd($cookie_promotor);
         
         $promotor_id = "FD1809";   
 
@@ -61,10 +62,10 @@ class ControllerCadastro extends Controller
              
         $payment_methods = $request["paymentMethod"];
         
-        $cookie = \Request::cookie('prmntcfpc');
-        if(isset($cookie)){
+        
+        if(isset($cookie_promotor)){
             
-            $promotor = $this->promotores->getPromotor($cookie);
+            $promotor = $this->promotores->getPromotor($cookie_promotor);
             // if(isset($promotor->promotor_id)){
             //     $promotor_id = $promotor->promotor_id;
             // } 

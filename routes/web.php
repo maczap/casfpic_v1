@@ -22,13 +22,13 @@ use App\Services\PagarmeRequestService;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 Route::get('/termos', function () {
     return view('layouts.termos');
 });
-
+Route::get('/', [ControllerHome::class,'index'])->name('index');
 Route::get('/p/{token?}', [ControllerHome::class,'index'])->name('index');
 
 Auth::routes();
