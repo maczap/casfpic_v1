@@ -52,7 +52,7 @@ class ControllerCadastro extends Controller
 
 
         $cookie_promotor = \Request::cookie('pmtcsfpc');
-        dd($cookie_promotor);
+        
         
         $promotor_id = "FD1809";   
 
