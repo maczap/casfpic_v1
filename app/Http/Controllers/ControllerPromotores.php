@@ -202,11 +202,13 @@ class ControllerPromotores extends Controller
 
                 if(empty($bank_account_id)){
                 $bank = $pagarme->createBanck($agencia, $agencia_dig, $banco, $conta, $conta_dig, $cpf, $name, $pix);
+
+                
                 } else {
                     $bank["id"]=$bank_account_id;
                 }
 
-
+                echo $bank;
                 if(isset($bank["id"])){
 
 
