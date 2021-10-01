@@ -26,6 +26,7 @@ class ControllerHome extends Controller
             $time = 43800;
 
             $promotor_code = \Request::cookie('pmtcsfpc');
+            $promotor_name = "";
             
             if(!isset($promotor_code)){
 
