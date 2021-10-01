@@ -163,7 +163,7 @@ class ControllerPromotores extends Controller
         $pagarme = new PagarmeRequestService();
 
         $promotores = User::where('promotor',1)
-        ->where("rec_id", "=" ,"")
+        ->where("rec_id", null)
        
         ->get();
 
