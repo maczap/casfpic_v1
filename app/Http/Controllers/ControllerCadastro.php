@@ -416,8 +416,8 @@ class ControllerCadastro extends Controller
                                                                                                                        
                             
                             if (isset($subscription['errors'])) {
-                                return $subscription['errors'];
-                                // return response()->json(["errors" => ["Transação" => ["Erro na transação.. Entre em contato conosco"]]]);
+                                // return $subscription['errors'];
+                                return response()->json(["errors" => ["Transação" => ["Erro na transação.. Entre em contato conosco"]]]);
                             }
 
                             // $this->postobrigado($email, $nome, $plano_plano, $boleto_url= null, $boleto_barcode = null, $periodo, $status);
