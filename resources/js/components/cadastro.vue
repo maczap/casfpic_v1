@@ -1209,11 +1209,6 @@ export default {
                 $("#alert3").css('display','none');
                 $("#alert4").css('display','none');
                 $("#alert5").css('display','none');
-
-                $("#card_number").mask('0000 0000 0000 0000');  
-                $("#cartao_vencimento").mask('00/00');  
-                $("#cartao_cvv").mask('000');  
-                
                 
 
             });

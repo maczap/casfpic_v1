@@ -278,11 +278,11 @@ class PagarmeRequestService extends BaseRequestService
         $customer_address["phone"] = $phone;
 
         $recebedor_producao = "re_cksyrbsiu15zr0h9t8ld0w73k";
-        $recebedor_teste    = "re_cksytj62301zc0p9t0hm426z5";        
+
+        // $recebedor_producao   = "re_cksytj62301zc0p9t0hm426z5";  //teste
+        
 
         if($payment_method == "credit_card") {
-
-
 
             $data = [
                 'customer'          => $customer_address,
