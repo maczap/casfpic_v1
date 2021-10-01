@@ -20,7 +20,6 @@ class ControllerPromotores extends Controller
     public function link_promotor(){
 
         $promotores = User::where('promotor_code', "<>", "")
-        ->where('link', null)
         ->select('id','promotor_code')->get();
 
         foreach ($promotores as $item) {
@@ -202,13 +201,11 @@ class ControllerPromotores extends Controller
 
                 if(empty($bank_account_id)){
                 $bank = $pagarme->createBanck($agencia, $agencia_dig, $banco, $conta, $conta_dig, $cpf, $name, $pix);
-
-                echo $bank;
                 } else {
                     $bank["id"]=$bank_account_id;
                 }
 
-            
+
                 if(isset($bank["id"])){
 
 
@@ -234,7 +231,7 @@ class ControllerPromotores extends Controller
                             
                         }
                     // }
-                    return $recipient;
+                    // return $recipient;
 
                     
                 }else {
