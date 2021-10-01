@@ -20,6 +20,7 @@ class ControllerPromotores extends Controller
     public function link_promotor(){
 
         $promotores = User::where('promotor_code', "<>", "")
+        ->where('link', null)
         ->select('id','promotor_code')->get();
 
         foreach ($promotores as $item) {
@@ -231,7 +232,7 @@ class ControllerPromotores extends Controller
                             
                         }
                     // }
-                    // return $recipient;
+                    return $recipient;
 
                     
                 }else {
