@@ -61,7 +61,7 @@ class ControllerCadastro extends Controller
              
         $payment_methods = $request["paymentMethod"];
         
-        // $cookie = \Request::cookie('prmntcfpc');
+        $cookie = \Request::cookie('prmntcfpc');
         if(isset($cookie)){
             
             $promotor = $this->promotores->getPromotor($cookie);
