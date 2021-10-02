@@ -338,7 +338,7 @@ class PostbackController extends Controller
     public function generateQrcode($url, $id){
 
         // \QrCode::size(300)
-        
+     
         // ->generate("$url", public_path("images/qrcode/$id.png"));        
         // return view('qrCode');
         $img =  base64_encode(QrCode::format('png')->size(200)->generate($url));

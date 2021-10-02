@@ -131,7 +131,11 @@ Route::get('get_postback', [PostbackController::class,'get_postback'])->name('ge
         echo $id;
     });
 
+    
 
+    Route::get('test',function() {
+        phpinfo();
+    });    
 // Route::get('/teste_data', function () {
 //     $data =  (new \DateTime())->format('Y-m-d\TH:i:s');
 
