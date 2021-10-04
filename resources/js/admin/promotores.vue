@@ -2,13 +2,22 @@
 <template>
     <div>
         <div class='w-full bg-gray-200 p-4 topo'>
-            <h1>Promotores</h1>
+            <h1>Promotores1</h1>
 
-            <cp-m></cp-m>
-
-
-
-
+                <div class="dropdown dropdown-top">
+                    <div tabindex="0" class="m-1 btn">Dropdown</div> 
+                    <ul tabindex="0" class="p-2 shadow menu dropdown-content bg-base-100 rounded-box w-52">
+                    <li>
+                        <a>Item 1</a>
+                    </li> 
+                    <li>
+                        <a>Item 2</a>
+                    </li> 
+                    <li>
+                        <a>Item 3</a>
+                    </li>
+                    </ul>
+                </div>            
 
         </div>
         <div class='grid grid-cols-12 grid-flow-col  p-4 bg-white h-screen'>
@@ -231,7 +240,38 @@
 
                         </div>
                         <div class="p-2 card " id="tab_2">Cadastros </div>
-                        <div class="p-2 card " id="tab_3"> Links QrCode</div>                        
+                        <div class="p-2 card " id="tab_3"> 
+                          <div class="flex flex-wrap">
+
+                                <div class="p-2 w-full">
+                                    <div class="form-control">
+                                    <label class="label">
+                                        <span class="label-text">Link</span>
+                                    </label> 
+                                    <div class="relative">
+                                        <input type="text" placeholder="Link" :value="'https://casfpic.org.br/p/'+promotor.link"  class="w-full pr-16 input input-primary input-bordered"> 
+                                        <button class="absolute top-0 right-0 rounded-l-none btn btn-primary">Copiar</button>
+                                    </div>
+                                    </div> 
+                                    
+                                </div>
+
+
+                                <div class="flex p-2 w-2">
+                                    <div class="flex-1 p-4">
+                                        <qrcode-vue :value="'https://casfpic.org.br/p/'+promotor.link" size="100" level="H" />    
+                                    </div>
+                                    <div class="flex-1 p-4">
+                                        <qrcode-vue :value="'https://casfpic.org.br/p/'+promotor.link" size="200" level="H" />    
+                                    </div>
+                                    <div class="flex-1 p-4">
+                                        <qrcode-vue :value="'https://casfpic.org.br/p/'+promotor.link" size="300" level="H" />    
+                                    </div>                                                                        
+            
+                                </div>
+
+                            </div>                            
+                        </div>                        
                         
                     </div>
 
@@ -257,6 +297,10 @@
 <script>
 
 import CpM from './m.vue'
+
+
+import QrcodeVue from 'qrcode.vue'
+
 export default {
     data: function(){
         return{
@@ -273,7 +317,8 @@ export default {
         }
     },    
     components:{
-        CpM
+        CpM,
+        QrcodeVue,
     },
     methods:{
         

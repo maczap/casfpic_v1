@@ -39,6 +39,7 @@
         "friendly-errors-webpack-plugin": "^1.7.0",
         "loader-runner": "^4.2.0",
         "optimize-css-assets-webpack-plugin": "^5.0.8",
+        "qrcode.vue": "^1.7.0",
         "rework": "^1.0.1",
         "rework-visit": "^1.0.0",
         "style-loader": "^2.0.0",
