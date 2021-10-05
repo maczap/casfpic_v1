@@ -1,24 +1,29 @@
 
 <template>
     <div>
-        <div class='w-full bg-gray-200 p-4 topo'>
-            <h1>Promotores1</h1>
+        <div class="navbar mb-2 bg-base-300 rounded-box">
+        <div class="flex-1 px-2 lg:flex-none">
+            <a class="text-lg font-bold">
+                    Promotores
+                </a>
+        </div> 
+        <div class="flex justify-end flex-1 px-2">
+            <div class="flex items-stretch">
 
-                <div class="dropdown dropdown-top">
-                    <div tabindex="0" class="m-1 btn">Dropdown</div> 
-                    <ul tabindex="0" class="p-2 shadow menu dropdown-content bg-base-100 rounded-box w-52">
-                    <li>
-                        <a>Item 1</a>
-                    </li> 
-                    <li>
-                        <a>Item 2</a>
-                    </li> 
-                    <li>
-                        <a>Item 3</a>
-                    </li>
-                    </ul>
-                </div>            
+            <div class="dropdown dropdown-end">
+                <div tabindex="0" class="btn btn-ghost rounded-btn">Menu</div> 
+                <ul tabindex="0" class="p-2 shadow menu dropdown-content bg-base-100 rounded-box w-52">
+                <li>
+                    <a>Adicionar</a>
+                </li> 
+                <li>
+                    <a>Relatório</a>
+                </li> 
 
+                </ul>
+            </div>
+            </div>
+        </div>
         </div>
         <div class='grid grid-cols-12 grid-flow-col  p-4 bg-white h-screen'>
 
@@ -101,21 +106,21 @@
 
                                 <div class="flex-1 p-2 w-2">
                                     <label class="label">
-                                    <span class="label-text">Nome</span>
+                                    <span class="label-text  text-gray-400">Nome</span>
                                     </label> 
                                     <input type="text" placeholder="Nome" v-model="promotor.name" class="input w-full">
                                 </div>
 
                                 <div class="flex-initial p-2">
                                     <label class="label">
-                                    <span class="label-text">CPF</span>
+                                    <span class="label-text  text-gray-400">CPF</span>
                                     </label> 
                                     <input type="text" placeholder="CPF" v-model="promotor.cpf" class="input w-full">
                                 </div>
 
                                 <div class="flex-initial p-2">
                                     <label class="label">
-                                    <span class="label-text">RG</span>
+                                    <span class="label-text  text-gray-400">RG</span>
                                     </label> 
                                     <input type="text" placeholder="RG" v-model="promotor.rg" class="input w-full">
                                 </div>       
@@ -127,7 +132,7 @@
   
                                 <div class="flex-1 p-2">
                                     <label class="label">
-                                    <span class="label-text">Sexo</span>
+                                    <span class="label-text  text-gray-400">Sexo</span>
                                     </label> 
                                     <select class="select select-bordered w-full max-w-xs" v-model="promotor.sexo" id="sexo" >
                                         <option disabled="disabled" selected="selected">Sexo</option> 
@@ -138,7 +143,7 @@
 
                                 <div class="flex-1 p-2">
                                     <label class="label">
-                                    <span class="label-text">Estado Civil</span>
+                                    <span class="label-text  text-gray-400">Estado Civil</span>
                                     </label> 
                                     <select class="select select-bordered w-full max-w-xs" v-model="promotor.ecivil" id="ecivil" >
                                         <option disabled="disabled" selected="selected">Estado Civil</option> 
@@ -153,14 +158,14 @@
 
                                 <div class="flex-1 p-2">
                                     <label class="label">
-                                    <span class="label-text">Nascimento</span>
+                                    <span class="label-text  text-gray-400">Nascimento</span>
                                     </label> 
-                                    <input type="text" placeholder="username" class="input w-full">
+                                    <input type="text" placeholder="Nascimento" class="input w-full">
                                 </div>   
 
                                 <div class="flex-1 p-2">
                                     <label class="label">
-                                    <span class="label-text">Profissão</span>
+                                    <span class="label-text  text-gray-400">Profissão</span>
                                     </label> 
                                     <input type="text" placeholder="Profissão" v-model="promotor.profissao" class="input w-full">
                                 </div>                                  
@@ -174,21 +179,21 @@
   
                                 <div class="flex-1 p-2 w-2">
                                     <label class="label">
-                                    <span class="label-text">Endereço</span>
+                                    <span class="label-text  text-gray-400">Endereço</span>
                                     </label> 
                                     <input type="text" placeholder="Endereço" v-model="promotor.endereco"  class="input w-full">
                                 </div>  
 
                                 <div class="flex-initial p-2">
                                     <label class="label">
-                                    <span class="label-text">Numero</span>
+                                    <span class="label-text  text-gray-400">Numero</span>
                                     </label> 
                                     <input type="text" placeholder="Número" v-model="promotor.numero"  class="input">
                                 </div>   
 
                                 <div class="flex-initial p-2">
                                     <label class="label">
-                                    <span class="label-text">Complemento</span>
+                                    <span class="label-text  text-gray-400">Complemento</span>
                                     </label> 
                                     <input type="text" placeholder="Complemento" v-model="promotor.complemento"  class="input w-full">
                                 </div>   
@@ -199,14 +204,14 @@
     
                                 <div class="flex-1 p-2">
                                     <label class="label">
-                                    <span class="label-text">Celular</span>
+                                    <span class="label-text  text-gray-400">Celular</span>
                                     </label> 
                                     <input type="text" placeholder="Celular" v-model="promotor.celular"  class="input w-full">
                                 </div>  
 
                                 <div class="flex-1 p-2">
                                     <label class="label">
-                                    <span class="label-text">email</span>
+                                    <span class="label-text  text-gray-400">email</span>
                                     </label> 
                                     <input type="text" placeholder="email" v-model="promotor.email"  class="input w-full">
                                 </div>   
@@ -217,21 +222,21 @@
 
                                 <!-- <div class="flex-1 p-2 w-1">
                                     <label class="label">
-                                    <span class="label-text">Plano</span>
+                                    <span class="label-text  text-gray-400">Plano</span>
                                     </label> 
                                     <input type="text" placeholder="Plano"  v-model="promotor.plano"  class="input w-full">
                                 </div>  
 
                                 <div class="flex-1 p-2">
                                     <label class="label">
-                                    <span class="label-text">Status</span>
+                                    <span class="label-text  text-gray-400">Status</span>
                                     </label> 
                                     <input type="text" placeholder="Status" v-model="promotor.status_detail"  class="input w-full">
                                 </div>                                  
   
                                 <div class="flex-1 p-2">
                                     <label class="label">
-                                    <span class="label-text">Promotor</span>
+                                    <span class="label-text  text-gray-400">Promotor</span>
                                     </label> 
                                     <input type="text" placeholder="username" v-model="promotor.promotor"  class="input w-full">
                                 </div>   -->
@@ -246,11 +251,11 @@
                                 <div class="p-2 w-full">
                                     <div class="form-control">
                                     <label class="label">
-                                        <span class="label-text">Link</span>
+                                        <span class="label-text  text-gray-400">Link</span>
                                     </label> 
                                     <div class="relative">
-                                        <input type="text" placeholder="Link" :value="'https://casfpic.org.br/p/'+promotor.link"  class="w-full pr-16 input input-primary input-bordered"> 
-                                        <button class="absolute top-0 right-0 rounded-l-none btn btn-primary">Copiar</button>
+                                        <input type="text" id = "link_promotor" placeholder="Link" :value="'https://casfpic.org.br/p/'+promotor.link"  class="w-full pr-16 input input-primary input-bordered"> 
+                                        <button class="absolute top-0 right-0 rounded-l-none btn btn-primary" onclick="copiarLinkPromotor()">Copiar</button>
                                     </div>
                                     </div> 
                                     
