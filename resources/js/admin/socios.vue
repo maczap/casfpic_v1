@@ -157,26 +157,38 @@
                             <div class="flex flex-wrap">
 
   
-                                <div class="flex-1 p-2 w-2">
+                                <div class="flex--initial p-2 w-96">
                                     <label class="label">
                                     <span class="label-text  text-gray-400">Endereço</span>
                                     </label> 
                                     <input type="text" placeholder="Endereço" v-model="socio.endereco"  class="input w-full">
                                 </div>  
 
-                                <div class="flex-initial p-2">
+                                <div class="flex-initial p-2 w-32">
                                     <label class="label">
                                     <span class="label-text  text-gray-400">Numero</span>
                                     </label> 
-                                    <input type="text" placeholder="Número" v-model="socio.numero"  class="input">
+                                    <input type="text" placeholder="Número" v-model="socio.numero"  class="input w-full">
                                 </div>   
 
-                                <div class="flex-initial p-2">
+                                <div class="flex-initial p-2 w-40">
                                     <label class="label">
                                     <span class="label-text  text-gray-400">Complemento</span>
                                     </label> 
                                     <input type="text" placeholder="Complemento" v-model="socio.complemento"  class="input w-full">
                                 </div>   
+                                <div class="flex-initial p-2 w-52">
+                                    <label class="label">
+                                    <span class="label-text  text-gray-400">Bairro</span>
+                                    </label> 
+                                    <input type="text" placeholder="Bairro" v-model="socio.bairro"  class="input w-full">
+                                </div>      
+                                <div class="flex-initial p-2 w-36">
+                                    <label class="label">
+                                    <span class="label-text  text-gray-400">CEP</span>
+                                    </label> 
+                                    <input type="text" placeholder="Bairro" v-model="socio.cep"  class="input w-full">
+                                </div>                                                              
 
                             </div>       
 
