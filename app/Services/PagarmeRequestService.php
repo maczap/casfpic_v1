@@ -185,23 +185,25 @@ class PagarmeRequestService extends BaseRequestService
                 ],
                 'items'    => [$items],
                 'postback_url'      => "https://casfpic.org.br/api/postback",
-                'async' => false,
-                'split_rules'   => [
-                    [
-                        'recipient_id' => $recebedor_producao,
-                        'percentage'   => $percent_titular,
-                        'liable'       => true,
-                        'charge_processing_fee' => true
-                    ],
-                    [
-                        'recipient_id' => $rec_id,
-                        'percentage'   => $percent_promotor,
-                        'liable'       => false,
-                        'charge_processing_fee' => false
-                    ]                    
-                ]
+                'async' => false
+
             ];
             return $this->post('transactions', $data);
+
+            // 'split_rules'   => [
+            //     [
+            //         'recipient_id' => $recebedor_producao,
+            //         'percentage'   => $percent_titular,
+            //         'liable'       => true,
+            //         'charge_processing_fee' => true
+            //     ],
+            //     [
+            //         'recipient_id' => $rec_id,
+            //         'percentage'   => $percent_promotor,
+            //         'liable'       => false,
+            //         'charge_processing_fee' => false
+            //     ]                    
+            // ]            
             
 
         } else if($payment_method == "boleto") {
@@ -211,23 +213,25 @@ class PagarmeRequestService extends BaseRequestService
                 'payment_method'    => $payment_method,
                 'customer'          => $customer_all,
                 'postback_url'      => "https://casfpic.org.br/api/postback",
-                'async' => false,
-                'split_rules'   => [
-                    [
-                        'recipient_id' => $recebedor_producao,
-                        'percentage'   => $percent_titular,
-                        'liable'       => true,
-                        'charge_processing_fee' => true
-                    ],
-                    [
-                        'recipient_id' => $rec_id,
-                        'percentage'   => $percent_promotor,
-                        'liable'       => false,
-                        'charge_processing_fee' => false
-                    ]                    
-                ]               
+                'async' => false
+              
             ];
-            return $this->post('transactions', $data);            
+            return $this->post('transactions', $data);        
+            
+            // 'split_rules'   => [
+            //     [
+            //         'recipient_id' => $recebedor_producao,
+            //         'percentage'   => $percent_titular,
+            //         'liable'       => true,
+            //         'charge_processing_fee' => true
+            //     ],
+            //     [
+            //         'recipient_id' => $rec_id,
+            //         'percentage'   => $percent_promotor,
+            //         'liable'       => false,
+            //         'charge_processing_fee' => false
+            //     ]                    
+            // ]             
 
         } elseif($payment_method == "pix") {
 
@@ -237,20 +241,7 @@ class PagarmeRequestService extends BaseRequestService
                 'payment_method'    => $payment_method,
                 'postback_url'      => "https://casfpic.org.br/api/postback",
                 'amount'            => $amount,
-                'split_rules'   => [
-                    [
-                        'recipient_id' => $recebedor_producao,
-                        'percentage'   => $percent_titular,
-                        'liable'       => true,
-                        'charge_processing_fee' => true
-                    ],
-                    [
-                        'recipient_id' => $rec_id,
-                        'percentage'   => $percent_promotor,
-                        'liable'       => false,
-                        'charge_processing_fee' => false
-                    ]                    
-                ],               
+                
                 "pix_expiration_date" => $vencimento,
                 'pix_additional_fields' => [
                     [
@@ -261,6 +252,21 @@ class PagarmeRequestService extends BaseRequestService
                 
             ];            
             return $this->post('transactions', $data);    
+
+            // 'split_rules'   => [
+            //     [
+            //         'recipient_id' => $recebedor_producao,
+            //         'percentage'   => $percent_titular,
+            //         'liable'       => true,
+            //         'charge_processing_fee' => true
+            //     ],
+            //     [
+            //         'recipient_id' => $rec_id,
+            //         'percentage'   => $percent_promotor,
+            //         'liable'       => false,
+            //         'charge_processing_fee' => false
+            //     ]                    
+            // ],             
         }
         
 
@@ -291,20 +297,7 @@ class PagarmeRequestService extends BaseRequestService
                 'soft_descriptor'   => "CASFPIC",
                 'card_id'           => $card_id,
                 'postback_url'      => "https://casfpic.org.br/api/postback",
-                'split_rules'   => [
-                    [
-                        'recipient_id' => $recebedor_producao,
-                        'percentage'   => $percent_titular,
-                        'liable'       => true,
-                        'charge_processing_fee' => true
-                    ],
-                    [
-                        'recipient_id' => $rec_id,
-                        'percentage'   => $percent_promotor,
-                        'liable'       => false,
-                        'charge_processing_fee' => false
-                    ]                    
-                ]
+
             ];
 
         } elseif($payment_method == "boleto") {
@@ -315,25 +308,27 @@ class PagarmeRequestService extends BaseRequestService
                 'payment_method'    => $payment_method,
                 'soft_descriptor'   => "CASFPIC",
                 'postback_url'      => "https://casfpic.org.br/api/postback",
-                'split_rules'   => [
-                    [
-                        'recipient_id' => $recebedor_producao,
-                        'percentage'   => $percent_titular,
-                        'liable'       => true,
-                        'charge_processing_fee' => true
-                    ],
-                    [
-                        'recipient_id' => $rec_id,
-                        'percentage'   => $percent_promotor,
-                        'liable'       => false,
-                        'charge_processing_fee' => false
-                    ]                    
-                ]
+
             ];            
 
         } 
 
         return $this->post('subscriptions', $data);
+
+                // 'split_rules'   => [
+                //     [
+                //         'recipient_id' => $recebedor_producao,
+                //         'percentage'   => $percent_titular,
+                //         'liable'       => true,
+                //         'charge_processing_fee' => true
+                //     ],
+                //     [
+                //         'recipient_id' => $rec_id,
+                //         'percentage'   => $percent_promotor,
+                //         'liable'       => false,
+                //         'charge_processing_fee' => false
+                //     ]                    
+                // ]        
         
     }
 
