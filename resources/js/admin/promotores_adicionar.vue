@@ -403,7 +403,7 @@ export default {
     data: function(){
         return{
             promotor:{
-                name:'MARCOS GRANZIERA',
+                name:'',
                 cpf:'',
                 rg:'',
                 sexo:'',
