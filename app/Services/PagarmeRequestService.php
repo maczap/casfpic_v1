@@ -269,8 +269,6 @@ class PagarmeRequestService extends BaseRequestService
             // ],             
         }
         
-
-        
     }
 
     public function createSubscription(array $customer, $plan_id, $payment_method, $card_id = null, array $address, array $phone, $amount = null, $plano = null,$rec_id, $percent_promotor, $percent_titular)

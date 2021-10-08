@@ -110,6 +110,7 @@ Route::middleware(['auth','admin'])->group(function () {
         Route::get('get/recipient/{id}', [ControllerPromotores::class,'recipientget'])->name('recipientget'); 
         Route::get('get/recipient/{id}/saldo', [ControllerPromotores::class,'recipientSaldo'])->name('recipientgetsaldo');
         Route::get('get/recipient/{id}/operations', [ControllerPromotores::class,'recipientTransacoes'])->name('recipientTransacoes');
+        Route::post('cadastro/promotor', [ControllerPromotores::class,'cadastro_promotor'])->name('cadastro_promotor');
         
 
         

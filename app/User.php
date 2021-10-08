@@ -45,7 +45,14 @@ class User extends Authenticatable
         'link',
         'rec_id',
         'rec_status',
-        'rec_transfer_enable'
+        'rec_transfer_enable',
+        'banco',
+        'agencia',
+        'agencia_dig',
+        'conta',
+        'conta_dig',
+        'conta_tipo',
+        'pix'
     ];
 
     /**

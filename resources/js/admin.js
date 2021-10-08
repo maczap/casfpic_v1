@@ -42,6 +42,8 @@
  import MasterIndex from './admin/index.vue'
 
  import  CpIndex  from './admin/index.vue'
+
+ window.csrfToken = document.querySelector('meta[name="csrf-token"]').content;
  
  var router = new VueRouter({
      mode: 'history',

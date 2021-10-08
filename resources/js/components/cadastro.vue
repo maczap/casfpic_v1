@@ -100,8 +100,8 @@
                         <div class="input-group mb-3">
                             <select class="form-select col-xl-6" v-model="sexo" id="sexo" aria-label="Default select example">
                                 <option value="" disabled selected>Sexo</option>
-                                <option value="1">Feminino</option>
-                                <option value="2">Masculino</option>
+                                <option value="F">Feminino</option>
+                                <option value="M">Masculino</option>
                             </select>                                    
                         </div>   
 

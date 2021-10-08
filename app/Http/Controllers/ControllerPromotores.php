@@ -10,6 +10,8 @@ use DB;
 use Illuminate\Contracts\Encryption\DecryptException;
 use Illuminate\Support\Facades\Crypt;
 use App\Services\PagarmeRequestService;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Hash;
 
 
 class ControllerPromotores extends Controller
@@ -64,7 +66,6 @@ class ControllerPromotores extends Controller
     public function lista_promotores(){
 
         $promotores = User::where('promotor',1)
-        ->where("cpf","<>", "26460284822")
         ->select('users.*', 'users.promotor_code as pmt')
         ->addSelect(['cadastros' => User::select(DB::raw('COUNT(vinculo)'))
         ->whereColumn('vinculo', 'pmt')
@@ -275,5 +276,129 @@ class ControllerPromotores extends Controller
         $recipient = $pagarme->getRecipientTransacoes($id);
         dd($recipient);
     }
+
+    public function cadastro_promotor(Request $request){
+
+
+        $rules = [
+            'name'          => 'required',
+            'cpf'           => 'required',
+            'rg'            => 'required',  
+            'sexo'          => 'required',  
+            'ecivil'        => 'required',  
+            'nascimento'    => 'required',  
+            'profissao'     => 'required',  
+            'cep'           => 'required',              
+            'endereco'      => 'required',    
+            'numero'        => 'required',    
+            'bairro'        => 'required',    
+            'cidade'        => 'required',    
+            'uf'            => 'required',    
+            'banco'         => 'required',    
+            'agencia'       => 'required',    
+            'conta'         => 'required',    
+            'conta_tipo'    => 'required',    
+            'pix'           => 'required',    
+            'celular'       => 'required',    
+            'email'         => 'required|string|email|max:40|unique:users'
+        ];
+        $messages = [
+            'name.required'         => 'Informe o nome completo',
+            'cpf.required'          => 'Informe o CPF',
+            'rg.required'           => 'Informe o RG',
+            'sexo.required'         => 'Informe o Sexo',
+            'ecivil.required'       => 'Informe o Estado Civil',
+            'nascimento.required'   => 'Informe o Nascimento',
+            'profissao.required'    => 'Informe a Profissão',
+            'cep.required'          => 'Informe o CEP',
+            'endereco.required'     => 'Informe o Endereço',
+            'numero.required'       => 'Informe o Número',
+            'bairro.required'       => 'Informe o Bairro',
+            'cidade.required'       => 'Informe a Cidade',
+            'uf.required'           => 'Informe a UF',
+            'banco.required'        => 'Informe o Banco',
+            'agencia.required'      => 'Informe a Agência',
+            'conta.required'        => 'Informe a Conta',
+            'conta_tipo.required'   => 'Informe o Tipo da Conta',
+            'pix.required'          => 'Informe o PIX',
+            'email.required'        => 'Informe o e-mail',
+            'email.email'           => 'E-mail inválido',
+            'email.unique'           => 'Esse e-mail já está cadastrado',
+
+            
+        ];        
+
+        $validator = Validator::make($request->all(),$rules, $messages);
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()]);
+        } 
+        else {
+    
+            $code = $this->generatePassword();
+            $link = "https://casfpic.org.br/p/".$code;
+
+            $promotor_code = $this->generatePassword(6);
+            $promotor_code = strtoupper($promotor_code);
+
+            $ns = $request['nascimento'];
+            $ns = explode("/",$ns);
+            $dia = $ns[0];
+            $mes = $ns[1];
+            $ano = $ns[2];
+            $nascimento = $ano."-".$mes."-".$dia;  
+
+            $cpf = $this->clear($request['cpf']);
+            
+
+            
+            $dados = User::create([
+                'name'      => \strtoupper($request['name']),
+                'email'     => $request['email'],
+                'cpf'       => $cpf,
+                'rg'        => $request['rg'],
+                'sexo'      => $request['sexo'],
+                'cep'       => $request['cep'],
+                'endereco'  => \strtoupper($request['endereco']),
+                'numero'    => $request['numero'],
+                'complemento'   => \strtoupper($request['complemento']),
+                'bairro'    => \strtoupper($request['bairro']),
+                'cidade'    => \strtoupper($request['cidade']),
+                'uf'        => \strtoupper($request['uf']),
+                'celular'   => $request['celular'],
+                'nascimento'=> $nascimento,
+                'ecivil'    => $request['ecivil'],
+                'profissao' => \strtoupper($request['profissao']),
+                'password' => Hash::make($cpf),
+                'promotor' => 1,
+                'promotor_code' => $promotor_code,
+                'link'          => $link,
+                'banco'         => $request['banco'],
+                'agencia'       => $request['agencia'],
+                'agencia_dig'   => $request['agencia_dig'],
+                'conta'         => $request['conta'],
+                'conta_dig'     => $request['conta_dig'],
+                'conta_tipo'    => $request['conta_tipo']
+
+            ]);                  
+                     
+                return $dados;
+    
+            
+        }
+
+        
+    }
+
+    public function clear($string){
+        $string = \str_replace("(","",$string);
+        $string = \str_replace(")","",$string);
+        $string = \str_replace(" ","",$string);
+        $string = \str_replace("-","",$string);
+        $string = \str_replace(".","",$string);
+        $string = \str_replace(",","",$string);
+        $string = \str_replace("/","",$string);
+        $string = trim($string);
+        return $string;
+    }        
    
 }
