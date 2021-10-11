@@ -23,7 +23,8 @@ class Subscription extends Model
         'pix_expiration_date',
         'boleto_expiration_date',
         'manage_url',
-        'manage_token'
+        'manage_token',
+        'operadora'
     ];
 
     public function user()

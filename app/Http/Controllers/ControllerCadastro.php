@@ -157,6 +157,7 @@ class ControllerCadastro extends Controller
     
                 'plano'         => 'required', 
                 'periodo'       => 'required', 
+                'operadora'     => 'required', 
  
             ];
             $messages = [
@@ -182,6 +183,7 @@ class ControllerCadastro extends Controller
     
                 'plano.required'            => 'Informe o Plano',
                 'periodo.required'          => 'Informe o Período',
+                'operadora.required'        => 'Informe a Operadora',
                 
             ];                
         }     
@@ -192,11 +194,6 @@ class ControllerCadastro extends Controller
             return response()->json(['errors' => $validator->errors()]);
         } 
         else {
-
-            
-            // $vencimento = $this->vencimento($request['periodo']);
-
-            
                 
             $ns = $request['nascimento'];
             $ns = explode("/",$ns);
@@ -212,6 +209,7 @@ class ControllerCadastro extends Controller
 
             $plano      = $request['plano'];
             $periodo    = $request['periodo'];
+            $operadora  = $request['operadora'];
 
             $dados_plano = $this->get_plan($plano, $periodo);
             
@@ -405,7 +403,8 @@ class ControllerCadastro extends Controller
                                 'status_detail'    => $status_details,
                                 'pix_qr_code'      => $pix_qr_code,
                                 'pix_expiration_date' => $pix_expiration_date,
-                                'boleto_expiration_date' => $boleto_expiration_date
+                                'boleto_expiration_date' => $boleto_expiration_date,
+                                'operadora'         => $operadora
                                 
                             ]);   
 
@@ -464,7 +463,8 @@ class ControllerCadastro extends Controller
                                 'pix_expiration_date' => $pix_expiration_date,
                                 'boleto_expiration_date' => $boleto_expiration_date,
                                 'manage_url'       => $manage_url,
-                                'manage_token'     => $manage_token
+                                'manage_token'     => $manage_token,
+                                'operadora'         => $operadora
                                 
                             ]);   
                         }

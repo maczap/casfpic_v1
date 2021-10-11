@@ -55,7 +55,32 @@
 
                         <div class="input-group" >
                                        <p style="text-align: center;" v-if="valorProposta">PLANO: {{dados_plano.descricao}}  R$ {{valorProposta.amount}}</p>
-                        </div>                              
+                        </div>        
+
+
+                        <div class="input-group mb-3" v-if="plano && periodo">
+
+                            <div class="input-group-prepend " style="width:32%">
+                                <span class="input-group-text" v-if="plano == 'prata'  || plano == 'diamante'" >Operadoras</span>
+                                <span class="input-group-text" v-if="plano == 'bronze'" >Operadora</span>
+                                <span class="input-group-text" v-if="plano == 'ouro'" >Operadora</span>
+                            </div>                       
+
+                            <select class="custom-select p-0" v-model="operadora" v-if="plano == 'bronze'" id="operadora" style="width:68%"  aria-label="operadora">
+                                <option value="" disabled selected>Selecione a Operadora</option>
+                                <option value="1" >ODONTOPREV</option>
+                                <option value="2" >UNIODONTO</option>
+                            </select>
+
+                            <select class="custom-select  p-0" v-model="operadora" v-if="plano == 'prata'  || plano == 'diamante'" id="operadora" style="width:68%"  aria-label="operadora">
+                                <option value="3" v-if="plano != 'bronze' || plano != 'ouro'" disabled selected>ODONTOPREV E UNIODONTO</option>
+                            </select>     
+
+                            <select class="custom-select  p-0" v-model="operadora" v-if="plano == 'ouro'" id="operadora" style="width:68%"  aria-label="operadora">
+                                <option value="1" selected disabled>ODONTOPREV</option>
+                            </select>                                                      
+
+                        </div>                                              
                     
                         <div class="input-group mb-3">
                             <input type="text" v-model="cpf" id="cpf" v-mask="'###.###.###-##'" class="form-control" placeholder="CPF" aria-label="CPF" aria-describedby="addon-wrapping">
@@ -361,7 +386,7 @@ export default {
                 cardToken:null,
                 method:null,
                 url:'http://127.0.0.1:8000/',
-                // url:'https://casfpic.org.br/',
+                operadora:0,
                 
 
             }
@@ -658,7 +683,18 @@ export default {
                             button: "OK",
                         });    
                         return false;
+                    }                     
+                    
+                    else if(this.operadora == '' || this.operadora == null){
+                        swal({
+                            title: "Selecione a Operadora",
+                            text: "Escolha sua operadora",
+                            icon: "error",
+                            button: "OK",
+                        });    
+                        return false;
                     }                       
+
                     else if (!cpf) {
                         swal({
                             title: "Informe o CPF",
@@ -852,11 +888,21 @@ export default {
 
                 if(this.plano && this.periodo){
 
+                    this.operadora = null;
+
                     let dados = {
                         'plano': this.plano,
                         'periodo': this.periodo
                     }
-
+                    if(this.plano == 'prata'){
+                        this.operadora = 3;
+                    }
+                    if(this.plano == 'diamante'){
+                        this.operadora = 3;
+                    }                    
+                    if(this.plano == 'ouro'){
+                        this.operadora = 1;
+                    }                    
                     this.$store.dispatch('get_plan', dados);
 
                 } 
@@ -905,6 +951,7 @@ export default {
                 let card_number = this.card_number;
                 let card_vencimento = this.card_vencimento;
                 let card_cvv = this.card_cvv;
+                let operadora = this.operadora;
                 
                 let dados = null;
                 if(paymentMethod == "cartao"){
@@ -937,6 +984,7 @@ export default {
                         card_cvv:       card_cvv,
 
                         paymentMethod:  paymentMethod,
+                        operadora:      operadora,
                         _token:         csrfToken                    
                     };
                 } 
@@ -964,6 +1012,7 @@ export default {
                         cidade:         cidade,
                         uf:             uf,
                         paymentMethod:  paymentMethod,
+                        operadora:      operadora,
                         _token:         csrfToken                    
                     };
                 }                 
