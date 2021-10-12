@@ -48,7 +48,7 @@ Route::get('pagarme', function(){
 
 // Route::get('/getsession', [ControllerCadastro::class,'getSession'])->name('getsession');
 
-Route::get('/getplan/{plano}/{periodo}', [ControllerPlans::class,'get_plan'])->name('getplan');
+Route::get('/getplan/{plano}/{periodo}/{qtddep}', [ControllerPlans::class,'get_plan'])->name('getplan');
 
 Route::post('/payment/credit', [ControllerCadastro::class,'cadastro'])->name('payment_credit');
 // Route::get('/payment/credit', [ControllerCadastro::class,'cadastro'])->name('payment_credit');

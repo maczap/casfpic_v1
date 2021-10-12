@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use App\User;
 use App\Plan;
+use App\Dependent;
 use App\Services\MercadoPago as Mp;
 use App\Mail\Obrigado;
 use App\Subscription;
@@ -50,6 +51,7 @@ class ControllerCadastro extends Controller
     public function cadastro(Request $request)
     {
 
+            
 
         $cookie_promotor = \Request::cookie('pmtcsfpc');
         
@@ -268,7 +270,45 @@ class ControllerCadastro extends Controller
                             'vinculo' => $promotor_id
                         ]);      
                         
+                        if(isset($dados["id"])){
 
+                            $id_user = $dados["id"];
+                            $dependentes = $request['dependentes'];                
+                        
+                            if(count($dependentes) > 0){
+                                foreach($dependentes as $item){
+                                    $nome = $item['nome'];
+                                    $nome = strtoupper($nome);
+                                    $nomemae = $item['nomemae'];
+                                    $cpf  = $this->clear($item['cpf']);
+                                    $parentesco = $item['parentesco'];
+                                    $sexo = $item['sexo'];
+                                    $nascimento = $item['nasc'];
+
+                                    $ns = $nascimento;
+                                    $ns = explode("/",$ns);
+                                    $dia = $ns[0];
+                                    $mes = $ns[1];
+                                    $ano = $ns[2];
+                                    $nascimento = $ano."-".$mes."-".$dia;  
+
+                                    
+                                        $dep = Dependent::create([
+                                            'user_id'       => $dados->id, 
+                                            'nome'          => strtoupper($nome), 
+                                            'nomemae'       => strtoupper($nomemae), 
+                                            'cpf'           => $cpf, 
+                                            'parentesco'    => $parentesco, 
+                                            'sexo'          => $sexo, 
+                                            'nascimento'    => $nascimento
+                                                                
+                                        ]);
+                                    
+                                }
+                            }      
+
+
+                        }
 
                         $phone_numbers = [sprintf('%s%s', '+55', $cell)];
                         $phone = [
@@ -312,10 +352,10 @@ class ControllerCadastro extends Controller
 
 
 
-                    $card_id = null;
-                    $boleto_url = null;
-                    $boleto_barcode = null;
-                    
+                        $card_id = null;
+                        $boleto_url = null;
+                        $boleto_barcode = null;
+                        
 
 
                         if($payment_methods == "cartao"){

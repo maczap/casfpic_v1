@@ -18,8 +18,10 @@ class ControllerPlans extends Controller
 
     public function get_plan(Request $request)
     {
-        $plano = $request["plano"];
-        $periodo = $request["periodo"];
+        $plano      = $request["plano"];
+        $periodo    = $request["periodo"];
+        $qtddep     = $request["qtddep"];
+        
 
         $ambiente = null;
         if(config('services.pagarme.ambiente') == "local"){
@@ -31,6 +33,7 @@ class ControllerPlans extends Controller
         $plan = Plan::where('nick',$plano)
                      ->where('periodo',$periodo)
                      ->where('tipo',$ambiente)
+                     ->where('qtd_dep',$qtddep)
                      ->get();
         return $plan;
     }    

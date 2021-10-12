@@ -263,9 +263,22 @@
                                     <option value="F">Feminino</option>
                                     <option value="M">Masculino</option>
                                 </select>                              
-                            </div>                            
-
+                            </div>            
+                            
                             <div class="p-2 col-8" >
+                                <select class="browser-default" v-model="dep_parentesco" id="parentesco" >
+                                    <option  disabled selected>Parentesco</option>
+                                    <option value="filho" >Filho(a)</option>
+                                    <option value="irmao" >Irmão(ã)</option>
+                                    <option value="tio">Tio(a)</option>
+                                    <option value="pai">Pai</option>
+                                    <option value="mae">Mãe</option>
+                                    <option value="conjuge">Cônjuge</option>
+                                    <option value="outros">Outros</option>
+                                </select>                                            
+                            </div>
+
+                            <div class="p-2 col-12" >
                                 <input type="text" class="form-control" v-model="dep_nomemae" id = "dep_nomemae" placeholder="Nome da Mãe" aria-label="dep_nomemae" aria-describedby="addon-wrapping">
                             </div>   
 
@@ -294,6 +307,8 @@
                                 </table>                                
 
                             </div>
+
+                             <p style="text-align: center;" v-if="valorProposta">PLANO: {{dados_plano.descricao}}  R$ {{valorProposta.amount}}</p>
                         </div>
 
                         <div class="d-grid gap-2">
@@ -307,7 +322,7 @@
                         <div class='voltar' @click="voltar(9)"><i class="fas fa-angle-left"></i> Voltar</div>
 
                         <h5 class="card-title" style="margin-top:20px;">Termos</h5>
-                        <p v-if="dados_plano"><strong>{{dados_plano.descricao}} - {{dados_plano.amount}} - {{dados_plano.periodo}}</strong></p> 
+                        <p v-if="dados_plano"><strong>{{dados_plano.descricao}} - R${{dados_plano.amount}} - {{dados_plano.periodo}}</strong></p> 
                         <div style="max-height:240px; overflow:auto;margin-bottom:20px;" >
                             <p>Declaro para todos os fins de direito, estar ciente e DE acordo com as seguintes normas, às quais me obrigo, por mim e por meus Dependentes e/ou Agregados:</p>
                             <p>a) Conhecer o Estatuto da CASFPIC, o qual está disponível para todos os associados no site   Associação, bem como respeitá-lo em toda a sua plenitude.</p>
@@ -461,6 +476,7 @@ export default {
                 dep_nasc: '',
                 dep_sexo: 'Sexo',
                 dep_nomemae: '',
+                dep_parentesco: 'Parentesco',
                 
 
             }
@@ -966,8 +982,10 @@ export default {
 
                     let dados = {
                         'plano': this.plano,
-                        'periodo': this.periodo
+                        'periodo': this.periodo,
+                        'qtddep' : this.dependentes.length
                     }
+                    // console.log(dados);
                     if(this.plano == 'prata'){
                         this.operadora = 3;
                     }
@@ -981,6 +999,31 @@ export default {
 
                 } 
             },
+
+            setPlan2(){
+
+                if(this.plano && this.periodo){
+
+
+                    let dados = {
+                        'plano': this.plano,
+                        'periodo': this.periodo,
+                        'qtddep' : this.dependentes.length
+                    }
+                    // console.log(dados);
+                    if(this.plano == 'prata'){
+                        this.operadora = 3;
+                    }
+                    if(this.plano == 'diamante'){
+                        this.operadora = 3;
+                    }                    
+                    if(this.plano == 'ouro'){
+                        this.operadora = 1;
+                    }                    
+                    this.$store.dispatch('get_plan', dados);
+
+                } 
+            },            
             cadastro: function(paymentMethod){
                 
                 $('#efetuar_pagto').text('Aguarde...');
@@ -1026,6 +1069,8 @@ export default {
                 let card_vencimento = this.card_vencimento;
                 let card_cvv = this.card_cvv;
                 let operadora = this.operadora;
+
+                let dependentes = this.dependentes;
                 
                 let dados = null;
                 if(paymentMethod == "cartao"){
@@ -1057,6 +1102,8 @@ export default {
                         card_vencimento:card_vencimento,
                         card_cvv:       card_cvv,
 
+                        dependentes: dependentes,
+
                         paymentMethod:  paymentMethod,
                         operadora:      operadora,
                         _token:         csrfToken                    
@@ -1086,6 +1133,7 @@ export default {
                         cidade:         cidade,
                         uf:             uf,
                         paymentMethod:  paymentMethod,
+                        dependentes: dependentes,
                         operadora:      operadora,
                         _token:         csrfToken                    
                     };
@@ -1197,13 +1245,15 @@ export default {
                     let $nomemae    = this.dep_nomemae;
                     let $sexo       = this.dep_sexo;
                     let $data       = this.dep_nasc;          
+                    let $parentesco = this.dep_parentesco;       
 
                     let dados = {
                         nome: $nome,
                         cpf: $cpf,
                         nomemae: $nomemae,
                         sexo: $sexo,
-                        data: $data
+                        data: $data,
+                        parentesco: $parentesco
                     }
                     this.dependentes.unshift(dados);
 
@@ -1265,6 +1315,15 @@ export default {
                         });                            
                         return false;                    
                 }   
+                else if(this.dep_parentesco == "" || this.dep_parentesco == null || this.dep_parentesco == 'Parentesco'){
+                        swal({
+                            title: "Informe o Parentesco",
+                            text: "Corriga e tente novamente",
+                            icon: "error",
+                            button: "OK",
+                        });                            
+                        return false;                    
+                }                   
                 else if(this.dep_nomemae == "" || this.dep_nomemae== null){
                         swal({
                             title: "Informe o nome da Mãe",
@@ -1280,15 +1339,19 @@ export default {
                     cpf:        this.dep_cpf,
                     nomemae:    this.dep_nomemae,
                     sexo:       this.dep_sexo,
-                    nasc:       this.dep_nasc
+                    nasc:       this.dep_nasc,
+                    parentesco: this.dep_parentesco
                 }                
                 this.dependentes.unshift(dados);
 
                 this.dep_nome       = null;
                 this.dep_cpf        = null;
                 this.dep_nomemae    = null;
-                this.dep_sexo       = null;
+                this.dep_sexo       = 'Sexo';
+                this.dep_parentesco = 'Parentesco';
                 this.dep_nasc       = null;
+
+                this.setPlan2();
 
                 return true;
 
@@ -1306,6 +1369,7 @@ export default {
                 .then((willDelete) => {
                 if (willDelete) {
                      set.dependentes.splice(id,1);
+                     set.setPlan2();
                     swal("O beneficiários foi excluído!", {
                     icon: "success",
                     });
