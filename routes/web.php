@@ -124,7 +124,11 @@ Route::middleware(['auth','admin'])->group(function () {
     
 });
 
+//temporario
+Route::get('gerar_planos_dep', [ControllerPlans::class,'gerar_planos_dep'])->name('gerar_planos_dep');  
+
 Route::get('get_postback', [PostbackController::class,'get_postback'])->name('get_postback');   
+
 
 
     Route::get('encript',function() {

@@ -100,9 +100,7 @@
                         <div class="input-group mb-3">
                             <input type="password" class="form-control" v-model="password" placeholder="Crie sua senha mínimo 6 caracteres" aria-label="celular" aria-describedby="addon-wrapping">
                         </div> 
-                        <div class="alert alert-danger" role="alert" id="alert1">
-                        
-                        </div>                                 
+                                           
                         <div class="d-grid gap-2">
                             <button type="button" class="btn btn-primary" @click="steps(2)">Iniciar Cadastro</button>
                         </div>
@@ -110,7 +108,7 @@
                 
                     <!-- etapa 2 -->
                     <div class="card-body" id="etapa2">
-                        <div class='voltar'><i class="fas fa-angle-left"></i> Voltar</div>
+                        <div class='voltar' @click="voltar(1)"><i class="fas fa-angle-left"></i> Voltar</div>
                         <h5 class="card-title">Dados Cadastrais</h5>
 
                      
@@ -173,6 +171,7 @@
 
                     <!-- etapa 3 -->
                     <div class="card-body" id="etapa3">
+                        <div class='voltar' @click="voltar(2)"><i class="fas fa-angle-left"></i> Voltar</div>
                         <h5 class="card-title">Endereço</h5>
                 
                         <div class="input-group mb-3">
@@ -236,14 +235,78 @@
                         
                         </div>                     
                         <div class="d-grid gap-2">
-                            <button type="button" class="btn btn-primary" @click="steps(4)">Continuar</button>
+                            <button type="button" class="btn btn-primary" @click="steps(9)">Continuar</button>
                         </div>
 
                     </div>  
 
+                    <div class="card-body" id="etapa9" style="min-height:400px;">
+                        <div class='voltar' @click="voltar(3)"><i class="fas fa-angle-left"></i> Voltar</div>
+                        <h5 class="card-title">Beneficiários</h5>
+                        
+
+
+                        <div class="row">
+                            <div class="p-2 col-12 center">
+                                <input type="text" class="form-control col-xl-2" v-model="dep_nome" id = "dep_nome" placeholder="Nome completo" aria-label="dep_nome" aria-describedby="addon-wrapping">
+                            </div>
+                            <div class="p-2 col-6 col-md-12">
+                                <input type="phone" class="form-control" v-mask="'###.###.###-##'" v-model="dep_cpf" id = "dep_cpf" placeholder="CPF" aria-label="dep_cpf" aria-describedby="addon-wrapping">
+                            </div>       
+                            <div class="p-2 col-6 ">
+                                <input type="phone" class="form-control" v-mask="'##/##/####'" v-model="dep_nasc" id = "dep_nasc" placeholder="Nascimento" aria-label="dep_nasc" aria-describedby="addon-wrapping">
+                            </div>  
+
+                            <div class="p-2 col-4">
+                                <select class="form-select" v-model="dep_sexo" id="dep_sexo" >
+                                    <option  disabled selected>Sexo</option>
+                                    <option value="F">Feminino</option>
+                                    <option value="M">Masculino</option>
+                                </select>                              
+                            </div>                            
+
+                            <div class="p-2 col-8" >
+                                <input type="text" class="form-control" v-model="dep_nomemae" id = "dep_nomemae" placeholder="Nome da Mãe" aria-label="dep_nomemae" aria-describedby="addon-wrapping">
+                            </div>   
+
+                            <div class="p-2 col-12"  style="text-align:right;margin-bottom:20px;">
+                                <button type="button" class="btn btn-primary right" @click="validaBenef()">Adicionar</button>
+                            </div>                                                                            
+                        </div>
+
+                        <div class="row" v-if="dependentes.length > 0">
+                            <div class="p-2 col-12">
+
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Beneficiários</th>
+                                            <th scope="col"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr v-for="(item, index) in dependentes" :key="index" >
+                                            <td>{{item.nome}} <br> {{item.cpf}}</td>
+                                            
+                                            <td><i class="fas fa-trash-alt" style="font-size:18px;" @click="removerDependentes(index)"></i></td>
+                                        </tr>
+                                    </tbody>
+                                </table>                                
+
+                            </div>
+                        </div>
+
+                        <div class="d-grid gap-2">
+                            <button type="button" class="btn btn-primary" @click="steps(4)">Continuar</button>
+                        </div>                        
+
+                    </div>                    
+
                     <!-- etapa 4 -->
                     <div class="card-body" id="etapa4">
-                        <h5 class="card-title">Termos</h5>
+                        <div class='voltar' @click="voltar(9)"><i class="fas fa-angle-left"></i> Voltar</div>
+
+                        <h5 class="card-title" style="margin-top:20px;">Termos</h5>
                         <p v-if="dados_plano"><strong>{{dados_plano.descricao}} - {{dados_plano.amount}} - {{dados_plano.periodo}}</strong></p> 
                         <div style="max-height:240px; overflow:auto;margin-bottom:20px;" >
                             <p>Declaro para todos os fins de direito, estar ciente e DE acordo com as seguintes normas, às quais me obrigo, por mim e por meus Dependentes e/ou Agregados:</p>
@@ -287,8 +350,9 @@
                         </div>
                     </div>   
                     <div class="card-body" id="etapa5">
+                    <div class='voltar' @click="voltar(4)"><i class="fas fa-angle-left"></i> Voltar</div>
 
-                        <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <ul class="nav nav-tabs" id="myTab" role="tablist" style="margin-top:30px;">
                             <li class="nav-item">
                                 <a class="nav-link active" id="cartao-tab" data-toggle="tab" href="#cartao" role="tab" aria-controls="cartao" arielected="true">Cartão</a>
                             </li>
@@ -339,7 +403,11 @@
                 </div> 
   
             </div>
+
+         
         </section>         
+
+
     </div>
 </template>
 
@@ -386,7 +454,13 @@ export default {
                 cardToken:null,
                 method:null,
                 url:'http://127.0.0.1:8000/',
+                dependentes:[],
                 operadora:0,
+                dep_nome: '',
+                dep_cpf: '',
+                dep_nasc: '',
+                dep_sexo: 'Sexo',
+                dep_nomemae: '',
                 
 
             }
@@ -570,7 +644,7 @@ export default {
                     $("#etapa2").css('display','none');
                     $("#etapa3").css('display','none');
                     $("#etapa4").css('display','none');
-                    $("#etapa4").css('display','none');
+                    $("#etapa9").css('display','none');
                     
                     $("#etapa"+item).css('display','block');
 
@@ -808,7 +882,7 @@ export default {
                         });    
                         return false;
                     }                                      
-                } else if(item == 4){
+                } else if(item == 9){
                     
                     if(this.cep == '' || this.cep == null){
                         swal({
@@ -1115,8 +1189,236 @@ export default {
                     
                 }
             },
-              
+            cadastraB: function(){
+                let b = this.validacaoB();
+                if(b){
+                    let $nome       = this.dep_nome;
+                    let $cpf        = this.dep_cpf;
+                    let $nomemae    = this.dep_nomemae;
+                    let $sexo       = this.dep_sexo;
+                    let $data       = this.dep_nasc;          
 
+                    let dados = {
+                        nome: $nome,
+                        cpf: $cpf,
+                        nomemae: $nomemae,
+                        sexo: $sexo,
+                        data: $data
+                    }
+                    this.dependentes.unshift(dados);
+
+                    this.dep_nome       = null;           
+                    this.dep_cep        = null;
+                    this.dep_nomemae    = null;
+                    this.dep_sexo       = 'Sexo';
+                    this.dep_nasc       = null;
+                } else {
+                    //console.log("nao validado")
+                }
+            },              
+            voltar: function(id){
+                $("#etapa1").css('display','none');
+                $("#etapa2").css('display','none');
+                $("#etapa3").css('display','none');
+                $("#etapa4").css('display','none');
+                $("#etapa9").css('display','none');
+                $("#etapa5").css('display','none');
+
+                $("#etapa"+id).css('display','block');
+            },
+
+            validaBenef: function(){
+                if(this.dep_nome == "" || this.dep_nome == null){
+                        swal({
+                            title: "Informe o nome completo",
+                            text: "Corriga e tente novamente",
+                            icon: "error",
+                            button: "OK",
+                        });                            
+                        return false;                    
+                }
+
+                else if(this.dep_cpf == "" || this.dep_cpf == null){
+                        swal({
+                            title: "Informe o CPF",
+                            text: "Corriga e tente novamente",
+                            icon: "error",
+                            button: "OK",
+                        });                            
+                        return false;                    
+                }                
+                else if(this.dep_nasc == "" || this.dep_nasc == null){
+                        swal({
+                            title: "Informe o Nascimento",
+                            text: "Corriga e tente novamente",
+                            icon: "error",
+                            button: "OK",
+                        });                            
+                        return false;                    
+                }    
+                else if(this.dep_sexo == "" || this.dep_sexo == null || this.dep_sexo == 'Sexo'){
+                        swal({
+                            title: "Informe o Sexo",
+                            text: "Corriga e tente novamente",
+                            icon: "error",
+                            button: "OK",
+                        });                            
+                        return false;                    
+                }   
+                else if(this.dep_nomemae == "" || this.dep_nomemae== null){
+                        swal({
+                            title: "Informe o nome da Mãe",
+                            text: "Corriga e tente novamente",
+                            icon: "error",
+                            button: "OK",
+                        });                            
+                        return false;                    
+                }                
+
+                let dados = {
+                    nome:       this.dep_nome,
+                    cpf:        this.dep_cpf,
+                    nomemae:    this.dep_nomemae,
+                    sexo:       this.dep_sexo,
+                    nasc:       this.dep_nasc
+                }                
+                this.dependentes.unshift(dados);
+
+                this.dep_nome       = null;
+                this.dep_cpf        = null;
+                this.dep_nomemae    = null;
+                this.dep_sexo       = null;
+                this.dep_nasc       = null;
+
+                return true;
+
+            },
+            removerDependentes(id){
+                let set = this;
+  
+                swal({
+                title: "Deseja excluir?",
+                text: "O dependente será excluido!",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+                })
+                .then((willDelete) => {
+                if (willDelete) {
+                     set.dependentes.splice(id,1);
+                    swal("O beneficiários foi excluído!", {
+                    icon: "success",
+                    });
+                } else {
+                    
+                }
+                });                
+                
+            },            
+            validadataB: function(){
+                var data = this.dep_nasc;
+
+                let reg = /[^\d\/\.]/gi;                  // Mascara = dd/mm/aaaa | dd.mm.aaaa
+                var valida = data.replace(reg,'');    // aplica mascara e valida só numeros
+                if (valida && valida.length == 10) {  // é válida, então ;)
+                    var ano = data.substr(6),
+                    mes = data.substr(3,2),
+                    dia = data.substr(0,2),
+                    M30 = ['04','06','09','11'],
+                    v_mes = /(0[1-9])|(1[0-2])/.test(mes),
+                    v_ano = /(19[1-9]\d)|(20\d\d)|2100/.test(ano),
+                    rexpr = new RegExp(mes),
+                    fev29 = ano % 4? 28: 29;
+
+                    if (v_mes && v_ano) {
+                    if (mes == '02') return (dia >= 1 && dia <= fev29);
+                    else if (rexpr.test(M30)) return /((0[1-9])|([1-2]\d)|30)/.test(dia);
+                    else return /((0[1-9])|([1-2]\d)|3[0-1])/.test(dia);
+                    }
+                }
+                return false  
+
+            },      
+            validaCPFB: function(){
+                let cpf = this.dep_cpf;
+                cpf = cpf.replace(/\./g, "");
+                cpf = cpf.replace(/-/g, "");
+                
+                
+                var numeros, digitos, soma, i, resultado, digitos_iguais;
+                digitos_iguais = 1;
+                if (cpf.length < 11)
+                    return false;
+                for (i = 0; i < cpf.length - 1; i++)
+                    if (cpf.charAt(i) != cpf.charAt(i + 1))
+                            {
+                            digitos_iguais = 0;
+                            break;
+                            }
+                if (!digitos_iguais)
+                    {
+                    numeros = cpf.substring(0,9);
+                    digitos = cpf.substring(9);
+                    soma = 0;
+                    for (i = 10; i > 1; i--)
+                            soma += numeros.charAt(10 - i) * i;
+                    resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
+                    if (resultado != digitos.charAt(0))
+                            return false;
+                    numeros = cpf.substring(0,10);
+                    soma = 0;
+                    for (i = 11; i > 1; i--)
+                            soma += numeros.charAt(11 - i) * i;
+                    resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
+                    if (resultado != digitos.charAt(1))
+                            return false;
+                    return true;
+                    }
+                else
+                    return false;
+                    
+            },         
+            validacaoB: function(){
+                let nome = $("#nomeP").val();
+                let cpf      = this.validaCPFB();
+                let nomemae = $("#nomemaeP").val();
+                let sexop = $( "#sexoP option:selected" ).val();
+                let parentesco = $( "#parentesco option:selected" ).val();
+                let data   = $("#datanascB").val();
+                
+                if(nome == ''){
+                    swal("Nome Inválido", "Corrige e tente novamente", "error");
+                    this.setBtn(1);
+                    return false;
+                }
+                else if(!cpf){
+                    swal("CPF Inválido", "Corrige e tente novamente", "error");
+                    this.setBtn(1);
+                    return false;
+                }              
+                else if(nomemae == ''){
+                    swal("Nome da Mãe Inválido", "Corrige e tente novamente", "error");
+                    this.setBtn(1);
+                    return false;
+                }
+                else if(parentesco == ''){
+                    swal("Parentesco Inválido", "Corrige e tente novamente", "error");
+                    this.setBtn(1);
+                    return false;
+                }            
+                else if(!this.validadataB() || data == ''){
+                    swal("Data Nascimento Inválida", "Corrige e tente novamente", "error");
+                    this.setBtn(1);
+                    return false;
+                }
+                else if(sexop == ''){
+                    swal("Sexo Inválido", "Corrige e tente novamente", "error");
+                    this.setBtn(1);
+                    return false;
+                }      
+                this.close_modal_b();
+                return true;   
+            },
             validaCPF: function(){
                 let cpf = $("#cpf").val();
                 cpf = cpf.replace(/\./g, "");
@@ -1248,16 +1550,19 @@ export default {
                 $("#etapa2").css('display','none');
                 $("#etapa3").css('display','none');
                 $("#etapa4").css('display','none');
+                $("#etapa9").css('display','none');
                 $("#etapa5").css('display','none');
                 
 
                 $("#alert4_boleto").css('display','none');
 
-                $("#alert1").css('display','none');
+                $("#alert1").css('display','block');
                 $("#alert2").css('display','none');
                 $("#alert3").css('display','none');
                 $("#alert4").css('display','none');
+                $("#alert9").css('display','none');
                 $("#alert5").css('display','none');
+                
                 
 
             });

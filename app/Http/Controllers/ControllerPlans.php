@@ -51,7 +51,7 @@ class ControllerPlans extends Controller
 
             $pagarme = new PagarmeRequestService();
             $createPagarmePlan = $pagarme->createPlan($amount, $days, $name, $payment_methods, $trial_days);
-            return $createPagarmePlan;
+            
             if (isset($createPagarmePlan['errors'])) {
 
                 DB::rollBack();
@@ -85,7 +85,7 @@ class ControllerPlans extends Controller
         $planos = new Plan();
         $dados = $planos->get_plan();
         
-
+        
         foreach($dados as $plano){
 
             $codigo = $plano->codigo;
@@ -139,4 +139,59 @@ class ControllerPlans extends Controller
           curl_close($curl);
           echo $response;   
     }    
+
+    public function gerar_planos_dep(){
+
+        $plan = Plan::where('tipo','producao')
+                     ->get();
+
+        $amount = 0;
+        
+        $i = 1;                     
+        foreach($plan as $item){
+            
+            $amount = $item->amount;
+            $codigo             = $item->codigo;
+            $descricao          = $item->descricao;
+            $periodo          = $item->periodo;
+            $nick               = $item->nick;
+            $percent_promotor   = $item->percent_promotor;
+            $periodo            = $item->periodo;
+            $tipo = "producao";
+
+            
+
+            for($y=2; $y <= 11; $y++){
+
+                $dep = $y - 1;
+
+                $codigo2 = $codigo + $dep;
+
+                $valor = $amount * $y;
+
+                $valor = number_format($valor,2,",",".");
+
+                $valor = str_replace(".","", $valor);
+                $valor = str_replace(",",".", $valor);
+                // 123.245.678.900,00                
+
+                echo $y. " - ".$codigo2. " - ". $descricao ." + ". $dep. " - ". $periodo. " - ". $valor ."</br>";
+
+                Plan::create([
+                    'codigo'            => $codigo2,
+                    'amount'            => $valor,
+                    'qtd_dep'           => $dep,
+                    'descricao'         => $descricao ." + ". $dep,
+                    'nick'              => $nick,
+                    'percent_promotor'  => $percent_promotor,
+                    'periodo'           => $periodo,
+                    'tipo'              => $tipo
+                   
+                ]);                    
+            }
+
+            $i++;
+        }
+
+    }
 }
