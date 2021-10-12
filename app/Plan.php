@@ -17,8 +17,8 @@ class Plan extends Model
     public function get_plan(){
       return DB::table('plans')
         ->where('periodo',"mensal")
-        ->where('tipo',"producao")
-        ->whereNull('codigo_integracao')
+        ->where('tipo',"teste")
+        
         ->get();        
     }   
 }

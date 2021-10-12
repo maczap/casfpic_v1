@@ -33,7 +33,6 @@ class ControllerPlans extends Controller
         $plan = Plan::where('nick',$plano)
                      ->where('periodo',$periodo)
                      ->where('tipo',$ambiente)
-                     ->where('qtd_dep',$qtddep)
                      ->get();
         return $plan;
     }    
@@ -95,7 +94,7 @@ class ControllerPlans extends Controller
             $amount = $plano->amount;
             $name   = $plano->descricao;
 
-                  
+            // echo $name ."</br>";
 
             $this->store($amount, $name, $codigo);
         }

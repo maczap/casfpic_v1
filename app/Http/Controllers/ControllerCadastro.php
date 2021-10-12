@@ -213,7 +213,9 @@ class ControllerCadastro extends Controller
             $periodo    = $request['periodo'];
             $operadora  = $request['operadora'];
 
-            $dados_plano = $this->get_plan($plano, $periodo);
+            $total_dep =  count($request['dependentes']);
+
+            $dados_plano = $this->get_plan($plano, $periodo, $total_dep);
             
             $plano_codigo   = $dados_plano->codigo;
             $plano_codigo_integracao   = $dados_plano->codigo_integracao;
@@ -456,8 +458,8 @@ class ControllerCadastro extends Controller
                                                                                                                        
                             
                             if (isset($subscription['errors'])) {
-                                // return $subscription['errors'];
-                                return response()->json(["errors" => ["Transação" => ["Erro na transação.. Entre em contato conosco"]]]);
+                                return $subscription['errors'];
+                                // return response()->json(["errors" => ["Transação" => ["Erro na transação.. Entre em contato conosco"]]]);
                             }
 
                             // $this->postobrigado($email, $nome, $plano_plano, $boleto_url= null, $boleto_barcode = null, $periodo, $status);
@@ -607,7 +609,7 @@ class ControllerCadastro extends Controller
     }
 
 
-    public function get_plan($plano, $periodo)
+    public function get_plan($plano, $periodo, $total_dep)
     {
         $ambiente = null;
         if(config('services.pagarme.ambiente') == "local"){
@@ -619,6 +621,7 @@ class ControllerCadastro extends Controller
         $dados = Plan::where('nick',$plano)
                      ->where('periodo',$periodo)
                      ->where('tipo',$ambiente)
+                     ->where('qtd_dep',$total_dep)
                      ->get();
         
 
