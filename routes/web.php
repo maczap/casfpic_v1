@@ -7,6 +7,7 @@ use App\Http\Controllers\ControllerPlans;
 use App\Http\Controllers\PostbackController;
 use App\Http\Controllers\ControllerPromotores;
 use App\Http\Controllers\ControllerDash;
+use App\Http\Controllers\ControllerDependents;
 use App\Services\PagarmeRequestService;
 
 
@@ -111,8 +112,10 @@ Route::middleware(['auth','admin'])->group(function () {
         Route::get('get/recipient/{id}/saldo', [ControllerPromotores::class,'recipientSaldo'])->name('recipientgetsaldo');
         Route::get('get/recipient/{id}/operations', [ControllerPromotores::class,'recipientTransacoes'])->name('recipientTransacoes');
         Route::post('cadastro/promotor', [ControllerPromotores::class,'cadastro_promotor'])->name('cadastro_promotor');
-        
 
+        Route::get('get_dependent/{id}', [ControllerDependents::class,'get_dependent'])->name('get_dependent');
+        
+        
         
         
 

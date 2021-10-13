@@ -56,10 +56,12 @@
 
                 <div class="tabs">
                 <a id="nav_1" class="tab tab-lifted tab-active" @click="tab(1)">Cadastro</a> 
+                <a id="nav_8" class="tab tab-lifted " @click="tab(8)">Plano</a> 
+                <a id="nav_6" class="tab tab-lifted " @click="tab(6), getDependend(socio.id)">Dependentes</a> 
                 <a id="nav_4" class="tab tab-lifted " @click="tab(4)">Atendimento</a> 
                 <a id="nav_5" class="tab tab-lifted " @click="tab(5)">Carteirinhas</a> 
-                <a id="nav_2" class="tab tab-lifted " @click="tab(2)">Pagamentos</a> 
-                <a id="nav_3" class="tab tab-lifted" @click="tab(3)">Transações</a>
+                <!-- <a id="nav_2" class="tab tab-lifted " @click="tab(2)">Pagamentos</a>  -->
+                <!-- <a id="nav_3" class="tab tab-lifted" @click="tab(3)">Transações</a> -->
                 </div>
 
 
@@ -233,6 +235,36 @@
                         <div class="p-2 card " id="tab_3"> Transações</div>
                         <div class="p-2 card " id="tab_4"> Atendimento</div>
                         <div class="p-2 card " id="tab_5"> Carteirinhas</div>
+                        <div class="p-2 card " id="tab_6">
+
+                            <div class="overflow-x-auto" v-if="dependents.length > 0">
+                                <table class="table w-full">
+                                    <thead>
+                                    <tr>
+                                        <th></th> 
+                                        <th>Nome</th> 
+                                        <th>CPF</th> 
+                                        <th>Nascimento</th>
+                                        <th>Sexo</th>
+                                        <th>Nome da Mãe</th>
+                                    </tr>
+                                    </thead> 
+                                    <tbody>
+                                    <tr v-for="(item, index) in dependents" :key="index">
+                                        <th>1</th> 
+                                        <td>{{item.nome}}</td> 
+                                        <td>{{item.cpf}}</td> 
+                                        <td>{{item.nascimento}}</td>
+                                        <td>{{item.sexo}}</td>
+                                        <td>{{item.nomemae}}</td>
+                                    </tr>
+                                  
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+                        <div class="p-2 card " id="tab_8"> Plano</div>
                         
                     </div>
 
@@ -265,6 +297,7 @@ export default {
         return{
             socios:[],
             socio:[],
+            dependents:[],
             configs: {
                 orderBy: 'nome',
                 order: '',
@@ -280,8 +313,33 @@ export default {
         Pagination
     },
     methods:{
+        navegacao: function(){
+           $("#tab_1").css("display","block");
+            $("#tab_2").css("display","none");
+            $("#tab_3").css("display","none");
+            $("#tab_4").css("display","none");
+            $("#tab_5").css("display","none");
+            $("#tab_6").css("display","none");
+            $("#tab_8").css("display","none");
+
+            $( "#nav_1" ).addClass( "tab-active" );
+            $( "#nav_2" ).removeClass( "tab-active" );
+            $( "#nav_3" ).removeClass( "tab-active" );
+            $( "#nav_4" ).removeClass( "tab-active" );
+            $( "#nav_5" ).removeClass( "tab-active" );
+            $( "#nav_6" ).removeClass( "tab-active" );
+            $( "#nav_8" ).removeClass( "tab-active" );
+        },
+        getDependend: function(id){
+            let set = this;
+            axios.get('get_dependent/'+id).then(response => {
+                console.log(response.data);
+                set.dependents = response.data;
+            });
+        },
         getSocios: function (){
             let set = this;
+            
             axios.get('dash/cadastros').then(response => {
                 console.log(response.data);
                 set.socios = response.data;
@@ -289,6 +347,9 @@ export default {
         },
         show: function (id){
             let set = this;
+            this.navegacao();
+            this.dependents = [];
+
             axios.get('get/cadastros/'+id).then(response => {
                 console.log(response.data);
                 set.socio = response.data;
@@ -301,12 +362,16 @@ export default {
             $("#tab_3").css("display","none");
             $("#tab_4").css("display","none");
             $("#tab_5").css("display","none");
+            $("#tab_6").css("display","none");
+            $("#tab_8").css("display","none");
 
             $( "#nav_1" ).removeClass( "tab-active" );
             $( "#nav_2" ).removeClass( "tab-active" );
             $( "#nav_3" ).removeClass( "tab-active" );
             $( "#nav_4" ).removeClass( "tab-active" );
             $( "#nav_5" ).removeClass( "tab-active" );
+            $( "#nav_6" ).removeClass( "tab-active" );
+            $( "#nav_8" ).removeClass( "tab-active" );
 
             $( "#nav_"+id ).addClass( "tab-active" );
 
@@ -349,6 +414,8 @@ export default {
             $("#tab_3").css("display","none");
             $("#tab_4").css("display","none");
             $("#tab_5").css("display","none");
+            $("#tab_6").css("display","none");
+            $("#tab_8").css("display","none");
     }
 }
 </script>
