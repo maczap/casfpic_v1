@@ -67,46 +67,46 @@
                     <div class="col-span-12">
 
                         <div class="p-2 card " id="tab_1">
-                            <div class="flex flex-wrap min-h-96">
+                            <div class="flex flex-wrap min-h-96 p-1">
 
-                                <div class="p-2 w-1/4">
+                                <div class="p-1 w-1/4">
                                     <label class="label">
                                     <span class="label-text  text-gray-400">Nome</span>
                                     </label> 
-                                    <input type="text" placeholder="Nome" v-model="socio.name" class="input w-full">
+                                    <input type="text" placeholder="Nome" v-model="socio.name" class="input h-8 p-1 w-full ">
                                 </div>
 
-                                <div class="flex-initial p-2">
+                                <div class="flex-initial w-30  p-1">
                                     <label class="label">
                                     <span class="label-text  text-gray-400">CPF</span>
                                     </label> 
-                                    <input type="text" placeholder="CPF" v-model="socio.cpf" class="input w-full">
+                                    <input type="text" placeholder="CPF" v-model="socio.cpf" class="input h-8 w-full p-1">
                                 </div>
 
-                                <div class="flex-initial p-2">
+                                <div class="flex-initial w-28 p-1">
                                     <label class="label">
-                                    <span class="label-text  text-gray-400 text-gray-400">RG</span>
+                                    <span class="label-text  text-gray-400">RG</span>
                                     </label> 
-                                    <input type="text" placeholder="RG" v-model="socio.rg" class="input w-full">
+                                    <input type="text" placeholder="RG" v-model="socio.rg" class="input h-8 w-full p-1">
                                 </div>      
 
-                                <div class="flex-1 p-2">
+                                <div class="flex-1 p-1">
                                     <label class="label">
                                     <span class="label-text  text-gray-400">Sexo</span>
                                     </label> 
-                                        <select class="select select-bordered w-full max-w-xs" v-model="socio.sexo" id="sexo" >
+                                        <select class="select select-bordered  h-8 min-h-8 w-full max-w-xs" v-model="socio.sexo" id="sexo" >
                                             <option disabled="disabled" selected="selected">Sexo</option> 
-                                            <option value="1">Feminino</option>
-                                            <option value="2">Masculino</option>
+                                            <option value="F">Feminino</option>
+                                            <option value="M">Masculino</option>
                                         </select>  
                                 </div>  
 
-                                <div class="flex-1 p-2">
+                                <div class="flex-1 p-1">
                                     <label class="label">
                                     <span class="label-text  text-gray-400">Estado Civil</span>
                                     </label> 
 
-                                    <select class="select select-bordered w-full max-w-xs" v-model="socio.ecivil" id="ecivil" >
+                                    <select class="select select-bordered w-full max-w-xs h-8 min-h-8" v-model="socio.ecivil" id="ecivil" >
                                         <option disabled="disabled" selected="selected">Estado Civil</option> 
                                         <option value="0">Solteiro</option>
                                         <option value="1">Casado</option>
@@ -123,32 +123,32 @@
 
                             <div class="flex flex-wrap">
 
-                                <div class="flex-1 p-2">
+                                <div class="flex-1 p-1">
                                     <label class="label">
                                     <span class="label-text  text-gray-400">Nascimento</span>
                                     </label> 
-                                    <input type="text" placeholder="username"  :value="socio.nascimento | formatDate" class="input w-full">
+                                    <input type="text" placeholder="username"  :value="socio.nascimento | formatDate" class="input h-8 w-full">
                                 </div>   
 
-                                <div class="flex-1 p-2">
+                                <div class="flex-1 p-1">
                                     <label class="label">
                                     <span class="label-text  text-gray-400">Profissão</span>
                                     </label> 
-                                    <input type="text" placeholder="Profissão" v-model="socio.profissao" class="input w-full">
+                                    <input type="text" placeholder="Profissão" v-model="socio.profissao" class="input h-8 w-full">
                                 </div>                                  
                                           
-                                <div class="flex-1 p-2 w-1">
+                                <div class="flex-1 p-1 w-1">
                                     <label class="label">
                                     <span class="label-text  text-gray-400">Nome da Mãe</span>
                                     </label> 
-                                    <input type="text" placeholder="Nome da Mãe" v-model="socio.nomemae"  class="input w-full">
+                                    <input type="text" placeholder="Nome da Mãe" v-model="socio.nomemae"  class="input h-8 w-full">
                                 </div>  
   
-                                <div class="flex-1 p-2">
+                                <div class="flex-1 p-1">
                                     <label class="label">
                                     <span class="label-text  text-gray-400">Promotor</span>
                                     </label> 
-                                    <input type="text" placeholder="username" v-model="socio.promotor"  class="input w-full">
+                                    <input type="text" placeholder="username" v-model="socio.promotor"  class="input h-8 w-full">
                                 </div>                                  
 
                             </div>   
@@ -157,37 +157,37 @@
                             <div class="flex flex-wrap">
 
   
-                                <div class="flex--initial p-2 w-96">
+                                <div class="flex--initial p-1 w-72">
                                     <label class="label">
                                     <span class="label-text  text-gray-400">Endereço</span>
                                     </label> 
-                                    <input type="text" placeholder="Endereço" v-model="socio.endereco"  class="input w-full">
+                                    <input type="text" placeholder="Endereço" v-model="socio.endereco"  class="input h-8 w-full">
                                 </div>  
 
-                                <div class="flex-initial p-2 w-32">
+                                <div class="flex-initial p-1 w-32">
                                     <label class="label">
                                     <span class="label-text  text-gray-400">Numero</span>
                                     </label> 
-                                    <input type="text" placeholder="Número" v-model="socio.numero"  class="input w-full">
+                                    <input type="text" placeholder="Número" v-model="socio.numero"  class="input h-8 w-full">
                                 </div>   
 
-                                <div class="flex-initial p-2 w-40">
+                                <div class="flex-initial p-1 w-40">
                                     <label class="label">
                                     <span class="label-text  text-gray-400">Complemento</span>
                                     </label> 
-                                    <input type="text" placeholder="Complemento" v-model="socio.complemento"  class="input w-full">
+                                    <input type="text" placeholder="Complemento" v-model="socio.complemento"  class="input h-8 w-full">
                                 </div>   
-                                <div class="flex-initial p-2 w-52">
+                                <div class="flex-initial p-1 w-52">
                                     <label class="label">
                                     <span class="label-text  text-gray-400">Bairro</span>
                                     </label> 
-                                    <input type="text" placeholder="Bairro" v-model="socio.bairro"  class="input w-full">
+                                    <input type="text" placeholder="Bairro" v-model="socio.bairro"  class="input h-8 w-full">
                                 </div>      
-                                <div class="flex-initial p-2 w-36">
+                                <div class="flex-initial p-1 w-36">
                                     <label class="label">
                                     <span class="label-text  text-gray-400">CEP</span>
                                     </label> 
-                                    <input type="text" placeholder="Bairro" v-model="socio.cep"  class="input w-full">
+                                    <input type="text" placeholder="Bairro" v-model="socio.cep"  class="input h-8 w-full">
                                 </div>                                                              
 
                             </div>       
@@ -196,32 +196,32 @@
 
 
   
-                                <div class="flex-1 p-2">
+                                <div class="flex-initial p-1 w-30">
                                     <label class="label">
                                     <span class="label-text  text-gray-400">Celular</span>
                                     </label> 
-                                    <input type="text" placeholder="Celular" v-model="socio.celular"  class="input w-full">
+                                    <input type="text" placeholder="Celular" v-model="socio.celular"  class="input h-8 w-full">
                                 </div>  
 
-                                <div class="flex-1 p-2">
+                                <div class="flex-initial p-1 w-56">
                                     <label class="label">
                                     <span class="label-text  text-gray-400">email</span>
                                     </label> 
-                                    <input type="text" placeholder="email" v-model="socio.email"  class="input w-full">
+                                    <input type="text" placeholder="email" v-model="socio.email"  class="input h-8 w-full">
                                 </div>   
 
-                                <div class="flex-1 p-2 w-1">
+                                <div class="flex-initial p-1 w-30">
                                     <label class="label">
                                     <span class="label-text  text-gray-400">Plano</span>
                                     </label> 
-                                    <input type="text" placeholder="Plano"  v-model="socio.plano"  class="input w-full">
+                                    <input type="text" placeholder="Plano"  v-model="socio.plano"  class="input h-8 w-full">
                                 </div>  
 
-                                <div class="flex-1 p-2">
+                                <div class="flex-initial p-1 w-30">
                                     <label class="label">
                                     <span class="label-text  text-gray-400">Status</span>
                                     </label> 
-                                    <input type="text" placeholder="Status" v-model="socio.status_detail"  class="input w-full">
+                                    <input type="text" placeholder="Status" v-model="socio.status_detail"  class="input h-8 w-full">
                                 </div>                                        
 
                             </div>   
@@ -246,7 +246,7 @@
     </div>
     <div class="modal-action">
       <!-- <label for="my-modal-2" class="btn btn-primary">Salvar</label>  -->
-      <label for="my-modal-2" class="btn">Fechar</label>
+      <label for="my-modal-2" class="btn btn-sm">Fechar</label>
     </div>
   </div>
 </div>
