@@ -10,38 +10,38 @@
 
                         <div class="p-2 card " id="tab_1">
 
-                            <div class="flex flex-wrap">
+                            <div class="flex flex-wrap p-0">
 
                                 <div class="flex-1 p-1 w-2">
                                     <label class="label">
                                     <span class="label-text  text-gray-400 ">Nome</span>
                                     </label> 
-                                    <input type="text" placeholder="Nome" v-model="promotor.name" class="input w-full h-9 b-1 border-1 border-gray-300">
+                                    <input type="text" placeholder="Nome" v-model="promotor.name" class="input w-full h-8 b-1 border-1 border-gray-300">
                                 </div>
 
                                 <div class="flex-initial p-1">
                                     <label class="label">
                                     <span class="label-text  text-gray-400">CPF</span>
                                     </label> 
-                                    <input type="text" placeholder="" v-mask="'###.###.###-##'"  v-model="promotor.cpf" class="input w-full h-9  border-1 border-gray-300">
+                                    <input type="text" placeholder="" v-mask="'###.###.###-##'"  v-model="promotor.cpf" class="input w-full h-8  border-1 border-gray-300">
                                 </div>
 
                                 <div class="flex-initial p-1">
                                     <label class="label">
                                     <span class="label-text  text-gray-400">RG</span>
                                     </label> 
-                                    <input type="text" placeholder="RG" v-model="promotor.rg" class="input w-full h-9  border-1 border-gray-300">
+                                    <input type="text" placeholder="RG" v-model="promotor.rg" class="input w-full h-8  border-1 border-gray-300">
                                 </div>                                  
 
                             </div>
 
-                            <div class="flex flex-wrap">
+                            <div class="flex flex-wrap p-0">
 
                                 <div class="flex-1 p-1">
                                     <label class="label">
                                     <span class="label-text  text-gray-400">Sexo</span>
                                     </label> 
-                                    <select class="select select-bordered w-full max-w-xs h-9 min-h-0" v-model="promotor.sexo" id="sexo" >
+                                    <select class="select select-bordered w-full max-w-xs h-8 min-h-0" v-model="promotor.sexo" id="sexo" >
                                         <option disabled="disabled" selected="selected">Sexo</option> 
                                         <option value="F">Feminino</option>
                                         <option value="M">Masculino</option>
@@ -52,7 +52,7 @@
                                     <label class="label">
                                     <span class="label-text  text-gray-400">Estado Civil</span>
                                     </label> 
-                                    <select class="select select-bordered w-full max-w-xs h-9 min-h-0" v-model="promotor.ecivil" id="ecivil" >
+                                    <select class="select select-bordered w-full max-w-xs h-8 min-h-0" v-model="promotor.ecivil" id="ecivil" >
                                         <option disabled="disabled" selected="selected">Estado Civil</option> 
                                         <option value="0">Solteiro</option>
                                         <option value="1">Casado</option>
@@ -67,14 +67,14 @@
                                     <label class="label">
                                     <span class="label-text  text-gray-400">Nascimento</span>
                                     </label> 
-                                    <input type="phone" placeholder="" v-mask="'##/##/####'" v-model="promotor.nascimento"  class="input w-full h-9  border-1 border-gray-300">
+                                    <input type="phone" placeholder="" v-mask="'##/##/####'" v-model="promotor.nascimento"  class="input w-full h-8  border-1 border-gray-300">
                                 </div>   
 
                                 <div class="flex-1 p-1">
                                     <label class="label">
                                     <span class="label-text  text-gray-400">Profissão</span>
                                     </label> 
-                                    <input type="text" placeholder="Profissão" v-model="promotor.profissao" class="input w-full h-9  border-1 border-gray-300">
+                                    <input type="text" placeholder="Profissão" v-model="promotor.profissao" class="input w-full h-8  border-1 border-gray-300">
                                 </div>        
 
 
@@ -84,8 +84,8 @@
                                         <span class="label-text  text-gray-400">CEP</span>
                                         </label> 
                                      <div class="relative">
-                                        <input type="text" placeholder="" v-mask="'#####-###'"  v-model="promotor.cep"  class="input h-9  border-1 border-gray-300">
-                                        <button class="absolute top-0 right-0 rounded-l-none btn btn-primary min-h-0 h-9 " @click="buscaCep">Buscar</button>
+                                        <input type="text" placeholder="" v-mask="'#####-###'"  v-model="promotor.cep"  class="input h-8  border-1 border-gray-300">
+                                        <button class="absolute top-0 right-0 rounded-l-none btn btn-primary min-h-0 h-8 " @click="buscaCep">Buscar</button>
                                     </div>
                                 </div>                                                                
 
@@ -99,21 +99,21 @@
                                     <label class="label">
                                     <span class="label-text  text-gray-400">Endereço</span>
                                     </label> 
-                                    <input type="text" placeholder="" v-model="promotor.endereco"  class="input w-full h-9  border-1 border-gray-300">
+                                    <input type="text" placeholder="" v-model="promotor.endereco"  class="input w-full h-8  border-1 border-gray-300">
                                 </div>  
 
                                 <div class="flex-initial p-1">
                                     <label class="label">
                                     <span class="label-text  text-gray-400">Numero</span>
                                     </label> 
-                                    <input type="text" placeholder="" v-model="promotor.numero"  class="input w-24 h-9  border-1 border-gray-300">
+                                    <input type="text" placeholder="" v-model="promotor.numero"  class="input w-24 h-8  border-1 border-gray-300">
                                 </div>   
 
                                 <div class="flex-1 p-1">
                                     <label class="label">
                                     <span class="label-text  text-gray-400">Complemento</span>
                                     </label> 
-                                    <input type="text" placeholder="" v-model="promotor.complemento"  class="input w-full h-9 border-1 border-gray-300">
+                                    <input type="text" placeholder="" v-model="promotor.complemento"  class="input w-full h-8 border-1 border-gray-300">
                                 </div>   
 
                             </div>
@@ -123,20 +123,20 @@
                                     <label class="label">
                                     <span class="label-text  text-gray-400">Bairro</span>
                                     </label> 
-                                    <input type="text" placeholder="" v-model="promotor.bairro"  class="input w-full h-9 border-1 border-gray-300">
+                                    <input type="text" placeholder="" v-model="promotor.bairro"  class="input w-full h-8 border-1 border-gray-300">
                                 </div>      
                                 <div class="flex-1 p-1">
                                     <label class="label">
                                     <span class="label-text  text-gray-400">Cidade</span>
                                     </label> 
-                                    <input type="text" placeholder="" v-model="promotor.cidade"  class="input w-full h-9 border-1 border-gray-300">
+                                    <input type="text" placeholder="" v-model="promotor.cidade"  class="input w-full h-8 border-1 border-gray-300">
                                 </div>  
 
                                 <div class="flex-1 p-1">
                                     <label class="label">
                                     <span class="label-text  text-gray-400">UF</span>
                                     </label> 
-                                        <select class="select select-bordered w-full max-w-xs h-9 min-h-0 " v-model="promotor.uf" id="uf" >
+                                        <select class="select select-bordered w-full max-w-xs h-8 min-h-0 " v-model="promotor.uf" id="uf" >
                                             <option value="">Selecione</option>
                                             <option value="AC">Acre</option>
                                             <option value="AL">Alagoas</option>
@@ -176,7 +176,7 @@
                                     <label class="label">
                                     <span class="label-text  text-gray-400">Banco</span>
                                     </label> 
-                                    <select class="select select-bordered w-full h-9 min-h-0" v-model="promotor.banco" id="banco" >
+                                    <select class="select select-bordered w-full h-8 min-h-0" v-model="promotor.banco" id="banco" >
                                         <option disabled="disabled" selected="selected">Selecione o Banco</option> 
                                         <option value="001">001 - Banco do Brasil</option>
                                         <option value="003">003 - Banco da Amazônia</option>
@@ -313,14 +313,14 @@
                                     <label class="label">
                                     <span class="label-text  text-gray-400">Agência</span>
                                     </label> 
-                                    <input type="text" placeholder="" v-model="promotor.agencia"  class="input w-36 h-9 border-1 border-gray-300">
+                                    <input type="text" placeholder="" v-model="promotor.agencia"  class="input w-36 h-8 border-1 border-gray-300">
                                 </div>   
 
                                 <div class="flex-initial p-1">
                                     <label class="label">
                                     <span class="label-text  text-gray-400">Dígito</span>
                                     </label> 
-                                    <input type="text" placeholder="" v-model="promotor.agencia_dig"  class="input w-16 h-9 border-1 border-gray-300">
+                                    <input type="text" placeholder="" v-model="promotor.agencia_dig"  class="input w-16 h-8 border-1 border-gray-300">
                                 </div> 
 
 
@@ -328,21 +328,21 @@
                                     <label class="label">
                                     <span class="label-text  text-gray-400">Conta</span>
                                     </label> 
-                                    <input type="text" placeholder="" v-model="promotor.conta"  class="input w-40 h-9 border-1 border-gray-300">
+                                    <input type="text" placeholder="" v-model="promotor.conta"  class="input w-40 h-8 border-1 border-gray-300">
                                 </div>    
 
                                 <div class="flex-initial p-1">
                                     <label class="label">
                                     <span class="label-text  text-gray-400">Dígito</span>
                                     </label> 
-                                    <input type="text" placeholder="" v-model="promotor.conta_dig"  class="input w-16 h-9 border-1 border-gray-300">
+                                    <input type="text" placeholder="" v-model="promotor.conta_dig"  class="input w-16 h-8 border-1 border-gray-300">
                                 </div>        
 
                                 <div class="flex-1 p-1">
                                     <label class="label">
                                     <span class="label-text  text-gray-400">Tipo</span>
                                     </label> 
-                                    <select class="select select-bordered w-40 max-w-xs h-9 min-h-0" v-model="promotor.conta_tipo"  >
+                                    <select class="select select-bordered w-40 max-w-xs h-8 min-h-0" v-model="promotor.conta_tipo"  >
                                         <option disabled="disabled" selected="selected">Tipo</option> 
                                         <option value="conta_corrente">Corrente</option>
                                         <option value="conta_poupanca">Poupanca</option>
@@ -353,26 +353,36 @@
                             </div>                                                  
                             <div class="flex flex-wrap">
 
-                                <div class="flex-1 p-1">
+                                <div class="flex-initial p-1">
                                     <label class="label">
                                     <span class="label-text  text-gray-400">PIX</span>
                                     </label> 
-                                    <input type="text" placeholder="" v-model="promotor.pix"  class="input w-full h-9 border-1 border-gray-300">
+                                    <input type="text" placeholder="" v-model="promotor.pix"  class="input w-72 h-8 border-1 border-gray-300">
                                 </div>   
 
-                               <div class="flex-1 p-1">
+                               <div class="flex-initial p-1">
                                     <label class="label">
                                     <span class="label-text  text-gray-400">Celular</span>
                                     </label> 
-                                    <input type="text" placeholder="" v-mask="'(##) #####-####'" v-model="promotor.celular"  class="input w-full h-9 border-1 border-gray-300">
+                                    <input type="text" placeholder="" v-mask="'(##) #####-####'" v-model="promotor.celular"  class="input w-40 h-8 border-1 border-gray-300">
                                 </div>  
 
-                               <div class="flex-1 p-1">
+                               <div class="flex-initial p-1">
                                     <label class="label">
                                     <span class="label-text  text-gray-400">E-mail</span>
                                     </label> 
-                                    <input type="text" placeholder="" v-model="promotor.email"  class="input w-full h-9 border-1 border-gray-300">
-                                </div>                                                                                                  
+                                    <input type="text" placeholder="" v-model="promotor.email"  class="input w-64 h-8 border-1 border-gray-300">
+                                </div>     
+
+                                <div class="flex-initial p-1">
+                                    
+                                    <label class="btn btn-primary btn-sm" style="margin-top:30px;"  @click="cadastro()">Cadastrar</label>
+                                </div>         
+
+                                <div class="flex-initial p-1">
+                                    
+                                    <label for="pro-adicionar" style="margin-top:30px;" class="btn btn-sm right">Fechar</label>
+                                </div>                                                                                                                          
 
                             </div>
 
@@ -381,9 +391,7 @@
                 </div>
 
             <div class="modal-action">
-            <!-- <label for="my-modal-2" class="btn btn-primary">Salvar</label>  -->
-            <label class="btn btn-primary" @click="cadastro()">Cadastrar</label>
-            <label for="pro-adicionar" class="btn ">Fechar</label>
+  
             </div>                
 
             </div>
