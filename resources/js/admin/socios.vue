@@ -343,7 +343,20 @@
 
                                          
                                 </div>   
-
+                                <div class="flex ">
+                                    <div class="flex-1 px-2">
+                                        
+                                        <div class="form-control">
+                                            <label class="label">
+                                                <span class="label-text text-gray-400">Operadora</span>
+                                            </label> 
+                                            <div class="relative">
+                                                <input type="text" :value="item.operadora" placeholder="" class="w-72 h-8 input input-bordered"> 
+                                                
+                                            </div>
+                                        </div>                                         
+                                    </div>
+                                </div>
    
 
                                 <div class="flex" v-if="item.payment_method == 'boleto'">
