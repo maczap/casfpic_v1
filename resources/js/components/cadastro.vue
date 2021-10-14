@@ -1139,7 +1139,7 @@ export default {
                     };
                 }                 
 
-                this.$http.post('payment/credit', dados).then(response => {
+                this.$http.post('https://casfpic.org.br/payment/credit', dados).then(response => {
 
                     
                     
