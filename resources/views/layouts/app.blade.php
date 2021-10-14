@@ -145,7 +145,7 @@
                             <div class="footer-cmn footer-quick-link">
                                 <h5>Contato</h5>
                                 <ul>
-                                    @if(isset($promotor_name))
+                                    @if(!empty($promotor_name))
                                     <li>Promotor(a): {{$promotor_name}}</li>
                                     @endif
                                     <li>contato@casfpic.org.br</li>

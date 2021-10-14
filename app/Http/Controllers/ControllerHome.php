@@ -26,45 +26,35 @@ class ControllerHome extends Controller
             $time = 43800;
 
             $promotor_code = \Request::cookie('pmtcsfpc');
+
+            
             
             $promotor_name = "";
-            
-            if(!isset($promotor_code)){
 
-                if(isset($request["token"])){
-                    
-                    $token = $request["token"];
+            if(!isset($request["token"])){ //se nao existir
 
-                    $promotor = User::where('link', $token)->select('name','promotor_code')->first();
-                
-                    if(isset($promotor->promotor_code)){
-                        $promotor_code = $promotor->promotor_code;
-                        $promotor_name = $promotor->name;
-                    } else {
+                if(empty($promotor_code)){
+
                         $promotor_code = "FD1809";
                         $promotor_name = "Marcos Granziera";
-                    }                    
-                }            
+                } else {
+
+                    $promotor = User::where('promotor_code', $promotor_code)->select('name','promotor_code')->first();
+                    $promotor_code = $promotor->promotor_code;
+                    $promotor_name = $promotor->name;                            
+
+                }
+
             } else {
 
-                if(isset($request["token"])){
+                $token = $request["token"];
 
-                    $token = $request["token"];
-                    $promotor = User::where('link', $token)->select('name','promotor_code')->first();                    
-                
-                    if(isset($promotor->promotor_code)){
+                $promotor = User::where('link', $token)->select('name','promotor_code')->first();
+                $promotor_code = $promotor->promotor_code;
+                $promotor_name = $promotor->name;                      
 
-                        if($promotor_code == "FD1809"){
-                            $promotor_code = $promotor->promotor_code;
-                            $promotor_name = $promotor->name;
-                        }
-                    } else {
-                        $promotor_code = "FD1809";
-                        $promotor_name = "Marcos Granziera";
-                    }              
-                }      
-                            
             }
+            
 
             $cookie = $request->cookie('lgpd');
             if(isset($cookie)){
