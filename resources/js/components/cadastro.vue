@@ -1142,7 +1142,6 @@ export default {
                 this.$http.post('https://casfpic.org.br/payment/credit', dados).then(response => {
 
                     
-                    
                     if(response.body.errors){
                            Object.entries(response.body.errors).forEach(([key, value]) => {
    
