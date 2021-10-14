@@ -284,46 +284,58 @@
                                         
                                         <div class="form-control">
                                             <label class="label">
-                                                <span class="label-text font-medium text-xl">Plano</span>
+                                                <span class="label-text text-gray-400">Plano</span>
                                             </label> 
                                             <div class="relative">
-                                                <input type="text" :value="item.plano" disabled placeholder="Search" class="w-full pr-16 input input-bordered"> 
+                                                <input type="text" :value="item.plano" disabled placeholder="" class="w-full h-8 input input-bordered"> 
                                                 
                                             </div>
                                         </div>                                         
                                     </div>
 
-                                    <div class="flex-1 px-2">
+                                    <div class="flex-initial px-2">
                                         <div class="form-control">
                                             <label class="label">
-                                                <span class="label-text font-medium text-xl">Período</span>
+                                                <span class="label-text text-gray-400">Período</span>
                                             </label> 
                                             <div class="relative">
-                                                <input type="text" :value="item.periodo"  placeholder="Search" class="w-full pr-16 input  input-bordered"> 
+                                                <input type="text" :value="item.periodo"  placeholder="" class="w-24 p-1 h-8  input  input-bordered"> 
                                                 
                                             </div>
                                         </div>                                         
                                     </div>        
 
-                                    <div class="flex-1 px-2">
+                                    <div class="flex-initial px-2">
                                         <div class="form-control">
                                             <label class="label">
-                                                <span class="label-text font-medium text-xl">Valor</span>
+                                                <span class="label-text text-gray-400">Forma Pagto</span>
                                             </label> 
                                             <div class="relative">
-                                                <input type="text" :value="item.amount" placeholder="Search" class="w-full pr-16 input  input-bordered"> 
+                                                <input type="text" :value="item.payment_method"  placeholder="" class="w-28 h-8  input  input-bordered"> 
+                                                
+                                            </div>
+                                        </div>                                         
+                                    </div>                                           
+
+                                    <div class="flex-initial px-2">
+                                        <div class="form-control">
+                                            <label class="label">
+                                                <span class="label-text text-gray-400">Valor</span>
+                                            </label> 
+                                            <div class="relative">
+                                                <input type="text" :value="item.valor" placeholder="" class="w-24 h-8  input  input-bordered"> 
                                                 
                                             </div>
                                         </div>                                         
                                     </div>   
 
-                                    <div class="flex-1 px-2">
+                                    <div class="flex-initial px-2">
                                         <div class="form-control">
                                             <label class="label">
-                                                <span class="label-text font-medium text-xl">Status</span>
+                                                <span class="label-text text-gray-400">Status</span>
                                             </label> 
                                             <div class="relative">
-                                                <input type="text" :value="item.status_detail" placeholder="Search" class="w-full pr-16 input  input-bordered"> 
+                                                <input type="text" :value="item.status_detail" placeholder="" class="w-30 h-8  input  input-bordered"> 
                                                 
                                             </div>
                                         </div>                                         
@@ -334,64 +346,65 @@
 
    
 
-                                <div class="flex">
+                                <div class="flex" v-if="item.payment_method == 'boleto'">
                                     <div class="flex-1 px-2">
                                         <div class="form-control">
                                             <label class="label">
-                                                <span class="label-text font-medium text-xl">Boleto</span>
+                                                <span class="label-text text-gray-400">Boleto</span>
                                             </label> 
                                             <div class="relative">
-                                                <input type="text" :value="item.boleto_url" placeholder="Search" class="w-full pr-16 input input-bordered"> 
-                                                <button class="absolute top-0 right-0 rounded-l-none btn btn-primary">Copiar</button>
+                                                <input type="text" id="adm_boleto" :value="item.boleto_url" placeholder="" class="w-full h-8  input input-bordered"> 
+                                                <button class="absolute top-0 right-0 rounded-l-none btn btn-sm h-8  bg-gray-500 border-opacity-0" onclick="copiarLinkAdmBoleto()">Copiar</button>
+                                            </div>
+                                        </div>                                         
+                                    </div>      
+                                </div>
+                                <div class="flex" v-if="item.payment_method == 'boleto'">
+                                    <div class="flex-1 px-2">
+                                        <div class="form-control">
+                                            <label class="label">
+                                                <span class="label-text text-gray-400">Código de Barra</span>
+                                            </label> 
+                                            <div class="relative">
+                                                <input type="text" id="adm_barra" :value="item.boleto_barcode" placeholder="" class="w-full h-8  input input-bordered"> 
+                                                <button class="absolute top-0 right-0 rounded-l-none btn btn-sm h-8  bg-gray-500 border-opacity-0" onclick="copiarLinkAdmBarra()" >Copiar</button>
                                             </div>
                                         </div>                                         
                                     </div>      
 
-                                    <div class="flex-1 px-2">
+                                    <div class="flex-initial" v-if="item.payment_method == 'boleto'">
                                         <div class="form-control">
                                             <label class="label">
-                                                <span class="label-text font-medium text-xl">Código de Barra</span>
+                                                <span class="label-text text-gray-400">Vencimento</span>
                                             </label> 
                                             <div class="relative">
-                                                <input type="text" :value="item.boleto_barcode" placeholder="Search" class="w-full pr-16 input input-bordered"> 
-                                                <button class="absolute top-0 right-0 rounded-l-none btn btn-primary">Copiar</button>
-                                            </div>
-                                        </div>                                         
-                                    </div>      
-
-                                    <div class="flex-initial">
-                                        <div class="form-control">
-                                            <label class="label">
-                                                <span class="label-text font-medium text-xl">Vencimento</span>
-                                            </label> 
-                                            <div class="relative">
-                                                <input type="text" :value="item.boleto_expiration_date" placeholder="Search" class="w-full pr-16 input input-bordered"> 
+                                                <input type="text" :value="item.boleto_expiration_date" placeholder="" class="w-full h-8  input input-bordered"> 
                                                 
                                             </div>
                                         </div>                                         
                                     </div>                                                                        
                                 </div>   
 
-                                <div class="flex">
-                                    <div class="flex-1 mr-10">
+                                <div class="flex" v-if="item.payment_method == 'pix'">
+                                    <div class="flex-1 mr-10  px-2">
                                         <div class="form-control">
                                             <label class="label">
-                                                <span class="label-text font-medium text-xl">PIX QrCode </span>
+                                                <span class="label-text text-gray-400">PIX QrCode </span>
                                             </label> 
                                             <div class="relative">
-                                                <input type="text" :value="item.pix_qr_code" placeholder="" class="w-full pr-16 input input-bordered"> 
-                                                <button class="absolute top-0 right-0 rounded-l-none btn btn-primary">Copiar</button>
+                                                <input type="text" id="adm_pix" :value="item.pix_qr_code" placeholder="" class="w-full h-8  input input-bordered"> 
+                                                <button class="absolute top-0  right-0  ight-0 rounded-l-none btn btn-sm h-8 bg-gray-500 border-opacity-0" onclick="copiarLinkAdmPix()">Copiar</button>
                                             </div>
                                         </div>                                         
                                     </div>      
 
-                                    <div class="flex-1">
+                                    <div class="flex-1 px-2" v-if="item.payment_method == 'pix'">
                                         <div class="form-control">
                                             <label class="label">
-                                                <span class="label-text font-medium text-xl">PIX Vencimento</span>
+                                                <span class="label-text text-gray-400">PIX Vencimento</span>
                                             </label> 
                                             <div class="relative">
-                                                <input type="text" :value="item.pix_expiration_date" placeholder="Search" class="w-full pr-16 input input-bordered"> 
+                                                <input type="text" :value="item.pix_expiration_date" placeholder="" class="w-full h-8  input input-bordered"> 
                                                 
                                             </div>
                                         </div>                                         

@@ -1181,7 +1181,8 @@ export default {
                             $('#efetuar_pagto_boleto').prop('disabled', false);  
                             
                             $('#efetuar_pagto_pix').text('Gerar PIX');
-                            $('#efetuar_pagto_pix').prop('disabled', false);                             
+                            $('#efetuar_pagto_pix').prop('disabled', false);  
+                                                       
                         return false;
                         
                     }    
