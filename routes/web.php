@@ -8,6 +8,9 @@ use App\Http\Controllers\PostbackController;
 use App\Http\Controllers\ControllerPromotores;
 use App\Http\Controllers\ControllerDash;
 use App\Http\Controllers\ControllerDependents;
+use App\Http\Controllers\ControllerSubscription;
+
+
 use App\Services\PagarmeRequestService;
 
 
@@ -114,6 +117,10 @@ Route::middleware(['auth','admin'])->group(function () {
         Route::post('cadastro/promotor', [ControllerPromotores::class,'cadastro_promotor'])->name('cadastro_promotor');
 
         Route::get('get_dependent/{id}', [ControllerDependents::class,'get_dependent'])->name('get_dependent');
+
+        Route::get('get_subscription/{id}', [ControllerSubscription::class,'get_subscription'])->name('get_subscription');
+
+        
         
         
         

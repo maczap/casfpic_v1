@@ -56,7 +56,7 @@
 
                 <div class="tabs">
                 <a id="nav_1" class="tab tab-lifted tab-active" @click="tab(1)">Cadastro</a> 
-                <a id="nav_8" class="tab tab-lifted " @click="tab(8)">Plano</a> 
+                <a id="nav_8" class="tab tab-lifted " @click="tab(8), getSubscription(socio.id)">Plano</a> 
                 <a id="nav_6" class="tab tab-lifted " @click="tab(6), getDependend(socio.id)">Dependentes</a> 
                 <a id="nav_4" class="tab tab-lifted " @click="tab(4)">Atendimento</a> 
                 <a id="nav_5" class="tab tab-lifted " @click="tab(5)">Carteirinhas</a> 
@@ -264,7 +264,142 @@
                             </div>
 
                         </div>
-                        <div class="p-2 card " id="tab_8"> Plano</div>
+                        <div class="p-2 card " id="tab_8"> 
+
+                            <!-- <table v-for="(item, index) in subscription" :key="index" class="mb-2">
+                                <tr><td><h2 class="">{{item.plano}}</h2></td></tr>   
+                                <tr><td><h2>{{item.periodo}}</h2></td></tr>   
+                                <tr><td><h2>{{item.amount}}</h2></td></tr>   
+                                <tr><td><h2>{{item.payment_method}}</h2></td></tr>   
+                                <tr><td><h2>{{item.boleto_url}}</h2></td></tr>   
+                                <tr><td><h2>{{item.boleto_barcode}}</h2></td></tr>   
+                                <tr><td><h2>{{item.boleto_expiration_date}}</h2></td></tr>   
+                                <tr><td><h2>{{item.status_detail}}</h2></td></tr>   
+                                <tr><td><h2>{{item.pix_qr_code}}</h2></td></tr>   
+                                <tr><td><h2>{{item.pix_expiration_date}}</h2></td></tr>   
+                            </table>   -->
+                            <div v-for="(item, index) in subscription" :key="index" >
+                                <div class="flex ">
+                                    <div class="flex-1 px-2">
+                                        
+                                        <div class="form-control">
+                                            <label class="label">
+                                                <span class="label-text font-medium text-xl">Plano</span>
+                                            </label> 
+                                            <div class="relative">
+                                                <input type="text" :value="item.plano" disabled placeholder="Search" class="w-full pr-16 input input-bordered"> 
+                                                
+                                            </div>
+                                        </div>                                         
+                                    </div>
+
+                                    <div class="flex-1 px-2">
+                                        <div class="form-control">
+                                            <label class="label">
+                                                <span class="label-text font-medium text-xl">Período</span>
+                                            </label> 
+                                            <div class="relative">
+                                                <input type="text" :value="item.periodo"  placeholder="Search" class="w-full pr-16 input  input-bordered"> 
+                                                
+                                            </div>
+                                        </div>                                         
+                                    </div>        
+
+                                    <div class="flex-1 px-2">
+                                        <div class="form-control">
+                                            <label class="label">
+                                                <span class="label-text font-medium text-xl">Valor</span>
+                                            </label> 
+                                            <div class="relative">
+                                                <input type="text" :value="item.amount" placeholder="Search" class="w-full pr-16 input  input-bordered"> 
+                                                
+                                            </div>
+                                        </div>                                         
+                                    </div>   
+
+                                    <div class="flex-1 px-2">
+                                        <div class="form-control">
+                                            <label class="label">
+                                                <span class="label-text font-medium text-xl">Status</span>
+                                            </label> 
+                                            <div class="relative">
+                                                <input type="text" :value="item.status_detail" placeholder="Search" class="w-full pr-16 input  input-bordered"> 
+                                                
+                                            </div>
+                                        </div>                                         
+                                    </div>                                           
+
+                                         
+                                </div>   
+
+   
+
+                                <div class="flex">
+                                    <div class="flex-1 px-2">
+                                        <div class="form-control">
+                                            <label class="label">
+                                                <span class="label-text font-medium text-xl">Boleto</span>
+                                            </label> 
+                                            <div class="relative">
+                                                <input type="text" :value="item.boleto_url" placeholder="Search" class="w-full pr-16 input input-bordered"> 
+                                                <button class="absolute top-0 right-0 rounded-l-none btn btn-primary">Copiar</button>
+                                            </div>
+                                        </div>                                         
+                                    </div>      
+
+                                    <div class="flex-1 px-2">
+                                        <div class="form-control">
+                                            <label class="label">
+                                                <span class="label-text font-medium text-xl">Código de Barra</span>
+                                            </label> 
+                                            <div class="relative">
+                                                <input type="text" :value="item.boleto_barcode" placeholder="Search" class="w-full pr-16 input input-bordered"> 
+                                                <button class="absolute top-0 right-0 rounded-l-none btn btn-primary">Copiar</button>
+                                            </div>
+                                        </div>                                         
+                                    </div>      
+
+                                    <div class="flex-initial">
+                                        <div class="form-control">
+                                            <label class="label">
+                                                <span class="label-text font-medium text-xl">Vencimento</span>
+                                            </label> 
+                                            <div class="relative">
+                                                <input type="text" :value="item.boleto_expiration_date" placeholder="Search" class="w-full pr-16 input input-bordered"> 
+                                                
+                                            </div>
+                                        </div>                                         
+                                    </div>                                                                        
+                                </div>   
+
+                                <div class="flex">
+                                    <div class="flex-1 mr-10">
+                                        <div class="form-control">
+                                            <label class="label">
+                                                <span class="label-text font-medium text-xl">PIX QrCode </span>
+                                            </label> 
+                                            <div class="relative">
+                                                <input type="text" :value="item.pix_qr_code" placeholder="" class="w-full pr-16 input input-bordered"> 
+                                                <button class="absolute top-0 right-0 rounded-l-none btn btn-primary">Copiar</button>
+                                            </div>
+                                        </div>                                         
+                                    </div>      
+
+                                    <div class="flex-1">
+                                        <div class="form-control">
+                                            <label class="label">
+                                                <span class="label-text font-medium text-xl">PIX Vencimento</span>
+                                            </label> 
+                                            <div class="relative">
+                                                <input type="text" :value="item.pix_expiration_date" placeholder="Search" class="w-full pr-16 input input-bordered"> 
+                                                
+                                            </div>
+                                        </div>                                         
+                                    </div>                                        
+                                </div>                                  
+
+                            </div>                                       
+                        </div>
                         
                     </div>
 
@@ -298,6 +433,7 @@ export default {
             socios:[],
             socio:[],
             dependents:[],
+            subscription:[],
             configs: {
                 orderBy: 'nome',
                 order: '',
@@ -330,10 +466,18 @@ export default {
             $( "#nav_6" ).removeClass( "tab-active" );
             $( "#nav_8" ).removeClass( "tab-active" );
         },
+        getSubscription: function(id){
+
+            let set = this;
+            axios.get('get_subscription/'+id).then(response => {
+                console.log(response.data);
+                set.subscription = response.data;
+            });            
+
+        },
         getDependend: function(id){
             let set = this;
             axios.get('get_dependent/'+id).then(response => {
-                console.log(response.data);
                 set.dependents = response.data;
             });
         },
@@ -341,7 +485,7 @@ export default {
             let set = this;
             
             axios.get('dash/cadastros').then(response => {
-                console.log(response.data);
+                
                 set.socios = response.data;
             });
         },
@@ -351,7 +495,6 @@ export default {
             this.dependents = [];
 
             axios.get('get/cadastros/'+id).then(response => {
-                console.log(response.data);
                 set.socio = response.data;
             });
         },
