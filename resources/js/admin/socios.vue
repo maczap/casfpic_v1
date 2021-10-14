@@ -159,7 +159,7 @@
                             <div class="flex flex-wrap">
 
   
-                                <div class="flex--initial p-1 w-72">
+                                <div class="flex-1 p-1 ">
                                     <label class="label">
                                     <span class="label-text  text-gray-400">Endereço</span>
                                     </label> 
@@ -173,26 +173,80 @@
                                     <input type="text" placeholder="Número" v-model="socio.numero"  class="input h-8 w-full">
                                 </div>   
 
-                                <div class="flex-initial p-1 w-40">
+                                <div class="flex-initial p-1 w-52">
                                     <label class="label">
                                     <span class="label-text  text-gray-400">Complemento</span>
                                     </label> 
-                                    <input type="text" placeholder="Complemento" v-model="socio.complemento"  class="input h-8 w-full">
+                                    <input type="text" placeholder="" v-model="socio.complemento"  class="input h-8 w-full">
                                 </div>   
-                                <div class="flex-initial p-1 w-52">
+                                                                         
+
+                            </div>       
+
+
+
+                            <div class="flex flex-wrap">
+
+  
+
+                                <div class="flex-1 p-1 ">
                                     <label class="label">
                                     <span class="label-text  text-gray-400">Bairro</span>
                                     </label> 
                                     <input type="text" placeholder="Bairro" v-model="socio.bairro"  class="input h-8 w-full">
                                 </div>      
-                                <div class="flex-initial p-1 w-36">
+                                <div class="flex-1 p-1">
                                     <label class="label">
                                     <span class="label-text  text-gray-400">CEP</span>
                                     </label> 
                                     <input type="text" placeholder="Bairro" v-model="socio.cep"  class="input h-8 w-full">
-                                </div>                                                              
+                                </div>      
 
-                            </div>       
+                                <div class="flex-1 p-1">
+                                    <label class="label">
+                                    <span class="label-text  text-gray-400">Cidade</span>
+                                    </label> 
+                                    <input type="text" placeholder="Bairro" v-model="socio.cidade"  class="input h-8 w-full">
+                                </div>       
+
+
+                                <div class="flex-1 p-1">
+                                    <label class="label">
+                                    <span class="label-text  text-gray-400">UF</span>
+                                    </label> 
+                                        <select class="select select-bordered w-full max-w-xs h-8 min-h-0 " v-model="socio.uf" id="uf" >
+                                            <option value="">Selecione</option>
+                                            <option value="AC">Acre</option>
+                                            <option value="AL">Alagoas</option>
+                                            <option value="AP">Amapá</option>
+                                            <option value="AM">Amazonas</option>
+                                            <option value="BA">Bahia</option>
+                                            <option value="CE">Ceará</option>
+                                            <option value="DF">Distrito Federal</option>
+                                            <option value="ES">Espirito Santo</option>
+                                            <option value="GO">Goiás</option>
+                                            <option value="MA">Maranhão</option>
+                                            <option value="MS">Mato Grosso do Sul</option>
+                                            <option value="MT">Mato Grosso</option>
+                                            <option value="MG">Minas Gerais</option>
+                                            <option value="PA">Pará</option>
+                                            <option value="PB">Paraíba</option>
+                                            <option value="PR">Paraná</option>
+                                            <option value="PE">Pernambuco</option>
+                                            <option value="PI">Piauí</option>
+                                            <option value="RJ">Rio de Janeiro</option>
+                                            <option value="RN">Rio Grande do Norte</option>
+                                            <option value="RS">Rio Grande do Sul</option>
+                                            <option value="RO">Rondônia</option>
+                                            <option value="RR">Roraima</option>
+                                            <option value="SC">Santa Catarina</option>
+                                            <option value="SP">São Paulo</option>
+                                            <option value="SE">Sergipe</option>
+                                            <option value="TO">Tocantins</option>
+                                        </select>                                    
+                                </div>                                                                                                                      
+
+                            </div>                               
 
                             <div class="flex flex-wrap">
 
