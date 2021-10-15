@@ -239,6 +239,7 @@
                                         <option value="074">074 - Banco J. Safra</option>
                                         <option value="075">075 - Banco CR2</option>
                                         <option value="076">076 - Banco KDB</option>
+                                        <option value="077">077 - Banco Inter</option>
                                         <option value="096">096 - Banco BMF</option>
                                         <option value="104">104 - Caixa Econômica Federal</option>
                                         <option value="107">107 - Banco BBM</option>
@@ -267,6 +268,7 @@
                                         <option value="250">250 - Banco Schahin</option>
                                         <option value="252">252 - Fininvest</option>
                                         <option value="254">254 - Paraná Banco</option>
+                                        <option value="260">260 - Nubank</option>
                                         <option value="263">263 - Banco Cacique</option>
                                         <option value="265">265 - Banco Fator</option>
                                         <option value="266">266 - Banco Cédula</option>

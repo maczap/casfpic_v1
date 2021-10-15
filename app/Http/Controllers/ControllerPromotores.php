@@ -334,8 +334,8 @@ class ControllerPromotores extends Controller
         } 
         else {
     
-            $code = $this->generatePassword();
-            $link = "https://casfpic.org.br/p/".$code;
+            $link = $this->generatePassword();
+            // $link = "https://casfpic.org.br/p/".$code;
 
             $promotor_code = $this->generatePassword(6);
             $promotor_code = strtoupper($promotor_code);
