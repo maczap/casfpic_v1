@@ -324,7 +324,6 @@ class ControllerPromotores extends Controller
             'email.required'        => 'Informe o e-mail',
             'email.email'           => 'E-mail inválido',
             'email.unique'           => 'Esse e-mail já está cadastrado',
-
             
         ];        
 
