@@ -136,7 +136,6 @@
                                     <li><a href="https://casfpic.org.br/pdfs/estatuto.pdf">Estatuto</a></li>
                                     <li><a href="https://casfpic.org.br/pdfs/normas-associativas.pdf">Normas Associativa</a></li>
                                     <li><a href="https://casfpic.org.br/politica">Política de Privacidade</a></li>
-                                    
                                 </ul>
                             </div>
                         </div>
