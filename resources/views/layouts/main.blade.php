@@ -42,22 +42,23 @@
                         <div class="col-xl-6 col-sm-12 col-md-12 col-lg-7">
                             <div class="row">
                                 <div class="col-xl-6 col-sm-6 col-md-6">
-                                    <a href="https://casfpic.org.br/#categorias">
+                                    
                                     <div class="service-blurb-cont service-blurb-cont-01 text-center">
                                         <div class="service-blurb-img">
                                             <img src="https://casfpic.org.br/images/hero/10.png" alt="">
                                         </div>
                                         <div class="service-blurb-text">
+                                            <a href="https://casfpic.org.br/#categorias">
                                             
-                                            <button type="button" class="btn btn-warning" style="background-color:#f35a24;border-color:#f35a24; color:#fff;font-weight:bold;margin-top:20px;">Associe-se AQUI</button>
-                                        
+                                            <button type="button" class="btn btn-warning btn-lg" style="background-color:#f35a24;border-color:#f35a24; color:#fff;font-weight:bold;margin-top:20px;">Associe-se AQUI</button>
+                                            </a>
                                             <div class="service-blurb-btn mt-30">
                                                 
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                </a>
+                                
                                 <div class="col-xl-6 col-sm-6 col-md-6">
                                     <div class="service-blurb-cont service-blurb-cont-02 text-center mt-30">
                                         <div class="service-blurb-img service-blurb-img-03">
