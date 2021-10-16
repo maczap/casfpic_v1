@@ -55,6 +55,7 @@
                             <div class="col-xl-9 col-lg-8 col-md-8">
                                 <div class="header-menu f-right">
                                     <nav>
+                                    <a href="https://api.whatsapp.com/send?phone=5514981050306" target="_blank" class="d-none d-md-block d-lg-block d-xl-block"><div style="color:#fff;font-size:18px;background-color:#00b000;padding:5px 20px;">Whatsapp: (14) 98105-0306</div></a>
                                         <!-- Menu Toggle btn-->
                                         <div class="menu-toggle" style="display: none;">
                                             <!-- Mobile logo -->
@@ -144,7 +145,7 @@
                                 <h5>Sede Central</h5>
                                 <ul>
                                     <li>atendimento@casfpic.org.br</li>
-                                    <li>Whatsapp: (14) 98105-0306/li>
+                                    <a href="https://api.whatsapp.com/send?phone=5514981050306" target="_blank"><li>Whatsapp: (14) 98105-0306</li></a>
                                     <li>Telefone: (14) 3714-0525 </li>
                                     <li>Rua 7 de Setembro, 270</li>
                                     <li>Centro - Cerqueira Cesar - SP</li>
@@ -156,7 +157,7 @@
                                 <h5>Subsede Salto</h5>
                                 <ul>
                                     <li>contato@casfpic.org.br</li>
-                                    <li>Whatsapp: (11) 94013-1946<li>
+                                    <a href="https://api.whatsapp.com/send?phone=5511940131946" target="_blank"> <li>Whatsapp:(11) 94013-1946</li></a>
                                     <li>Telefone: (11) 2840-1377 </li>
                                     <li>Rua Rio Branco, 1120</li>
                                     <li>Centro - Salto - SP</li>
