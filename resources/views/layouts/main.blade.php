@@ -311,7 +311,7 @@
 
 
             <!-- Plans -->
-            <section id="about-section" class="mt-40">
+            <section id="categorias" class="mt-40">
                 <div class="container">
 
                     <div class="row">
