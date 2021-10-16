@@ -181,7 +181,7 @@
             
             </footer>
             @show
-			<!-- Footer end -->
+			
 
             <!-- Copyright start -->
             <div id="copyright-section">
