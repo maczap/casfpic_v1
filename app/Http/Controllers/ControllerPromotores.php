@@ -325,7 +325,6 @@ class ControllerPromotores extends Controller
             'email.email'           => 'E-mail inválido',
             'email.unique'           => 'Esse e-mail já está cadastrado',
 
-            
         ];        
 
         $validator = Validator::make($request->all(),$rules, $messages);
