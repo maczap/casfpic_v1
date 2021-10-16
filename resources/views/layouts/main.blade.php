@@ -41,23 +41,27 @@
                     <div class="row">
                         <div class="col-xl-6 col-sm-12 col-md-12 col-lg-7">
                             <div class="row">
+                                <a href="https://casfpic.org.br/#categorias">
                                 <div class="col-xl-6 col-sm-6 col-md-6">
                                     <div class="service-blurb-cont service-blurb-cont-01 text-center">
                                         <div class="service-blurb-img">
-                                            <img src="https://casfpic.org.br/images/hero/05.png" alt="">
+                                            <img src="https://casfpic.org.br/images/hero/10.png" alt="">
                                         </div>
                                         <div class="service-blurb-text">
-                                            <a href="https://html.iddrak.com/consolin/#"><h5>São mais de 50 mil consultórios credenciados!</h5></a>
+                                            
+                                                <button type="button" class="btn btn-lg btn-warning mt-20" style="background-color:#f35a24;border-color:#f35a24;color:#fff;font-weight:bold;">Associe-se AQUI</button>
+                                            
                                             <div class="service-blurb-btn mt-30">
                                                 
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+                                </a>
                                 <div class="col-xl-6 col-sm-6 col-md-6">
                                     <div class="service-blurb-cont service-blurb-cont-02 text-center mt-30">
                                         <div class="service-blurb-img service-blurb-img-03">
-                                            <img src="https://casfpic.org.br/images/hero/10.png" alt="">
+                                            <img src="https://casfpic.org.br/images/hero/05.png" alt="">
                                         </div>
                                         <div class="service-blurb-text">
                                             <a href="https://html.iddrak.com/consolin/#"><h5>Negociamos as melhores condições de benefícios nos diversos segmentos</h5></a>
@@ -306,7 +310,7 @@
 
 
             <!-- Plans -->
-            <section id="about-section" class="mt-40">
+            <section id="categorias" class="mt-40">
                 <div class="container">
 
                     <div class="row">

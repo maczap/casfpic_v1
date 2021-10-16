@@ -142,24 +142,28 @@
                         </div>
                         <div class="col-xl-4 col-sm-6 col-md-6 col-lg-4">
                             <div class="footer-cmn footer-quick-link">
-                                <h5>Contato</h5>
+                                <h5>Sede Central</h5>
                                 <ul>
-                                    @if(!empty($promotor_name))
-                                    <li>Promotor(a): {{$promotor_name}}</li>
-                                    @endif
-                                    <li>contato@casfpic.org.br</li>
-                                    <li>Whatsapp: (11) 94019-4371</li>
+                                    <li>atendimento@casfpic.org.br</li>
+                                    <li>Whatsapp: (14) 98105-0306</li>
                                     <li>Telefone: (14) 3714-0525 </li>
+                                    <li>Rua 7 de Setembro, 270</li>
+                                    <li>Centro - Cerqueira Cesar - SP</li>
                                 </ul>
+
+                                           
                             </div>
                         </div>
                         <div class="col-xl-4 col-sm-6 col-md-6 col-lg-4">
-                            <div class="footer-cmn footer-social-link">
-                                <h5>Endereço</h5>
-                                <li>Rua Sete de Setembro 270 - Centro</li>
-                                <li>CEP: 1876O- 037</li>
-                                <li>Cerqueira Cesar - SP</li>
-                  
+                            <div class="footer-cmn ">
+                                <h5>Subsede Salto</h5>
+                                <ul>
+                                    <li>contato@casfpic.org.br </li>
+                                    <li>Whatsapp: (11) 94013-1946</li>
+                                    <li>Telefone: (11) 2840-1377 </li>
+                                    <li>Rua Rio Branco, 1120</li>
+                                    <li>Centro - Salto - SP</li>
+                                </ul>
                             </div>
                         </div>
 
