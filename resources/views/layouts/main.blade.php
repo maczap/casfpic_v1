@@ -44,7 +44,7 @@
                                 <div class="col-xl-6 col-sm-6 col-md-6">
                                     <div class="service-blurb-cont service-blurb-cont-01 text-center">
                                         <div class="service-blurb-img">
-                                            <img src="https://casfpic.org.br/images/hero/05.png" alt="">
+                                            <img src="https://casfpic.org.br/images/hero/10.png" alt="">
                                         </div>
                                         <div class="service-blurb-text">
                                             <a href="https://html.iddrak.com/consolin/#"><h5>São mais de 50 mil consultórios credenciados!</h5></a>
@@ -57,7 +57,7 @@
                                 <div class="col-xl-6 col-sm-6 col-md-6">
                                     <div class="service-blurb-cont service-blurb-cont-02 text-center mt-30">
                                         <div class="service-blurb-img service-blurb-img-03">
-                                            <img src="https://casfpic.org.br/images/hero/10.png" alt="">
+                                            <img src="https://casfpic.org.br/images/hero/05.png" alt="">
                                         </div>
                                         <div class="service-blurb-text">
                                             <a href="https://html.iddrak.com/consolin/#"><h5>Negociamos as melhores condições de benefícios nos diversos segmentos</h5></a>
