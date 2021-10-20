@@ -348,7 +348,8 @@ form label {
     top: 0;
     left: 0;
     right: 0;
-    background: linear-gradient(to left, rgba(243,90,36,.7) 0%, rgba(164,34,37,.7) 25%, rgba(243,90,36,1) 35%, rgba(164,34,37,.7) 100%);
+    
+    background: linear-gradient(to left, rgba(243,90,36,.7) 0%, rgb(241 101 41 / 70%) 20%, rgba(243,90,36,1) 20%, rgb(241 101 41 / 70%) 20%);    
     box-shadow: 0 7px 10px rgba(4, 27, 82, 0.4);
     width: 100%;
     padding: 10px 0;
