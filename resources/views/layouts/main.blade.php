@@ -7,7 +7,7 @@
                      <div class="row">
                          <div class="col-xl-12">
                              <div class="hero-cont text-center">
-                                 <h1>Gestão de Benefícios. </h1>
+                                 <h1 class="mt-20">Gestão de Benefícios. </h1>
                                  <h1><span>Caixa Assistencial.</span></h1>
   
                              </div>
