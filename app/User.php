@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\DB;
 
 class User extends Authenticatable
 {
@@ -170,8 +171,9 @@ class User extends Authenticatable
 
     public function user_view($id){
 
-        return User::select("name",'id as u_id')
+        return User::select("name",'id as u_id', DB::raw("DATE_FORMAT(created_at, '%d/%m/%Y') as data"))
         ->where("id", $id)
+        
         ->addSelect(['boleto_url' => Subscription::select('boleto_url')
             ->whereColumn('user_id', 'u_id')
             ->orderBy('id','desc')

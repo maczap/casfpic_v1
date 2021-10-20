@@ -4,12 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use Illuminate\Support\Facades\DB;
+
 class ControllerDash extends Controller
 {
     public function dash_cadastros(){
 
         $dados =  User::join('subscriptions', 'users.id', '=', 'subscriptions.user_id')
-        ->select('users.*', 'subscriptions.plano', 'users.vinculo as pmt','subscriptions.status', 'subscriptions.status_detail', 'subscriptions.created_at')
+        ->select('users.*', 'subscriptions.plano', 'users.vinculo as pmt','subscriptions.status', 'subscriptions.status_detail', 'subscriptions.created_at', DB::raw("DATE_FORMAT(users.created_at, '%d/%m/%Y') as data"))
         ->addSelect(['promotor' => User::select('name')
         ->whereColumn('promotor_code', 'pmt')
         ->limit(1)  

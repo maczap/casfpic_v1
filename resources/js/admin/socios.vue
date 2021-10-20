@@ -17,8 +17,9 @@
                 <tr>
                     <th>Nome</th>
                     <th>PLANO</th>
-                    <th>PROMOTOR(A)</th>
+                    <!-- <th>PROMOTOR(A)</th> -->
                     <th>STATUS</th>
+                    <th>DATA</th>
 
                 </tr>
                 </thead>
@@ -28,11 +29,12 @@
                 <tr  v-for="(item, index) in socios" :key="index" class="mb-2" 
                 :class="{'bdp': item.status == 'paid', 'bdu': item.status == 'unpaid'}">
                     <td class="modal-button" href="#modalCadastro" @click="show(item.id)">
-                        <label for="my-modal-2" >{{item.name}}</label> </td>
+                        <label for="my-modal-2" class="text-sm">{{item.name}}</label> </td>
       
-                    <td @click="show(item.id)"><label for="my-modal-2" >{{item.plano}}</label></td>
-                    <td @click="show(item.id)"><label for="my-modal-2" >{{item.promotor}}</label></td>
-                    <td @click="show(item.id)"><label for="my-modal-2" >{{item.status_detail}}</label></td>
+                    <td @click="show(item.id)"><label for="my-modal-2" class="text-sm">{{item.plano}}</label></td>
+                    <!-- <td @click="show(item.id)"><label for="my-modal-2" class="text-sm">{{item.promotor}}</label></td> -->
+                    <td @click="show(item.id)"><label for="my-modal-2" class="text-sm">{{item.status_detail}}</label></td>
+                    <td @click="show(item.id)"><label for="my-modal-2" class="text-sm">{{item.data}}</label></td>
                    
                 </tr>
                 
