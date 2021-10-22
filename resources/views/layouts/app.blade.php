@@ -8,7 +8,15 @@
     	<meta name="keywords" content="convênio odontológico uniodonto, convênio odontológico unimed,">
     	<meta name="author" content="Marcos Granziera">
         <meta name="csrf-token" content="{{ csrf_token() }}">
-        
+
+        <title>CAIXA ASSISTENCIAL</title>
+        <meta name="description" content="Ao associar-se na caixa já é garantido cobertura de assistencia odontológica privada">
+        <meta property="og:type" content="website"/>
+        <meta property="og:title" content="Benefícios Exclusivos para funcionários do comércio, indústria e servidores públicos"/>
+        <meta property="og:description" content="Ao associar-se na caixa já é garantido cobertura de assistencia odontológica privada"/>
+        <meta property="og:url" content="https://casfpic.org.br/"/>
+        <meta property="og:image" content=""/>   
+            
 
     	<!-- Title -->
     	<title>CASFPIC</title>
@@ -46,7 +54,7 @@
                             <!-- Header logo -->
                             <div class="col-xl-3 col-lg-3 col-md-3">
                                 <div class="header-logo d-sm-block  none d-md-block d-lg-block d-xl-block text-center text-md-left text-lg-left text-xl-left">
-                                    <a href="#"><img src="https://casfpic.org.br/images/hero/logo.png" class="" alt="logo casfpic"></a>
+                                    <a href="#"><img src="https://casfpic.org.br/images/hero/logo2.png" class="" alt="logo casfpic"></a>
                                 </div>
                             </div>
                             <!-- Header Responsive menu -->
@@ -58,7 +66,7 @@
                                         <div class="menu-toggle" style="display: none;">
                                             <!-- Mobile logo -->
                                             <div class="mobile-logo">
-                                                <a href="#index.html"><img src="https://casfpic.org.br/images/hero/logo.png" alt="logo"></a>
+                                                <a href="#index.html"><img src="https://casfpic.org.br/images/hero/logo2.png" alt="logo"></a>
                                             </div>
                                             <button type="button" id="menu-btn">
                                                 <span class="icon-bar"></span>
@@ -125,7 +133,7 @@
 					<div class="row">
                         <div class="col-xl-2 col-sm-6 col-md-4 col-lg-2">
                             <div class="footer-about">
-                                <a href="#"><img src="https://casfpic.org.br/images/hero/logo.png" alt="footer logo"></a>
+                                <a href="#"><img src="https://casfpic.org.br/images/hero/logo2.png" alt="footer logo"></a>
                             </div>
                         </div>
                         <div class="col-xl-2 col-sm-6 col-md-6 col-lg-2">
