@@ -266,7 +266,7 @@ class ControllerPromotores extends Controller
         $pagarme = new PagarmeRequestService();
 
         $recipient = $pagarme->getRecipientSaldo($id);
-        dd($recipient);
+        // dd($recipient);
     }
 
     public function recipientTransacoes($id){
@@ -274,7 +274,7 @@ class ControllerPromotores extends Controller
         $pagarme = new PagarmeRequestService();
 
         $recipient = $pagarme->getRecipientTransacoes($id);
-        dd($recipient);
+        // dd($recipient);
     }
 
     public function cadastro_promotor(Request $request){
@@ -348,8 +348,6 @@ class ControllerPromotores extends Controller
 
             $cpf = $this->clear($request['cpf']);
             
-
-            
             $dados = User::create([
                 'name'      => \strtoupper($request['name']),
                 'email'     => $request['email'],
@@ -376,7 +374,8 @@ class ControllerPromotores extends Controller
                 'agencia_dig'   => $request['agencia_dig'],
                 'conta'         => $request['conta'],
                 'conta_dig'     => $request['conta_dig'],
-                'conta_tipo'    => $request['conta_tipo']
+                'conta_tipo'    => $request['conta_tipo'],
+                'publico'    => $request['publico']
 
             ]);                  
                      

@@ -53,7 +53,8 @@ class User extends Authenticatable
         'conta',
         'conta_dig',
         'conta_tipo',
-        'pix'
+        'pix',
+        'publico'
     ];
 
     /**

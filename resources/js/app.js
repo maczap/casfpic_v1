@@ -23,6 +23,7 @@ Vue.use(ViaCep);
 import store from './store'
 import  CpCadastro  from './components/cadastro.vue'
 import  CpCookie  from './components/cookie.vue'
+import  CpPromotores  from './components/promotores.vue'
 
 window.csrfToken = document.querySelector('meta[name="csrf-token"]').content;
 
@@ -37,7 +38,8 @@ const app = new Vue({
     el: '#app',
     components:{
         CpCadastro,
-        CpCookie
+        CpCookie,
+        CpPromotores
     },    
     mounted: function () {
     },

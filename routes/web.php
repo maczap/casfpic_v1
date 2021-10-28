@@ -38,6 +38,8 @@ Route::get('/p/{token?}', [ControllerHome::class,'index'])->name('index');
 Auth::routes();
 
 
+Route::post('cadastro/promotor', [ControllerPromotores::class,'cadastro_promotor'])->name('cadastro_promotor');
+
 
 Route::get('pagarme', function(){
     
@@ -79,6 +81,10 @@ Route::get('app/link_promotor', [ControllerPromotores::class,'link_promotor'])->
 Route::get('app/lista_link_promotor', [ControllerPromotores::class,'lista_link_promotor'])->name('lista_link_promotor');
 
 Route::get('teste_plan_create', [ControllerPlans::class,'CreatePlan'])->name('createPlan');
+
+Route::get('/cadastro_promotores', function () {
+    return view('layouts.cadpromotores');
+});
 
 // Route::get('assinatura', [ControllerCadastro::class,'Assinatura'])->name('assinatura');
 

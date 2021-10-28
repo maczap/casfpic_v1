@@ -16,7 +16,6 @@
         <meta property="og:description" content="Ao associar-se na caixa já é garantido cobertura de assistencia odontológica privada"/>
         <meta property="og:url" content="https://casfpic.org.br/"/>
         <meta property="og:image" content=""/>   
-            
 
     	<!-- Title -->
     	<title>CASFPIC</title>
@@ -37,7 +36,7 @@
     	<link href="{{ asset('css/hero/default.css') }}" rel="stylesheet" type="text/css">
         <link href="{{ asset('css/hero/style.css') }}" rel="stylesheet" type="text/css">
         <link href="{{ asset('css/hero/responsive.css') }}" rel="stylesheet" type="text/css">
-        <link href="{{ asset('css/app.css') }}" rel="stylesheet" type="text/css">
+        <link href="{{ asset('css/admin.css') }}" rel="stylesheet" type="text/css">
 
         
         
