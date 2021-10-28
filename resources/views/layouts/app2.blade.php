@@ -10,12 +10,12 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
         <title>CAIXA ASSISTENCIAL</title>
-        <meta name="description" content="Ao associar-se na caixa já é garantido cobertura de assistencia odontológica privada">
+        <meta name="description" content="CASFPIC -Gestão de Benefícios">
         <meta property="og:type" content="website"/>
-        <meta property="og:title" content="Benefícios Exclusivos para funcionários do comércio, indústria e servidores públicos"/>
-        <meta property="og:description" content="Ao associar-se na caixa já é garantido cobertura de assistencia odontológica privada"/>
+        <meta property="og:title" content="Cadastro de Promotores"/>
+        <meta property="og:description" content="CASFPIC -Gestão de Benefícios"/>
         <meta property="og:url" content="https://casfpic.org.br/"/>
-        <meta property="og:image" content=""/>   
+        <meta property="og:image" content="https://casfpic.org.br/images/hero/10.png"/>   
 
     	<!-- Title -->
     	<title>CASFPIC</title>
