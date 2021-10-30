@@ -464,8 +464,8 @@ export default {
             this.promotor.name = null;
             this.promotor.cpf = null;
             this.promotor.rg = null;
-            this.promotor.sexo = null;
-            this.promotor.ecivil = null;
+            this.promotor.sexo = 'Sexo';
+            this.promotor.ecivil = 'Estado Civil';
             this.promotor.nascimento = null;
             this.promotor.profissao = null;
             this.promotor.cep = null;
@@ -474,13 +474,13 @@ export default {
             this.promotor.complemento = null;
             this.promotor.bairro = null;
             this.promotor.cidade = null;
-            this.promotor.uf = null;
-            this.promotor.banco = null;
+            this.promotor.uf = 'UF';
+            this.promotor.banco = 'Banco';
             this.promotor.agencia = null;
             this.promotor.agencia_dig = null;
             this.promotor.conta = null;
             this.promotor.conta_dig = null;
-            this.promotor.conta_tipo = null;
+            this.promotor.conta_tipo = 'Tipo';
             this.promotor.pix = null;
             this.promotor.celular = null;
             this.promotor.email = null;                 
