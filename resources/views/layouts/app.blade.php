@@ -62,6 +62,7 @@
                                 <div class="header-menu f-right">
                                     <nav>
                                     <a href="https://api.whatsapp.com/send?phone=5514981050306" target="_blank" class="d-none d-md-block d-lg-block d-xl-block"><div style="color:#fff;font-size:18px;background-color:#00b000;padding:5px 20px;">Whatsapp: (14) 98105-0306</div></a>
+                                    
                                         <!-- Menu Toggle btn-->
                                         <div class="menu-toggle" style="display: none;">
                                             <!-- Mobile logo -->

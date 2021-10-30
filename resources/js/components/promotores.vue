@@ -3,28 +3,47 @@
                
 
                 <h1 class="p-2 font-semibold text-lg">Cadastro de promotores</h1>
+
+
+
+
+
                 <div class="grid grid-cols-12 bg-base-200">
                     <div class="col-span-12">
 
-                        <div class="p-2 card " id="tab_1">
+
+                    <div class="tabs w-full mx-2">
+                        <a id="fisica" class="tab tab-lifted tab-active" @click="changePessoa(1)">Pessoa Física</a> 
+                        <a id="juridica" class="tab tab-lifted " @click="changePessoa(2)">Pessoa Jurídica</a> 
+                    
+                    </div>                        
+
+                        <div class="p-2 card border-t-0 rounded-t m-2 mt-0" id="tab_1">
 
                             <div class="flex flex-col md:flex-row flex-wrap p-0">
 
                                 <div class="flex-1 p-1 md:w-2">
+
                                     <label class="label hidden md:block">
-                                    <span class="label-text  text-gray-400 ">Nome Completo</span>
+                                        <span class="label-text  text-gray-400 " v-if="promotor.pessoa==1">Nome Completo</span>
+                                        <span class="label-text  text-gray-400 " v-if="promotor.pessoa==2">Razão Social</span>
                                     </label> 
-                                    <input type="text" placeholder="Nome" v-model="promotor.name" class="input w-full h-8 b-1 border-1 border-gray-300">
+
+                                    <input type="text" placeholder="Nome" v-model="promotor.name" class="input w-full h-8 b-1 border-1 border-gray-300" v-if="promotor.pessoa==1">
+                                    <input type="text" placeholder="Razão Social" v-model="promotor.name" class="input w-full h-8 b-1 border-1 border-gray-300" v-if="promotor.pessoa==2">
+
                                 </div>
 
                                 <div class="flex-initial p-1">
                                     <label class="label hidden md:block">
-                                    <span class="label-text  text-gray-400">CPF</span>
+                                    <span class="label-text  text-gray-400"  v-if="promotor.pessoa==1">CPF</span>
+                                    <span class="label-text  text-gray-400"  v-if="promotor.pessoa==2">CNPJ</span>
                                     </label> 
-                                    <input type="text" placeholder="CPF" v-mask="'###.###.###-##'"  v-model="promotor.cpf" class="input w-full h-8  border-1 border-gray-300">
+                                    <input type="text" placeholder="CPF" v-mask="'###.###.###-##'"  v-if="promotor.pessoa==1"  v-model="promotor.cpf" class="input w-full h-8  border-1 border-gray-300">
+                                    <input type="text" placeholder="CNPJ" v-mask="'##.###.###-####/##'"  v-if="promotor.pessoa==2" v-model="promotor.cpf" class="input w-full h-8  border-1 border-gray-300">
                                 </div>
 
-                                <div class="flex-initial p-1">
+                                <div class="flex-initial p-1" v-if="promotor.pessoa==1">
                                     <label class="label hidden md:block">
                                     <span class="label-text  text-gray-400">RG</span>
                                     </label> 
@@ -33,7 +52,7 @@
 
                             </div>
 
-                            <div class="flex  flex-col md:flex-row  flex-wrap p-0">
+                            <div class="flex  flex-col md:flex-row  flex-wrap p-0"  v-if="promotor.pessoa==1">
 
                                 <div class="flex-1 p-1">
                                         <label class="label  hidden md:block">
@@ -76,7 +95,14 @@
                                 </div>        
 
 
-                                <div class="flex-initial p-1 ">
+                                                             
+
+                            </div>    
+
+
+                            <div class="flex flex-col md:flex-row flex-wrap"  >
+                             
+                                <div class="flex-1 md:flex-initial p-1 ">
                                         
                                         <label class="label  hidden md:block">
                                             <span class="label-text  text-gray-400">CEP</span>
@@ -87,15 +113,9 @@
                                         </div>
                                                                               
                 
-                                </div>                                                                
+                                </div>                                
 
-                            </div>    
-
-
-                            <div class="flex flex-row flex-wrap">
-                             
-
-                                <div class="flex-initial md:flex-1 p-1 w-full md:w-2">
+                                <div class="flex-1 p-1 md:w-min">
                                     <label class="label hidden md:block">
                                     <span class="label-text  text-gray-400">Endereço</span>
                                     </label> 
@@ -405,6 +425,7 @@ export default {
     
     data: function(){
         return{
+            
             promotor:{
                 name:'',
                 cpf:'',
@@ -429,6 +450,7 @@ export default {
                 pix:'',
                 celular:'',
                 email:'',
+                pessoa:1,
                 _token: csrfToken                   
                 
             }
@@ -466,12 +488,35 @@ export default {
             
         },
 
+        changePessoa(i){
+
+            this.promotor.pessoa = i;
+            this.promotor.name = null;
+            this.promotor.cpf = null;
+
+            if(i == 1){
+                $( "#juridica" ).removeClass( "tab-active" );
+                $( "#fisica" ).addClass( "tab-active" );
+                
+            } else {
+                $( "#fisica" ).removeClass( "tab-active" );
+                $( "#juridica" ).addClass( "tab-active" );
+                
+            }
+            
+        },
+
         cadastro(){
             let validacao = this.validacao();
             let set = this;
+
             if(validacao){
 
-                  let dados = {
+                let dados = null;
+
+                if(this.promotor.pessoa == 1){
+
+                  dados = {
                         cpf:        this.promotor.cpf,
                         rg:         this.promotor.rg,
                         name:       this.promotor.name,
@@ -497,7 +542,34 @@ export default {
                         email:      this.promotor.email,
                         publico:1,
                         _token: csrfToken                    
-                    };                
+                    };          
+                }      
+                if(this.promotor.pessoa == 2){
+
+                  dados = {
+                        cpf:        this.promotor.cpf,
+                        name:       this.promotor.name,
+                        cep:        this.promotor.cep,
+                        endereco:   this.promotor.endereco,
+                        numero:     this.promotor.numero,
+                        complemento:this.promotor.complemento,
+                        bairro:     this.promotor.bairro,
+                        cidade:     this.promotor.cidade,
+                        uf:         this.promotor.uf,
+                        banco:      this.promotor.banco,
+                        agencia:    this.promotor.agencia,
+                        agencia_dig:this.promotor.agencia_dig,
+                        conta:      this.promotor.conta,
+                        conta_dig:  this.promotor.conta_dig,
+                        conta_tipo: this.promotor.conta_tipo,
+                        pix:        this.promotor.pix,
+                        celular:    this.promotor.celular,
+                        email:      this.promotor.email,
+                        publico:2,
+                        _token: csrfToken                    
+                    };          
+                }    
+
                 this.$http.post('cadastro/promotor', dados).then(response => {
                     console.log(response);
                     
@@ -553,84 +625,127 @@ export default {
                 }
         },             
         validacao(){
-
-                let cpf = this.validaCPF();
-
-                if(this.promotor.name == '' || this.promotor.name== null){
-                    swal({
-                        title: "Informe o Nome",
-                        text: "Preencha todas as informações para continuar",
-                        icon: "error",
-                        button: "OK",
-                    });                        
-                    return false;
-                }       
-                
-                if(this.promotor.cpf == '' || this.promotor.cpf== null){
-                    swal({
-                        title: "Informe o CPF",
-                        text: "Preencha todas as informações para continuar",
-                        icon: "error",
-                        button: "OK",
-                    });                        
-                    return false;
-                }    
-                if(!cpf){
-                    swal({
-                        title: "Informe um CPF Válido",
-                        text: "Preencha todas as informações para continuar",
-                        icon: "error",
-                        button: "OK",
-                    });                        
-                    return false;                    
+                let cpf = false;
+                if(this.promotor.pessoa == 1){
+                    cpf = this.validaCPF();
                 }
+
+                if(this.promotor.pessoa == 2){
+                    cpf = this.validarCNPJ();
+                }                
+
                 
-                if(this.promotor.rg == '' || this.promotor.rg== null){
-                    swal({
-                        title: "Informe o RG",
-                        text: "Preencha todas as informações para continuar",
-                        icon: "error",
-                        button: "OK",
-                    });                        
-                    return false;
-                }           
-                if(this.promotor.sexo == '' || this.promotor.sexo== null || this.promotor.sexo== 'Sexo'){
-                    swal({
-                        title: "Informe o Sexo",
-                        text: "Preencha todas as informações para continuar",
-                        icon: "error",
-                        button: "OK",
-                    });                        
-                    return false;
-                }     
-                
-                if(this.promotor.ecivil == '' || this.promotor.ecivil== null || this.promotor.ecivil== 'Estado Civil'){
-                    swal({
-                        title: "Informe o Estado Civil",
-                        text: "Preencha todas as informações para continuar",
-                        icon: "error",
-                        button: "OK",
-                    });                        
-                    return false;
-                }    
-                if(this.promotor.nascimento == '' || this.promotor.nascimento== null){
-                    swal({
-                        title: "Informe o Nascimento",
-                        text: "Preencha todas as informações para continuar",
-                        icon: "error",
-                        button: "OK",
-                    });                        
-                    return false;
-                }     
-                if(this.promotor.profissao == '' || this.promotor.profissao== null){
-                    swal({
-                        title: "Informe a Profissão",
-                        text: "Preencha todas as informações para continuar",
-                        icon: "error",
-                        button: "OK",
-                    });                        
-                    return false;
-                }      
+                if(this.promotor.pessoa == 1){
+                    if(this.promotor.name == '' || this.promotor.name== null){
+                        swal({
+                            title: "Informe o Nome",
+                            text: "Preencha todas as informações para continuar",
+                            icon: "error",
+                            button: "OK",
+                        });                        
+                        return false;
+                    }       
+                }
+                if(this.promotor.pessoa == 2){
+                    if(this.promotor.name == '' || this.promotor.name== null){
+                        swal({
+                            title: "Informe a Razão Social",
+                            text: "Preencha todas as informações para continuar",
+                            icon: "error",
+                            button: "OK",
+                        });                        
+                        return false;
+                    }       
+                }                
+                if(this.promotor.pessoa == 1){
+                    if(this.promotor.cpf == '' || this.promotor.cpf== null){
+                        swal({
+                            title: "Informe o CPF",
+                            text: "Preencha todas as informações para continuar",
+                            icon: "error",
+                            button: "OK",
+                        });                        
+                        return false;
+                    }    
+                    if(!cpf){
+                        swal({
+                            title: "Informe um CPF Válido",
+                            text: "Preencha todas as informações para continuar",
+                            icon: "error",
+                            button: "OK",
+                        });                        
+                        return false;                    
+                    }
+                }
+                if(this.promotor.pessoa == 2){
+                    if(this.promotor.cpf == '' || this.promotor.cpf== null){
+                        swal({
+                            title: "Informe o CNPJ",
+                            text: "Preencha todas as informações para continuar",
+                            icon: "error",
+                            button: "OK",
+                        });                        
+                        return false;
+                    }    
+                    if(!cpf){
+                        swal({
+                            title: "Informe um CNPJ Válido",
+                            text: "Preencha todas as informações para continuar",
+                            icon: "error",
+                            button: "OK",
+                        });                        
+                        return false;                    
+                    }
+                }                
+
+                if(this.promotor.pessoa == 1){
+                    if(this.promotor.rg == '' || this.promotor.rg== null){
+                        swal({
+                            title: "Informe o RG",
+                            text: "Preencha todas as informações para continuar",
+                            icon: "error",
+                            button: "OK",
+                        });                        
+                        return false;
+                    }           
+                    if(this.promotor.sexo == '' || this.promotor.sexo== null || this.promotor.sexo== 'Sexo'){
+                        swal({
+                            title: "Informe o Sexo",
+                            text: "Preencha todas as informações para continuar",
+                            icon: "error",
+                            button: "OK",
+                        });                        
+                        return false;
+                    }     
+                    
+                    if(this.promotor.ecivil == '' || this.promotor.ecivil== null || this.promotor.ecivil== 'Estado Civil'){
+                        swal({
+                            title: "Informe o Estado Civil",
+                            text: "Preencha todas as informações para continuar",
+                            icon: "error",
+                            button: "OK",
+                        });                        
+                        return false;
+                    }    
+                    if(this.promotor.nascimento == '' || this.promotor.nascimento== null){
+                        swal({
+                            title: "Informe o Nascimento",
+                            text: "Preencha todas as informações para continuar",
+                            icon: "error",
+                            button: "OK",
+                        });                        
+                        return false;
+                    }     
+                    if(this.promotor.profissao == '' || this.promotor.profissao== null){
+                        swal({
+                            title: "Informe a Profissão",
+                            text: "Preencha todas as informações para continuar",
+                            icon: "error",
+                            button: "OK",
+                        });                        
+                        return false;
+                    }      
+                }
                 
                 if(this.promotor.cep == '' || this.promotor.cep== null){
                     swal({
@@ -760,7 +875,7 @@ export default {
                 let cpf = this.promotor.cpf;
                 cpf = cpf.replace(/\./g, "");
                 cpf = cpf.replace(/-/g, "");
-                
+
                 
                 var numeros, digitos, soma, i, resultado, digitos_iguais;
                 digitos_iguais = 1;
@@ -794,7 +909,67 @@ export default {
                 else
                     return false;
                     
-            },           
+        },           
+        validarCNPJ() {
+            let cnpj = this.promotor.cpf;
+                cnpj = cnpj.replace(/\./g, "");
+                cnpj = cnpj.replace(/-/g, "");
+                cnpj = cnpj.replace(/\//g, "");
+
+            cnpj = cnpj.replace(/[^\d]+/g,'');
+
+            console.log(cnpj);
+        
+            if(cnpj == '') return false;
+            
+            if (cnpj.length != 14)
+                return false;
+        
+            // Elimina CNPJs invalidos conhecidos
+            if (cnpj == "00000000000000" || 
+                cnpj == "11111111111111" || 
+                cnpj == "22222222222222" || 
+                cnpj == "33333333333333" || 
+                cnpj == "44444444444444" || 
+                cnpj == "55555555555555" || 
+                cnpj == "66666666666666" || 
+                cnpj == "77777777777777" || 
+                cnpj == "88888888888888" || 
+                cnpj == "99999999999999")
+                return false;
+                
+            // Valida DVs
+            let tamanho = cnpj.length - 2
+            let numeros = cnpj.substring(0,tamanho);
+            let digitos = cnpj.substring(tamanho);
+            let soma = 0;
+            let pos = tamanho - 7;
+            let i;
+            for (i = tamanho; i >= 1; i--) {
+            soma += numeros.charAt(tamanho - i) * pos--;
+            if (pos < 2)
+                    pos = 9;
+            }
+            let resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
+            if (resultado != digitos.charAt(0))
+                return false;
+                
+            tamanho = tamanho + 1;
+            numeros = cnpj.substring(0,tamanho);
+            soma = 0;
+            pos = tamanho - 7;
+            for (i = tamanho; i >= 1; i--) {
+            soma += numeros.charAt(tamanho - i) * pos--;
+            if (pos < 2)
+                    pos = 9;
+            }
+            resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
+            if (resultado != digitos.charAt(1))
+                return false;
+                
+            return true;
+            
+        }        
     }
 
 }

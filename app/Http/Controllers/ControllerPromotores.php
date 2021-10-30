@@ -279,53 +279,96 @@ class ControllerPromotores extends Controller
 
     public function cadastro_promotor(Request $request){
 
+        $publico = $request['publico'];
 
-        $rules = [
-            'name'          => 'required',
-            'cpf'           => 'required',
-            'rg'            => 'required',  
-            'sexo'          => 'required',  
-            'ecivil'        => 'required',  
-            'nascimento'    => 'required',  
-            'profissao'     => 'required',  
-            'cep'           => 'required',              
-            'endereco'      => 'required',    
-            'numero'        => 'required',    
-            'bairro'        => 'required',    
-            'cidade'        => 'required',    
-            'uf'            => 'required',    
-            'banco'         => 'required',    
-            'agencia'       => 'required',    
-            'conta'         => 'required',    
-            'conta_tipo'    => 'required',    
-            'pix'           => 'required',    
-            'celular'       => 'required',    
-            'email'         => 'required|string|email|max:40|unique:users'
-        ];
-        $messages = [
-            'name.required'         => 'Informe o nome completo',
-            'cpf.required'          => 'Informe o CPF',
-            'rg.required'           => 'Informe o RG',
-            'sexo.required'         => 'Informe o Sexo',
-            'ecivil.required'       => 'Informe o Estado Civil',
-            'nascimento.required'   => 'Informe o Nascimento',
-            'profissao.required'    => 'Informe a Profissão',
-            'cep.required'          => 'Informe o CEP',
-            'endereco.required'     => 'Informe o Endereço',
-            'numero.required'       => 'Informe o Número',
-            'bairro.required'       => 'Informe o Bairro',
-            'cidade.required'       => 'Informe a Cidade',
-            'uf.required'           => 'Informe a UF',
-            'banco.required'        => 'Informe o Banco',
-            'agencia.required'      => 'Informe a Agência',
-            'conta.required'        => 'Informe a Conta',
-            'conta_tipo.required'   => 'Informe o Tipo da Conta',
-            'pix.required'          => 'Informe o PIX',
-            'email.required'        => 'Informe o e-mail',
-            'email.email'           => 'E-mail inválido',
-            'email.unique'           => 'Esse e-mail já está cadastrado',
+        if($publico == 1){
 
-        ];        
+            $rules = [
+                'name'          => 'required',
+                'cpf'           => 'required',
+                'rg'            => 'required',  
+                'sexo'          => 'required',  
+                'ecivil'        => 'required',  
+                'nascimento'    => 'required',  
+                'profissao'     => 'required',  
+                'cep'           => 'required',              
+                'endereco'      => 'required',    
+                'numero'        => 'required',    
+                'bairro'        => 'required',    
+                'cidade'        => 'required',    
+                'uf'            => 'required',    
+                'banco'         => 'required',    
+                'agencia'       => 'required',    
+                'conta'         => 'required',    
+                'conta_tipo'    => 'required',    
+                'pix'           => 'required',    
+                'celular'       => 'required',    
+                'email'         => 'required|string|email|max:40|unique:users'
+            ];
+            $messages = [
+                'name.required'         => 'Informe o nome completo',
+                'cpf.required'          => 'Informe o CPF',
+                'rg.required'           => 'Informe o RG',
+                'sexo.required'         => 'Informe o Sexo',
+                'ecivil.required'       => 'Informe o Estado Civil',
+                'nascimento.required'   => 'Informe o Nascimento',
+                'profissao.required'    => 'Informe a Profissão',
+                'cep.required'          => 'Informe o CEP',
+                'endereco.required'     => 'Informe o Endereço',
+                'numero.required'       => 'Informe o Número',
+                'bairro.required'       => 'Informe o Bairro',
+                'cidade.required'       => 'Informe a Cidade',
+                'uf.required'           => 'Informe a UF',
+                'banco.required'        => 'Informe o Banco',
+                'agencia.required'      => 'Informe a Agência',
+                'conta.required'        => 'Informe a Conta',
+                'conta_tipo.required'   => 'Informe o Tipo da Conta',
+                'pix.required'          => 'Informe o PIX',
+                'email.required'        => 'Informe o e-mail',
+                'email.email'           => 'E-mail inválido',
+                'email.unique'           => 'Esse e-mail já está cadastrado',
+
+            ];        
+        } else{
+
+            $rules = [
+                'name'          => 'required',
+                'cpf'           => 'required',
+                'cep'           => 'required',              
+                'endereco'      => 'required',    
+                'numero'        => 'required',    
+                'bairro'        => 'required',    
+                'cidade'        => 'required',    
+                'uf'            => 'required',    
+                'banco'         => 'required',    
+                'agencia'       => 'required',    
+                'conta'         => 'required',    
+                'conta_tipo'    => 'required',    
+                'pix'           => 'required',    
+                'celular'       => 'required',    
+                'email'         => 'required|string|email|max:40|unique:users'
+            ];
+            $messages = [
+                'name.required'         => 'Informe a Razão Social',
+                'cpf.required'          => 'Informe o CNPJ',
+                'cep.required'          => 'Informe o CEP',
+                'endereco.required'     => 'Informe o Endereço',
+                'numero.required'       => 'Informe o Número',
+                'bairro.required'       => 'Informe o Bairro',
+                'cidade.required'       => 'Informe a Cidade',
+                'uf.required'           => 'Informe a UF',
+                'banco.required'        => 'Informe o Banco',
+                'agencia.required'      => 'Informe a Agência',
+                'conta.required'        => 'Informe a Conta',
+                'conta_tipo.required'   => 'Informe o Tipo da Conta',
+                'pix.required'          => 'Informe o PIX',
+                'email.required'        => 'Informe o e-mail',
+                'email.email'           => 'E-mail inválido',
+                'email.unique'           => 'Esse e-mail já está cadastrado',
+
+            ];                 
+
+        }
 
         $validator = Validator::make($request->all(),$rules, $messages);
         if ($validator->fails()) {
@@ -334,50 +377,80 @@ class ControllerPromotores extends Controller
         else {
     
             $link = $this->generatePassword();
-            // $link = "https://casfpic.org.br/p/".$code;
-
             $promotor_code = $this->generatePassword(6);
             $promotor_code = strtoupper($promotor_code);
 
-            $ns = $request['nascimento'];
-            $ns = explode("/",$ns);
-            $dia = $ns[0];
-            $mes = $ns[1];
-            $ano = $ns[2];
-            $nascimento = $ano."-".$mes."-".$dia;  
+            if($publico == 1){
+                $ns = $request['nascimento'];
+                $ns = explode("/",$ns);
+                $dia = $ns[0];
+                $mes = $ns[1];
+                $ano = $ns[2];
+                $nascimento = $ano."-".$mes."-".$dia;  
+            }
 
             $cpf = $this->clear($request['cpf']);
-            
-            $dados = User::create([
-                'name'      => \strtoupper($request['name']),
-                'email'     => $request['email'],
-                'cpf'       => $cpf,
-                'rg'        => $request['rg'],
-                'sexo'      => $request['sexo'],
-                'cep'       => $request['cep'],
-                'endereco'  => \strtoupper($request['endereco']),
-                'numero'    => $request['numero'],
-                'complemento'   => \strtoupper($request['complemento']),
-                'bairro'    => \strtoupper($request['bairro']),
-                'cidade'    => \strtoupper($request['cidade']),
-                'uf'        => \strtoupper($request['uf']),
-                'celular'   => $request['celular'],
-                'nascimento'=> $nascimento,
-                'ecivil'    => $request['ecivil'],
-                'profissao' => \strtoupper($request['profissao']),
-                'password' => Hash::make($cpf),
-                'promotor' => 1,
-                'promotor_code' => $promotor_code,
-                'link'          => $link,
-                'banco'         => $request['banco'],
-                'agencia'       => $request['agencia'],
-                'agencia_dig'   => $request['agencia_dig'],
-                'conta'         => $request['conta'],
-                'conta_dig'     => $request['conta_dig'],
-                'conta_tipo'    => $request['conta_tipo'],
-                'publico'    => $request['publico']
 
-            ]);                  
+
+            if($publico == 1){
+            
+                $dados = User::create([
+                    'name'      => \strtoupper($request['name']),
+                    'email'     => $request['email'],
+                    'cpf'       => $cpf,
+                    'rg'        => $request['rg'],
+                    'sexo'      => $request['sexo'],
+                    'cep'       => $request['cep'],
+                    'endereco'  => \strtoupper($request['endereco']),
+                    'numero'    => $request['numero'],
+                    'complemento'   => \strtoupper($request['complemento']),
+                    'bairro'    => \strtoupper($request['bairro']),
+                    'cidade'    => \strtoupper($request['cidade']),
+                    'uf'        => \strtoupper($request['uf']),
+                    'celular'   => $request['celular'],
+                    'nascimento'=> $nascimento,
+                    'ecivil'    => $request['ecivil'],
+                    'profissao' => \strtoupper($request['profissao']),
+                    'password' => Hash::make($cpf),
+                    'promotor' => 1,
+                    'promotor_code' => $promotor_code,
+                    'link'          => $link,
+                    'banco'         => $request['banco'],
+                    'agencia'       => $request['agencia'],
+                    'agencia_dig'   => $request['agencia_dig'],
+                    'conta'         => $request['conta'],
+                    'conta_dig'     => $request['conta_dig'],
+                    'conta_tipo'    => $request['conta_tipo'],
+                    'publico'    => $request['publico']
+
+                ]);                  
+            } else {
+                $dados = User::create([
+                    'name'      => \strtoupper($request['name']),
+                    'email'     => $request['email'],
+                    'cpf'       => $cpf,
+                    'cep'       => $request['cep'],
+                    'endereco'  => \strtoupper($request['endereco']),
+                    'numero'    => $request['numero'],
+                    'complemento'   => \strtoupper($request['complemento']),
+                    'bairro'    => \strtoupper($request['bairro']),
+                    'cidade'    => \strtoupper($request['cidade']),
+                    'uf'        => \strtoupper($request['uf']),
+                    'celular'   => $request['celular'],
+                    'password' => Hash::make($cpf),
+                    'promotor' => 1,
+                    'promotor_code' => $promotor_code,
+                    'link'          => $link,
+                    'banco'         => $request['banco'],
+                    'agencia'       => $request['agencia'],
+                    'agencia_dig'   => $request['agencia_dig'],
+                    'conta'         => $request['conta'],
+                    'conta_dig'     => $request['conta_dig'],
+                    'conta_tipo'    => $request['conta_tipo'],
+                    'publico'    => $request['publico']
+
+                ]);                   
+            }
                      
                 return $dados;
     
