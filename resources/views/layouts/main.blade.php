@@ -78,8 +78,8 @@
                                             <img src="https://casfpic.org.br/images/hero/06.png" alt="">
                                         </div>
                                         <div class="service-blurb-text">
-                                            <a href="https://html.iddrak.com/consolin/#"><h5>Atualizamos nosso Clube de Vantagens mês a
-                                                mês.</h5></a>
+                                            <h5>Atualizamos nosso Clube de Vantagens mês a
+                                                mês.</h5>
                                             <div class="service-blurb-btn mt-30">
                                                 
                                             </div>
@@ -92,7 +92,10 @@
                                             <img src="https://casfpic.org.br/images/hero/08.png" alt="">
                                         </div>
                                         <div class="service-blurb-text">
-                                            <a href="https://html.iddrak.com/consolin/#"><h5>Precisou de algum atendimento de emergência? Nossos planos cobrem.</h5></a>
+                                            <a href="https://casfpic.org.br/cadastro_promotores">
+                                            <button type="button" class="btn btn-warning btn-lg" style="background-color:#f35a24;border-color:#f35a24; color:#fff;font-weight:bold;margin-top:20px;">Cadastro de Promotores</button>
+                                        
+                                        </a>
                                             <div class="service-blurb-btn mt-30">
                                                 
                                             </div>
