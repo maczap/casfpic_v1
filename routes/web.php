@@ -8,8 +8,6 @@ use App\Http\Controllers\PostbackController;
 use App\Http\Controllers\ControllerPromotores;
 use App\Http\Controllers\ControllerDash;
 use App\Http\Controllers\ControllerDependents;
-use App\Http\Controllers\ControllerSubscription;
-
 
 use App\Services\PagarmeRequestService;
 

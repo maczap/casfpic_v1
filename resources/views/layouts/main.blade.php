@@ -58,6 +58,20 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="col-xl-6 col-sm-6 col-md-6">
+                                    <div class="service-blurb-cont service-blurb-cont-04 text-center mt-30">
+                                        <div class="service-blurb-img service-blurb-img-04">
+                                            <img src="https://casfpic.org.br/images/hero/08.png" alt="">
+                                        </div>
+                                        <div class="service-blurb-text">
+                                            <a href="https://casfpic.org.br/cadastro_promotores">
+                                            <button type="button" class="btn btn-warning btn-lg" style="background-color:#f35a24;border-color:#f35a24; color:#fff;font-weight:bold;margin-top:20px;">Cadastro de Promotores</button>
+                                        
+                                        </a>
+                                 
+                                        </div>
+                                    </div>
+                                </div>
                                 
                                 <div class="col-xl-6 col-sm-6 col-md-6">
                                     <div class="service-blurb-cont service-blurb-cont-02 text-center mt-30">
@@ -66,9 +80,7 @@
                                         </div>
                                         <div class="service-blurb-text">
                                             <a href=""><h5>Negociamos as melhores condições de benefícios nos diversos segmentos</h5></a>
-                                            <div class="service-blurb-btn mt-30">
-                                                
-                                            </div>
+                                 
                                         </div>
                                     </div>
                                 </div>
@@ -86,22 +98,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-xl-6 col-sm-6 col-md-6">
-                                    <div class="service-blurb-cont service-blurb-cont-04 text-center mt-30">
-                                        <div class="service-blurb-img service-blurb-img-04">
-                                            <img src="https://casfpic.org.br/images/hero/08.png" alt="">
-                                        </div>
-                                        <div class="service-blurb-text">
-                                            <a href="https://casfpic.org.br/cadastro_promotores">
-                                            <button type="button" class="btn btn-warning btn-lg" style="background-color:#f35a24;border-color:#f35a24; color:#fff;font-weight:bold;margin-top:20px;">Cadastro de Promotores</button>
-                                        
-                                        </a>
-                                            <div class="service-blurb-btn mt-30">
-                                                
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+ 
                             </div>
                         </div>
                         <div class="col-xl-6 col-sm-12 col-md-12 col-lg-5">
