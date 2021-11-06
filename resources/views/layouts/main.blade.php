@@ -505,7 +505,7 @@
                                             <ul>
                                             <li>Além do Rol Mínimo de coberturas - 1 Operadora de Planos Odontológico</li>
                                             </ul>
-                                            <h2 style="text-align:center"> <span class='cifrao'>R$ </span> 1200,00 <span class='month'></span></h2>
+                                            <h2 style="text-align:center"> <span class='cifrao'>R$ </span> 1.200,00 <span class='month'></span></h2>
                                             <a href="/?plano=ouro&periodo=anual#cadastro">
                                             <button type="button" class="text-center btn btn-primary btn-block" style="width:100%;">Contratar</button>
                                             </a>
