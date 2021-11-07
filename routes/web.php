@@ -106,6 +106,9 @@ Route::middleware(['auth','admin'])->group(function () {
 
 
         Route::get('dash/cadastros', [ControllerDash::class,'dash_cadastros'])->name('dash_cadastros'); 
+        Route::get('dash/getbalance', [ControllerDash::class,'getBalance'])->name('getBalance'); 
+
+        
         Route::get('get/cadastros/{id}', [ControllerDash::class,'get_cadastros'])->name('get_cadastros'); 
 
         Route::get('get/promotores', [ControllerPromotores::class,'lista_promotores'])->name('lista_promotores'); 

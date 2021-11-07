@@ -5,9 +5,36 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use Illuminate\Support\Facades\DB;
+use App\Services\PagarmeRequestService;
 
 class ControllerDash extends Controller
 {
+
+    public function __construct(PagarmeRequestService $pagarme){
+        $this->pagarme = $pagarme;
+    }
+    public function getBalance(){
+        $dados =  $this->pagarme->getBalance();
+
+        $available = $dados["available"]["amount"];
+        $available = $available/100;
+        $available = number_format($available, 2);
+
+        $waiting_funds = $dados["waiting_funds"]["amount"];
+        $waiting_funds = $waiting_funds/100;
+        $waiting_funds = number_format($waiting_funds, 2);       
+        
+        $transferred = $dados["transferred"]["amount"];
+        $transferred = $transferred/100;
+        $transferred = number_format($transferred, 2);  
+
+        
+
+        $dados["available"]["amount"] = $available;
+        $dados["waiting_funds"]["amount"] = $waiting_funds;
+        $dados["transferred"]["amount"] = $transferred;
+        return $dados;
+    }
     public function dash_cadastros(){
 
         $dados =  User::join('subscriptions', 'users.id', '=', 'subscriptions.user_id')

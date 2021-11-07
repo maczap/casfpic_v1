@@ -22,6 +22,10 @@
                         <router-link to="/admin/associados"> 
                             <li> <a>Associados</a></li>
                         </router-link>
+
+                        
+                            <li> <a>Split</a></li>
+                        
                     </ul>            
 
         
