@@ -256,11 +256,11 @@ class ControllerPlans extends Controller
 
     }
 
-    public function getPlan(){
+    public function getPlan(Request $request){
+
+        $id = $request["id"];
 
         $pagarme = new PagarmeRequestService();
-
-        $id = 624021;
 
         return $pagarme->getPlan($id);
     }

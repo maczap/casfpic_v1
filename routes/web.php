@@ -136,7 +136,8 @@ Route::middleware(['auth','admin'])->group(function () {
 
         Route::get('get_subscription/{id}', [ControllerSubscription::class,'get_subscription'])->name('get_subscription');
         
-        Route::get('get/plan', [ControllerPlans::class,'update_amount'])->name('getplan');  
+        Route::get('get/plan/update', [ControllerPlans::class,'update_amount'])->name('getplan');  
+        Route::get('get/plan/{id}', [ControllerPlans::class,'getPlan'])->name('getplan');  
     });
 
 
