@@ -203,7 +203,7 @@ class ControllerPlans extends Controller
         $payment_methods = 3;
         $trial_days = 0;     
 
-        $plan = Plan::where('tipo','teste')
+        $plan = Plan::where('tipo','producao')
                       ->where('periodo','mensal')
         
         ->get();
