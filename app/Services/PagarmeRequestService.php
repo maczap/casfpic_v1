@@ -342,7 +342,24 @@ class PagarmeRequestService extends BaseRequestService
 
         return $this->post('plans', $data);
     }
+    public function getPlan($plan_id)
+    {
 
+        return $this->get('plans/'.$plan_id);
+    }    
+
+    public function updatePlan($amount, $days, $name, $payment_methods = null, $trial_days = null)
+    {
+        $data = [
+            'amount' => $amount,
+            'days' => $days,
+            'name' => $name,
+            'payment_methods' => !is_null($payment_methods) ? $this->getPaymentMethods($payment_methods) : null,
+            'trial_days' => $trial_days
+        ];
+
+        return $this->post('plans', $data);
+    }
     public function createBanck($agencia, $agencia_dv, $banco, $conta, $conta_dv, $cpf, $name, $pix){
 
         

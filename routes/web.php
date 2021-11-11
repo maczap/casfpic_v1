@@ -8,6 +8,7 @@ use App\Http\Controllers\PostbackController;
 use App\Http\Controllers\ControllerPromotores;
 use App\Http\Controllers\ControllerDash;
 use App\Http\Controllers\ControllerDependents;
+use App\Http\Controllers\ControllerSplit;
 
 use App\Services\PagarmeRequestService;
 
@@ -36,7 +37,11 @@ Route::get('/p/{token?}', [ControllerHome::class,'index'])->name('index');
 Auth::routes();
 
 
+
+
 Route::post('cadastro/promotor', [ControllerPromotores::class,'cadastro_promotor'])->name('cadastro_promotor');
+Route::get('porcentagem/promotor', [PostbackController::class,'PorcentagemPromotor'])->name('PorcentagemPromotor');
+Route::get('subscription/pagas', [PostbackController::class,'pagas'])->name('pagas');
 
 
 Route::get('pagarme', function(){
@@ -58,6 +63,8 @@ Route::post('/payment/credit', [ControllerCadastro::class,'cadastro'])->name('pa
 // Route::get('/payment/credit', [ControllerCadastro::class,'cadastro'])->name('payment_credit');
 
 Route::get('checkout/success/{id}', [PostbackController::class,'success'])->name('success');
+
+
 
 // Route::post('/payment/boleto', [ControllerCadastro::class,'boleto'])->name('payment_boleto');
 
@@ -104,6 +111,8 @@ Route::middleware(['auth','admin'])->group(function () {
             return view("admin.index");
         });
 
+        Route::get('pagamento/split', [ControllerSplit::class,'get_pagamentos'])->name('get_pagamentos');
+
 
         Route::get('dash/cadastros', [ControllerDash::class,'dash_cadastros'])->name('dash_cadastros'); 
         Route::get('dash/getbalance', [ControllerDash::class,'getBalance'])->name('getBalance'); 
@@ -126,15 +135,8 @@ Route::middleware(['auth','admin'])->group(function () {
         Route::get('get_dependent/{id}', [ControllerDependents::class,'get_dependent'])->name('get_dependent');
 
         Route::get('get_subscription/{id}', [ControllerSubscription::class,'get_subscription'])->name('get_subscription');
-
         
-        
-        
-        
-        
-
-        
-        
+        Route::get('get/plan', [ControllerPlans::class,'update_amount'])->name('getplan');  
     });
 
 

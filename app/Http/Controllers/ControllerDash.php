@@ -28,8 +28,6 @@ class ControllerDash extends Controller
         $transferred = $transferred/100;
         $transferred = number_format($transferred, 2);  
 
-        
-
         $dados["available"]["amount"] = $available;
         $dados["waiting_funds"]["amount"] = $waiting_funds;
         $dados["transferred"]["amount"] = $transferred;

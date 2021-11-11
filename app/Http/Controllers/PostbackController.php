@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Subscription;
 use App\User;
 use App\Plan;
+use App\Split;
+use App\Promotores;
 use App\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -23,9 +25,12 @@ class PostbackController extends Controller
     private $subscription;
     
 
-    public function __construct(Subscription $subscription){
+    public function __construct(Subscription $subscription, Plan $plan, User $user, Promotores $promotores){
 
         $this->subscription = $subscription;
+        $this->plan         = $plan;
+        $this->user         = $user;
+        $this->promotores   = $promotores;
         
 
     }
@@ -50,9 +55,11 @@ class PostbackController extends Controller
     
             if (!is_null($subscription)) {
 
+                $amount = $request->all()['transaction']['amount'];
                 $status = $request->all()['transaction']['status'];
                 $details = $this->transactionStatus($status);
 
+                $subscription->amount        = $amount;
                 $subscription->status        = $status;
                 $subscription->status_detail = $details;
                 $subscription->save();
@@ -71,6 +78,7 @@ class PostbackController extends Controller
             if (!is_null($transaction)) {
                 
                 $transaction->status = $request->all()['transaction']['status'];
+                $transaction->amount = $request->all()['transaction']['amount'];
                 $transaction->save();
             }
         }
@@ -535,6 +543,81 @@ class PostbackController extends Controller
         $transaction = Subscription::where('subscription_code', $dados["id"])->first();
         $transaction->user->transactions()->create($transaction);
         
+    }
+
+
+
+    public function pagas(){
+        $subscription = Subscription::get();   
+
+        $plan = new Plan();
+        
+        foreach($subscription as $item){
+            $id             = $item->id;
+            $user_id        = $item->user_id;
+            $plano_id       = $item->plan_id;
+            $amount         = $item->amount;
+            $nick           = $item->nick;
+            $periodo        = $item->periodo;
+            $status         = $item->status;
+            $promotor_code  = $item->vinculo;
+
+                
+            if($status == "paid"){
+
+                $user = User::where('id', $user_id)->first();
+                
+                if(!empty($user)){
+
+                    $vinculo = $user->vinculo;
+                    
+                    $promotor = User::where('promotor_code', $vinculo)->first();
+
+                    if(isset($promotor->id)){
+
+                        $plano_amount = $this->plan->get_plan_amount($plano_id);
+                        if(isset($plano_amount[0])){
+            
+                            $amount     = $plano_amount[0]->amount;
+                            $nick       = $plano_amount[0]->nick;
+                            $periodo    = $plano_amount[0]->periodo;
+
+                            echo $promotor->id ." - ". $user_id ." - ".$nick. " - ".$periodo . " - ". $amount. " - ".$status. "</br>";
+
+                            $porcentagem = $this->promotores->porcentagem($periodo, $nick);
+
+                            $pc = $this->PorcentagemPromotor($amount, $porcentagem[0]->porcentagem);
+
+                                                        
+                            if(!empty($pc)){
+
+                                $dados = Split::create([
+                                'id_promotor' => $promotor->id,
+                                'valor'       => $pc,
+                                'id_sub'      => $id,
+                                'tipo'        => 0,
+                                'pago'        => 0
+                            ]);                           
+            
+                            }
+       
+                            
+            
+                        }      
+                    }          
+                }
+            }
+
+            
+
+            
+        }
+    }
+
+    public function PorcentagemPromotor($valor, $porcentagem){
+
+        $resultado = $valor * ($porcentagem / 100);
+        return $resultado;        
     }
 
 }

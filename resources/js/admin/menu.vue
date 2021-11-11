@@ -23,8 +23,9 @@
                             <li> <a>Associados</a></li>
                         </router-link>
 
-                        
+                        <router-link to="/admin/splits"> 
                             <li> <a>Split</a></li>
+                        </router-link>
                         
                     </ul>            
 

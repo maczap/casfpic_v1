@@ -196,4 +196,72 @@ class ControllerPlans extends Controller
         }
 
     }
+
+    public function update_amount(){
+
+        $days=30;
+        $payment_methods = 3;
+        $trial_days = 0;     
+
+        $plan = Plan::where('tipo','teste')
+                      ->where('periodo','mensal')
+        
+        ->get();
+
+        foreach($plan as $item){
+
+            $id     = $item->id;
+            $codigo = $item->codigo_integracao;
+            $amount = $item->amount;
+            $name = $item->descricao;
+
+            $amount = preg_replace('/[^0-9]/', '', $amount);
+
+
+            echo $id ." - " .$codigo." - ". $name. " - ".$amount. "</br>";
+
+            try {
+                DB::beginTransaction();
+    
+                $pagarme = new PagarmeRequestService();
+                $createPagarmePlan = $pagarme->createPlan($amount, $days, $name, $payment_methods, $trial_days);
+                
+                if (isset($createPagarmePlan['errors'])) {
+    
+                    DB::rollBack();
+                    return ["erro"];
+                }
+
+                if(isset($createPagarmePlan['id'])){
+                    $plan = new Plan;
+                    $plan = $plan::where('id', $id)->first(); 
+    
+                    if(!empty($plan)){            
+                        $plan->codigo_integracao = $createPagarmePlan['id'];
+                        $plan->save();
+                        echo  $createPagarmePlan['id']." - ". $name . " - ".$amount." - ".$codigo." - ".$days." - ".$payment_methods." - .".$trial_days."</br>";
+                    }               
+                }            
+    
+                DB::commit();                          
+
+            } catch (Exception $e) {
+                DB::rollback();
+                return ["erro"];
+            }
+    
+       
+            
+        }
+
+    }
+
+    public function getPlan(){
+
+        $pagarme = new PagarmeRequestService();
+
+        $id = 624021;
+
+        return $pagarme->getPlan($id);
+    }
 }

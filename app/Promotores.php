@@ -39,4 +39,18 @@ class Promotores extends Model
         
     }    
 
+    public function porcentagem($periodo, $plano)
+    {
+
+        return DB::table('porcentagens')
+            ->where("periodo", $periodo)
+            ->Where("plano", $plano)
+            ->get();    
+        
+    }       
+
+
+
+
+
 }

@@ -21,4 +21,11 @@ class Plan extends Model
         
         ->get();        
     }   
+
+
+    public function get_plan_amount($id){
+        return DB::table('plans')
+          ->where('id',$id)
+          ->get();        
+      }   
 }
