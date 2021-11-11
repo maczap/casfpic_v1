@@ -66,7 +66,7 @@ class PostbackController extends Controller
                 $subscription->save();
                 
                 
-                DB::table('postbacks_rs')->insert([
+                DB::table('postbacks')->insert([
                     'postback' => $transaction_code
                 ]);                    
                 
