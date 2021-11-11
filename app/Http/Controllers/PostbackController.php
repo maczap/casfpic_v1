@@ -48,6 +48,7 @@ class PostbackController extends Controller
         DB::table('postbacks')->insert([
             'postback' => json_encode($request->all())
         ]);
+
         if(isset($request->all()['transaction']['id'])){
             $transaction_code = $request->all()['transaction']['id'];
 
@@ -65,7 +66,7 @@ class PostbackController extends Controller
                 $subscription->save();
                 
                 
-                    $this->pagas($transaction_code);
+                    
                 
     
                 $current_transaction = $request->all()['transaction'];
@@ -87,6 +88,11 @@ class PostbackController extends Controller
             //     $transaction->amount = $request->all()['transaction']['amount'];
             //     $transaction->save();
             // }
+        }
+
+        if(isset($request->all()['id'])){
+            $transaction_code = $request->all()['id'];
+            $this->pagas($transaction_code);
         }
 
         if(isset($request->all()['subscription']['id'])){
