@@ -107,6 +107,7 @@ Route::get('dash/cadastros2', [ControllerDash::class,'dash_cadastros2'])->name('
 Route::middleware(['auth','admin'])->group(function () {
 
     Route::prefix('admin')->group(function () {    
+        
         Route::get('/',function() {
             return view("admin.index");
         });
@@ -138,6 +139,7 @@ Route::middleware(['auth','admin'])->group(function () {
         
         Route::get('get/plan/update', [ControllerPlans::class,'update_amount'])->name('getplan');  
         Route::get('get/plan/{id}', [ControllerPlans::class,'getPlan'])->name('getplan');  
+
     });
 
 

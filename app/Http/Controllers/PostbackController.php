@@ -71,16 +71,20 @@ class PostbackController extends Controller
                 if (is_null($neWtransaction)) {
                     $subscription->user->transactions()->create($this->managerTransactionData($current_transaction));
                 }
+
+                if($status == "paid"){
+                    $this->pagas($transaction_code);
+                }
             }    
 
-            $transaction = Transaction::where('transaction_code', $transaction_code)->first();
+            // $transaction = Transaction::where('transaction_code', $transaction_code)->first();
 
-            if (!is_null($transaction)) {
+            // if (!is_null($transaction)) {
                 
-                $transaction->status = $request->all()['transaction']['status'];
-                $transaction->amount = $request->all()['transaction']['amount'];
-                $transaction->save();
-            }
+            //     $transaction->status = $request->all()['transaction']['status'];
+            //     $transaction->amount = $request->all()['transaction']['amount'];
+            //     $transaction->save();
+            // }
         }
 
         if(isset($request->all()['subscription']['id'])){
@@ -547,12 +551,13 @@ class PostbackController extends Controller
 
 
 
-    public function pagas(){
-        $subscription = Subscription::get();   
+    public function pagas($subscription_code){
+        $subscription = Subscription::where("subscription_code", $subscription_code)->get();   
 
         $plan = new Plan();
         
         foreach($subscription as $item){
+
             $id             = $item->id;
             $user_id        = $item->user_id;
             $plano_id       = $item->plan_id;
@@ -607,10 +612,6 @@ class PostbackController extends Controller
                     }          
                 }
             }
-
-            
-
-            
         }
     }
 
