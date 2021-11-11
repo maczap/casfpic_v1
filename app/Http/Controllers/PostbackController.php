@@ -92,8 +92,8 @@ class PostbackController extends Controller
             // }
         }
 
-        if(isset($request->all()['id'])){
-            $transaction_code = $request->all()['id'];
+        if(isset($request->all()['transaction']['id'])){
+            $transaction_code = $request->all()['transaction']['id'];
             $this->pagas($transaction_code);
         }
 
@@ -119,7 +119,12 @@ class PostbackController extends Controller
                 if (is_null($neWtransaction)) {
                     $subscription->user->transactions()->create($this->managerTransactionData($current_transaction));
                 }
-            }            
+            }     
+            
+            
+                
+                $this->pagas($subscription_code);
+               
             
         }
         return;
