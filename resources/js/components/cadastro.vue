@@ -1146,8 +1146,6 @@ export default {
                            Object.entries(response.body.errors).forEach(([key, value]) => {
    
                                 swal({
-                                        title: key,
-                                        text: value[0],
                                         icon: "error",
                                         button: "OK",
                                 });                                              

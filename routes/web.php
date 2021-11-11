@@ -140,6 +140,10 @@ Route::middleware(['auth','admin'])->group(function () {
         Route::get('get/plan/update', [ControllerPlans::class,'update_amount'])->name('getplan');  
         Route::get('get/plan/{id}', [ControllerPlans::class,'getPlan'])->name('getplan');  
 
+        Route::get('teste/split/{subscription_code}', [PostbackController::class,'pagas'])->name('pagas');  
+
+        
+
     });
 
 

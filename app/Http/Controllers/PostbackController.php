@@ -552,6 +552,8 @@ class PostbackController extends Controller
 
 
     public function pagas($subscription_code){
+
+        
         $subscription = Subscription::where("subscription_code", $subscription_code)->get();   
 
         $plan = new Plan();
