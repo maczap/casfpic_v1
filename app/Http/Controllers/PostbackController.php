@@ -66,7 +66,9 @@ class PostbackController extends Controller
                 $subscription->save();
                 
                 
-                    
+                DB::table('postbacks_rs')->insert([
+                    'postback' => $transaction_code
+                ]);                    
                 
     
                 $current_transaction = $request->all()['transaction'];
