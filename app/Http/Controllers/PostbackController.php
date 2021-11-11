@@ -63,6 +63,10 @@ class PostbackController extends Controller
                 $subscription->status        = $status;
                 $subscription->status_detail = $details;
                 $subscription->save();
+                
+                
+                    $this->pagas($transaction_code);
+                
     
                 $current_transaction = $request->all()['transaction'];
     
@@ -72,9 +76,7 @@ class PostbackController extends Controller
                     $subscription->user->transactions()->create($this->managerTransactionData($current_transaction));
                 }
 
-                if($status == "paid"){
-                    $this->pagas($transaction_code);
-                }
+
             }    
 
             // $transaction = Transaction::where('transaction_code', $transaction_code)->first();
@@ -555,63 +557,64 @@ class PostbackController extends Controller
 
         
         $subscription = Subscription::where("subscription_code", $subscription_code)->get();   
+        if($subscription){
+            $plan = new Plan();
+            
+            foreach($subscription as $item){
 
-        $plan = new Plan();
-        
-        foreach($subscription as $item){
+                $id             = $item->id;
+                $user_id        = $item->user_id;
+                $plano_id       = $item->plan_id;
+                $amount         = $item->amount;
+                $nick           = $item->nick;
+                $periodo        = $item->periodo;
+                $status         = $item->status;
+                $promotor_code  = $item->vinculo;
 
-            $id             = $item->id;
-            $user_id        = $item->user_id;
-            $plano_id       = $item->plan_id;
-            $amount         = $item->amount;
-            $nick           = $item->nick;
-            $periodo        = $item->periodo;
-            $status         = $item->status;
-            $promotor_code  = $item->vinculo;
-
-                
-            if($status == "paid"){
-
-                $user = User::where('id', $user_id)->first();
-                
-                if(!empty($user)){
-
-                    $vinculo = $user->vinculo;
                     
-                    $promotor = User::where('promotor_code', $vinculo)->first();
+                if($status == "paid"){
 
-                    if(isset($promotor->id)){
+                    $user = User::where('id', $user_id)->first();
+                    
+                    if(!empty($user)){
 
-                        $plano_amount = $this->plan->get_plan_amount($plano_id);
-                        if(isset($plano_amount[0])){
-            
-                            $amount     = $plano_amount[0]->amount;
-                            $nick       = $plano_amount[0]->nick;
-                            $periodo    = $plano_amount[0]->periodo;
+                        $vinculo = $user->vinculo;
+                        
+                        $promotor = User::where('promotor_code', $vinculo)->first();
 
-                            echo $promotor->id ." - ". $user_id ." - ".$nick. " - ".$periodo . " - ". $amount. " - ".$status. "</br>";
+                        if(isset($promotor->id)){
 
-                            $porcentagem = $this->promotores->porcentagem($periodo, $nick);
+                            $plano_amount = $this->plan->get_plan_amount($plano_id);
+                            if(isset($plano_amount[0])){
+                
+                                $amount     = $plano_amount[0]->amount;
+                                $nick       = $plano_amount[0]->nick;
+                                $periodo    = $plano_amount[0]->periodo;
 
-                            $pc = $this->PorcentagemPromotor($amount, $porcentagem[0]->porcentagem);
+                                echo $promotor->id ." - ". $user_id ." - ".$nick. " - ".$periodo . " - ". $amount. " - ".$status. "</br>";
 
-                                                        
-                            if(!empty($pc)){
+                                $porcentagem = $this->promotores->porcentagem($periodo, $nick);
 
-                                $dados = Split::create([
-                                'id_promotor' => $promotor->id,
-                                'valor'       => $pc,
-                                'id_sub'      => $id,
-                                'tipo'        => 0,
-                                'pago'        => 0
-                            ]);                           
-            
-                            }
-       
-                            
-            
-                        }      
-                    }          
+                                $pc = $this->PorcentagemPromotor($amount, $porcentagem[0]->porcentagem);
+
+                                                            
+                                if(!empty($pc)){
+
+                                    $dados = Split::create([
+                                    'id_promotor' => $promotor->id,
+                                    'valor'       => $pc,
+                                    'id_sub'      => $id,
+                                    'tipo'        => 0,
+                                    'pago'        => 0
+                                ]);                           
+                
+                                }
+        
+                                
+                
+                            }      
+                        }          
+                    }
                 }
             }
         }
