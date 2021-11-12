@@ -13,7 +13,7 @@ class ControllerWebhook extends Controller
 
             $retorno1 = json_encode($request->all());
 
-            // $retorno = '{
+            // $retorno1 = '{
             //     "signature":{
             //        "token":"779747d9a7ca25d6d04e8793bad9db3f186671927436f56c5f",
             //        "timestamp":"1636725616",
@@ -68,6 +68,9 @@ class ControllerWebhook extends Controller
              $domain = $retorno["event-data"]["recipient-domain"];
              $tag = $retorno["event-data"]["tags"][0];
              $id = $retorno["event-data"]["id"];
+
+
+             $data = date('Y-m-d H:i:s', $data);
              
 
             $dados = Webhook::create([
@@ -76,7 +79,8 @@ class ControllerWebhook extends Controller
                 'id_webhook' => $id,
                 'event' => $event,
                 'domain' => $domain,
-                'tag' => $tag
+                'tag' => $tag,
+                'date_event' => $data
                 
             ]);  
 

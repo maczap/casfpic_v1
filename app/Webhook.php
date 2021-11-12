@@ -16,7 +16,8 @@ class Webhook extends Model
         'id_webhook',
         'event',
         'domain',
-        'tag'
+        'tag',
+        'date_event'
 
     ];        
 }
