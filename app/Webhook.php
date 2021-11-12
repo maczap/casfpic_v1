@@ -10,7 +10,8 @@ class Webhook extends Model
 
     protected $fillable = [
         'hooks',
-        'id'
+        'id',
+        'recipient'
 
     ];        
 }
