@@ -17,7 +17,7 @@ class ControllerWebhook extends Controller
             // ]);
             $dados = Webhook::create([
                 // 'hooks' => json_encode($request->all()),
-                'hooks' => $retorno
+                'hooks' => $retorno["signature"]
                 
             ]);  
 
