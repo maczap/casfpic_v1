@@ -12,6 +12,9 @@ use App\Http\Controllers\ControllerSplit;
 use App\Http\Controllers\ControllerEmails;
 
 use App\Services\PagarmeRequestService;
+use App\Http\Controllers\ControllerWebhook;
+
+
 
 
 
@@ -143,6 +146,9 @@ Route::middleware(['auth','admin'])->group(function () {
         Route::get('get/plan/{id}', [ControllerPlans::class,'getPlan'])->name('getplan');  
 
         Route::get('teste/split/{subscription_code}', [PostbackController::class,'pagas'])->name('pagas');  
+
+
+        Route::get('webhooks/unsubscribes', [ControllerWebhook::class,'webhooks'])->name('webhooks_unsubscribes');
 
         
 
