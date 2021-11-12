@@ -29,7 +29,7 @@
 <tr>
 <td class="content" style="background: #ffffff; padding: 5px 34px; border-top-left-radius: 10px; border-top-right-radius: 10px; text-align: left;" align="center">
 <p>&nbsp;</p>
-<p style="font-size: 16px;">Boa not&iacute;cia: j&aacute; creditamos para voc&ecirc; o valor de R$ 100,00!</p>
+<p style="font-size: 16px;">Boa not&iacute;cia: j&aacute; creditamos para voc&ecirc; o valor de R$ {{$valor}}!</p>
 <p style="font-size: 16px;">Esse valor &eacute; referente &agrave; comiss&atilde;o da parcela da Vanessa Dandara</p>
 </td>
 </tr>

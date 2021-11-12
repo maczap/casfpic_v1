@@ -610,8 +610,6 @@ class PostbackController extends Controller
                                 $nick       = $plano_amount[0]->nick;
                                 $periodo    = $plano_amount[0]->periodo;
 
-                                echo $promotor->id ." - ". $user_id ." - ".$nick. " - ".$periodo . " - ". $amount. " - ".$status. "</br>";
-
                                 $porcentagem = $this->promotores->porcentagem($periodo, $nick);
 
                                 $pc = $this->PorcentagemPromotor($amount, $porcentagem[0]->porcentagem);
@@ -629,6 +627,7 @@ class PostbackController extends Controller
                                     
                                     $dados = [
                                         'nome'   => $nome,
+                                        'valor'  => $pc
                                     ];
                                     
                                     Mail::to($email)->send(new ComissaoEntrada($dados));                                        

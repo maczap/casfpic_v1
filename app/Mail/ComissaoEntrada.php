@@ -18,10 +18,12 @@ class ComissaoEntrada extends Mailable
      */
 
     public $nome;
+    public $valor;
 
     public function __construct($dados)
     {
         $this->nome    = ucfirst($dados["nome"]);
+        $this->valor   = $dados["valor"];
     }
 
     /**
@@ -37,7 +39,8 @@ class ComissaoEntrada extends Mailable
         ->view('Emails.ComissaoEntrada')
 
         ->with([
-            'nome'   => $this->nome
+            'nome'   => $this->nome,
+            'valor'  => $this->valor,
         ]);          
     }
 }
