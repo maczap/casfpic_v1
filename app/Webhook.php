@@ -13,7 +13,7 @@ class Webhook extends Model
         'id',
         'recipient',
         'email',
-        'od_webhook',
+        'id_webhook',
         'event',
         'domain',
         'tag'
