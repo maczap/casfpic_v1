@@ -15,8 +15,8 @@ class ControllerWebhook extends Controller
             //     'hooks' => json_encode($request->all())
             // ]);
             $dados = Webhook::create([
-                'hooks' => json_encode($request->all()),
-                'recipient' => $request['event-data']['recipient']
+                // 'hooks' => json_encode($request->all()),
+                'hooks' => $request
                 
             ]);  
                 
