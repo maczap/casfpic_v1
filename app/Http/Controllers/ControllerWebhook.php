@@ -11,7 +11,7 @@ class ControllerWebhook extends Controller
 
             $retorno = json_encode($request->all());
 
-            $retorno = json_decode($retorno);
+            $retorno = json_decode($retorno, true);
             
             
             // DB::table('webhooks')->insert([
