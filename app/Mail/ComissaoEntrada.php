@@ -7,9 +7,9 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class Pagamento extends Mailable
+class ComissaoEntrada extends Mailable
 {
-    // use Queueable, SerializesModels;
+    use Queueable, SerializesModels;
 
     /**
      * Create a new message instance.
@@ -29,14 +29,15 @@ class Pagamento extends Mailable
      *
      * @return $this
      */
+
     public function build()
     {
         return $this->from('no-reply@casfpic.org.br','CASFPIC')
-        ->subject('Confirmação de pagamento da parcela')
-        ->view('Emails.pagamento')
+        ->subject('Você recebeu uma comissão')
+        ->view('Emails.ComissaoEntrada')
 
         ->with([
             'nome'   => $this->nome
-        ]);           
+        ]);          
     }
 }
