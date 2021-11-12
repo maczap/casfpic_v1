@@ -9,7 +9,7 @@ use Illuminate\Queue\SerializesModels;
 
 class Pagamento extends Mailable
 {
-    use Queueable;
+    use Queueable, SerializesModels;
 
     /**
      * Create a new message instance.
@@ -34,11 +34,7 @@ class Pagamento extends Mailable
         return $this->from('no-reply@casfpic.org.br','CASFPIC')
         ->subject('Confirmação de pagamento')
         ->view('Emails.pagamento')
-        ->withSwiftMessage(function($message) {
-            $headers = $message->getHeaders();
-            $headers->addTextHeader("X-Mailgun-Variables", '{"type": "group-invitation"}');
-            $headers->addTextHeader("X-Mailgun-Tag", "group-invitation");
-        })
+
         ->with([
             'nome'   => $this->nome
         ]);           
