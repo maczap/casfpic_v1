@@ -9,7 +9,7 @@ class ControllerWebhook extends Controller
 {
     public function webhooks(Request $request){
 
-            $retorno = json_decode($request);
+            $retorno = json_encode($request);
             
             
         
