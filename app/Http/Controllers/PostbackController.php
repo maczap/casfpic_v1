@@ -12,6 +12,7 @@ use App\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Mail\Pagamento;
+use App\Mail\ComissaoEntrada;
 use Illuminate\Support\Facades\Mail;
 use Zend\Filter\File\UpperCase;
 use Illuminate\Support\Facades\Crypt;
@@ -82,14 +83,14 @@ class PostbackController extends Controller
 
             }    
 
-            // $transaction = Transaction::where('transaction_code', $transaction_code)->first();
+            $transaction = Transaction::where('transaction_code', $transaction_code)->first();
 
-            // if (!is_null($transaction)) {
+            if (!is_null($transaction)) {
                 
-            //     $transaction->status = $request->all()['transaction']['status'];
-            //     $transaction->amount = $request->all()['transaction']['amount'];
-            //     $transaction->save();
-            // }
+                $transaction->status = $request->all()['transaction']['status'];
+                $transaction->amount = $request->all()['transaction']['amount'];
+                $transaction->save();
+            }
         }
 
         if(isset($request->all()['transaction']['id'])){
@@ -568,7 +569,6 @@ class PostbackController extends Controller
 
     public function pagas($subscription_code){
 
-        
         $subscription = Subscription::where("subscription_code", $subscription_code)->get();   
         if($subscription){
             $plan = new Plan();
@@ -592,6 +592,12 @@ class PostbackController extends Controller
                     if(!empty($user)){
 
                         $vinculo = $user->vinculo;
+                        $email = $user->email;
+                        $nome = $user->name;
+                        if(!empty($nome)){
+                            $n = explode(" ", $nome);
+                            $nome = $n[0];
+                        }
                         
                         $promotor = User::where('promotor_code', $vinculo)->first();
 
@@ -619,11 +625,15 @@ class PostbackController extends Controller
                                     'id_sub'      => $id,
                                     'tipo'        => 0,
                                     'pago'        => 0
-                                ]);                           
+                                    ]);       
+                                    
+                                    $dados = [
+                                        'nome'   => $nome,
+                                    ];
+                                    
+                                    Mail::to($email)->send(new ComissaoEntrada($dados));                                        
                 
                                 }
-        
-                                
                 
                             }      
                         }          
