@@ -11,7 +11,7 @@ class ControllerWebhook extends Controller
 
             
 
-            $retorno = json_encode($request->all());
+            $retorno1 = json_encode($request->all());
 
             // $retorno = '{
             //     "signature":{
@@ -58,7 +58,7 @@ class ControllerWebhook extends Controller
             //     }
             //  }';
 
-             $retorno = json_decode($retorno, true);
+             $retorno = json_decode($retorno1, true);
 
              
 
@@ -71,7 +71,7 @@ class ControllerWebhook extends Controller
              
 
             $dados = Webhook::create([
-                'hooks' => $id,
+                'hooks' => $retorno1,
                 'email' => $recipient,
                 'id_webhook' => $id,
                 'event' => $event,
