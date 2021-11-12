@@ -11,9 +11,9 @@ class ControllerWebhook extends Controller
 
             
 
-            $retorno = json_decode($request);
+            $retorno = $request->all();
 
-            $retorno = $retorno->signature;
+            
 
             
             
