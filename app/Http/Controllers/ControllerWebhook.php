@@ -9,14 +9,14 @@ class ControllerWebhook extends Controller
 {
     public function webhooks(Request $request){
 
-        
+            $retorno = json_encode($request->all());
         
             // DB::table('webhooks')->insert([
             //     'hooks' => json_encode($request->all())
             // ]);
             $dados = Webhook::create([
                 // 'hooks' => json_encode($request->all()),
-                'hooks' => $request
+                'hooks' => $retorno["event-data"]
                 
             ]);  
                 
