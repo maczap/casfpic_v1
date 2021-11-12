@@ -11,7 +11,12 @@ class Webhook extends Model
     protected $fillable = [
         'hooks',
         'id',
-        'recipient'
+        'recipient',
+        'email',
+        'od_webhook',
+        'event',
+        'domain',
+        'tag'
 
     ];        
 }
