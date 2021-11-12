@@ -61,7 +61,6 @@ class ControllerWebhook extends Controller
              $retorno = json_decode($retorno1, true);
 
              
-
              $recipient = $retorno["event-data"]["recipient"];
              $data = $retorno["signature"]["timestamp"];
              $event = $retorno["event-data"]["event"];
