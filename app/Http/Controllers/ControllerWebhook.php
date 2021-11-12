@@ -13,9 +13,8 @@ class ControllerWebhook extends Controller
 
             $retorno = $request->all();
 
-            
+            $retorno = $this->entrega($retorno);
 
-            
             
             // DB::table('webhooks')->insert([
             //     'hooks' => json_encode($request->all())
@@ -27,5 +26,9 @@ class ControllerWebhook extends Controller
             ]);  
 
                 
+    }
+
+    public function entrega(array $data){
+        return $data['signature'];
     }
 }
