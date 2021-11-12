@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Webhooks;
+use App\Webhook;
 
 class ControllerWebhook extends Controller
 {
@@ -14,7 +14,7 @@ class ControllerWebhook extends Controller
             // DB::table('webhooks')->insert([
             //     'hooks' => json_encode($request->all())
             // ]);
-            $dados = Webhooks::create([
+            $dados = Webhook::create([
                 'hooks' => json_encode($request->all())
             ]);  
                 
