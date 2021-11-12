@@ -63,7 +63,7 @@ class ControllerWebhook extends Controller
              
 
              $recipient = $retorno["event-data"]["recipient"];
-             $data = $retorno["event-data"]["timestamp"];
+             $data = $retorno["signature"]["timestamp"];
              $event = $retorno["event-data"]["event"];
              $domain = $retorno["event-data"]["recipient-domain"];
              $tag = $retorno["event-data"]["tags"][0];
