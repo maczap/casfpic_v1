@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\PostbackController;
+use App\Http\Controllers\ControllerWebhook;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,4 +31,12 @@ Route::get('checkout/billet', [PostbackController::class,'billet'])->name('bille
 Route::get('checkout/pix', [PostbackController::class,'pix'])->name('pix');
 Route::get('checkout/failure', [PostbackController::class,'failure'])->name('failure');
 Route::get('checkout/pending', [PostbackController::class,'pending'])->name('pending');
+
+Route::post('webhooks/clicks', [ControllerWebhook::class,'webhooks'])->name('webhooks_cliks');
+Route::post('webhooks/delivered', [ControllerWebhook::class,'webhooks'])->name('webhooks_delivered');
+Route::post('webhooks/opens', [ControllerWebhook::class,'webhooks'])->name('webhooks_opens');
+Route::post('webhooks/permanent_failure', [ControllerWebhook::class,'webhooks'])->name('webhooks_permanent_failure');
+Route::post('webhooks/spam_complaints', [ControllerWebhook::class,'webhooks'])->name('webhooks_spam_complaints');
+Route::post('webhooks/temporary_failure', [ControllerWebhook::class,'webhooks'])->name('webhooks_temporary_failure');
+Route::post('webhooks/unsubscribes', [ControllerWebhook::class,'webhooks'])->name('webhooks_unsubscribes');
 

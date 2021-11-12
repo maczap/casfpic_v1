@@ -9,6 +9,7 @@ use App\Http\Controllers\ControllerPromotores;
 use App\Http\Controllers\ControllerDash;
 use App\Http\Controllers\ControllerDependents;
 use App\Http\Controllers\ControllerSplit;
+use App\Http\Controllers\ControllerEmails;
 
 use App\Services\PagarmeRequestService;
 
@@ -111,8 +112,9 @@ Route::middleware(['auth','admin'])->group(function () {
         Route::get('/',function() {
             return view("admin.index");
         });
-
+        Route::get('send_email', [ControllerEmails::class,'SendEmail'])->name('send_email');
         Route::get('pagamento/split', [ControllerSplit::class,'get_pagamentos'])->name('get_pagamentos');
+
 
 
         Route::get('dash/cadastros', [ControllerDash::class,'dash_cadastros'])->name('dash_cadastros'); 
