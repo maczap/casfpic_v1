@@ -135,7 +135,7 @@
 					<div class="row">
                         <div class="col-xl-2 col-sm-6 col-md-4 col-lg-2">
                             <div class="footer-about">
-                                <a href="#"><img src="https://casfpic.org.br/images/hero/logo2.png" alt="footer logo"></a>
+                                <a href="#"><img src="https://casfpic.org.br/images/logo.png" alt="footer logo"></a>
                             </div>
                         </div>
                         <div class="col-xl-2 col-sm-6 col-md-6 col-lg-2">
