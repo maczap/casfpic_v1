@@ -54,7 +54,7 @@
                             <!-- Header logo -->
                             <div class="col-xl-3 col-lg-3 col-md-3">
                                 <div class="header-logo d-sm-block  none d-md-block d-lg-block d-xl-block text-center text-md-left text-lg-left text-xl-left">
-                                    <a href="#"><img src="https://casfpic.org.br/images/hero/logo2.png" class="" alt="logo casfpic"></a>
+                                    <a href="#"><img src="https://casfpic.org.br/images/logo.png" class="" alt="logo casfpic"></a>
                                 </div>
                             </div>
                             <!-- Header Responsive menu -->
