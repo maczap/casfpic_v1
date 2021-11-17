@@ -365,11 +365,11 @@
 
                                      
 
-                                            <p class="card-text">Garantida a Cobertura do Plano
-                                                Odontológico Rol Mínimo de coberturas estipulado
-                                                junto a ANS- Agencia Nacional de Saúde
-                                                Suplementar em contratos firmados juntos a 01
+                                            <p class="card-text">Garantida a Cobertura do Plano Odontológico Rol Mínimo de coberturas 
+                                                estipulado junto a ANS- Agencia Nacional de Saúde Suplementar em contrato firmado junto a 01 
                                                 (uma) Operadora de Planos Odontológico Privados.</p>
+
+                                                
                                             
                                             </div>
                                         </div>                            
@@ -412,12 +412,9 @@
                                             <button type="button" class="text-center btn btn-primary btn-block" style="width:100%;">Assinar</button>
                                             </a>
                                               
-                                            <p class="card-text">Garantida a Cobertura do Plano
-                                                Odontológico além Rol Mínimo de coberturas
-                                                estipulado junto a ANS- Agencia Nacional de
-                                                Saúde Suplementar em contratos firmados juntos
-                                                a 01(uma) Operadora de Planos Odontológico
-                                                Privados.</p>
+                                            <p class="card-text">Garantida a Cobertura do Plano Odontológico além Rol Mínimo de coberturas e <strong>tratamentos ortodônticos 
+                                                corretivos, preventivos e  interceptivos e ortopedia funcional, aparelhos fixos e móveis, 
+                                                manutenções mensal de ortodontia / ortopedia </strong>firmado junto a 01(uma) Operadora de Planos Odontológico Privados.</p>
                                             
                                             </div>
                                         </div>   
