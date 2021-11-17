@@ -10,6 +10,7 @@ use App\Http\Controllers\ControllerDash;
 use App\Http\Controllers\ControllerDependents;
 use App\Http\Controllers\ControllerSplit;
 use App\Http\Controllers\ControllerEmails;
+use App\Http\Controllers\ControllerSubscription;
 
 use App\Services\PagarmeRequestService;
 use App\Http\Controllers\ControllerWebhook;
