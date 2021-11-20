@@ -227,7 +227,6 @@ class ControllerCadastro extends Controller
             $percent_promotor   = $dados_plano->percent_promotor;   
             $percent_titular = 100-$percent_promotor;
 
-            
         
             $ddd        = $this->clear(substr($request['celular'], 1, 2));
             $celular    = $this->clear(substr($request['celular'], 4, 11));  
@@ -454,7 +453,14 @@ class ControllerCadastro extends Controller
                         else if($periodo == "mensal") {
                             $amount = $this->clear($plano_amount);
 
-                            $subscription = $pagarme->createSubscription($customer,$plano_codigo_integracao, $payment_methods, $card_id, $address, $phone, $amount, $plano_name, $rec_id, $percent_promotor, $percent_titular);
+                            if($payment_methods == "boleto"){
+
+                                $subscription["id"] = $dados["id"];
+
+                            }else{
+                                $subscription = $pagarme->createSubscription($customer,$plano_codigo_integracao, $payment_methods, $card_id, $address, $phone, $amount, $plano_name, $rec_id, $percent_promotor, $percent_titular);
+                            }
+                       
                                                                                                                        
                             
                             if (isset($subscription['errors'])) {
@@ -524,19 +530,21 @@ class ControllerCadastro extends Controller
                 $boleto_expiration_date = null;
 
                 if(isset($subscription["current_transaction"]["boleto_url"])){
-                    $boleto_url             = $subscription["current_transaction"]['boleto_url'];
-                    $boleto_barcode         = $subscription["current_transaction"]['boleto_barcode'];
-                    $boleto_expiration_date = $subscription["current_transaction"]['boleto_expiration_date'];
-                    $boleto_expiration_date = date("Y-m-d", strtotime($boleto_expiration_date));  
+                    $boleto_url             = null;
+                    $boleto_barcode         = null;
+                    $boleto_expiration_date = null;
+                    $boleto_expiration_date = null;  
                 }
 
                 if($periodo == "mensal"){
 
-                    $this->obrigado($payment_methods, $email, $nome, $plano_name, 
-                    $boleto_url, $boleto_barcode, 
-                    $periodo, $subscription["status"]);
+                    if(!$payment_methods == "boleto"){
+                        $this->obrigado($payment_methods, $email, $nome, $plano_name, 
+                        $boleto_url, $boleto_barcode, 
+                        $periodo, $subscription["status"]);
+                    }
 
-                    if($payment_methods == "boleto" && isset($boleto_url)){
+                    if($payment_methods == "boleto"){
 
                         $id = Crypt::encryptString($dados["id"]);
 
@@ -555,18 +563,18 @@ class ControllerCadastro extends Controller
                 }elseif($periodo == "anual"){   
                     
                     if(isset($transaction["boleto_url"])){
-                        $boleto_url             = $transaction['boleto_url'];
-                        $boleto_barcode         = $transaction['boleto_barcode'];
-                        $boleto_expiration_date = $transaction['boleto_expiration_date'];
-                        $boleto_expiration_date = date("Y-m-d", strtotime($boleto_expiration_date));  
+                        $boleto_url             = null;
+                        $boleto_barcode         = null;
+                        $boleto_expiration_date = null;
+                        $boleto_expiration_date = null;  
                     }                    
                     
-                    $this->obrigado($payment_methods, $email, $nome, $plano_name, 
-                    $boleto_url, $boleto_barcode, 
-                    $periodo, $transaction["status"]);
+                    // $this->obrigado($payment_methods, $email, $nome, $plano_name, 
+                    // $boleto_url, $boleto_barcode, 
+                    // $periodo, "unpaid");
 
 
-                    if($payment_methods == "boleto" && isset($boleto_url)){
+                    if($payment_methods == "boleto"){
                         $id = Crypt::encryptString($dados["id"]);
                         $url = "https://casfpic.org.br/api/checkout/billet?collection_id=".$id;
                         return $url;
