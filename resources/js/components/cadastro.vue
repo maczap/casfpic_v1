@@ -73,7 +73,7 @@
                             </select>
 
                             <select class="custom-select  p-0" v-model="operadora" v-if="plano == 'prata'  || plano == 'diamante'" id="operadora" style="width:68%"  aria-label="operadora">
-                                <option value="3" v-if="plano != 'bronze' || plano != 'ouro'" disabled selected>ODONTOPREV E UNIODONTO</option>
+                                <option value="3"  disabled selected>ODONTOPREV E UNIODONTO</option>
                             </select>     
 
                             <select class="custom-select  p-0" v-model="operadora" v-if="plano == 'ouro'" id="operadora" style="width:68%"  aria-label="operadora">
@@ -1593,6 +1593,15 @@ export default {
             if(this.$route.query.method){
                 this.method = this.$route.query.method
             }
+                    if(this.plano == 'prata'){
+                        this.operadora = 3;
+                    }
+                    if(this.plano == 'diamante'){
+                        this.operadora = 3;
+                    }                    
+                    if(this.plano == 'ouro'){
+                        this.operadora = 1;
+                    }   
             
             if(!this.plano == '' || !this.plano == null){
 
