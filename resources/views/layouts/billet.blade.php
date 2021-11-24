@@ -14,10 +14,6 @@
                         <div style="padding:40px;">
                             <h4 style="text-align:center;margin-bottom:40px;">Recebemos seu cadastro! Nas próximas horas enviaremos o boleto da sua mensalidade por WhatsApp</h4>
 
-
-
-      
-   
                             <ul>
                                 <li>Telefone: (11) 2840-1377</li>
                                 <li>WhatsApp: (11) 94022-7390</li>

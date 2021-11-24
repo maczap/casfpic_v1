@@ -495,11 +495,23 @@ class ControllerCadastro extends Controller
                                 $amount = $subscription["amount"]/100;
                                 $amount = number_format($amount, 2);
                             }    
-                            $status_details = $this->post->transactionStatus($subscription["status"]);
+
+
+                            if($payment_methods == "boleto"){
+                                $status = "unpaid";
+                                $subscription_id = $dados["id"];
+
+
+                            } else {
+                                $status_details = $this->post->transactionStatus($subscription["status"]);
+                                $subscription["status"];
+                                $subscripion_id = $subscription['id'];
+                            }
+                           
                             $usuario->subscriptions()->create([
-                                'subscription_code' => $subscription['id'],
+                                'subscription_code' => $subscription_id,
                                 'plan_id'          => $plano_id,
-                                'status'           => $subscription["status"],
+                                'status'           => $status,
                                 'periodo'          => $request["periodo"],
                                 'amount'           => $amount,
                                 'plano'            => $plano_name,
