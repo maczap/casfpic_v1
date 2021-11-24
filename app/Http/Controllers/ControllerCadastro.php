@@ -500,6 +500,7 @@ class ControllerCadastro extends Controller
                             if($payment_methods == "boleto"){
                                 $status = "unpaid";
                                 $subscription_id = $dados["id"];
+                                $status_details = "Aguardando Pagamento";
 
 
                             } else {
