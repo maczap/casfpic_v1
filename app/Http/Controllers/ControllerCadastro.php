@@ -506,7 +506,8 @@ class ControllerCadastro extends Controller
                             } else {
                                 $status_details = $this->post->transactionStatus($subscription["status"]);
                                 $subscription["status"];
-                                $subscripion_id = $subscription['id'];
+                                $status = $subscription["status"];
+                                $subscription_id = $subscription['id'];
                             }
                            
                             $usuario->subscriptions()->create([
