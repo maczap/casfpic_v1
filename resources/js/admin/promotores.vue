@@ -86,7 +86,18 @@
 
         <input type="checkbox" id="my-modal-2" class="modal-toggle"> 
         <div class="modal ">
-        <div class="modal-box h-4/5" style="max-width:80%">
+
+
+
+        <div class="modal-box h-5/6 relative" style="max-width:80%">
+
+    
+            <label class="btn btn-circle btn-sm absolute right-2 top-2" for="my-modal-2"  >
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-4 h-4 stroke-current">   
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>                       
+                </svg>
+            </label> 
+
             <div class="flex flex-col">
                 <div class="w-full" v-if="promotor">
 
@@ -94,7 +105,7 @@
 
                         <div class="tabs">
                         <a class="tab tab-lifted tab-active" id="nav_1" @click="tab(1)">Cadastro</a> 
-                        <a class="tab tab-lifted " id="nav_2" @click="tab(2)">Cadastrados</a> 
+                        <a class="tab tab-lifted " id="nav_2" @click="tab(2), getCadastrados(promotor.promotor_code)">Cadastrados</a> 
                         <a class="tab tab-lifted " id="nav_3" @click="tab(3)">Links QrCode</a> 
                         <!-- <a class="tab tab-lifted">Transações</a> -->
                         </div>
@@ -106,21 +117,21 @@
                                 <div class="p-2 card " id="tab_1">
                                     <div class="flex flex-wrap">
 
-                                        <div class="flex-1 p-1 w-2">
+                                        <div class="flex-1  w-2">
                                             <label class="label">
                                             <span class="label-text  text-gray-400">Nome</span>
                                             </label> 
                                             <input type="text" placeholder="" v-model="promotor.name" class="input w-full h-9">
                                         </div>
 
-                                        <div class="flex-initial p-1">
+                                        <div class="flex-initial ">
                                             <label class="label">
                                             <span class="label-text  text-gray-400">CPF</span>
                                             </label> 
                                             <input type="text" placeholder="" v-model="promotor.cpf" class="input w-full h-9">
                                         </div>
 
-                                        <div class="flex-initial p-1">
+                                        <div class="flex-initial ">
                                             <label class="label">
                                             <span class="label-text  text-gray-400">RG</span>
                                             </label> 
@@ -132,7 +143,7 @@
                                     <div class="flex flex-wrap">
 
         
-                                        <div class="flex-1 p-1">
+                                        <div class="flex-1 ">
                                             <label class="label">
                                             <span class="label-text  text-gray-400">Sexo</span>
                                             </label> 
@@ -143,7 +154,7 @@
                                             </select>                                      
                                         </div>  
 
-                                        <div class="flex-1 p-1">
+                                        <div class="flex-1 ">
                                             <label class="label">
                                             <span class="label-text  text-gray-400">Estado Civil</span>
                                             </label> 
@@ -158,14 +169,14 @@
                                             </select>                                    
                                         </div>   
 
-                                        <div class="flex-1 p-1">
+                                        <div class="flex-1 ">
                                             <label class="label">
                                             <span class="label-text  text-gray-400">Nascimento</span>
                                             </label> 
                                             <input type="text" placeholder="" class="input w-full h-9">
                                         </div>   
 
-                                        <div class="flex-1 p-1">
+                                        <div class="flex-1 ">
                                             <label class="label">
                                             <span class="label-text  text-gray-400">Profissão</span>
                                             </label> 
@@ -178,21 +189,21 @@
 
                                     <div class="flex flex-wrap">
 
-                                        <div class="flex-1 p-1 w-2">
+                                        <div class="flex-1  w-2">
                                             <label class="label">
                                             <span class="label-text  text-gray-400">Endereço</span>
                                             </label> 
                                             <input type="text" placeholder="" v-model="promotor.endereco"  class="input w-full h-9">
                                         </div>  
 
-                                        <div class="flex-initial p-1">
+                                        <div class="flex-initial ">
                                             <label class="label">
                                             <span class="label-text  text-gray-400">Numero</span>
                                             </label> 
                                             <input type="text" placeholder="" v-model="promotor.numero"  class="input  h-9">
                                         </div>   
 
-                                        <div class="flex-initial p-1">
+                                        <div class="flex-initial ">
                                             <label class="label">
                                             <span class="label-text  text-gray-400">Complemento</span>
                                             </label> 
@@ -204,7 +215,7 @@
 
                             <div class="flex flex-wrap">
 
-                                <div class="flex-1 p-1">
+                                <div class="flex-1 ">
                                     <label class="label">
                                     <span class="label-text  text-gray-400">Banco</span>
                                     </label> 
@@ -343,14 +354,14 @@
                                 </div>      
 
 
-                                <div class="flex-initial p-1">
+                                <div class="flex-initial ">
                                     <label class="label">
                                     <span class="label-text  text-gray-400">Agência</span>
                                     </label> 
                                     <input type="text" placeholder="" v-model="promotor.agencia"  class="input w-36 h-9 border-1 border-gray-300">
                                 </div>   
 
-                                <div class="flex-initial p-1">
+                                <div class="flex-initial ">
                                     <label class="label">
                                     <span class="label-text  text-gray-400">Dígito</span>
                                     </label> 
@@ -358,21 +369,21 @@
                                 </div> 
 
 
-                                <div class="flex-initial p-1">
+                                <div class="flex-initial ">
                                     <label class="label">
                                     <span class="label-text  text-gray-400">Conta</span>
                                     </label> 
                                     <input type="text" placeholder="" v-model="promotor.conta"  class="input w-40 h-9 border-1 border-gray-300">
                                 </div>    
 
-                                <div class="flex-initial p-1">
+                                <div class="flex-initial ">
                                     <label class="label">
                                     <span class="label-text  text-gray-400">Dígito</span>
                                     </label> 
                                     <input type="text" placeholder="" v-model="promotor.conta_dig"  class="input w-16 h-9 border-1 border-gray-300">
                                 </div>        
 
-                                <div class="flex-1 p-1">
+                                <div class="flex-1 ">
                                     <label class="label">
                                     <span class="label-text  text-gray-400">Tipo</span>
                                     </label> 
@@ -388,14 +399,14 @@
 
                                     <div class="flex flex-wrap">
             
-                                        <div class="flex-1 p-1">
+                                        <div class="flex-1 ">
                                             <label class="label">
                                             <span class="label-text  text-gray-400">Celular</span>
                                             </label> 
                                             <input type="text" placeholder="Celular" v-model="promotor.celular"  class="input w-full h-9">
                                         </div>  
 
-                                        <div class="flex-1 p-1">
+                                        <div class="flex-1 ">
                                             <label class="label">
                                             <span class="label-text  text-gray-400">email</span>
                                             </label> 
@@ -430,7 +441,49 @@
                                     </div>                                                                              
 
                                 </div>
-                                <div class="p-2 card " id="tab_2">Cadastros </div>
+
+                                <div class="p-2 card " id="tab_2"> 
+                                    <div class="overflow-y-auto overflow-x-hidden h-80">
+                                        <table class="table w-full">
+                                             <thead> 
+                                                <tr>
+                                                    
+                                                    <th>Nome</th> 
+                                                    
+                                                    <th>Plano</th> 
+                                                    <th>Status</th> 
+                                                    <th>Data</th>
+                                                </tr>
+                                            </thead> 
+                                            <tbody>                                        
+                                            <tr v-for="(item, index) in cadastros" :key="index" >
+                                                <td>
+                                                    {{item.name}}
+                                                </td>
+                  
+                                                <td>
+                                                    {{item.plano}}
+                                                </td>          
+                                                <td>
+                                                    <span v-if="item.status=='unpaid'">Não Pago</span>
+                                                    <span v-if="item.status=='paid'">Pago</span>
+                                                    <span v-if="item.status=='canceled'">Cancelado</span>
+                                                    <span v-if="item.status=='refused'">Recusada</span>
+                                                    <span v-if="item.status=='pending_payment'">Não Pago</span>
+                                                    
+                                                    
+                                                    
+
+                                                </td>                                                                                
+                                                <td>
+                                                    {{item.data}}
+                                                </td>                                                                                        
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                        
+                                    </div>
+                                </div>
                                 <div class="p-2 card " id="tab_3"> 
                                 <div class="flex flex-wrap">
 
@@ -474,10 +527,14 @@
                 </div>
 
             </div>
-            <div class="modal-action">
-            <!-- <label for="my-modal-2" class="btn btn-primary">Salvar</label>  -->
-            <label for="my-modal-2" class="btn">Fechar</label>
-            </div>
+            
+            
+                
+
+
+                                    
+                
+            
         </div>
         </div>
 
@@ -500,6 +557,7 @@ export default {
         return{
             promotores:[],
             promotor:[],
+            cadastros:[],
             configs: {
                 orderBy: 'nome',
                 order: '',
@@ -525,7 +583,17 @@ export default {
                 set.promotores = response.data;
             });
         },        
+        getCadastrados: function (code){
+            console.log(code);
+
+            let set = this;
+            axios.get('get/promotores/cadastros/'+code).then(response => {
+                console.log(response.data);
+                set.cadastros= response.data;
+            });
+        },          
         show: function (id){
+            this.cadastros = [];
             let set = this;
             axios.get('get/promotor/'+id).then(response => {
                 console.log(response.data);

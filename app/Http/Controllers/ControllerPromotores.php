@@ -19,6 +19,12 @@ class ControllerPromotores extends Controller
     private $_promotor = null;
     private $_supervisor = null;
 
+
+    public function __construct(Promotores $promotores){
+
+        $this->promotores = $promotores;
+    }
+
     public function link_promotor(){
 
         $promotores = User::where('promotor_code', "<>", "")
@@ -40,6 +46,17 @@ class ControllerPromotores extends Controller
             echo $id . "</br>";
             
         }
+
+    }
+
+
+    public function lista_promotores_cadatros(Request $request){
+
+        $code = $request["code"];
+
+        $dados = $this->promotores->cadastro_promotores($code);
+        return $dados;
+
 
     }
 

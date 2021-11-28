@@ -128,6 +128,8 @@ Route::middleware(['auth','admin'])->group(function () {
         Route::get('get/cadastros/{id}', [ControllerDash::class,'get_cadastros'])->name('get_cadastros'); 
 
         Route::get('get/promotores', [ControllerPromotores::class,'lista_promotores'])->name('lista_promotores'); 
+        Route::get('get/promotores/cadastros/{code}', [ControllerPromotores::class,'lista_promotores_cadatros'])->name('lista_promotores_cadastros'); 
+
         Route::get('get/promotor/{id}', [ControllerPromotores::class,'get_promotor'])->name('lista_promotor'); 
 
         //recebedores
