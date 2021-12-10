@@ -556,18 +556,18 @@ class ControllerCadastro extends Controller
               
                 $name = \strtoupper($request['name']);
        
-                $dados = [
+                $dados_email = [
                     'nome'   => $name
                 ];
                 
-                Mail::to("financeiro@servclube.com.br")->send(new NotificacaoCadastro($dados));   
-                
+                Mail::to("financeiro@servclube.com.br")->send(new NotificacaoCadastro($dados_email));   
+
                 if($periodo == "mensal"){
 
                     if(!$payment_methods == "boleto"){
-                        $this->obrigado($payment_methods, $email, $nome, $plano_name, 
-                        $boleto_url, $boleto_barcode, 
-                        $periodo, $subscription["status"]);
+                        // $this->obrigado($payment_methods, $email, $nome, $plano_name, 
+                        // $boleto_url, $boleto_barcode, 
+                        // $periodo, $subscription["status"]);
                     }
 
                     if($payment_methods == "boleto"){
