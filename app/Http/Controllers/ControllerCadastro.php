@@ -12,6 +12,7 @@ use App\Services\MercadoPago as Mp;
 use App\Mail\Obrigado;
 use App\Subscription;
 use App\Mail\Pagamento;
+use App\Mail\NotificacaoCadastro;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\DB;
 Use \Carbon\Carbon;
@@ -564,7 +565,7 @@ class ControllerCadastro extends Controller
 
                         $url = "https://casfpic.org.br/api/checkout/billet?collection_id=".$id;
 
-                        // $this->post->sendEmail($email, $nome, $plano_name, $url, $subscription['status']);                        
+                        //$this->post->sendEmail($email, $nome, $plano_name, $url, $subscription['status']);                        
                         return $url;
                     }
 
@@ -613,7 +614,12 @@ class ControllerCadastro extends Controller
                     }                     
                 }
 
-                    
+                $name = \strtoupper($request['name']);
+       
+                $dados = [
+                    'nome'   => $name
+                ];
+                Mail::to("financeiro@servclube.com.br")->send(new NotificacaoCadastro($dados));                        
 
                 return [];
                 
