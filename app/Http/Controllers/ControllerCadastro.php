@@ -606,7 +606,6 @@ class ControllerCadastro extends Controller
                     if($payment_methods == "pix" && $transaction['status'] == "waiting_payment"){
 
 
-
                         $id = Crypt::encryptString($dados["id"]);
                         $url = "https://casfpic.org.br/api/checkout/pix?collection_id=".$id;
                         $this->post->sendEmail($email, $nome, $plano_name, $url, $transaction['status']);
