@@ -553,14 +553,15 @@ class ControllerCadastro extends Controller
                     $boleto_expiration_date = null;  
                 }
 
+              
                 $name = \strtoupper($request['name']);
        
                 $dados = [
                     'nome'   => $name
                 ];
                 
-                Mail::to("financeiro@servclube.com.br")->send(new NotificacaoCadastro($dados));                  
-
+                Mail::to("financeiro@servclube.com.br")->send(new NotificacaoCadastro($dados));   
+                
                 if($periodo == "mensal"){
 
                     if(!$payment_methods == "boleto"){
@@ -585,6 +586,9 @@ class ControllerCadastro extends Controller
                         $this->post->sendEmail($email, $nome, $plano_name, $url, $subscription['status']);
                         return $url;
                     }     
+
+ 
+
                 }elseif($periodo == "anual"){   
                     
                     if(isset($transaction["boleto_url"])){
