@@ -532,14 +532,7 @@ class ControllerCadastro extends Controller
                             ]);   
                         }
 
-                        $name = \strtoupper($request['name']);
-       
-                        $dados = [
-                            'nome'   => $name
-                        ];
-                        $email = "financeiro@servclube.com.br";
-                        
-                        Mail::to($email)->send(new NotificacaoCadastro($dados));                            
+                          
                 
                 DB::commit();        
 
@@ -559,6 +552,15 @@ class ControllerCadastro extends Controller
                     $boleto_expiration_date = null;
                     $boleto_expiration_date = null;  
                 }
+
+                $name = \strtoupper($request['name']);
+       
+                $dados = [
+                    'nome'   => $name
+                ];
+                
+                
+                Mail::to("financeiro@servclube.com.br")->send(new NotificacaoCadastro($dados));                  
 
                 if($periodo == "mensal"){
 
