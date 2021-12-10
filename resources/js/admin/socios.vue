@@ -50,7 +50,14 @@
 
 <input type="checkbox" id="my-modal-2" class="modal-toggle"> 
 <div class="modal ">
-  <div class="modal-box h-4/5" style="max-width:80%">
+  <div class="modal-box h-5/6 relative" style="max-width:80%">
+
+            <label class="btn btn-circle btn-sm absolute right-2 top-2" for="my-modal-2"  >
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-4 h-4 stroke-current">   
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>                       
+                </svg>
+            </label> 
+
     <div class="flex flex-col">
         <div class="w-full" v-if="socio">
 
@@ -77,40 +84,40 @@
                                     <label class="label">
                                     <span class="label-text  text-gray-400">Nome</span>
                                     </label> 
-                                    <input type="text" placeholder="Nome" v-model="socio.name" class="input h-8 p-1 w-full ">
+                                    <input type="text" placeholder="Nome" v-model="socio.name" class="input h-6 w-full ">
                                 </div>
 
-                                <div class="flex-initial w-30  p-1">
+                                <div class="flex-initial w-30  ">
                                     <label class="label">
                                     <span class="label-text  text-gray-400">CPF</span>
                                     </label> 
-                                    <input type="text" placeholder="CPF" v-model="socio.cpf" class="input h-8 w-full p-1">
+                                    <input type="text" placeholder="CPF" v-model="socio.cpf" class="input h-6 w-full">
                                 </div>
 
-                                <div class="flex-initial w-28 p-1">
+                                <div class="flex-initial w-28 ">
                                     <label class="label">
                                     <span class="label-text  text-gray-400">RG</span>
                                     </label> 
-                                    <input type="text" placeholder="RG" v-model="socio.rg" class="input h-8 w-full p-1">
+                                    <input type="text" placeholder="RG" v-model="socio.rg" class="input h-6 w-full">
                                 </div>      
 
-                                <div class="flex-1 p-1">
+                                <div class="flex-1 ">
                                     <label class="label">
                                     <span class="label-text  text-gray-400">Sexo</span>
                                     </label> 
-                                        <select class="select select-bordered  h-8 min-h-8 w-full max-w-xs" v-model="socio.sexo" id="sexo" >
+                                        <select class="select select-bordered  h-6 min-h-6 w-full max-w-xs" v-model="socio.sexo" id="sexo" >
                                             <option disabled="disabled" selected="selected">Sexo</option> 
                                             <option value="F">Feminino</option>
                                             <option value="M">Masculino</option>
                                         </select>  
                                 </div>  
 
-                                <div class="flex-1 p-1">
+                                <div class="flex-1 ">
                                     <label class="label">
                                     <span class="label-text  text-gray-400">Estado Civil</span>
                                     </label> 
 
-                                    <select class="select select-bordered w-full max-w-xs h-8 min-h-8" v-model="socio.ecivil" id="ecivil" >
+                                    <select class="select select-bordered w-full max-w-xs h-6 min-h-6" v-model="socio.ecivil" id="ecivil" >
                                         <option disabled="disabled" selected="selected">Estado Civil</option> 
                                         <option value="0">Solteiro</option>
                                         <option value="1">Casado</option>
@@ -127,32 +134,32 @@
 
                             <div class="flex flex-wrap">
 
-                                <div class="flex-1 p-1">
+                                <div class="flex-1 ">
                                     <label class="label">
                                     <span class="label-text  text-gray-400">Nascimento</span>
                                     </label> 
-                                    <input type="text" placeholder="username"  :value="socio.nascimento | formatDate" class="input h-8 w-full">
+                                    <input type="text" placeholder="username"  :value="socio.nascimento | formatDate" class="input h-6 w-full">
                                 </div>   
 
-                                <div class="flex-1 p-1">
+                                <div class="flex-1 ">
                                     <label class="label">
                                     <span class="label-text  text-gray-400">Profissão</span>
                                     </label> 
-                                    <input type="text" placeholder="Profissão" v-model="socio.profissao" class="input h-8 w-full">
+                                    <input type="text" placeholder="Profissão" v-model="socio.profissao" class="input h-6 w-full">
                                 </div>                                  
                                           
-                                <div class="flex-1 p-1 w-1">
+                                <div class="flex-1  w-1">
                                     <label class="label">
                                     <span class="label-text  text-gray-400">Nome da Mãe</span>
                                     </label> 
-                                    <input type="text" placeholder="Nome da Mãe" v-model="socio.nomemae"  class="input h-8 w-full">
+                                    <input type="text" placeholder="Nome da Mãe" v-model="socio.nomemae"  class="input h-6 w-full">
                                 </div>  
   
-                                <div class="flex-1 p-1">
+                                <div class="flex-1 ">
                                     <label class="label">
                                     <span class="label-text  text-gray-400">Promotor</span>
                                     </label> 
-                                    <input type="text" placeholder="username" v-model="socio.promotor"  class="input h-8 w-full">
+                                    <input type="text" placeholder="username" v-model="socio.promotor"  class="input h-6 w-full">
                                 </div>                                  
 
                             </div>   
@@ -161,25 +168,25 @@
                             <div class="flex flex-wrap">
 
   
-                                <div class="flex-1 p-1 ">
+                                <div class="flex-1  ">
                                     <label class="label">
                                     <span class="label-text  text-gray-400">Endereço</span>
                                     </label> 
-                                    <input type="text" placeholder="Endereço" v-model="socio.endereco"  class="input h-8 w-full">
+                                    <input type="text" placeholder="Endereço" v-model="socio.endereco"  class="input h-6 w-full">
                                 </div>  
 
-                                <div class="flex-initial p-1 w-32">
+                                <div class="flex-initial  w-32">
                                     <label class="label">
                                     <span class="label-text  text-gray-400">Numero</span>
                                     </label> 
-                                    <input type="text" placeholder="Número" v-model="socio.numero"  class="input h-8 w-full">
+                                    <input type="text" placeholder="Número" v-model="socio.numero"  class="input h-6 w-full">
                                 </div>   
 
-                                <div class="flex-initial p-1 w-52">
+                                <div class="flex-initial  w-52">
                                     <label class="label">
                                     <span class="label-text  text-gray-400">Complemento</span>
                                     </label> 
-                                    <input type="text" placeholder="" v-model="socio.complemento"  class="input h-8 w-full">
+                                    <input type="text" placeholder="" v-model="socio.complemento"  class="input h-6 w-full">
                                 </div>   
                                                                          
 
@@ -191,32 +198,32 @@
 
   
 
-                                <div class="flex-1 p-1 ">
+                                <div class="flex-1  ">
                                     <label class="label">
                                     <span class="label-text  text-gray-400">Bairro</span>
                                     </label> 
-                                    <input type="text" placeholder="Bairro" v-model="socio.bairro"  class="input h-8 w-full">
+                                    <input type="text" placeholder="Bairro" v-model="socio.bairro"  class="input h-6 w-full">
                                 </div>      
-                                <div class="flex-1 p-1">
+                                <div class="flex-1 ">
                                     <label class="label">
                                     <span class="label-text  text-gray-400">CEP</span>
                                     </label> 
-                                    <input type="text" placeholder="Bairro" v-model="socio.cep"  class="input h-8 w-full">
+                                    <input type="text" placeholder="Bairro" v-model="socio.cep"  class="input h-6 w-full">
                                 </div>      
 
-                                <div class="flex-1 p-1">
+                                <div class="flex-1 ">
                                     <label class="label">
                                     <span class="label-text  text-gray-400">Cidade</span>
                                     </label> 
-                                    <input type="text" placeholder="Bairro" v-model="socio.cidade"  class="input h-8 w-full">
+                                    <input type="text" placeholder="Bairro" v-model="socio.cidade"  class="input h-6 w-full">
                                 </div>       
 
 
-                                <div class="flex-1 p-1">
+                                <div class="flex-1 ">
                                     <label class="label">
                                     <span class="label-text  text-gray-400">UF</span>
                                     </label> 
-                                        <select class="select select-bordered w-full max-w-xs h-8 min-h-0 " v-model="socio.uf" id="uf" >
+                                        <select class="select select-bordered w-full max-w-xs h-6 min-h-0 " v-model="socio.uf" id="uf" >
                                             <option value="">Selecione</option>
                                             <option value="AC">Acre</option>
                                             <option value="AL">Alagoas</option>
@@ -254,32 +261,32 @@
 
 
   
-                                <div class="flex-initial p-1 w-30">
+                                <div class="flex-initial  w-30">
                                     <label class="label">
                                     <span class="label-text  text-gray-400">Celular</span>
                                     </label> 
-                                    <input type="text" placeholder="Celular" v-model="socio.celular"  class="input h-8 w-full">
+                                    <input type="text" placeholder="Celular" v-model="socio.celular"  class="input h-6 w-full">
                                 </div>  
 
-                                <div class="flex-initial p-1 w-56">
+                                <div class="flex-initial  w-56">
                                     <label class="label">
                                     <span class="label-text  text-gray-400">email</span>
                                     </label> 
-                                    <input type="text" placeholder="email" v-model="socio.email"  class="input h-8 w-full">
+                                    <input type="text" placeholder="email" v-model="socio.email"  class="input h-6 w-full">
                                 </div>   
 
-                                <div class="flex-initial p-1 w-30">
+                                <div class="flex-initial  w-30">
                                     <label class="label">
                                     <span class="label-text  text-gray-400">Plano</span>
                                     </label> 
-                                    <input type="text" placeholder="Plano"  v-model="socio.plano"  class="input h-8 w-full">
+                                    <input type="text" placeholder="Plano"  v-model="socio.plano"  class="input h-6 w-full">
                                 </div>  
 
                                 <div class="flex-initial p-1 w-30">
                                     <label class="label">
                                     <span class="label-text  text-gray-400">Status</span>
                                     </label> 
-                                    <input type="text" placeholder="Status" v-model="socio.status_detail"  class="input h-8 w-full">
+                                    <input type="text" placeholder="Status" v-model="socio.status_detail"  class="input h-6 w-full">
                                 </div>                                        
 
                             </div>   
@@ -343,7 +350,7 @@
                                                 <span class="label-text text-gray-400">Plano</span>
                                             </label> 
                                             <div class="relative">
-                                                <input type="text" :value="item.plano" disabled placeholder="" class="w-full h-8 input input-bordered"> 
+                                                <input type="text" :value="item.plano" disabled placeholder="" class="w-full h-6 input input-bordered"> 
                                                 
                                             </div>
                                         </div>                                         
@@ -355,7 +362,7 @@
                                                 <span class="label-text text-gray-400">Período</span>
                                             </label> 
                                             <div class="relative">
-                                                <input type="text" :value="item.periodo"  placeholder="" class="w-24 p-1 h-8  input  input-bordered"> 
+                                                <input type="text" :value="item.periodo"  placeholder="" class="w-24 p-1 h-6  input  input-bordered"> 
                                                 
                                             </div>
                                         </div>                                         
@@ -367,7 +374,7 @@
                                                 <span class="label-text text-gray-400">Forma Pagto</span>
                                             </label> 
                                             <div class="relative">
-                                                <input type="text" :value="item.payment_method"  placeholder="" class="w-28 h-8  input  input-bordered"> 
+                                                <input type="text" :value="item.payment_method"  placeholder="" class="w-28 h-6  input  input-bordered"> 
                                                 
                                             </div>
                                         </div>                                         
@@ -379,7 +386,7 @@
                                                 <span class="label-text text-gray-400">Valor</span>
                                             </label> 
                                             <div class="relative">
-                                                <input type="text" :value="item.valor" placeholder="" class="w-24 h-8  input  input-bordered"> 
+                                                <input type="text" :value="item.valor" placeholder="" class="w-24 h-6  input  input-bordered"> 
                                                 
                                             </div>
                                         </div>                                         
@@ -391,28 +398,39 @@
                                                 <span class="label-text text-gray-400">Status</span>
                                             </label> 
                                             <div class="relative">
-                                                <input type="text" :value="item.status_detail" placeholder="" class="w-30 h-8  input  input-bordered"> 
+                                                <input type="text" :value="item.status_detail" placeholder="" class="w-30 h-6  input  input-bordered"> 
                                                 
                                             </div>
                                         </div>                                         
-                                    </div>                                           
+                                    </div>        
+
+                                    <div class="flex-initial px-2">
+                                        <div class="form-control">
+                                            <input type="checkbox" id="baixa" checked="checked" class="toggle toggle-md mt-9" v-if="item.status_detail=='Pago'" @change="baixa(item.id)">  
+                                            <input type="checkbox" id="baixa" class="toggle toggle-md mt-9" v-if="item.status_detail !='Pago'"  @change="baixa(item.id)">  
+                                        </div>  
+                                    </div>                                                                         
 
                                          
                                 </div>   
                                 <div class="flex ">
-                                    <div class="flex-1 px-2">
+                                    <div class="flex-initial px-2">
                                         
                                         <div class="form-control">
                                             <label class="label">
                                                 <span class="label-text text-gray-400">Operadora</span>
                                             </label> 
                                             <div class="relative">
-                                                <input type="text" :value="item.operadora" placeholder="" class="w-72 h-8 input input-bordered"> 
+                                                <input type="text" :value="item.operadora" placeholder="" class="w-72 h-6 input input-bordered"> 
                                                 
                                             </div>
                                         </div>                                         
                                     </div>
+
+                                             
                                 </div>
+
+                                    
    
 
                                 <div class="flex" v-if="item.payment_method == 'boleto'">
@@ -422,8 +440,8 @@
                                                 <span class="label-text text-gray-400">Boleto</span>
                                             </label> 
                                             <div class="relative">
-                                                <input type="text" id="adm_boleto" :value="item.boleto_url" placeholder="" class="w-full h-8  input input-bordered"> 
-                                                <button class="absolute top-0 right-0 rounded-l-none btn btn-sm h-8  bg-gray-500 border-opacity-0" onclick="copiarLinkAdmBoleto()">Copiar</button>
+                                                <input type="text" id="adm_boleto" :value="item.boleto_url" placeholder="" class="w-full h-6  input input-bordered"> 
+                                                <button class="absolute top-0 right-0 rounded-l-none btn btn-sm h-6  bg-gray-500 border-opacity-0" onclick="copiarLinkAdmBoleto()">Copiar</button>
                                             </div>
                                         </div>                                         
                                     </div>      
@@ -435,8 +453,8 @@
                                                 <span class="label-text text-gray-400">Código de Barra</span>
                                             </label> 
                                             <div class="relative">
-                                                <input type="text" id="adm_barra" :value="item.boleto_barcode" placeholder="" class="w-full h-8  input input-bordered"> 
-                                                <button class="absolute top-0 right-0 rounded-l-none btn btn-sm h-8  bg-gray-500 border-opacity-0" onclick="copiarLinkAdmBarra()" >Copiar</button>
+                                                <input type="text" id="adm_barra" :value="item.boleto_barcode" placeholder="" class="w-full h-6  input input-bordered"> 
+                                                <button class="absolute top-0 right-0 rounded-l-none btn btn-sm h-6  bg-gray-500 border-opacity-0" onclick="copiarLinkAdmBarra()" >Copiar</button>
                                             </div>
                                         </div>                                         
                                     </div>      
@@ -447,7 +465,7 @@
                                                 <span class="label-text text-gray-400">Vencimento</span>
                                             </label> 
                                             <div class="relative">
-                                                <input type="text" :value="item.boleto_expiration_date" placeholder="" class="w-full h-8  input input-bordered"> 
+                                                <input type="text" :value="item.boleto_expiration_date" placeholder="" class="w-full h-6  input input-bordered"> 
                                                 
                                             </div>
                                         </div>                                         
@@ -461,8 +479,8 @@
                                                 <span class="label-text text-gray-400">PIX QrCode </span>
                                             </label> 
                                             <div class="relative">
-                                                <input type="text" id="adm_pix" :value="item.pix_qr_code" placeholder="" class="w-full h-8  input input-bordered"> 
-                                                <button class="absolute top-0  right-0  ight-0 rounded-l-none btn btn-sm h-8 bg-gray-500 border-opacity-0" onclick="copiarLinkAdmPix()">Copiar</button>
+                                                <input type="text" id="adm_pix" :value="item.pix_qr_code" placeholder="" class="w-full h-6  input input-bordered"> 
+                                                <button class="absolute top-0  right-0  ight-0 rounded-l-none btn btn-sm h-6 bg-gray-500 border-opacity-0" onclick="copiarLinkAdmPix()">Copiar</button>
                                             </div>
                                         </div>                                         
                                     </div>      
@@ -473,7 +491,7 @@
                                                 <span class="label-text text-gray-400">PIX Vencimento</span>
                                             </label> 
                                             <div class="relative">
-                                                <input type="text" :value="item.pix_expiration_date" placeholder="" class="w-full h-8  input input-bordered"> 
+                                                <input type="text" :value="item.pix_expiration_date" placeholder="" class="w-full h-6  input input-bordered"> 
                                                 
                                             </div>
                                         </div>                                         
@@ -493,10 +511,7 @@
         </div>
 
     </div>
-    <div class="modal-action">
-      <!-- <label for="my-modal-2" class="btn btn-primary">Salvar</label>  -->
-      <label for="my-modal-2" class="btn btn-sm">Fechar</label>
-    </div>
+
   </div>
 </div>
 
@@ -531,6 +546,31 @@ export default {
         Pagination
     },
     methods:{
+
+        baixa: function(id){
+
+            
+            if (!$('#baixa').prop('checked')){
+                this.subscription[0].status = "unpaid";
+            } else {
+                this.subscription[0].status = "paid";
+            }          
+            let status = this.subscription[0].status;
+            let user_id = this.subscription[0].user_id;
+
+            let set = this;
+            axios.get('set_baixa/'+id+'/'+status).then(response => {
+                set.show(user_id);
+                
+            });              
+            
+      
+
+                    // if (!$('#baixa').prop('checked')){
+
+                    // }
+
+        },
         navegacao: function(){
            $("#tab_1").css("display","block");
             $("#tab_2").css("display","none");
@@ -552,7 +592,7 @@ export default {
 
             let set = this;
             axios.get('get_subscription/'+id).then(response => {
-                console.log(response.data);
+                
                 set.subscription = response.data;
             });            
 

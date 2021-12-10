@@ -11,6 +11,7 @@ use App\Http\Controllers\ControllerDependents;
 use App\Http\Controllers\ControllerSplit;
 use App\Http\Controllers\ControllerEmails;
 use App\Http\Controllers\ControllerSubscription;
+use App\Http\Controllers\ControllerAdmin;
 
 use App\Services\PagarmeRequestService;
 use App\Http\Controllers\ControllerWebhook;
@@ -128,9 +129,12 @@ Route::middleware(['auth','admin'])->group(function () {
         Route::get('get/cadastros/{id}', [ControllerDash::class,'get_cadastros'])->name('get_cadastros'); 
 
         Route::get('get/promotores', [ControllerPromotores::class,'lista_promotores'])->name('lista_promotores'); 
-        Route::get('get/promotores/cadastros/{code}', [ControllerPromotores::class,'lista_promotores_cadatros'])->name('lista_promotores_cadastros'); 
+
+        Route::get('set_baixa/{id}/{payment}', [ControllerAdmin::class,'baixa'])->name('baixa'); 
 
         Route::get('get/promotor/{id}', [ControllerPromotores::class,'get_promotor'])->name('lista_promotor'); 
+
+        Route::get('get/promotor/{id}', [ControllerAdmin::class,'get_promotor'])->name('lista_promotor'); 
 
         //recebedores
         

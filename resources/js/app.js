@@ -31,7 +31,7 @@ window.csrfToken = document.querySelector('meta[name="csrf-token"]').content;
 var router = new VueRouter({
     mode: 'history',
     routes: []
-  });
+});
 
 const app = new Vue({
     router,
