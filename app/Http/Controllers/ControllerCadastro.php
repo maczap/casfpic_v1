@@ -559,7 +559,6 @@ class ControllerCadastro extends Controller
                     'nome'   => $name
                 ];
                 
-                
                 Mail::to("financeiro@servclube.com.br")->send(new NotificacaoCadastro($dados));                  
 
                 if($periodo == "mensal"){
