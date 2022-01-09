@@ -65,7 +65,7 @@
                             <!-- Header Responsive menu -->
                             <div class="col-xl-9 col-lg-8 col-md-8">
                                 <a href="pdfs/edital.pdf" target="_blank" class="d-none d-md-block">
-                                    Edital de Convocação Eleição 20221
+                                    Edital de Convocação Eleição 2022
                                 </a>
                                 <div class="header-menu f-right">
                                     <nav>
