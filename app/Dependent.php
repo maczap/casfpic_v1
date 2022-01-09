@@ -20,6 +20,5 @@ class Dependent extends Model
         'sexo',
         'nascimento',
         'user_id'
-
     ];    
 }

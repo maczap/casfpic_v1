@@ -55,12 +55,21 @@
                             <div class="col-xl-3 col-lg-3 col-md-3">
                                 <div class="header-logo d-sm-block  none d-md-block d-lg-block d-xl-block text-center text-md-left text-lg-left text-xl-left">
                                     <a href="#"><img src="https://casfpic.org.br/images/logo.png" class="" alt="logo casfpic"></a>
+                                    <p style="color:#000" class="d-md-none d-lg-none d-xl-none">
+                                    <a href="pdfs/edital.pdf" target="_blank">
+                                    Edital de Convocação Eleição 2022
+                                    </a>
+                                </p>
                                 </div>
                             </div>
                             <!-- Header Responsive menu -->
                             <div class="col-xl-9 col-lg-8 col-md-8">
+                                <a href="pdfs/edital.pdf" target="_blank" class="d-none d-md-block">
+                                    Edital de Convocação Eleição 20221
+                                </a>
                                 <div class="header-menu f-right">
                                     <nav>
+                                        
                                     <a href="https://api.whatsapp.com/send?phone=5514981050306" target="_blank" class="d-none d-md-block d-lg-block d-xl-block"><div style="color:#fff;font-size:18px;background-color:#00b000;padding:5px 20px;">Whatsapp: (14) 98105-0306</div></a>
                                     
                                         <!-- Menu Toggle btn-->
