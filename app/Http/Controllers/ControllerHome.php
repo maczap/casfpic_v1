@@ -26,8 +26,6 @@ class ControllerHome extends Controller
             $time = 43800;
 
             $promotor_code = \Request::cookie('pmtcsfpc');
-
-            
             
             $promotor_name = "";
 
@@ -73,6 +71,8 @@ class ControllerHome extends Controller
                 );                       
                 
             }
+
+            cookie('lgpd', 1, 120);
         
     }
 
